@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=4 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
-[ext_resource type="Texture2D" uid="uid://cwev440egrmyr" path="res://img/icon.svg" id="3_wp4xf"]
-[ext_resource type="PackedScene" uid="uid://ck234b7mscmrn" path="res://scene/slot_machine.tscn" id="4_brvut"]
+[ext_resource type="PackedScene" uid="uid://c815fpybt36io" path="res://scene/slot_machine.tscn" id="4_brvut"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -11,11 +10,6 @@ script = ExtResource("1_ig7tw")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
 script = ExtResource("2_v0l8b")
-
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(5.00781, 2.8125)
-texture = ExtResource("3_wp4xf")
-centered = false
 
 [node name="SlotMachine" parent="." instance=ExtResource("4_brvut")]
 position = Vector2(191, 87)

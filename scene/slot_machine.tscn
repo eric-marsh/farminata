@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck234b7mscmrn"]
+[gd_scene load_steps=6 format=3 uid="uid://c815fpybt36io"]
 
 [ext_resource type="Texture2D" uid="uid://0ujo5olp3s25" path="res://img/slots/slots.png" id="1_oebtt"]
-[ext_resource type="Script" uid="uid://b1r15orpmjjdd" path="res://script/slot_machine.gd" id="1_vdvju"]
+[ext_resource type="Script" path="res://script/slot_machine.gd" id="1_vdvju"]
 [ext_resource type="Texture2D" uid="uid://dk4c43vvjcjhn" path="res://img/slots/slots_white_bg.png" id="2_vdvju"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="4_om1wn"]
 
