@@ -1,6 +1,7 @@
 extends Area2D
 class_name SlotMachineNode
 
+@export var paired_plot_grid: plot_grid = null
 
 var default_wait_time: float = 3.0
 var min_spin_time: float = default_wait_time / 2
@@ -34,9 +35,18 @@ func _process(delta: float) -> void:
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		output_all()
 		if is_spinning():
 			return
 		start_spin_timer()
+		
+		
+		
+
+func output_all():
+	for slot in $slot_symbols.get_children():
+		var target_pos = paired_plot_grid.get_random_plot_position()
+		slot.get_node("Output").spawn_droppable(target_pos)
 	
 func is_spinning() -> bool:
 	return !$SpinTimer.is_stopped()

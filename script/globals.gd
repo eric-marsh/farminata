@@ -2,6 +2,7 @@ extends Node
 class_name GlobalsNode
 
 var Main: MainNode = null
+var PlotGrid: plot_grid = null
 
 func _ready():
 	reset_nodes()

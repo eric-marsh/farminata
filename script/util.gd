@@ -2,6 +2,11 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 
+func rnd_sign():
+	if randf() < 0.5:
+		return 1
+	else:
+		return -1
 
 func quick_timer(obj: Node, wait_time: float, on_timeout: Callable):
 	var t: Timer = Timer.new()

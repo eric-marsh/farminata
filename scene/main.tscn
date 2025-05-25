@@ -15,7 +15,8 @@ script = ExtResource("2_v0l8b")
 [node name="PlotContainer" type="Node2D" parent="."]
 position = Vector2(138, 119)
 
-[node name="SlotMachine" parent="PlotContainer" instance=ExtResource("4_brvut")]
+[node name="SlotMachine" parent="PlotContainer" node_paths=PackedStringArray("paired_plot_grid") instance=ExtResource("4_brvut")]
 position = Vector2(72, -40)
+paired_plot_grid = NodePath("../PlotGrid")
 
 [node name="PlotGrid" parent="PlotContainer" instance=ExtResource("4_0ha60")]
