@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8nkjd470xyme"]
+
+[ext_resource type="Script" uid="uid://caodt7wtk6rf0" path="res://script/plot_grid.gd" id="1_iwkn7"]
+[ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="2_315pt"]
+[ext_resource type="PackedScene" uid="uid://cwm6anthjttao" path="res://scene/plot_row.tscn" id="2_jhs1h"]
+
+[node name="PlotGrid" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_iwkn7")
+num_plots = 9
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" parent="VBoxContainer" instance=ExtResource("2_jhs1h")]
+layout_mode = 2
+
+[node name="Plot" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="Plot2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="Plot3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="HBoxContainer2" parent="VBoxContainer" instance=ExtResource("2_jhs1h")]
+layout_mode = 2
+
+[node name="Plot" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="Plot2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="Plot3" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="HBoxContainer3" parent="VBoxContainer" instance=ExtResource("2_jhs1h")]
+layout_mode = 2
+
+[node name="Plot" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="Plot2" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_315pt")]
+layout_mode = 2
+
+[node name="Plot3" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_315pt")]
+layout_mode = 2
