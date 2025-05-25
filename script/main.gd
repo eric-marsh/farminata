@@ -1,5 +1,5 @@
 extends Node2D
-class_name Main
+class_name MainNode
 
 var global_timer = 0
 var total_seconds = 0.0

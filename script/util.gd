@@ -16,32 +16,40 @@ func quick_timer(obj: Node, wait_time: float, on_timeout: Callable):
 func get_random_enum_value(enum_type: Dictionary) -> int:
 	var values = enum_type.values()
 	return values[randi() % values.size()]
-#
-#func get_dir_string(c: Enum.Dir):
-	#match(c):
-		#Enum.Dir.Left:
-			#return "Left"
-		#Enum.Dir.Right:
-			#return "Right"
-		#Enum.Dir.Up:
-			#return "Up"
-		#Enum.Dir.Down:
-			#return "Down"
-#
-#func get_color_from_enum(c: Enum.Color_Type):
-	#match(c):
-		#Enum.Color_Type.Red:
-			#return Color.html("#fa5457")
-		#Enum.Color_Type.Blue:
-			#return Color.html("#01b4bc")
-		#Enum.Color_Type.Green:
-			#return Color.html("#f6d51f")
-#
-#func get_color_string(c: Enum.Color_Type):
-	#match(c):
-		#Enum.Color_Type.Red:
-			#return "Red"
-		#Enum.Color_Type.Blue:
-			#return "Blue"
-		#Enum.Color_Type.Green:
-			#return "Green"
+
+#enum Slot_Output {X, Water, Sun, Carrot_Seed }
+const BLURRY = preload("res://img/slots/symbols/blurry.png")
+const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
+const SUN = preload("res://img/slots/symbols/sun.png")
+const WATER = preload("res://img/slots/symbols/water.png")
+const X = preload("res://img/slots/symbols/x.png")
+func get_slot_output_img(symbol: Enum.Slot_Output) -> Texture2D:
+	match(symbol):
+		Enum.Slot_Output.Blurry:
+			return BLURRY
+		Enum.Slot_Output.X:
+			return X
+		Enum.Slot_Output.Water:
+			return WATER
+		Enum.Slot_Output.Sun:
+			return SUN
+		Enum.Slot_Output.Carrot_Seed:
+			return CARROT_SEED
+		_:
+			return null
+
+func get_slot_output_string(symbol: Enum.Slot_Output) -> String:
+	match(symbol):
+		Enum.Slot_Output.Blurry:
+			return "BLURRY"
+		Enum.Slot_Output.X:
+			return "X"
+		Enum.Slot_Output.Water:
+			return "WATER"
+		Enum.Slot_Output.Sun:
+			return "SUN"
+		Enum.Slot_Output.Carrot_Seed:
+			return "CARROT_SEED"
+		_:
+			print("DONT KNOW WHAT THAT WAS", symbol)
+			return ""
