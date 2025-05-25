@@ -7,7 +7,7 @@
 size = Vector2(40, 40)
 
 [node name="Plot" type="Control"]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -21,8 +21,11 @@ position = Vector2(8, 8)
 position = Vector2(12, 12)
 shape = SubResource("RectangleShape2D_4pdpe")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_8yg48")
