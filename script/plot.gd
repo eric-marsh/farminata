@@ -8,7 +8,8 @@ class_name plot
 @export var grow_type: Enum.Grow_Types = Enum.Grow_Types.None
 
 
-var size: Vector2
+
+var size: Vector2 = Vector2(32, 32)
 
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())

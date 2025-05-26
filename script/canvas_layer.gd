@@ -7,8 +7,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-	
-	
 func update_money_counter():
 	if Globals.Main:
 		$MarginContainer/VBoxContainer/HBoxContainer/MoneyLabel.text = str(Globals.Main.money_count)

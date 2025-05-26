@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="1_j5dow"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34vfq"]
-radius = 6.0
 
 [node name="Droppable" type="RigidBody2D" groups=["droppable"]]
 z_index = 1

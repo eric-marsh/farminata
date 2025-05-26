@@ -56,7 +56,9 @@ func set_next_slot_symbol():
 		if slots[i] == Enum.Drop_Type.Blurry:
 			var output_type = get_random_slot_output()
 			slots[i] = output_type
-			var target_pos = paired_plot_grid.get_random_plot_position()
+			#var target_pos = paired_plot_grid.get_random_plot_position()
+			var target_pos = Vector2.ZERO
+			
 			update_slot_symbols_images()
 			
 			# spawn output
