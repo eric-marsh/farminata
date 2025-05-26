@@ -4,3 +4,5 @@ extends Node
 var DEBUG_ALWAYS_MUTE = true
 
 var DEBUG_ENABLE_DEBUGGING_KEYS = true
+
+var SLOT_MACHINE_WAIT_TIME = 0.2

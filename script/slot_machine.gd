@@ -3,7 +3,7 @@ class_name SlotMachineNode
 
 @export var paired_plot_grid: plot_grid = null
 
-var default_wait_time: float = 3.0
+var default_wait_time: float = Debug.SLOT_MACHINE_WAIT_TIME
 var min_spin_time: float = default_wait_time / 2
 var slot_gap_time = (default_wait_time - min_spin_time) / 3
 
