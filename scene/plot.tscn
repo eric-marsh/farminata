@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7mjmd8qocm5n"]
+[gd_scene load_steps=6 format=3 uid="uid://b7mjmd8qocm5n"]
 
 [ext_resource type="Script" uid="uid://dv6p8ldxol3f0" path="res://script/plot.gd" id="1_xmivb"]
 [ext_resource type="Texture2D" uid="uid://d2go8llpcolsq" path="res://img/plot/plot_dry.png" id="2_8yg48"]
@@ -8,6 +8,10 @@ size = Vector2(32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xmivb"]
 radius = 171.105
+
+[sub_resource type="LabelSettings" id="LabelSettings_xmivb"]
+line_spacing = -4.0
+font_size = 8
 
 [node name="Plot" type="Node2D"]
 script = ExtResource("1_xmivb")
@@ -31,6 +35,16 @@ position = Vector2(16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
 shape = SubResource("CircleShape2D_xmivb")
+
+[node name="StateLabel" type="Label" parent="."]
+z_index = 5
+offset_right = 40.0
+offset_bottom = 23.0
+text = "h1: 0
+h2: 0
+h3: 0"
+label_settings = SubResource("LabelSettings_xmivb")
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

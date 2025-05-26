@@ -41,15 +41,22 @@ func _physics_process(delta: float) -> void:
 		Enum.Helper_State.Deliver_Item:
 			move_to_target()
 
+
+
 func set_state(s: Enum.Helper_State) -> void:
 	held_item_sprite.visible = false
 	state_timer_set = false
 	match(s):
 		Enum.Helper_State.Idle:
+			clear_job_data()
 			if !state_timer_set:
 				state_timer_set = true
-				Util.quick_timer(self, 0.4, func(): set_state(Enum.Helper_State.Wander))
+				Util.quick_timer(self, 0.4, func(): 
+					if state == Enum.Helper_State.Idle:
+						set_state(Enum.Helper_State.Wander)
+				)
 		Enum.Helper_State.Wander:
+			clear_job_data()
 			target_pos = Util.random_visible_position()
 		Enum.Helper_State.Get_Item:
 			target_plot = $"../../PlotContainer/PlotGrid".get_plot_for_helper()
@@ -83,8 +90,7 @@ func move_to_target():
 		if state == Enum.Helper_State.Deliver_Item and target_plot:
 			#spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
 			Util.spawn_droppable(held_item_type, target_plot.global_position + target_plot.size / 2, Vector2.ZERO)
-			set_state(Enum.Helper_State.Idle)
-			target_plot = null
+			remove_job()
 			return
 		set_state(Enum.Helper_State.Idle)
 	
@@ -96,6 +102,17 @@ func move_to_target():
 	velocity = direction * speed
 	velocity = velocity.clamp(min_velocity, max_velocity)
 	move_and_slide()
+
+func remove_job():
+	clear_job_data()
+	set_state(Enum.Helper_State.Idle)
+
+func clear_job_data():
+	if is_instance_valid(target_droppable):
+		target_droppable.is_being_targeted = false
+	target_droppable = null
+	target_plot = null
+	$HeldItem.visible = false
 
 func update_animation() -> void:
 	match dir:

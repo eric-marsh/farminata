@@ -22,7 +22,6 @@ func add_helper() -> void:
 	add_child(h)
 
 func assign_inactive_helpers_jobs():
-	print("assign_inactive_helpers_jobs")
 	for c in get_children():
 		if c.state == Enum.Helper_State.Idle or c.state == Enum.Helper_State.Wander:
 			var p = $"../PlotContainer/PlotGrid".get_plot_for_helper()
