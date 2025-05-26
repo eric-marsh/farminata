@@ -85,3 +85,29 @@ func get_enum_direction(dir: Vector2) -> Enum.Dir:
 		return Enum.Dir.Right if dir.x > 0 else Enum.Dir.Left
 	else:
 		return Enum.Dir.Down if dir.y > 0 else Enum.Dir.Up
+
+func random_visible_position() -> Vector2:
+	if !Globals.CameraNode:
+		print("No CameraNode in random_visible_position()")
+		return Vector2.ZERO
+		
+	var camera_center = Globals.CameraNode.global_position
+	var half_screen_size = (get_viewport().get_visible_rect().size / Globals.CameraNode.zoom) / 2
+	var x = camera_center.x + randf_range(-half_screen_size.x, half_screen_size.x)
+	var y = camera_center.y + randf_range(-half_screen_size.y, half_screen_size.y)
+	return Vector2(x, y)
+
+
+#enum Helper_State { Idle, Wander, Get_Item, Deliver_Item }
+func get_helper_state_string(type: Enum.Helper_State) -> String:
+	match(type):
+		Enum.Helper_State.Idle:
+			return "Idle"
+		Enum.Helper_State.Wander:
+			return "Wander"
+		Enum.Helper_State.Get_Item:
+			return "Get_Item"
+		Enum.Helper_State.Deliver_Item:
+			return "Deliver_Item"
+		_:
+			return "idk that helper state"
