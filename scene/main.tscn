@@ -21,7 +21,7 @@ position = Vector2(44, -32)
 paired_plot_grid = NodePath("../PlotGrid")
 
 [node name="PlotGrid" parent="PlotContainer" instance=ExtResource("4_0ha60")]
-num_plots = 16
+num_plots = 1
 
 [node name="Drops" type="Node2D" parent="."]
 

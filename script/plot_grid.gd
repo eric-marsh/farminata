@@ -8,7 +8,6 @@ func _ready() -> void:
 	reset_plots()
 	
 func _process(delta: float) -> void:
-	reset_plots()
 	pass
 
 const PLOT = preload("res://scene/plot.tscn")
@@ -25,7 +24,6 @@ func reset_plots():
 		add_child(p)
 		plots.push_back(p)
 		plots_left -= 1
-
 
 func get_square_position(index: int) -> Vector2:
 	var num_columns = ceil(sqrt(num_plots))
