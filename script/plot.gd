@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name plot
 
 
@@ -9,8 +9,11 @@ const PLOT_DRY = preload("res://img/plot/plot_dry.png")
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None
 @export var grow_type: Enum.Grow_Types = Enum.Grow_Types.None
 
+
+var size: Vector2
+
 func _ready() -> void:
-	pass
+	size = Vector2($Sprite2D.texture.get_width(), $Sprite2D.texture.get_height())
 	
 func _process(delta: float) -> void:
 	pass
@@ -35,14 +38,13 @@ func apply_droppable(d: droppable):
 				d.queue_free()
 				return
 				
-				
 
 func update_plot():
 		match plot_state:
 			Enum.Plot_State.Dry:
-				$NinePatchRect.texture = PLOT_DRY
+				$Sprite2D.texture = PLOT_DRY
 			Enum.Plot_State.Wet:
-				$NinePatchRect.texture = PLOT_WET
+				$Sprite2D.texture = PLOT_WET
 			
 			
 			
