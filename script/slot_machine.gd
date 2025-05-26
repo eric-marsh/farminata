@@ -7,18 +7,18 @@ var default_wait_time: float = Debug.SLOT_MACHINE_WAIT_TIME
 var min_spin_time: float = default_wait_time / 2
 var slot_gap_time = (default_wait_time - min_spin_time) / 3
 
-var possible_outputs: Array[Enum.Output_Type] = [
-	Enum.Output_Type.X, 
-	Enum.Output_Type.X, 
-	Enum.Output_Type.Sun, 
-	Enum.Output_Type.Water, 
-	Enum.Output_Type.Carrot_Seed
+var possible_outputs: Array[Enum.Drop_Type] = [
+	Enum.Drop_Type.X, 
+	Enum.Drop_Type.X, 
+	Enum.Drop_Type.Sun, 
+	Enum.Drop_Type.Water, 
+	Enum.Drop_Type.Carrot_Seed
 	]
 	
-var slots: Array[Enum.Output_Type] = [
-	Enum.Output_Type.X, 
-	Enum.Output_Type.X, 
-	Enum.Output_Type.X, 
+var slots: Array[Enum.Drop_Type] = [
+	Enum.Drop_Type.X, 
+	Enum.Drop_Type.X, 
+	Enum.Drop_Type.X, 
 ]
 
 func _ready() -> void:
@@ -49,7 +49,7 @@ func is_spinning() -> bool:
 
 func start_spin_timer() -> void:
 	$SpinTimer.start()
-	set_all_slots(Enum.Output_Type.Blurry)
+	set_all_slots(Enum.Drop_Type.Blurry)
 	update_slot_symbols_images()
 	
 	Util.quick_timer(self, min_spin_time, func():
@@ -58,14 +58,14 @@ func start_spin_timer() -> void:
 
 func set_next_slot_symbol():
 	for i in range(slots.size()):
-		if slots[i] == Enum.Output_Type.Blurry:
+		if slots[i] == Enum.Drop_Type.Blurry:
 			var output_type = get_random_slot_output()
 			slots[i] = output_type
 			var target_pos = paired_plot_grid.get_random_plot_position()
 			update_slot_symbols_images()
 			
 			if Util.is_valid_droppable_type(output_type):
-				$slot_symbols.get_children()[i].get_node("Output").spawn_droppable(output_type, target_pos)
+				$slot_symbols.get_children()[i].get_node("Output").trigger_output(output_type, target_pos)
 			
 			if i < slots.size() - 1:
 				Util.quick_timer(self, slot_gap_time, func():
@@ -74,25 +74,23 @@ func set_next_slot_symbol():
 			else:
 				$SpinTimer.stop() # stop timer just in case it doesnt line up. It doesnt
 			return
-	
-func get_random_slot_output() -> Enum.Output_Type:
+
+
+
+
+func get_random_slot_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
 
 func _on_spin_timer_timeout() -> void:
 	# TODO: Do output
 	pass
 		
-	
-func output_all():
-	for slot in $slot_symbols.get_children():
-		var target_pos = paired_plot_grid.get_random_plot_position()
-		slot.get_node("Output").spawn_droppable(target_pos)
 
-func set_all_slots(symbol: Enum.Output_Type) -> void:
+func set_all_slots(symbol: Enum.Drop_Type) -> void:
 	for i in range(slots.size()):
 		slots[i] = symbol
 
 func update_slot_symbols_images() -> void:
 	for i in range($slot_symbols.get_children().size()):
-		$slot_symbols.get_children()[i].texture = Util.get_output_type_img(slots[i])
+		$slot_symbols.get_children()[i].texture = Util.get_drop_type_img(slots[i])
 	

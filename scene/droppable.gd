@@ -3,7 +3,7 @@ class_name droppable
 
 @export var target_position: Vector2
 @export var speed: float = 200.0
-@export var output_type: Enum.Output_Type = Enum.Output_Type.Water
+@export var drop_type: Enum.Drop_Type = Enum.Drop_Type.Water
 var is_dragging: bool = false
 
 var upwards_speed: float = 100.0
@@ -15,7 +15,7 @@ var min_fall_amount = 50.0
 
 var start_pos: Vector2
 func _ready():
-	$Sprite2D.texture = Util.get_output_type_img(output_type)
+	$Sprite2D.texture = Util.get_drop_type_img(drop_type)
 	start_pos = global_position
 
 func _physics_process(delta):

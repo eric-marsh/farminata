@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=5 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://b8nkjd470xyme" path="res://scene/plot_grid.tscn" id="4_0ha60"]
 [ext_resource type="PackedScene" uid="uid://c815fpybt36io" path="res://scene/slot_machine.tscn" id="4_brvut"]
-[ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="5_0ha60"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -17,12 +16,9 @@ script = ExtResource("2_v0l8b")
 position = Vector2(138, 119)
 
 [node name="SlotMachine" parent="PlotContainer" node_paths=PackedStringArray("paired_plot_grid") instance=ExtResource("4_brvut")]
-position = Vector2(39, -27)
+position = Vector2(61, -50)
 paired_plot_grid = NodePath("../PlotGrid")
 
 [node name="PlotGrid" parent="PlotContainer" instance=ExtResource("4_0ha60")]
 
 [node name="Drops" type="Node2D" parent="."]
-
-[node name="Droppable" parent="Drops" instance=ExtResource("5_0ha60")]
-position = Vector2(188, 140)

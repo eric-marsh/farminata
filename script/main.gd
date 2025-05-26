@@ -27,6 +27,7 @@ func _process(delta: float) -> void:
 		return
 	total_seconds += delta
 	
+	
 func _input(event):
 	if Debug.DEBUG_ENABLE_DEBUGGING_KEYS and event.is_action_pressed("ui_cancel"):
 		get_tree().quit()

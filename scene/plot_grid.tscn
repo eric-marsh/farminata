@@ -8,3 +8,5 @@ script = ExtResource("1_iwkn7")
 num_plots = 9
 
 [node name="Plot" parent="." instance=ExtResource("2_315pt")]
+plot_growth_state = 4
+grow_type = 1
