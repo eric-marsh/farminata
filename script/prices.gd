@@ -13,4 +13,6 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 	match type:
 		Enum.Upgrade_Type.AddPlot:
 			return State.num_plots * State.num_plots
+		Enum.Upgrade_Type.AddHelper:
+			return State.num_helpers * State.num_helpers * 10
 	

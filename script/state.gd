@@ -1,5 +1,7 @@
 extends Node
 class_name state
 
-var money:int = 0
+var money:int = 10000
+
 var num_plots:int = 1
+var num_helpers:int = 1

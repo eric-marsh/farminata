@@ -7,6 +7,7 @@ var PlotGrid: plot_grid = null
 var DropsNode: Node2D = null
 var CanvasLayerNode: CanvasLayer = null
 var CameraNode: Camera2D = null
+var HelpersContainerNode: helpers_container = null
 
 func _ready():
 	reset_nodes()
@@ -20,3 +21,4 @@ func reset_nodes():
 	DropsNode = get_node("/root/SceneSwitcher/Main/Drops")
 	CanvasLayerNode = get_node("/root/SceneSwitcher/Main/CanvasLayer")
 	CameraNode = get_node("/root/SceneSwitcher/Main/Camera2D")
+	HelpersContainerNode = get_node("/root/SceneSwitcher/Main/Helpers")

@@ -9,7 +9,7 @@ enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
 
 enum Slot_Pos {Left, Middle, Right}
 
-enum Upgrade_Type { AddPlot }
+enum Upgrade_Type { AddPlot, AddHelper }
 
 enum Dir { Left, Right, Up, Down}
 enum Helper_State { Idle, Wander, Get_Item, Deliver_Item }

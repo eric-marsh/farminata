@@ -4,7 +4,8 @@ class_name helpers_container
 const HELPER = preload("res://scene/helper.tscn")
 
 func _ready() -> void:
-	add_helper()
+	for i in range(State.num_helpers):
+		add_helper()
 
 var timer: float = 0.0
 var assign_jobs_interval: float = 2.0

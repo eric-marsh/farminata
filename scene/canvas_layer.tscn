@@ -28,4 +28,9 @@ text = "Coins: 0"
 layout_mode = 2
 text = "+1 Plot"
 
+[node name="HelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "+1 Helper"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HelperButton" to="." method="_on_helper_button_pressed"]
