@@ -50,7 +50,6 @@ func reset_growth_state():
 	plot_growth_state = Enum.Plot_Growth_State.None
 
 func set_next_growth_state():
-	print("Next Growth State")
 	match plot_growth_state:
 		Enum.Plot_Growth_State.None:
 			plot_growth_state = Enum.Plot_Growth_State.Seed
@@ -112,7 +111,6 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			
 func spawn_produce():
 	var d
-	print(grow_type)
 	match grow_type:
 		Enum.Grow_Types.None:
 			return
@@ -125,22 +123,25 @@ func spawn_produce():
 		d.is_dragging = true
 		Globals.Main.is_dragging = true
 
+func is_plot_needing_help():
+	if plot_growth_state == Enum.Plot_Growth_State.Full:
+		return false
+	return true
 
 var assigned_helper_seed = null
 var assigned_helper_water = null
 var assigned_helper_sun = null
 func assign_job_to_helper(h: helper) -> bool:
-	var d: droppable
-	if plot_growth_state == Enum.Plot_Growth_State.Full:
+	if !is_plot_needing_help():
 		return false
-	if plot_growth_state == Enum.Plot_Growth_State.None:
+	var d: droppable
+	if !assigned_helper_seed and plot_growth_state == Enum.Plot_Growth_State.None:
 		d = search_for_drop(Enum.Drop_Type.Carrot_Seed) 
 		assigned_helper_seed = null if d == null else h
-	if plot_state == Enum.Plot_State.Dry:
-		print("Dry")
+	if !assigned_helper_water and plot_state == Enum.Plot_State.Dry:
 		d = search_for_drop(Enum.Drop_Type.Water) 
 		assigned_helper_water = null if d == null else h
-	if plot_state == Enum.Plot_State.Wet:
+	if !assigned_helper_sun and plot_state == Enum.Plot_State.Wet:
 		d = search_for_drop(Enum.Drop_Type.Sun) 
 		assigned_helper_sun = null if d == null else h
 	if d == null:
@@ -158,7 +159,6 @@ func search_for_drop(drop_type: Enum.Drop_Type) -> droppable:
 		if !a is droppable or a.is_dragging or a.is_being_targeted:
 			continue
 		if a.drop_type != drop_type:
-			print(Util.get_drop_type_string(a.drop_type))
 			continue
 		
 		return a

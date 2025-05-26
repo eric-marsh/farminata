@@ -28,7 +28,6 @@ func _ready():
 		print("is produce")
 		Util.quick_timer(self,0.2, func():
 			# Todo: Money animation
-			print(Prices.get_drop_price(drop_type))
 			Globals.Main.change_money(Prices.get_drop_price(drop_type))
 			queue_free()
 		)

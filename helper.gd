@@ -74,7 +74,6 @@ func move_to_target():
 	# if target reached
 	if global_position.distance_to(target_pos) <= 2:
 		if state == Enum.Helper_State.Get_Item and target_droppable:
-			print(global_position.distance_to(target_pos))
 			set_state(Enum.Helper_State.Deliver_Item)
 			held_item_type = target_droppable.drop_type
 			held_item_sprite.texture = target_droppable.get_node("Sprite2D").texture

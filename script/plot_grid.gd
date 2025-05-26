@@ -71,7 +71,10 @@ func get_square_position(index: int) -> Vector2:
 			return Vector2.ZERO
 
 func get_plot_for_helper():
-	return get_children()[0] # TODO: Make this check for plots that need something
+	for c in get_children():
+		if !c.is_plot_needing_help():
+			continue
+		return c
 	
 func get_random_plot_position() -> Vector2:
 	var p = plots.pick_random()
