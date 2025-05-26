@@ -1,5 +1,5 @@
 extends Node
-class_name EnumNode
+class_name enum_node
 
 enum Drop_Type { Blurry, X, Water, Sun, Carrot_Seed, Carrot }
 enum Grow_Types { None, Carrot, Onion }

@@ -7,8 +7,6 @@ class_name plot
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None
 @export var grow_type: Enum.Grow_Types = Enum.Grow_Types.None
 
-
-
 var size: Vector2 = Vector2(32, 32)
 
 func _ready() -> void:
