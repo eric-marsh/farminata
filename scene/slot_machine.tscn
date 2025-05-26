@@ -7,38 +7,33 @@
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="5_om1wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgo26"]
-size = Vector2(112, 44)
+size = Vector2(56, 22)
 
 [node name="SlotMachine" type="Area2D"]
 script = ExtResource("1_vdvju")
 
 [node name="white_bg" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
 texture = ExtResource("2_vdvju")
 
 [node name="slots_bg" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
 texture = ExtResource("1_oebtt")
 
 [node name="slot_symbols" type="Node2D" parent="."]
 
 [node name="slot_1" type="Sprite2D" parent="slot_symbols"]
-position = Vector2(-34, 0)
-scale = Vector2(2, 2)
+position = Vector2(-17, 0)
 texture = ExtResource("4_om1wn")
 
 [node name="Output" parent="slot_symbols/slot_1" instance=ExtResource("5_om1wn")]
 
 [node name="slot_2" type="Sprite2D" parent="slot_symbols"]
-scale = Vector2(2, 2)
 texture = ExtResource("4_om1wn")
 
 [node name="Output" parent="slot_symbols/slot_2" instance=ExtResource("5_om1wn")]
 slot_pos = 1
 
 [node name="slot_3" type="Sprite2D" parent="slot_symbols"]
-position = Vector2(34, 0)
-scale = Vector2(2, 2)
+position = Vector2(17, 0)
 texture = ExtResource("4_om1wn")
 
 [node name="Output" parent="slot_symbols/slot_3" instance=ExtResource("5_om1wn")]
