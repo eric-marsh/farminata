@@ -34,6 +34,10 @@ func _input(event):
 		is_paused = !is_paused
 		if is_paused and Globals.Audio:
 			Globals.Audio.ship_hover_stop()
+			
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+			is_dragging = false
 
 var can_restart_game = false
 func check_game_over():
