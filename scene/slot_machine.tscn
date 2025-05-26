@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://c815fpybt36io"]
+[gd_scene load_steps=8 format=3 uid="uid://c815fpybt36io"]
 
 [ext_resource type="Texture2D" uid="uid://0ujo5olp3s25" path="res://img/slots/slots.png" id="1_oebtt"]
 [ext_resource type="Script" uid="uid://b1r15orpmjjdd" path="res://script/slot_machine.gd" id="1_vdvju"]
 [ext_resource type="Texture2D" uid="uid://dk4c43vvjcjhn" path="res://img/slots/slots_white_bg.png" id="2_vdvju"]
+[ext_resource type="Texture2D" uid="uid://0iu24mce7o6g" path="res://img/slots/symbols/sun.png" id="4_bvqe5"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="4_om1wn"]
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="5_om1wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgo26"]
-size = Vector2(112, 44)
+size = Vector2(68, 26)
 
 [node name="SlotMachine" type="Area2D"]
 script = ExtResource("1_vdvju")
@@ -21,8 +22,8 @@ texture = ExtResource("1_oebtt")
 [node name="slot_symbols" type="Node2D" parent="."]
 
 [node name="slot_1" type="Sprite2D" parent="slot_symbols"]
-position = Vector2(-34, 0)
-texture = ExtResource("4_om1wn")
+position = Vector2(-21, 0)
+texture = ExtResource("4_bvqe5")
 
 [node name="Output" parent="slot_symbols/slot_1" instance=ExtResource("5_om1wn")]
 
@@ -33,7 +34,7 @@ texture = ExtResource("4_om1wn")
 slot_pos = 1
 
 [node name="slot_3" type="Sprite2D" parent="slot_symbols"]
-position = Vector2(34, 0)
+position = Vector2(21, 0)
 texture = ExtResource("4_om1wn")
 
 [node name="Output" parent="slot_symbols/slot_3" instance=ExtResource("5_om1wn")]
