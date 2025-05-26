@@ -79,3 +79,9 @@ func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_positi
 	if Globals.DropsNode:
 		Globals.DropsNode.add_child(d)
 	return d
+
+func get_enum_direction(dir: Vector2) -> Enum.Dir:
+	if abs(dir.x) > abs(dir.y):
+		return Enum.Dir.Right if dir.x > 0 else Enum.Dir.Left
+	else:
+		return Enum.Dir.Down if dir.y > 0 else Enum.Dir.Up

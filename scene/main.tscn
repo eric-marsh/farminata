@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=7 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://b8nkjd470xyme" path="res://scene/plot_grid.tscn" id="4_0ha60"]
 [ext_resource type="PackedScene" uid="uid://c815fpybt36io" path="res://scene/slot_machine.tscn" id="4_brvut"]
 [ext_resource type="PackedScene" uid="uid://jida1cnc03um" path="res://scene/canvas_layer.tscn" id="5_0ha60"]
+[ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper.tscn" id="5_4j5ol"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -23,5 +24,10 @@ paired_plot_grid = NodePath("../PlotGrid")
 [node name="PlotGrid" parent="PlotContainer" instance=ExtResource("4_0ha60")]
 
 [node name="Drops" type="Node2D" parent="."]
+
+[node name="Helpers" type="Node2D" parent="."]
+
+[node name="Helper" parent="Helpers" instance=ExtResource("5_4j5ol")]
+position = Vector2(225, 173)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]

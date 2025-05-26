@@ -4,6 +4,8 @@ class_name EnumNode
 enum Drop_Type { Blurry, X, Water, Sun, Carrot_Seed, Carrot }
 enum Grow_Types { None, Carrot, Onion }
 
+enum Dir { Left, Right, Up, Down}
+
 enum Plot_State { Dry, Wet }
 
 enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
