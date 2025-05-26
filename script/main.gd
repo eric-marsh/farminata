@@ -9,14 +9,13 @@ var is_paused: bool = false
 var max_blocks: int = 900
 var is_dragging: bool = false
 
+var money_count: int = 0
 
 func _ready() -> void:
 	global_timer = 0
 	total_seconds = 0.0
 	is_game_over = false
 	is_paused = false
-	
-	
 	
 func _process(delta: float) -> void:
 	if Globals.Main and Globals.Main.is_paused:
@@ -48,6 +47,9 @@ func check_game_over():
 			Globals.Audio.ship_hover_stop()
 	pass
 	
+func change_money(money_dif: int):
+	money_count += money_dif
+	Globals.CanvasLayerNode.update_money_counter()
 
 #
 #var ParticleBrickHit = preload("res://scene/particle_brick_hit.tscn")

@@ -5,6 +5,8 @@ class_name droppable
 @export var speed: float = 200.0
 @export var drop_type: Enum.Drop_Type = Enum.Drop_Type.Water
 var is_dragging: bool = false
+var is_produce: bool = false
+
 
 var upwards_speed: float = 100.0
 var velocity: Vector2
@@ -15,8 +17,17 @@ var min_fall_amount = 50.0
 
 var start_pos: Vector2
 func _ready():
+	await get_tree().create_timer(0.0001).timeout
 	$Sprite2D.texture = Util.get_drop_type_img(drop_type)
 	start_pos = global_position
+	
+	if is_produce:
+		print("is produce")
+		Util.quick_timer(self,0.2, func():
+			# Todo: Money animation
+			Globals.Main.change_money(Prices.get_price(drop_type))
+			queue_free()
+		)
 
 func _physics_process(delta):
 	if global_position.y > start_pos.y + min_fall_amount:

@@ -38,12 +38,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		if is_spinning():
 			return
 		start_spin_timer()
-		
-		
-		
 
-
-	
 func is_spinning() -> bool:
 	return !$SpinTimer.is_stopped()
 
@@ -64,6 +59,7 @@ func set_next_slot_symbol():
 			var target_pos = paired_plot_grid.get_random_plot_position()
 			update_slot_symbols_images()
 			
+			# spawn output
 			if Util.is_valid_droppable_type(output_type):
 				$slot_symbols.get_children()[i].get_node("Output").trigger_output(output_type, target_pos)
 			
@@ -75,16 +71,12 @@ func set_next_slot_symbol():
 				$SpinTimer.stop() # stop timer just in case it doesnt line up. It doesnt
 			return
 
-
-
-
 func get_random_slot_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
 
 func _on_spin_timer_timeout() -> void:
 	# TODO: Do output
 	pass
-		
 
 func set_all_slots(symbol: Enum.Drop_Type) -> void:
 	for i in range(slots.size()):

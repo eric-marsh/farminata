@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://xiwavl2b1sw0"]
 
-[ext_resource type="Script" uid="uid://coqg5qcenyvhh" path="res://scene/droppable.gd" id="1_34vfq"]
+[ext_resource type="Script" uid="uid://coqg5qcenyvhh" path="res://script/droppable.gd" id="1_34vfq"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="1_j5dow"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34vfq"]

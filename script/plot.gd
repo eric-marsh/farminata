@@ -115,7 +115,7 @@ func spawn_produce():
 			return
 		Enum.Grow_Types.Carrot:
 			d = Util.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
-			d.is_dragging = true
+			d.is_produce = true
 			
 	if Globals.Main and !Globals.Main.is_dragging:
 		d.is_dragging = true
