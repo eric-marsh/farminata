@@ -33,4 +33,7 @@ func spawn_droppable(output_type: Enum.Output_Type, target_position: Vector2) ->
 	d.output_type = output_type
 	d.target_position = target_position
 	d.apply_central_impulse(impulse)
-	add_child(d)
+	d.global_position = global_position
+	
+	if Globals.DropsNode:
+		Globals.DropsNode.add_child(d)

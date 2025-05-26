@@ -23,19 +23,26 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 #{ Blurry, X, Water, Sun, Carrot_Seed }
 func apply_droppable(d: droppable):
+	if plot_growth_state == Enum.Plot_Growth_State.Full:
+		return
 	match d.output_type:
 		Enum.Output_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:
 				plot_state = Enum.Plot_State.Wet
+				d.delete()
 		Enum.Output_Type.Sun:
-			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None and plot_growth_state != Enum.Plot_Growth_State.Full:
+			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
 				plot_state = Enum.Plot_State.Dry
 				set_next_growth_state()
+				d.delete()
 		Enum.Output_Type.Carrot_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
 				set_next_growth_state()
+				d.delete()
+		_:
+			return
 	update_image()
-	d.queue_free()
+	
 	
 
 func set_next_growth_state():
@@ -79,6 +86,9 @@ func update_image():
 				$Plant.texture = SAPLING_1
 				$Plant.offset = Vector2.ZERO
 			Enum.Plot_Growth_State.Partial_2:
+				$Plant.texture = SAPLING_2
+				$Plant.offset = Vector2.ZERO
+			Enum.Plot_Growth_State.Full:
 				$Plant.texture = SAPLING_FINAL
 				$Plant.offset = Vector2(0, -8)
 				

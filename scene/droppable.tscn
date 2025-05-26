@@ -8,6 +8,7 @@ radius = 6.0
 
 [node name="Droppable" type="RigidBody2D" groups=["droppable"]]
 z_index = 1
+input_pickable = true
 script = ExtResource("1_34vfq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,3 +16,5 @@ texture = ExtResource("1_j5dow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_34vfq")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

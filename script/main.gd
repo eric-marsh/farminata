@@ -1,13 +1,14 @@
 extends Node2D
 class_name MainNode
 
-var global_timer = 0
-var total_seconds = 0.0
-var is_game_over = false
-var is_paused = false
+var global_timer: int = 0
+var total_seconds: float = 0.0
+var is_game_over: bool = false
+var is_paused: bool = false
 
+var max_blocks: int = 900
+var is_dragging: bool = false
 
-var max_blocks = 900
 
 func _ready() -> void:
 	global_timer = 0
