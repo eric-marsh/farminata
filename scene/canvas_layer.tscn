@@ -24,6 +24,8 @@ size_flags_horizontal = 8
 layout_mode = 2
 text = "Coins: 0"
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="PlotButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "+1 Plot"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]

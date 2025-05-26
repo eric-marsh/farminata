@@ -39,6 +39,7 @@ func apply_droppable(d: droppable):
 				d.delete()
 		Enum.Drop_Type.Carrot_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
+				grow_type = Enum.Grow_Types.Carrot
 				set_next_growth_state()
 				d.delete()
 		_:
@@ -111,10 +112,12 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			
 func spawn_produce():
 	var d
+	print(grow_type)
 	match grow_type:
 		Enum.Grow_Types.None:
 			return
 		Enum.Grow_Types.Carrot:
+			print("Carrot")
 			d = Util.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
 			d.is_produce = true
 			

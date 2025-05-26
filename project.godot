@@ -22,6 +22,7 @@ Globals="*res://script/globals.gd"
 Util="*res://script/util.gd"
 Enum="*res://script/enum.gd"
 Prices="*res://script/prices.gd"
+State="*res://script/state.gd"
 
 [display]
 

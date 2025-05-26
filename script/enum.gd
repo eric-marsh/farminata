@@ -11,3 +11,5 @@ enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
 
 
 enum Slot_Pos {Left, Middle, Right}
+
+enum Upgrade_Type { AddPlot }

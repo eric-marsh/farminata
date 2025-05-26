@@ -1,7 +1,7 @@
 extends Node2D
 class_name plot_grid
 
-@export var num_plots = 1
+var num_plots = State.num_plots
 
 var plots: Array[plot] = []
 func _ready() -> void:
@@ -24,6 +24,13 @@ func reset_plots():
 		add_child(p)
 		plots.push_back(p)
 		plots_left -= 1
+
+
+func add_plot():
+	var p = PLOT.instantiate() as plot
+	p.position = get_square_position(get_children().size()) * p.size
+	add_child(p)
+	plots.push_back(p)
 
 func get_square_position(index: int) -> Vector2:
 	var num_columns = ceil(sqrt(num_plots))

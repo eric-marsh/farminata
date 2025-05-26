@@ -9,7 +9,6 @@ var is_paused: bool = false
 var max_blocks: int = 900
 var is_dragging: bool = false
 
-var money_count: int = 0
 
 func _ready() -> void:
 	global_timer = 0
@@ -48,7 +47,7 @@ func check_game_over():
 	pass
 	
 func change_money(money_dif: int):
-	money_count += money_dif
+	State.money += money_dif
 	Globals.CanvasLayerNode.update_money_counter()
 
 #
