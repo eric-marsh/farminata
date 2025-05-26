@@ -4,6 +4,9 @@ class_name droppable
 @export var target_position: Vector2
 @export var speed: float = 200.0
 @export var drop_type: Enum.Drop_Type = Enum.Drop_Type.Water
+
+
+var is_being_targeted: bool = false
 var is_dragging: bool = false
 var is_produce: bool = false
 

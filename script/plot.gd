@@ -1,7 +1,7 @@
 extends Node2D
 class_name plot
 
-
+@onready var search_area = $SearchArea
 
 @export var plot_state: Enum.Plot_State = Enum.Plot_State.Dry
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None
@@ -60,8 +60,10 @@ func set_next_growth_state():
 			plot_growth_state = Enum.Plot_Growth_State.Partial_2
 		Enum.Plot_Growth_State.Partial_2:
 			plot_growth_state = Enum.Plot_Growth_State.Full
-		
-
+	
+	assigned_helper_seed = null
+	assigned_helper_water = null
+	assigned_helper_sun = null
 
 const PLOT_WET = preload("res://img/plot/plot_wet.png")
 const PLOT_DRY = preload("res://img/plot/plot_dry.png")
@@ -122,3 +124,42 @@ func spawn_produce():
 	if Globals.Main and !Globals.Main.is_dragging:
 		d.is_dragging = true
 		Globals.Main.is_dragging = true
+
+
+var assigned_helper_seed = null
+var assigned_helper_water = null
+var assigned_helper_sun = null
+func assign_job_to_helper(h: helper) -> bool:
+	var d: droppable
+	if plot_growth_state == Enum.Plot_Growth_State.Full:
+		return false
+	if plot_growth_state == Enum.Plot_Growth_State.None:
+		d = search_for_drop(Enum.Drop_Type.Carrot_Seed) 
+		assigned_helper_seed = null if d == null else h
+	if plot_state == Enum.Plot_State.Dry:
+		print("Dry")
+		d = search_for_drop(Enum.Drop_Type.Water) 
+		assigned_helper_water = null if d == null else h
+	if plot_state == Enum.Plot_State.Wet:
+		d = search_for_drop(Enum.Drop_Type.Sun) 
+		assigned_helper_sun = null if d == null else h
+	if d == null:
+		print("d is null")
+		return false
+	
+	d.is_being_targeted = true
+	h.target_droppable = d
+	h.target_plot = self
+	return true
+
+
+func search_for_drop(drop_type: Enum.Drop_Type) -> droppable:
+	for a in search_area.get_overlapping_bodies():
+		if !a is droppable or a.is_dragging or a.is_being_targeted:
+			continue
+		if a.drop_type != drop_type:
+			print(Util.get_drop_type_string(a.drop_type))
+			continue
+		
+		return a
+	return null

@@ -50,7 +50,7 @@ func get_drop_type_img(symbol: Enum.Drop_Type) -> Texture2D:
 func is_valid_droppable_type(symbol: Enum.Drop_Type) -> bool:
 	return symbol != Enum.Drop_Type.X and symbol != Enum.Drop_Type.Blurry
 
-func get_slot_output_string(symbol: Enum.Drop_Type) -> String:
+func get_drop_type_string(symbol: Enum.Drop_Type) -> String:
 	match(symbol):
 		Enum.Drop_Type.Blurry:
 			return "BLURRY"

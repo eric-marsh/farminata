@@ -7,11 +7,8 @@ class_name helper
 @export var target_plot: plot = null
 
 var state: Enum.Helper_State = Enum.Helper_State.Idle
-
 var dir: Enum.Dir = Enum.Dir.Down
-
 var held_item_type: Enum.Drop_Type
-
 var target_pos: Vector2 = Vector2.ZERO
 var speed:int = 40
 
@@ -38,7 +35,6 @@ func _physics_process(delta: float) -> void:
 		Enum.Helper_State.Wander:
 			move_to_target()
 		Enum.Helper_State.Get_Item:
-			
 			if target_droppable == null:
 				set_state(Enum.Helper_State.Idle)
 			move_to_target()

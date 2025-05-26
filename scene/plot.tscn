@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7mjmd8qocm5n"]
+[gd_scene load_steps=5 format=3 uid="uid://b7mjmd8qocm5n"]
 
 [ext_resource type="Script" uid="uid://dv6p8ldxol3f0" path="res://script/plot.gd" id="1_xmivb"]
 [ext_resource type="Texture2D" uid="uid://d2go8llpcolsq" path="res://img/plot/plot_dry.png" id="2_8yg48"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pdpe"]
 size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xmivb"]
+radius = 171.105
 
 [node name="Plot" type="Node2D"]
 script = ExtResource("1_xmivb")
@@ -22,6 +25,12 @@ centered = false
 
 [node name="Plant" type="Sprite2D" parent="."]
 centered = false
+
+[node name="SearchArea" type="Area2D" parent="."]
+position = Vector2(16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SearchArea"]
+shape = SubResource("CircleShape2D_xmivb")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
