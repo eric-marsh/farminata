@@ -22,38 +22,41 @@ func get_random_enum_value(enum_type: Dictionary) -> int:
 	var values = enum_type.values()
 	return values[randi() % values.size()]
 
-#enum Slot_Output {X, Water, Sun, Carrot_Seed }
+#enum Output_Type {X, Water, Sun, Carrot_Seed }
 const BLURRY = preload("res://img/slots/symbols/blurry.png")
 const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
 const SUN = preload("res://img/slots/symbols/sun.png")
 const WATER = preload("res://img/slots/symbols/water.png")
 const X = preload("res://img/slots/symbols/x.png")
-func get_slot_output_img(symbol: Enum.Slot_Output) -> Texture2D:
+func get_output_type_img(symbol: Enum.Output_Type) -> Texture2D:
 	match(symbol):
-		Enum.Slot_Output.Blurry:
+		Enum.Output_Type.Blurry:
 			return BLURRY
-		Enum.Slot_Output.X:
+		Enum.Output_Type.X:
 			return X
-		Enum.Slot_Output.Water:
+		Enum.Output_Type.Water:
 			return WATER
-		Enum.Slot_Output.Sun:
+		Enum.Output_Type.Sun:
 			return SUN
-		Enum.Slot_Output.Carrot_Seed:
+		Enum.Output_Type.Carrot_Seed:
 			return CARROT_SEED
 		_:
 			return null
 
-func get_slot_output_string(symbol: Enum.Slot_Output) -> String:
+func is_valid_droppable_type(symbol: Enum.Output_Type) -> bool:
+	return symbol != Enum.Output_Type.X and symbol != Enum.Output_Type.Blurry
+
+func get_slot_output_string(symbol: Enum.Output_Type) -> String:
 	match(symbol):
-		Enum.Slot_Output.Blurry:
+		Enum.Output_Type.Blurry:
 			return "BLURRY"
-		Enum.Slot_Output.X:
+		Enum.Output_Type.X:
 			return "X"
-		Enum.Slot_Output.Water:
+		Enum.Output_Type.Water:
 			return "WATER"
-		Enum.Slot_Output.Sun:
+		Enum.Output_Type.Sun:
 			return "SUN"
-		Enum.Slot_Output.Carrot_Seed:
+		Enum.Output_Type.Carrot_Seed:
 			return "CARROT_SEED"
 		_:
 			print("DONT KNOW WHAT THAT WAS", symbol)

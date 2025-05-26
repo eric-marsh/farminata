@@ -15,7 +15,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func spawn_droppable(target_position: Vector2) -> void:
+func spawn_droppable(output_type: Enum.Output_Type, target_position: Vector2) -> void:
 	var rand_impulse_dir
 	match slot_pos:
 		Enum.Slot_Pos.Left:
@@ -30,6 +30,7 @@ func spawn_droppable(target_position: Vector2) -> void:
 	var impulse = output_impulse + Vector2(rand_impulse_dir, intensity_y)
 	
 	var d = DROPPABLE.instantiate() as droppable
+	d.output_type = output_type
 	d.target_position = target_position
 	d.apply_central_impulse(impulse)
 	add_child(d)

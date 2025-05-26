@@ -1,7 +1,7 @@
 extends Node
 class_name EnumNode
 
-enum Slot_Output { Blurry, X, Water, Sun, Carrot_Seed }
+enum Output_Type { Blurry, X, Water, Sun, Carrot_Seed }
 
 enum Plot_State { Dry, Wet }
 

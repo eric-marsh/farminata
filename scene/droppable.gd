@@ -3,6 +3,7 @@ class_name droppable
 
 @export var target_position: Vector2
 @export var speed: float = 200.0
+@export var output_type: Enum.Output_Type = Enum.Output_Type.Water
 
 var upwards_speed: float = 100.0
 var velocity: Vector2
@@ -13,6 +14,8 @@ var min_fall_amount = 100
 
 var start_pos: Vector2
 func _ready():
+	$Sprite2D.texture = Util.get_output_type_img(output_type)
+	
 	start_pos = global_position
 	# Initial diagonal velocity: up + left/right randomly
 	var horizontal = -1 if randf() < 0.5  else 1
