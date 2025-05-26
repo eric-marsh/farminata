@@ -2,10 +2,6 @@ extends Node2D
 class_name plot
 
 
-const PLOT_WET = preload("res://img/plot/plot_wet.png")
-const PLOT_DRY = preload("res://img/plot/plot_dry.png")
-
-const SEED = preload("res://img/plants/seed.png")
 
 @export var plot_state: Enum.Plot_State = Enum.Plot_State.Dry
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None
@@ -21,10 +17,8 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print("body emtered")
 	if !body.is_in_group("droppable"):
 		return
-	print("body ios droppable")
 	apply_droppable(body)
 
 #{ Blurry, X, Water, Sun, Carrot_Seed }
@@ -33,17 +27,41 @@ func apply_droppable(d: droppable):
 		Enum.Output_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:
 				plot_state = Enum.Plot_State.Wet
-				update_plot()
-				d.queue_free()
-				return
+		Enum.Output_Type.Sun:
+			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None and plot_growth_state != Enum.Plot_Growth_State.Full:
+				plot_state = Enum.Plot_State.Dry
+				set_next_growth_state()
 		Enum.Output_Type.Carrot_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
-				plot_growth_state = Enum.Plot_Growth_State.Seed
-				update_plot()
-				d.queue_free()
-				return
+				set_next_growth_state()
+	update_image()
+	d.queue_free()
+	
 
-func update_plot():
+func set_next_growth_state():
+	print("Next Growth State")
+	match plot_growth_state:
+		Enum.Plot_Growth_State.None:
+			plot_growth_state = Enum.Plot_Growth_State.Seed
+		Enum.Plot_Growth_State.Seed:
+			plot_growth_state = Enum.Plot_Growth_State.Partial_1
+		Enum.Plot_Growth_State.Partial_1:
+			plot_growth_state = Enum.Plot_Growth_State.Partial_2
+		Enum.Plot_Growth_State.Partial_2:
+			plot_growth_state = Enum.Plot_Growth_State.Full
+		
+
+
+const PLOT_WET = preload("res://img/plot/plot_wet.png")
+const PLOT_DRY = preload("res://img/plot/plot_dry.png")
+const SEED = preload("res://img/plants/seed.png")
+const PRODUCE = preload("res://img/plants/carrot/produce.png")
+const SAPLING_1 = preload("res://img/plants/carrot/sapling_1.png")
+const SAPLING_2 = preload("res://img/plants/carrot/sapling_2.png")
+const SAPLING_FINAL = preload("res://img/plants/carrot/sapling_final.png")
+
+#enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
+func update_image():
 		match plot_state:
 			Enum.Plot_State.Dry:
 				$Dirt.texture = PLOT_DRY
@@ -53,6 +71,14 @@ func update_plot():
 		match plot_growth_state:
 			Enum.Plot_Growth_State.None:
 				$Plant.texture = null
+				$Plant.offset = Vector2.ZERO
 			Enum.Plot_Growth_State.Seed:
 				$Plant.texture = SEED
+				$Plant.offset = Vector2.ZERO
+			Enum.Plot_Growth_State.Partial_1:
+				$Plant.texture = SAPLING_1
+				$Plant.offset = Vector2.ZERO
+			Enum.Plot_Growth_State.Partial_2:
+				$Plant.texture = SAPLING_FINAL
+				$Plant.offset = Vector2(0, -8)
 				

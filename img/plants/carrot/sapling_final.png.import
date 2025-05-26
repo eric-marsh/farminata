@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhreatr0ikkps"
-path="res://.godot/imported/pickable.png-e1848fb49e9a61677b7bc91cd2f62106.ctex"
+path="res://.godot/imported/sapling_final.png-5dfdf584dd7bab1b2d9acf5944ceaccf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/plants/carrot/pickable.png"
-dest_files=["res://.godot/imported/pickable.png-e1848fb49e9a61677b7bc91cd2f62106.ctex"]
+source_file="res://img/plants/carrot/sapling_final.png"
+dest_files=["res://.godot/imported/sapling_final.png-5dfdf584dd7bab1b2d9acf5944ceaccf.ctex"]
 
 [params]
 
