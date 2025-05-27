@@ -5,7 +5,7 @@ class_name plot
 
 @export var plot_state: Enum.Plot_State = Enum.Plot_State.Dry
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None
-@export var grow_type: Enum.Grow_Types = Enum.Grow_Types.None
+@export var grow_type: Enum.Grow_Type = Enum.Grow_Type.None
 
 var size: Vector2 = Vector2(32, 32)
 
@@ -55,52 +55,45 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func apply_droppable(d: droppable):
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
+
+	var drop_type = d.drop_type
 	var texture = d.get_node("Sprite2D").texture
-	
-	match d.drop_type:
+	match drop_type:
 		Enum.Drop_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:
 				plot_state = Enum.Plot_State.Wet
-				d.delete()
-				if is_instance_valid(target_water):
-					target_water.is_being_targeted = false
+				cleanup_drop(d, drop_type, target_water, assigned_helper_water)
 				target_water = null
-				if assigned_helper_water:
-					assigned_helper_water.remove_job()
-					assigned_helper_water = null
-				DropUtil.create_shrink_animation(Enum.Drop_Type.Water, global_position + size/2)
+				assigned_helper_water = null
+
 		Enum.Drop_Type.Sun:
 			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
-				
 				plot_state = Enum.Plot_State.Dry
 				set_next_growth_state()
-				if assigned_helper_sun:
-					assigned_helper_sun.remove_job()
-					assigned_helper_sun = null
-				d.delete()
-				if is_instance_valid(target_sun):
-					target_sun.is_being_targeted = false
+				cleanup_drop(d, drop_type, target_sun, assigned_helper_sun)
 				target_sun = null
-				DropUtil.create_shrink_animation(Enum.Drop_Type.Sun, global_position + size/2)
-				
+				assigned_helper_sun = null
+
 		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
-				if d.drop_type == Enum.Drop_Type.Carrot_Seed:
-					grow_type = Enum.Grow_Types.Carrot
-				elif d.drop_type == Enum.Drop_Type.Onion_Seed:
-					grow_type = Enum.Grow_Types.Onion
+				grow_type = PlantUtil.drop_type_to_grow_type(drop_type)
 				set_next_growth_state()
-				if assigned_helper_seed:
-					assigned_helper_seed.remove_job()
-					assigned_helper_seed = null
-				if is_instance_valid(target_seed):
-					target_seed.is_being_targeted = false
+				cleanup_drop(d, drop_type, target_seed, assigned_helper_seed)
 				target_seed = null
-				DropUtil.create_shrink_animation(d.drop_type, global_position + size/2)
-				d.delete()
+				assigned_helper_seed = null
 		_:
 			return
+
 	update_image()
+
+
+func cleanup_drop(d: droppable, drop_type, target, helper):
+	d.delete()
+	if is_instance_valid(target):
+		target.is_being_targeted = false
+	if helper:
+		helper.remove_job()
+	DropUtil.create_shrink_animation(drop_type, global_position + size / 2)
 	
 	
 
@@ -148,12 +141,12 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 func spawn_produce():
 	var d
 	match grow_type:
-		Enum.Grow_Types.None:
+		Enum.Grow_Type.None:
 			return
-		Enum.Grow_Types.Carrot:
+		Enum.Grow_Type.Carrot:
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
 			d.is_produce = true
-		Enum.Grow_Types.Onion:
+		Enum.Grow_Type.Onion:
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Onion, global_position, Vector2.ZERO, Vector2.ZERO)
 			d.is_produce = true
 			

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nx6lfkoa2bbh"
-path="res://.godot/imported/Dirt - simplified.png-4fe40eacd6c5762843ad266f49beee3b.ctex"
+uid="uid://d1s2lfqmmisfh"
+path="res://.godot/imported/main_tiles.png-c2ab7c0afcd6f4f1a88d93e84bbeabb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/tile/Dirt - simplified.png"
-dest_files=["res://.godot/imported/Dirt - simplified.png-4fe40eacd6c5762843ad266f49beee3b.ctex"]
+source_file="res://img/tile/main_tiles.png"
+dest_files=["res://.godot/imported/main_tiles.png-c2ab7c0afcd6f4f1a88d93e84bbeabb2.ctex"]
 
 [params]
 

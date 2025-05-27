@@ -63,9 +63,13 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			Globals.Main.is_dragging = false
 			set_collision_layer_value(1, true)
 
-
 func delete():
 	if is_dragging:
 		is_dragging = false
 		Globals.Main.is_dragging = false
 	queue_free()
+
+func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if !body is TileMapLayer:
+		return
+	print(body_rid, " - ", body, " - ", body_shape_index, " - ", local_shape_index)

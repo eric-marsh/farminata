@@ -14,31 +14,38 @@ func _process(delta: float) -> void:
 
 func update_plots_to_check_for_drops():
 	for c in get_children():
-		c.find_wanted_drops()
+		if c is plot:
+			c.find_wanted_drops()
 
 
 const PLOT = preload("res://scene/plot.tscn")
 func reset_plots():
 	for c in get_children():
-		plots.push_back(c)
+		if c is plot:
+			plots.push_back(c)
 	for c in get_children():
-		c.queue_free()
+		if c is plot:
+			c.queue_free()
 	
 	var plots_left = num_plots
 	while plots_left > 0:
-		var p = PLOT.instantiate() as plot
-		p.position = get_square_position(num_plots - plots_left) * p.size
-		add_child(p)
-		plots.push_back(p)
+		add_plot()
 		plots_left -= 1
 
 
 func add_plot():
 	var p = PLOT.instantiate() as plot
-	p.position = get_square_position(get_children().size()) * p.size
+	var square_pos = get_square_position(plots.size())
+	p.position = square_pos * p.size
 	add_child(p)
 	plots.push_back(p)
-
+	
+	var tile_map_layer = $TileMapLayer as TileMapLayer
+	var source_id: int = 2
+	var terrain_set: int = 0
+	tile_map_layer.set_cell(square_pos, source_id, Vector2i(1, 1), 0)
+	tile_map_layer.set_cells_terrain_connect([square_pos], terrain_set, terrain_set)
+	
 func get_square_position(index: int) -> Vector2:
 	var num_columns = ceil(sqrt(num_plots))
 	match index:
@@ -79,6 +86,8 @@ func get_square_position(index: int) -> Vector2:
 
 func get_plot_for_helper():
 	for c in get_children():
+		if !c is plot:
+			continue
 		if !c.is_plot_needing_help():
 			continue
 		return c
