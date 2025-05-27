@@ -29,3 +29,5 @@ paired_plot_grid = NodePath("../PlotGrid")
 script = ExtResource("6_of57s")
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
+
+[node name="Animations" type="Node2D" parent="."]

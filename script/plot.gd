@@ -56,6 +56,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func apply_droppable(d: droppable):
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
+	var texture = d.get_node("Sprite2D").texture
+	
 	match d.drop_type:
 		Enum.Drop_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:
@@ -67,6 +69,7 @@ func apply_droppable(d: droppable):
 				if assigned_helper_water:
 					assigned_helper_water.remove_job()
 					assigned_helper_water = null
+				Util.create_shrink_animation(texture, global_position + size/2)
 		Enum.Drop_Type.Sun:
 			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
 				
@@ -79,6 +82,7 @@ func apply_droppable(d: droppable):
 				if is_instance_valid(target_sun):
 					target_sun.is_being_targeted = false
 				target_sun = null
+				Util.create_shrink_animation(texture, global_position + size/2)
 				
 		Enum.Drop_Type.Carrot_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
@@ -91,6 +95,7 @@ func apply_droppable(d: droppable):
 				if is_instance_valid(target_seed):
 					target_seed.is_being_targeted = false
 				target_seed = null
+				Util.create_shrink_animation(texture, global_position + size/2)
 		_:
 			return
 	update_image()

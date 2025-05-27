@@ -114,3 +114,14 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 
 func random_offset(f) -> Vector2:
 	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))
+
+const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
+func create_shrink_animation(texture: Texture, pos: Vector2):
+	if !Globals.AnimationsContainer:
+		return
+	var a = APPLY_DROPPABLE_ANIMATION.instantiate()
+	a.get_node("Sprite2D").texture = texture
+	a.global_position = pos
+	Globals.AnimationsContainer.add_child(a)
+	
+	
