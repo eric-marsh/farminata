@@ -22,10 +22,11 @@ func _ready() -> void:
 	update_image()
 	
 	if !Debug.DEBUG_SHOW_PLOT_STATE:
-		$DebugNodes/StateLabel.queue_free()
+		
+		$DebugNodes.queue_free()
 	
 func _process(delta: float) -> void:
-	if Globals.Main and Globals.Main.global_timer % 24 == 0:
+	if Debug.DEBUG_SHOW_PLOT_STATE and Globals.Main and Globals.Main.global_timer % 24 == 0:
 		update_debug_nodes()
 	pass
 

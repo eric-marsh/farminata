@@ -47,6 +47,12 @@ func start_spin_timer() -> void:
 	set_all_slots(Enum.Drop_Type.Blurry)
 	update_slot_symbols_images()
 	
+	#$slot_symbols.visible = false
+	$slot_symbols/slot_1.visible = false
+	$slot_symbols/slot_2.visible = false
+	$slot_symbols/slot_3.visible = false
+	$slots_animation.visible = true
+	$AnimationPlayer.play("spin_slots")
 	Util.quick_timer(self, min_spin_time, func():
 		set_next_slot_symbol()
 	)
@@ -59,7 +65,10 @@ func set_next_slot_symbol():
 			#var target_pos = paired_plot_grid.get_random_plot_position()
 			var target_pos = Vector2.ZERO
 			
+			
 			update_slot_symbols_images()
+			$slot_symbols.get_children()[i].visible = true
+			
 			
 			# spawn output
 			if Util.is_valid_droppable_type(output_type):
@@ -77,7 +86,8 @@ func get_random_slot_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
 
 func _on_spin_timer_timeout() -> void:
-	# TODO: Do output
+	$slots_animation.visible = false
+	$AnimationPlayer.stop()
 	pass
 
 func set_all_slots(symbol: Enum.Drop_Type) -> void:

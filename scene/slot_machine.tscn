@@ -1,14 +1,56 @@
-[gd_scene load_steps=8 format=3 uid="uid://c815fpybt36io"]
+[gd_scene load_steps=14 format=3 uid="uid://c815fpybt36io"]
 
 [ext_resource type="Texture2D" uid="uid://0ujo5olp3s25" path="res://img/slots/slots.png" id="1_oebtt"]
 [ext_resource type="Script" uid="uid://b1r15orpmjjdd" path="res://script/slot_machine.gd" id="1_vdvju"]
 [ext_resource type="Texture2D" uid="uid://dk4c43vvjcjhn" path="res://img/slots/slots_white_bg.png" id="2_vdvju"]
 [ext_resource type="Texture2D" uid="uid://0iu24mce7o6g" path="res://img/slots/symbols/sun.png" id="4_bvqe5"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="4_om1wn"]
+[ext_resource type="Texture2D" uid="uid://c0qt0t4xhh3y6" path="res://img/slots/slots_white_bg_single.png" id="5_3dobk"]
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="5_om1wn"]
+[ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/slots/symbols/water.png" id="6_om0vh"]
+[ext_resource type="Texture2D" uid="uid://cu1u0odpnalw4" path="res://img/slots/column.png" id="7_3dobk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgo26"]
 size = Vector2(68, 26)
+
+[sub_resource type="Animation" id="Animation_bvqe5"]
+resource_name = "spin_slots"
+length = 1.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slots_animation/slots:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -198), Vector2(0, 162)]
+}
+
+[sub_resource type="Animation" id="Animation_c4awe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slots_animation/slots:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_om0vh"]
+_data = {
+&"RESET": SubResource("Animation_c4awe"),
+&"spin_slots": SubResource("Animation_bvqe5")
+}
 
 [node name="SlotMachine" type="Area2D"]
 script = ExtResource("1_vdvju")
@@ -16,34 +58,93 @@ script = ExtResource("1_vdvju")
 [node name="white_bg" type="Sprite2D" parent="."]
 texture = ExtResource("2_vdvju")
 
-[node name="slots_bg" type="Sprite2D" parent="."]
-texture = ExtResource("1_oebtt")
+[node name="slots_animation" type="Control" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(34, 15)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -31.0
+offset_top = -10.0
+offset_right = 31.0
+offset_bottom = 10.0
+
+[node name="slots" type="Control" parent="slots_animation"]
+anchors_preset = 0
+offset_right = 62.0
+offset_bottom = 20.0
+
+[node name="slot" type="TextureRect" parent="slots_animation/slots"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -198.0
+offset_right = 18.0
+offset_bottom = 18.0
+texture = ExtResource("7_3dobk")
+
+[node name="slot2" type="TextureRect" parent="slots_animation/slots"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = -180.0
+offset_right = 39.0
+offset_bottom = 36.0
+texture = ExtResource("7_3dobk")
+
+[node name="slot3" type="TextureRect" parent="slots_animation/slots"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = -162.0
+offset_right = 60.0
+offset_bottom = 54.0
+texture = ExtResource("7_3dobk")
 
 [node name="slot_symbols" type="Node2D" parent="."]
 
 [node name="slot_1" type="Sprite2D" parent="slot_symbols"]
+z_index = 1
 position = Vector2(-21, 0)
-texture = ExtResource("4_bvqe5")
+texture = ExtResource("4_om1wn")
+
+[node name="white_bg" type="Sprite2D" parent="slot_symbols/slot_1"]
+z_index = -1
+texture = ExtResource("5_3dobk")
 
 [node name="Output" parent="slot_symbols/slot_1" instance=ExtResource("5_om1wn")]
 
 [node name="slot_2" type="Sprite2D" parent="slot_symbols"]
-texture = ExtResource("4_om1wn")
+z_index = 1
+texture = ExtResource("4_bvqe5")
+
+[node name="white_bg" type="Sprite2D" parent="slot_symbols/slot_2"]
+z_index = -1
+texture = ExtResource("5_3dobk")
 
 [node name="Output" parent="slot_symbols/slot_2" instance=ExtResource("5_om1wn")]
 slot_pos = 1
 
 [node name="slot_3" type="Sprite2D" parent="slot_symbols"]
+z_index = 1
 position = Vector2(21, 0)
-texture = ExtResource("4_om1wn")
+texture = ExtResource("6_om0vh")
+
+[node name="white_bg" type="Sprite2D" parent="slot_symbols/slot_3"]
+z_index = -1
+texture = ExtResource("5_3dobk")
 
 [node name="Output" parent="slot_symbols/slot_3" instance=ExtResource("5_om1wn")]
 slot_pos = 2
+
+[node name="slots_bg" type="Sprite2D" parent="."]
+texture = ExtResource("1_oebtt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cgo26")
 
 [node name="SpinTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_om0vh")
+}
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="SpinTimer" to="." method="_on_spin_timer_timeout"]
