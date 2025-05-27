@@ -265,5 +265,5 @@ func search_for_drop(drop_type: Enum.Drop_Type) -> droppable:
 			continue
 		
 		return a
-	print("failed to find drop_type: ", Util.get_drop_type_string(drop_type))
+	#print("failed to find drop_type: ", Util.get_drop_type_string(drop_type))
 	return null

@@ -44,7 +44,6 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		start_spin_timer()
 
 func apply_shake() -> void:
-	print("shake")
 	global_position = initial_pos + Util.random_offset(0.4)
 
 func is_spinning() -> bool:

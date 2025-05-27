@@ -8,8 +8,8 @@ func _ready() -> void:
 	reset_plots()
 	
 func _process(delta: float) -> void:
-	update_plots_to_check_for_drops()
-	pass
+	if Globals.Main.global_timer % 20 == 0:
+		update_plots_to_check_for_drops()
 
 
 func update_plots_to_check_for_drops():
