@@ -141,7 +141,7 @@ shape = SubResource("RectangleShape2D_cgo26")
 
 [node name="SpinTimer" type="Timer" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="SlotsSpinAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_om0vh")
 }

@@ -21,7 +21,9 @@ var slots: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.X, 
 ]
 
+var initial_pos: Vector2 = Vector2.ZERO
 func _ready() -> void:
+	initial_pos = global_position
 	var default_wait_time: float = 3.0
 	var min_spin_time: float = default_wait_time / 2
 	var slot_gap_time = (default_wait_time - min_spin_time) / 3
@@ -31,13 +33,19 @@ func _ready() -> void:
 	update_slot_symbols_images()
 	
 func _process(delta: float) -> void:
+	if is_spinning() and Globals.Main and Globals.Main.global_timer % 4 == 0:
+		apply_shake()
 	pass
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		if is_spinning():
+		if is_spinning(): 
 			return
 		start_spin_timer()
+
+func apply_shake() -> void:
+	print("shake")
+	global_position = initial_pos + Util.random_offset(0.4)
 
 func is_spinning() -> bool:
 	return !$SpinTimer.is_stopped()
@@ -52,10 +60,13 @@ func start_spin_timer() -> void:
 	$slot_symbols/slot_2.visible = false
 	$slot_symbols/slot_3.visible = false
 	$slots_animation.visible = true
-	$AnimationPlayer.play("spin_slots")
+	$SlotsSpinAnimation.play("spin_slots")
 	Util.quick_timer(self, min_spin_time, func():
 		set_next_slot_symbol()
 	)
+
+
+
 
 func set_next_slot_symbol():
 	for i in range(slots.size()):
@@ -87,8 +98,8 @@ func get_random_slot_output() -> Enum.Drop_Type:
 
 func _on_spin_timer_timeout() -> void:
 	$slots_animation.visible = false
-	$AnimationPlayer.stop()
-	pass
+	$SlotsSpinAnimation.stop()
+	global_position = initial_pos
 
 func set_all_slots(symbol: Enum.Drop_Type) -> void:
 	for i in range(slots.size()):

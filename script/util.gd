@@ -111,3 +111,6 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 			return "Deliver_Item"
 		_:
 			return "idk that helper state"
+
+func random_offset(f) -> Vector2:
+	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))
