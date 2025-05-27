@@ -129,7 +129,7 @@ func update_image():
 				$Dirt.texture = PLOT_DRY
 			Enum.Plot_State.Wet:
 				$Dirt.texture = PLOT_WET
-		$Plant.texture = Util.get_plant_img(plot_growth_state, grow_type)
+		$Plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
 		$Plant.offset = Vector2.ZERO
 		if plot_growth_state == Enum.Plot_Growth_State.Full:
 			$Plant.offset = Vector2(0, -8)
