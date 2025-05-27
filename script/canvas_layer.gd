@@ -1,6 +1,8 @@
 extends CanvasLayer
 class_name canvas_layer
 
+@onready var onion_button = $MarginContainer/VBoxContainer/OnionButton
+
 func _ready() -> void:
 	update_money_counter()
 	
@@ -22,6 +24,12 @@ func update_money_counter():
 	$MarginContainer/VBoxContainer/HelperButton.text = "+1 Helper: $" + str(helper_price)
 	$MarginContainer/VBoxContainer/HelperButton.disabled = plot_price > money
 	
+	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
+		onion_button.visible = false
+	else:
+		var onion_price = Prices.get_upgrade_price(Enum.Upgrade_Type.UnlockOnion)
+		onion_button.text = "Unlock Onion: $" + str(onion_price)
+		onion_button.disabled = onion_price > money
 
 func _on_plot_button_pressed() -> void:
 	var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
@@ -42,3 +50,15 @@ func _on_helper_button_pressed() -> void:
 	State.num_helpers += 1
 	Globals.HelpersContainerNode.add_helper()
 	update_money_counter()
+
+
+func _on_onion_button_pressed():
+	print("button press")
+	print(get_node("/root/SceneSwitcher/PlotContainer/SlotMachine"))
+	if !Globals.SlotMachineNodde:
+		return
+	print("buy onion")
+	State.unlocked_slot_outputs.push_back(Enum.Drop_Type.Onion_Seed)
+	Globals.SlotMachineNodde.unlock_drop_type(Enum.Drop_Type.Onion_Seed)
+	onion_button.visible = false
+	

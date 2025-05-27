@@ -142,6 +142,9 @@ func get_drop_type_color(drop_type: Enum.Drop_Type):
 		_:
 			return Color.WHITE
 
+#all seeds look the same
+const SEED = preload("res://img/plants/seed.png")
+
 const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
 const CARROT = preload("res://img/plants/carrot/carrot.png")
 const CARROT_SAPLING_1 = preload("res://img/plants/carrot/carrot_sapling_1.png")
@@ -156,48 +159,44 @@ const ONION_SAPLING_FINAL = preload("res://img/plants/onion/onion_sapling_final.
 
 const PLANT_IMAGES = {
 	Enum.Grow_Types.Carrot: {
-		Enum.Plot_Growth_State.Seed: CARROT_SEED,
+		Enum.Plot_Growth_State.Seed: SEED,
 		Enum.Plot_Growth_State.Partial_1: CARROT_SAPLING_1,
 		Enum.Plot_Growth_State.Partial_2: CARROT_SAPLING_2,
 		Enum.Plot_Growth_State.Full: CARROT_SAPLING_FINAL,
 	},
 	Enum.Grow_Types.Onion: {
-		Enum.Plot_Growth_State.Seed: ONION_SEED,
+		Enum.Plot_Growth_State.Seed: SEED,
 		Enum.Plot_Growth_State.Partial_1: ONION_SAPLING_1,
 		Enum.Plot_Growth_State.Partial_2: ONION_SAPLING_2,
 		Enum.Plot_Growth_State.Full: ONION_SAPLING_FINAL,
 	},
 }
 
+func get_grow_type_string(type: Enum.Grow_Types) -> String:
+	match(type):
+		Enum.Grow_Types.Carrot:
+			return ("Carrot")
+		Enum.Grow_Types.Onion:
+			return ("Onion")
+		_:
+			return "unknown grow type"
+
+func get_growth_state_string(type: Enum.Plot_Growth_State) -> String:
+	match type:
+		Enum.Plot_Growth_State.Seed:
+			return("Seed")
+		Enum.Plot_Growth_State.Partial_1:
+			return("Partial_1")
+		Enum.Plot_Growth_State.Partial_2:
+			return("Partial_2")
+		Enum.Plot_Growth_State.Full:
+			return ("Full")
+		_:
+			return "unknown growth stage"
+	pass
+
 func get_plant_img(growth_state: int, grow_type: int):
-	var t:Texture
+	#print(get_growth_state_string(growth_state), " - ", get_grow_type_string(grow_type))
 	var img = PLANT_IMAGES.get(grow_type, {}).get(growth_state, null)
 	return img
 #
-#func update_image():
-		#match plot_state:
-			#Enum.Plot_State.Dry:
-				#$Dirt.texture = PLOT_DRY
-			#Enum.Plot_State.Wet:
-				#$Dirt.texture = PLOT_WET
-		#$Plant.texture = Util.get_plant_img(plot_growth_state, grow_type)
-		#$Plant.offset = Vector2.ZERO
-		#if plot_growth_state == Enum.Plot_Growth_State.Full:
-			#$Plant.offset = Vector2(0, -8)
-		#
-		#match plot_growth_state:
-			#Enum.Plot_Growth_State.None:
-				#$Plant.texture = null
-				#$Plant.offset = Vector2.ZERO
-			#Enum.Plot_Growth_State.Seed:
-				#$Plant.texture = SEED
-				#$Plant.offset = Vector2.ZERO
-			#Enum.Plot_Growth_State.Partial_1:
-				#$Plant.texture = SAPLING_1
-				#$Plant.offset = Vector2.ZERO
-			#Enum.Plot_Growth_State.Partial_2:
-				#$Plant.texture = SAPLING_2
-				#$Plant.offset = Vector2.ZERO
-			#Enum.Plot_Growth_State.Full:
-				#$Plant.texture = SAPLING_FINAL
-				#$Plant.offset = Vector2(0, -8)

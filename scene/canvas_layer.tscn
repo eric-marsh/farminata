@@ -32,5 +32,10 @@ text = "+1 Plot"
 layout_mode = 2
 text = "+1 Helper"
 
+[node name="OnionButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Unlock Onion"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HelperButton" to="." method="_on_helper_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]

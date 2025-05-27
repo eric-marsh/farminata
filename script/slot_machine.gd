@@ -1,5 +1,5 @@
 extends Area2D
-class_name SlotMachineNode
+class_name slot_machine
 
 @export var paired_plot_grid: plot_grid = null
 
@@ -21,8 +21,10 @@ var slots: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.X, 
 ]
 
+
 var initial_pos: Vector2 = Vector2.ZERO
 func _ready() -> void:
+
 	for o in State.unlocked_slot_outputs:
 		possible_outputs.push_back(o)
 	
@@ -113,3 +115,8 @@ func update_slot_symbols_images() -> void:
 	for i in range($slot_symbols.get_children().size()):
 		$slot_symbols.get_children()[i].texture = Util.get_drop_type_img(slots[i])
 	
+	
+
+func unlock_drop_type(type: Enum.Drop_Type) -> void:
+	if !possible_outputs.has(type):
+		possible_outputs.push_back(type)

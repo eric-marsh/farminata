@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Lucky Farmer"
-run/main_scene="uid://d1obm0h3w6rdi"
+run/main_scene="uid://chhdy2kc4almj"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://img/icon.svg"
 
