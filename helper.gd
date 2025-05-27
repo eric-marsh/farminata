@@ -35,13 +35,11 @@ func _physics_process(delta: float) -> void:
 		Enum.Helper_State.Wander:
 			move_to_target()
 		Enum.Helper_State.Get_Item:
-			if target_droppable == null:
-				set_state(Enum.Helper_State.Idle)
+			#if target_droppable == null:
+				#set_state(Enum.Helper_State.Idle)
 			move_to_target()
 		Enum.Helper_State.Deliver_Item:
 			move_to_target()
-
-
 
 func set_state(s: Enum.Helper_State) -> void:
 	held_item_sprite.visible = false
@@ -59,7 +57,6 @@ func set_state(s: Enum.Helper_State) -> void:
 			clear_job_data()
 			target_pos = Util.random_visible_position()
 		Enum.Helper_State.Get_Item:
-			target_plot = $"../../PlotContainer/PlotGrid".get_plot_for_helper()
 			if target_droppable == null:
 				set_state(Enum.Helper_State.Idle)
 				return
@@ -71,6 +68,7 @@ func set_state(s: Enum.Helper_State) -> void:
 	state = s
 	if Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.text = Util.get_helper_state_string(state)
+		$StateLabel.text += "1" if target_droppable != null else "0"
 	#print(Util.get_helper_state_string(state), " timer: ", state_timer_set)
 		
 

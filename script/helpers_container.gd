@@ -31,11 +31,10 @@ func assign_inactive_helpers_jobs():
 			if !success:
 				print("plot didnt have any needs. returning. need to fix get_plot_for_helper() ")
 				return
-			c.set_state(Enum.Helper_State.Get_Item)
 			return c
 
-#func get_inactive_helper() -> helper:
-	#for c in get_children():
-		#if c.state == Enum.Helper_State.Idle or c.state == Enum.Helper_State.Wander:
-			#return c
-	#return null
+func get_inactive_helper() -> helper:
+	for c in get_children():
+		if c.state == Enum.Helper_State.Idle or c.state == Enum.Helper_State.Wander:
+			return c
+	return null

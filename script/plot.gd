@@ -13,24 +13,38 @@ var assigned_helper_seed = null
 var assigned_helper_water = null
 var assigned_helper_sun = null
 
+var target_seed: droppable = null
+var target_water: droppable = null
+var target_sun: droppable = null
+
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
 	update_image()
 	
 	if !Debug.DEBUG_SHOW_PLOT_STATE:
-		$StateLabel.queue_free()
+		$DebugNodes/StateLabel.queue_free()
 	
 func _process(delta: float) -> void:
-	update_debug_label()
+	if Globals.Main and Globals.Main.global_timer % 24 == 0:
+		update_debug_nodes()
 	pass
 
 
-func update_debug_label():
+func update_debug_nodes():
 	var text = ""
 	text += str("Se: ", "1" if assigned_helper_seed else "0", "\n")
 	text += str("w: ", "1" if assigned_helper_water else "0", "\n")
 	text += str("Su: ", "1" if assigned_helper_sun else "0", "\n")
-	$StateLabel.text = text
+	$DebugNodes/StateLabel.text = text
+	
+	
+	var seed_pos: Vector2 = (target_seed.global_position - global_position) if target_seed != null else size/2 
+	$DebugNodes/SeedLine.set_point_position(1, seed_pos)
+	var water_pos: Vector2 = (target_water.global_position - global_position) if target_water != null else size/2 
+	$DebugNodes/WaterLine.set_point_position(1, water_pos)
+	var sun_pos: Vector2 = (target_sun.global_position - global_position) if target_sun != null else size/2 
+	$DebugNodes/SunLine.set_point_position(1, sun_pos)
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !body.is_in_group("droppable"):
@@ -46,19 +60,36 @@ func apply_droppable(d: droppable):
 			if plot_state == Enum.Plot_State.Dry:
 				plot_state = Enum.Plot_State.Wet
 				d.delete()
+				if is_instance_valid(target_water):
+					target_water.is_being_targeted = false
+				target_water = null
 				if assigned_helper_water:
 					assigned_helper_water.remove_job()
 					assigned_helper_water = null
 		Enum.Drop_Type.Sun:
 			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
+				
 				plot_state = Enum.Plot_State.Dry
 				set_next_growth_state()
+				if assigned_helper_sun:
+					assigned_helper_sun.remove_job()
+					assigned_helper_sun = null
 				d.delete()
+				if is_instance_valid(target_sun):
+					target_sun.is_being_targeted = false
+				target_sun = null
+				
 		Enum.Drop_Type.Carrot_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
 				grow_type = Enum.Grow_Types.Carrot
 				set_next_growth_state()
+				if assigned_helper_seed:
+					assigned_helper_seed.remove_job()
+					assigned_helper_seed = null
 				d.delete()
+				if is_instance_valid(target_seed):
+					target_seed.is_being_targeted = false
+				target_seed = null
 		_:
 			return
 	update_image()
@@ -78,15 +109,6 @@ func set_next_growth_state():
 			plot_growth_state = Enum.Plot_Growth_State.Partial_2
 		Enum.Plot_Growth_State.Partial_2:
 			plot_growth_state = Enum.Plot_Growth_State.Full
-	if assigned_helper_seed:
-		assigned_helper_seed.remove_job()
-		assigned_helper_seed = null
-	if assigned_helper_water:
-		assigned_helper_water.remove_job()
-		assigned_helper_water = null
-	if assigned_helper_sun:
-		assigned_helper_sun.remove_job()
-		assigned_helper_sun = null
 		
 
 const PLOT_WET = preload("res://img/plot/plot_wet.png")
@@ -152,31 +174,65 @@ func is_plot_needing_help():
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return false
 	
-	if assigned_helper_seed == null and plot_growth_state == Enum.Plot_Growth_State.None:
+	if assigned_helper_seed == null and target_seed and plot_growth_state == Enum.Plot_Growth_State.None:
 		return true
 	
-	if assigned_helper_water == null and plot_state == Enum.Plot_State.Dry:
+	if assigned_helper_water == null and target_water and plot_state == Enum.Plot_State.Dry:
 		return true
 	
-	if assigned_helper_sun == null and plot_state == Enum.Plot_State.Wet:
+	if assigned_helper_sun == null and target_sun and plot_state == Enum.Plot_State.Wet:
 		return true
 	
 	return false
 
 
+
+func find_wanted_drops() -> void:
+	if plot_growth_state == Enum.Plot_Growth_State.Full:
+		return
+	if target_seed == null and plot_growth_state == Enum.Plot_Growth_State.None:
+		var seed = search_for_drop(Enum.Drop_Type.Carrot_Seed) 
+		if is_instance_valid(seed):
+			target_seed = seed
+			seed.is_being_targeted = true
+			if Globals.HelpersContainerNode:
+				var h = Globals.HelpersContainerNode.get_inactive_helper()
+				if is_instance_valid(h):
+					assign_job_to_helper(h)
+			
+	if target_water == null and plot_state == Enum.Plot_State.Dry:
+		var water =search_for_drop(Enum.Drop_Type.Water) 
+		if is_instance_valid(water):
+			target_water = water
+			water.is_being_targeted = true
+			if Globals.HelpersContainerNode:
+				var h = Globals.HelpersContainerNode.get_inactive_helper()
+				if is_instance_valid(h):
+					assign_job_to_helper(h)
+	if target_sun == null and plot_state == Enum.Plot_State.Wet:
+		var sun =search_for_drop(Enum.Drop_Type.Sun) 
+		if is_instance_valid(sun):
+			target_sun = sun
+			sun.is_being_targeted = true
+			if Globals.HelpersContainerNode:
+				var h = Globals.HelpersContainerNode.get_inactive_helper()
+				if is_instance_valid(h):
+					assign_job_to_helper(h)
+	return
+
 func assign_job_to_helper(h: helper) -> bool:
 	if !is_plot_needing_help():
 		return false
 	var d: droppable
-	if assigned_helper_seed == null and plot_growth_state == Enum.Plot_Growth_State.None:
-		d = search_for_drop(Enum.Drop_Type.Carrot_Seed) 
-		assigned_helper_seed = null if d == null else h
-	elif assigned_helper_water == null and plot_state == Enum.Plot_State.Dry:
-		d = search_for_drop(Enum.Drop_Type.Water) 
-		assigned_helper_water = null if d == null else h
-	elif assigned_helper_sun == null and plot_state == Enum.Plot_State.Wet:
-		d = search_for_drop(Enum.Drop_Type.Sun) 
-		assigned_helper_sun = null if d == null else h
+	if assigned_helper_seed == null and target_seed and plot_growth_state == Enum.Plot_Growth_State.None:
+		assigned_helper_seed = h
+		d = target_seed
+	elif assigned_helper_water == null and target_water and plot_state == Enum.Plot_State.Dry:
+		assigned_helper_water = h
+		d = target_water
+	elif assigned_helper_sun == null and target_sun and plot_state == Enum.Plot_State.Wet:
+		assigned_helper_sun = h
+		d = target_sun
 	else:
 		print("all helpers are assigned")
 		return false
@@ -184,10 +240,21 @@ func assign_job_to_helper(h: helper) -> bool:
 		return false
 	
 	d.is_being_targeted = true
-	h.target_droppable = d
 	h.target_plot = self
+	h.target_droppable = d
+	h.set_state(Enum.Helper_State.Get_Item)
 	return true
 
+
+func get_target_drop_for_helper(h: helper):
+	if h == assigned_helper_seed:
+		return target_seed
+	if h == assigned_helper_water:
+		return target_water
+	if h == assigned_helper_sun:
+		return target_sun
+	print("not assigned helper")
+	return null
 
 func search_for_drop(drop_type: Enum.Drop_Type) -> droppable:
 	for a in search_area.get_overlapping_bodies():

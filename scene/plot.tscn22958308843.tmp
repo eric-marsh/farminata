@@ -15,6 +15,9 @@ font_size = 8
 
 [node name="Plot" type="Node2D"]
 script = ExtResource("1_xmivb")
+plot_state = null
+plot_growth_state = null
+grow_type = null
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(8, 8)
@@ -49,19 +52,9 @@ label_settings = SubResource("LabelSettings_xmivb")
 horizontal_alignment = 1
 
 [node name="SeedLine" type="Line2D" parent="DebugNodes"]
-points = PackedVector2Array(16, 16, 0, 0)
+points = PackedVector2Array(0, 0)
 width = 3.0
-default_color = Color(1, 0, 0, 1)
-
-[node name="WaterLine" type="Line2D" parent="DebugNodes"]
-points = PackedVector2Array(16, 16, 0, 0)
-width = 3.0
-default_color = Color(0, 0, 1, 1)
-
-[node name="SunLine" type="Line2D" parent="DebugNodes"]
-points = PackedVector2Array(16, 16, 0, 0)
-width = 3.0
-default_color = Color(1, 1, 0, 1)
+default_color = Color(0, 1, 1, 1)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

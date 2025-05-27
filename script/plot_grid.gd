@@ -8,7 +8,14 @@ func _ready() -> void:
 	reset_plots()
 	
 func _process(delta: float) -> void:
+	update_plots_to_check_for_drops()
 	pass
+
+
+func update_plots_to_check_for_drops():
+	for c in get_children():
+		c.find_wanted_drops()
+
 
 const PLOT = preload("res://scene/plot.tscn")
 func reset_plots():

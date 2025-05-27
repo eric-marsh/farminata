@@ -29,6 +29,10 @@ paired_plot_grid = NodePath("../PlotGrid")
 [node name="Droppable" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(306, 98)
 
+[node name="Droppable2" parent="Drops" instance=ExtResource("5_p1hux")]
+position = Vector2(285, 183)
+drop_type = 4
+
 [node name="Helpers" type="Node2D" parent="."]
 script = ExtResource("6_of57s")
 
