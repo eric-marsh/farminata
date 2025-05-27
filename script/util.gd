@@ -24,11 +24,11 @@ func get_random_enum_value(enum_type: Dictionary) -> int:
 
 #enum Drop_Type {X, Water, Sun, Carrot_Seed }
 const BLURRY = preload("res://img/slots/symbols/blurry.png")
-const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
 const SUN = preload("res://img/slots/symbols/sun.png")
 const WATER = preload("res://img/slots/symbols/water.png")
 const X = preload("res://img/slots/symbols/x.png")
-const CARROT = preload("res://img/plants/carrot/carrot.png")
+
+
 
 func get_drop_type_img(symbol: Enum.Drop_Type) -> Texture2D:
 	match(symbol):
@@ -44,6 +44,10 @@ func get_drop_type_img(symbol: Enum.Drop_Type) -> Texture2D:
 			return CARROT_SEED
 		Enum.Drop_Type.Carrot:
 			return CARROT
+		Enum.Drop_Type.Onion_Seed:
+			return ONION_SEED
+		Enum.Drop_Type.Onion:
+			return ONION
 		_:
 			return null
 
@@ -62,6 +66,8 @@ func get_drop_type_string(symbol: Enum.Drop_Type) -> String:
 			return "SUN"
 		Enum.Drop_Type.Carrot_Seed:
 			return "CARROT_SEED"
+		Enum.Drop_Type.Onion_Seed:
+			return "ONION_SEED"
 		_:
 			print("DONT KNOW WHAT THAT WAS", symbol)
 			return ""
@@ -131,7 +137,67 @@ func get_drop_type_color(drop_type: Enum.Drop_Type):
 			return Color.BLUE
 		Enum.Drop_Type.Sun:
 			return Color.YELLOW
-		Enum.Drop_Type.Carrot_Seed:
+		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
 			return Color.BROWN
 		_:
 			return Color.WHITE
+
+const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
+const CARROT = preload("res://img/plants/carrot/carrot.png")
+const CARROT_SAPLING_1 = preload("res://img/plants/carrot/carrot_sapling_1.png")
+const CARROT_SAPLING_2 = preload("res://img/plants/carrot/carrot_sapling_2.png")
+const CARROT_SAPLING_FINAL = preload("res://img/plants/carrot/carrot_sapling_final.png")
+
+const ONION_SEED = preload("res://img/slots/symbols/onion_seed.png")
+const ONION = preload("res://img/plants/onion/onion.png")
+const ONION_SAPLING_1 = preload("res://img/plants/onion/onion_sapling_1.png")
+const ONION_SAPLING_2 = preload("res://img/plants/onion/onion_sapling_2.png")
+const ONION_SAPLING_FINAL = preload("res://img/plants/onion/onion_sapling_final.png")
+
+const PLANT_IMAGES = {
+	Enum.Grow_Types.Carrot: {
+		Enum.Plot_Growth_State.Seed: CARROT_SEED,
+		Enum.Plot_Growth_State.Partial_1: CARROT_SAPLING_1,
+		Enum.Plot_Growth_State.Partial_2: CARROT_SAPLING_2,
+		Enum.Plot_Growth_State.Full: CARROT_SAPLING_FINAL,
+	},
+	Enum.Grow_Types.Onion: {
+		Enum.Plot_Growth_State.Seed: ONION_SEED,
+		Enum.Plot_Growth_State.Partial_1: ONION_SAPLING_1,
+		Enum.Plot_Growth_State.Partial_2: ONION_SAPLING_2,
+		Enum.Plot_Growth_State.Full: ONION_SAPLING_FINAL,
+	},
+}
+
+func get_plant_img(growth_state: int, grow_type: int):
+	var t:Texture
+	var img = PLANT_IMAGES.get(grow_type, {}).get(growth_state, null)
+	return img
+#
+#func update_image():
+		#match plot_state:
+			#Enum.Plot_State.Dry:
+				#$Dirt.texture = PLOT_DRY
+			#Enum.Plot_State.Wet:
+				#$Dirt.texture = PLOT_WET
+		#$Plant.texture = Util.get_plant_img(plot_growth_state, grow_type)
+		#$Plant.offset = Vector2.ZERO
+		#if plot_growth_state == Enum.Plot_Growth_State.Full:
+			#$Plant.offset = Vector2(0, -8)
+		#
+		#match plot_growth_state:
+			#Enum.Plot_Growth_State.None:
+				#$Plant.texture = null
+				#$Plant.offset = Vector2.ZERO
+			#Enum.Plot_Growth_State.Seed:
+				#$Plant.texture = SEED
+				#$Plant.offset = Vector2.ZERO
+			#Enum.Plot_Growth_State.Partial_1:
+				#$Plant.texture = SAPLING_1
+				#$Plant.offset = Vector2.ZERO
+			#Enum.Plot_Growth_State.Partial_2:
+				#$Plant.texture = SAPLING_2
+				#$Plant.offset = Vector2.ZERO
+			#Enum.Plot_Growth_State.Full:
+				#$Plant.texture = SAPLING_FINAL
+				#$Plant.offset = Vector2(0, -8)

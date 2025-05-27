@@ -52,7 +52,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	apply_droppable(body)
 
-#{ Blurry, X, Water, Sun, Carrot_Seed }
 func apply_droppable(d: droppable):
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
@@ -84,18 +83,21 @@ func apply_droppable(d: droppable):
 				target_sun = null
 				Util.create_shrink_animation(Enum.Drop_Type.Sun, global_position + size/2)
 				
-		Enum.Drop_Type.Carrot_Seed:
+		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
-				grow_type = Enum.Grow_Types.Carrot
+				if d.drop_type == Enum.Drop_Type.Carrot_Seed:
+					grow_type = Enum.Grow_Types.Carrot
+				elif d.drop_type == Enum.Drop_Type.Onion_Seed:
+					grow_type = Enum.Grow_Types.Onion
 				set_next_growth_state()
 				if assigned_helper_seed:
 					assigned_helper_seed.remove_job()
 					assigned_helper_seed = null
-				d.delete()
 				if is_instance_valid(target_seed):
 					target_seed.is_being_targeted = false
 				target_seed = null
-				Util.create_shrink_animation(Enum.Drop_Type.Carrot_Seed, global_position + size/2)
+				Util.create_shrink_animation(d.drop_type, global_position + size/2)
+				d.delete()
 		_:
 			return
 	update_image()
@@ -120,36 +122,18 @@ func set_next_growth_state():
 const PLOT_WET = preload("res://img/plot/plot_wet.png")
 const PLOT_DRY = preload("res://img/plot/plot_dry.png")
 const SEED = preload("res://img/plants/seed.png")
-const CARROT = preload("res://img/plants/carrot/carrot.png")
-const SAPLING_1 = preload("res://img/plants/carrot/sapling_1.png")
-const SAPLING_2 = preload("res://img/plants/carrot/sapling_2.png")
-const SAPLING_FINAL = preload("res://img/plants/carrot/sapling_final.png")
 
-#enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
 func update_image():
 		match plot_state:
 			Enum.Plot_State.Dry:
 				$Dirt.texture = PLOT_DRY
 			Enum.Plot_State.Wet:
 				$Dirt.texture = PLOT_WET
+		$Plant.texture = Util.get_plant_img(plot_growth_state, grow_type)
+		$Plant.offset = Vector2.ZERO
+		if plot_growth_state == Enum.Plot_Growth_State.Full:
+			$Plant.offset = Vector2(0, -8)
 		
-		match plot_growth_state:
-			Enum.Plot_Growth_State.None:
-				$Plant.texture = null
-				$Plant.offset = Vector2.ZERO
-			Enum.Plot_Growth_State.Seed:
-				$Plant.texture = SEED
-				$Plant.offset = Vector2.ZERO
-			Enum.Plot_Growth_State.Partial_1:
-				$Plant.texture = SAPLING_1
-				$Plant.offset = Vector2.ZERO
-			Enum.Plot_Growth_State.Partial_2:
-				$Plant.texture = SAPLING_2
-				$Plant.offset = Vector2.ZERO
-			Enum.Plot_Growth_State.Full:
-				$Plant.texture = SAPLING_FINAL
-				$Plant.offset = Vector2(0, -8)
-				
 
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if plot_growth_state != Enum.Plot_Growth_State.Full:
@@ -161,7 +145,6 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			update_image()
 			spawn_produce()
 			
-			
 func spawn_produce():
 	var d
 	match grow_type:
@@ -170,6 +153,10 @@ func spawn_produce():
 		Enum.Grow_Types.Carrot:
 			print("Carrot")
 			d = Util.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
+			d.is_produce = true
+		Enum.Grow_Types.Onion:
+			print("Onion")
+			d = Util.spawn_droppable(Enum.Drop_Type.Onion, global_position, Vector2.ZERO, Vector2.ZERO)
 			d.is_produce = true
 			
 	if Globals.Main and !Globals.Main.is_dragging:

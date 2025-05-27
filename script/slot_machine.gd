@@ -23,6 +23,9 @@ var slots: Array[Enum.Drop_Type] = [
 
 var initial_pos: Vector2 = Vector2.ZERO
 func _ready() -> void:
+	for o in State.unlocked_slot_outputs:
+		possible_outputs.push_back(o)
+	
 	initial_pos = global_position
 	var default_wait_time: float = 3.0
 	var min_spin_time: float = default_wait_time / 2
@@ -31,6 +34,8 @@ func _ready() -> void:
 	$SpinTimer.one_shot = true
 	$SpinTimer.wait_time = default_wait_time
 	update_slot_symbols_images()
+	
+	
 	
 func _process(delta: float) -> void:
 	if is_spinning() and Globals.Main and Globals.Main.global_timer % 4 == 0:

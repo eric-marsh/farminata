@@ -5,3 +5,5 @@ var money:int = 10000
 
 var num_plots:int = 1
 var num_helpers:int = 0
+
+var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
