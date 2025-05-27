@@ -27,6 +27,6 @@ func trigger_output(drop_type: Enum.Drop_Type, target_position: Vector2) -> void
 			rand_impulse_dir = Util.rng.randf_range(min_range, max_range)
 	
 	var impulse = output_impulse + Vector2(rand_impulse_dir, -55.9)
-	Util.spawn_droppable(drop_type, global_position, target_position, impulse)
+	DropUtil.spawn_droppable(drop_type, global_position, target_position, impulse)
 	
 	

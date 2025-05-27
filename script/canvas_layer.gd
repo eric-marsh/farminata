@@ -53,11 +53,8 @@ func _on_helper_button_pressed() -> void:
 
 
 func _on_onion_button_pressed():
-	print("button press")
-	print(get_node("/root/SceneSwitcher/PlotContainer/SlotMachine"))
 	if !Globals.SlotMachineNodde:
 		return
-	print("buy onion")
 	State.unlocked_slot_outputs.push_back(Enum.Drop_Type.Onion_Seed)
 	Globals.SlotMachineNodde.unlock_drop_type(Enum.Drop_Type.Onion_Seed)
 	onion_button.visible = false

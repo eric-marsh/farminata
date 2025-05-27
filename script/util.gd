@@ -22,70 +22,6 @@ func get_random_enum_value(enum_type: Dictionary) -> int:
 	var values = enum_type.values()
 	return values[randi() % values.size()]
 
-#enum Drop_Type {X, Water, Sun, Carrot_Seed }
-const BLURRY = preload("res://img/slots/symbols/blurry.png")
-const SUN = preload("res://img/slots/symbols/sun.png")
-const WATER = preload("res://img/slots/symbols/water.png")
-const X = preload("res://img/slots/symbols/x.png")
-
-
-
-func get_drop_type_img(symbol: Enum.Drop_Type) -> Texture2D:
-	match(symbol):
-		Enum.Drop_Type.Blurry:
-			return BLURRY
-		Enum.Drop_Type.X:
-			return X
-		Enum.Drop_Type.Water:
-			return WATER
-		Enum.Drop_Type.Sun:
-			return SUN
-		Enum.Drop_Type.Carrot_Seed:
-			return CARROT_SEED
-		Enum.Drop_Type.Carrot:
-			return CARROT
-		Enum.Drop_Type.Onion_Seed:
-			return ONION_SEED
-		Enum.Drop_Type.Onion:
-			return ONION
-		_:
-			return null
-
-func is_valid_droppable_type(symbol: Enum.Drop_Type) -> bool:
-	return symbol != Enum.Drop_Type.X and symbol != Enum.Drop_Type.Blurry
-
-func get_drop_type_string(symbol: Enum.Drop_Type) -> String:
-	match(symbol):
-		Enum.Drop_Type.Blurry:
-			return "BLURRY"
-		Enum.Drop_Type.X:
-			return "X"
-		Enum.Drop_Type.Water:
-			return "WATER"
-		Enum.Drop_Type.Sun:
-			return "SUN"
-		Enum.Drop_Type.Carrot_Seed:
-			return "CARROT_SEED"
-		Enum.Drop_Type.Onion_Seed:
-			return "ONION_SEED"
-		_:
-			print("DONT KNOW WHAT THAT WAS", symbol)
-			return ""
-
-
-const DROPPABLE = preload("res://scene/droppable.tscn")
-
-func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
-	var d = DROPPABLE.instantiate() as droppable
-	d.drop_type = drop_type
-	d.global_position = position
-	d.target_position = target_position
-	if impulse != Vector2.ZERO:
-		d.apply_central_impulse(impulse)
-	if Globals.DropsNode:
-		Globals.DropsNode.add_child(d)
-	return d
-
 func get_enum_direction(dir: Vector2) -> Enum.Dir:
 	if abs(dir.x) > abs(dir.y):
 		return Enum.Dir.Right if dir.x > 0 else Enum.Dir.Left
@@ -104,7 +40,6 @@ func random_visible_position() -> Vector2:
 	return Vector2(x, y)
 
 
-#enum Helper_State { Idle, Wander, Get_Item, Deliver_Item }
 func get_helper_state_string(type: Enum.Helper_State) -> String:
 	match(type):
 		Enum.Helper_State.Idle:
@@ -121,38 +56,12 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 func random_offset(f) -> Vector2:
 	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))
 
-const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
-func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):
-	if !Globals.AnimationsContainer:
-		return
-	var a = APPLY_DROPPABLE_ANIMATION.instantiate() 
-	a.drop_type = drop_type
-	a.global_position = pos
-	Globals.AnimationsContainer.add_child(a)
-	
 
-func get_drop_type_color(drop_type: Enum.Drop_Type):
-	match(drop_type):
-		Enum.Drop_Type.Water:
-			return Color.BLUE
-		Enum.Drop_Type.Sun:
-			return Color.YELLOW
-		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
-			return Color.BROWN
-		_:
-			return Color.WHITE
 
-#all seeds look the same
-const SEED = preload("res://img/plants/seed.png")
-
-const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
-const CARROT = preload("res://img/plants/carrot/carrot.png")
+const SEED = preload("res://img/plants/seed.png") #all seeds look the same
 const CARROT_SAPLING_1 = preload("res://img/plants/carrot/carrot_sapling_1.png")
 const CARROT_SAPLING_2 = preload("res://img/plants/carrot/carrot_sapling_2.png")
 const CARROT_SAPLING_FINAL = preload("res://img/plants/carrot/carrot_sapling_final.png")
-
-const ONION_SEED = preload("res://img/slots/symbols/onion_seed.png")
-const ONION = preload("res://img/plants/onion/onion.png")
 const ONION_SAPLING_1 = preload("res://img/plants/onion/onion_sapling_1.png")
 const ONION_SAPLING_2 = preload("res://img/plants/onion/onion_sapling_2.png")
 const ONION_SAPLING_FINAL = preload("res://img/plants/onion/onion_sapling_final.png")

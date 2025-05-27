@@ -68,7 +68,7 @@ func apply_droppable(d: droppable):
 				if assigned_helper_water:
 					assigned_helper_water.remove_job()
 					assigned_helper_water = null
-				Util.create_shrink_animation(Enum.Drop_Type.Water, global_position + size/2)
+				DropUtil.create_shrink_animation(Enum.Drop_Type.Water, global_position + size/2)
 		Enum.Drop_Type.Sun:
 			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
 				
@@ -81,7 +81,7 @@ func apply_droppable(d: droppable):
 				if is_instance_valid(target_sun):
 					target_sun.is_being_targeted = false
 				target_sun = null
-				Util.create_shrink_animation(Enum.Drop_Type.Sun, global_position + size/2)
+				DropUtil.create_shrink_animation(Enum.Drop_Type.Sun, global_position + size/2)
 				
 		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
 			if plot_growth_state == Enum.Plot_Growth_State.None:
@@ -96,7 +96,7 @@ func apply_droppable(d: droppable):
 				if is_instance_valid(target_seed):
 					target_seed.is_being_targeted = false
 				target_seed = null
-				Util.create_shrink_animation(d.drop_type, global_position + size/2)
+				DropUtil.create_shrink_animation(d.drop_type, global_position + size/2)
 				d.delete()
 		_:
 			return
@@ -151,12 +151,10 @@ func spawn_produce():
 		Enum.Grow_Types.None:
 			return
 		Enum.Grow_Types.Carrot:
-			print("Carrot")
-			d = Util.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
+			d = DropUtil.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
 			d.is_produce = true
 		Enum.Grow_Types.Onion:
-			print("Onion")
-			d = Util.spawn_droppable(Enum.Drop_Type.Onion, global_position, Vector2.ZERO, Vector2.ZERO)
+			d = DropUtil.spawn_droppable(Enum.Drop_Type.Onion, global_position, Vector2.ZERO, Vector2.ZERO)
 			d.is_produce = true
 			
 	if Globals.Main and !Globals.Main.is_dragging:
@@ -257,5 +255,5 @@ func search_for_drop(drop_type: Enum.Drop_Type) -> droppable:
 			continue
 		
 		return a
-	#print("failed to find drop_type: ", Util.get_drop_type_string(drop_type))
+	#print("failed to find drop_type: ", DropUtil.get_drop_type_string(drop_type))
 	return null

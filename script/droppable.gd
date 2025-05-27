@@ -21,11 +21,10 @@ var min_fall_amount = 50.0
 var start_pos: Vector2
 func _ready():
 	await get_tree().create_timer(0.0001).timeout
-	$Sprite2D.texture = Util.get_drop_type_img(drop_type)
+	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)
 	start_pos = global_position
 	
 	if is_produce:
-		print("is produce")
 		Util.quick_timer(self,0.2, func():
 			# Todo: Money animation
 			Globals.Main.change_money(Prices.get_drop_price(drop_type))

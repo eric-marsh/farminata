@@ -87,7 +87,7 @@ func move_to_target():
 			return
 		if state == Enum.Helper_State.Deliver_Item and target_plot:
 			#spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
-			Util.spawn_droppable(held_item_type, target_plot.global_position + target_plot.size / 2, Vector2.ZERO)
+			DropUtil.spawn_droppable(held_item_type, target_plot.global_position + target_plot.size / 2, Vector2.ZERO)
 			remove_job()
 			return
 		set_state(Enum.Helper_State.Idle)

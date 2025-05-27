@@ -7,8 +7,8 @@ var drop_type: Enum.Drop_Type
 @onready var particle: CPUParticles2D = $CPUParticles2D 
 
 func _ready():
-	sprite.texture = Util.get_drop_type_img(drop_type)
-	var c = Util.get_drop_type_color(drop_type)
+	sprite.texture = DropUtil.get_drop_type_img(drop_type)
+	var c = DropUtil.get_drop_type_color(drop_type)
 	particle.color = c.lightened(0.5)
 	particle.one_shot = true
 	Util.quick_timer(self, 0.4, func():

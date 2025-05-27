@@ -88,7 +88,7 @@ func set_next_slot_symbol():
 			
 			
 			# spawn output
-			if Util.is_valid_droppable_type(output_type):
+			if DropUtil.is_valid_droppable_type(output_type):
 				$slot_symbols.get_children()[i].get_node("Output").trigger_output(output_type, target_pos)
 			
 			if i < slots.size() - 1:
@@ -113,7 +113,7 @@ func set_all_slots(symbol: Enum.Drop_Type) -> void:
 
 func update_slot_symbols_images() -> void:
 	for i in range($slot_symbols.get_children().size()):
-		$slot_symbols.get_children()[i].texture = Util.get_drop_type_img(slots[i])
+		$slot_symbols.get_children()[i].texture = DropUtil.get_drop_type_img(slots[i])
 	
 	
 
