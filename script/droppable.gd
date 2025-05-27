@@ -58,9 +58,11 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 				return
 			is_dragging = true
 			Globals.Main.is_dragging = true
+			set_collision_layer_value(1, false)
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			is_dragging = false
 			Globals.Main.is_dragging = false
+			set_collision_layer_value(1, true)
 
 
 func delete():
