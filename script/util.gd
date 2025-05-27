@@ -116,12 +116,22 @@ func random_offset(f) -> Vector2:
 	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))
 
 const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
-func create_shrink_animation(texture: Texture, pos: Vector2):
+func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):
 	if !Globals.AnimationsContainer:
 		return
-	var a = APPLY_DROPPABLE_ANIMATION.instantiate()
-	a.get_node("Sprite2D").texture = texture
+	var a = APPLY_DROPPABLE_ANIMATION.instantiate() 
+	a.drop_type = drop_type
 	a.global_position = pos
 	Globals.AnimationsContainer.add_child(a)
 	
-	
+
+func get_drop_type_color(drop_type: Enum.Drop_Type):
+	match(drop_type):
+		Enum.Drop_Type.Water:
+			return Color.BLUE
+		Enum.Drop_Type.Sun:
+			return Color.YELLOW
+		Enum.Drop_Type.Carrot_Seed:
+			return Color.BROWN
+		_:
+			return Color.WHITE

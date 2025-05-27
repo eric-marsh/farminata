@@ -1,9 +1,20 @@
 extends Node2D
 class_name apply_droppable_animation
 
+var drop_type: Enum.Drop_Type
+
+@onready var sprite: Sprite2D = $Sprite2D 
+@onready var particle: CPUParticles2D = $CPUParticles2D 
+
 func _ready():
-	pass
+	sprite.texture = Util.get_drop_type_img(drop_type)
+	var c = Util.get_drop_type_color(drop_type)
+	particle.color = c.lightened(0.5)
+	particle.one_shot = true
+	Util.quick_timer(self, 0.4, func():
+		particle.emitting = true
+	)
 	
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+
+func _on_cpu_particles_2d_finished() -> void:
 	queue_free()
-	pass # Replace with function body.
