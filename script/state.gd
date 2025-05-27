@@ -1,5 +1,4 @@
 extends Node
-class_name state
 
 var money:int = 10000
 

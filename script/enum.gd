@@ -1,5 +1,4 @@
 extends Node
-class_name enum_node
 
 enum Drop_Type { Blurry, X, Water, Sun, Carrot_Seed, Carrot, Onion_Seed, Onion }
 enum Plot_State { Dry, Wet }

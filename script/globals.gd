@@ -1,5 +1,4 @@
 extends Node
-class_name GlobalsNode
 
 var Main: MainNode = null
 var Audio: Node2D = null
