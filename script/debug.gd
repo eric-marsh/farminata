@@ -1,6 +1,8 @@
 extends Node
 
 
+var DISABLE_SLOT_MACHINE:bool = true
+
 var DEBUG_ALWAYS_MUTE:bool = true
 
 var DEBUG_ENABLE_DEBUGGING_KEYS:bool = true

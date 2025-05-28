@@ -24,6 +24,8 @@ var slots: Array[Enum.Drop_Type] = [
 
 var initial_pos: Vector2 = Vector2.ZERO
 func _ready() -> void:
+	if Debug.DISABLE_SLOT_MACHINE:
+		visible=false
 
 	for o in State.unlocked_slot_outputs:
 		possible_outputs.push_back(o)
