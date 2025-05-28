@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu2tfbnykray1"]
+[gd_scene load_steps=3 format=3 uid="uid://cu2tfbnykray1"]
+
+[ext_resource type="Script" uid="uid://ceeprawrgdffh" path="res://scene/explosion_particle.gd" id="1_vhlo5"]
 
 [sub_resource type="Curve" id="Curve_hnh5b"]
 _limits = [1.0, 4.0, 0.0, 1.0]
@@ -6,9 +8,11 @@ _data = [Vector2(0, 1.03198), 0.0, 0.0, 0, 0, Vector2(1, 4), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="CPUParticles2D" type="CPUParticles2D"]
+z_index = 6
 emitting = false
 amount = 12
 lifetime = 0.5
+one_shot = true
 speed_scale = 0.6
 explosiveness = 1.0
 randomness = 1.0
@@ -24,3 +28,6 @@ damping_max = 50.0
 angle_min = -160.0
 angle_max = 160.0
 scale_amount_curve = SubResource("Curve_hnh5b")
+script = ExtResource("1_vhlo5")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

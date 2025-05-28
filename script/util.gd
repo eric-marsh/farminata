@@ -61,7 +61,7 @@ func create_explosion_particle(pos: Vector2, color: Color) -> void:
 	var p = EXPLOSION_PARTICLE.instantiate() as CPUParticles2D
 	p.global_position =pos
 	p.color = color.lightened(0.5)
-	p.connect("finished", func(): queue_free())
-	Globals.AnimationsContainer.add_child(p)
+	p.connect("finished", func(): p.queue_free())
 	p.emitting = true
+	Globals.AnimationsContainer.add_child(p)
 	

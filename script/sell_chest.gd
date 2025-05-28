@@ -19,7 +19,8 @@ func _process(delta: float) -> void:
 
 func sell_droppable(d: droppable):
 	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
-	#Util.create_explosion_particle(d.global_position, Color.YELLOW)
+	print(Util)
+	Util.create_explosion_particle(d.global_position, Color.YELLOW)
 	d.delete()
 
 func _on_body_entered(body: Node2D) -> void:

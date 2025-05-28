@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://6ru4hvg8mx6l"]
+[gd_scene load_steps=6 format=3 uid="uid://6ru4hvg8mx6l"]
 
 [ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/slots/symbols/water.png" id="1_em725"]
 [ext_resource type="Script" uid="uid://bqef84mve7fv7" path="res://script/apply_droppable_animation.gd" id="1_hnh5b"]
-[ext_resource type="PackedScene" uid="uid://cu2tfbnykray1" path="res://scene/explosion_particle.tscn" id="2_hctvv"]
 
 [sub_resource type="Animation" id="Animation_hctvv"]
 length = 0.001
@@ -68,9 +67,6 @@ _data = {
 [node name="ApplyDroppableAnimation" type="Node2D"]
 script = ExtResource("1_hnh5b")
 
-[node name="ExplosionParticle" parent="." instance=ExtResource("2_hctvv")]
-emitting = false
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_em725")
 
@@ -80,5 +76,3 @@ libraries = {
 }
 autoplay = "shrink_droppable"
 speed_scale = 1.5
-
-[connection signal="finished" from="ExplosionParticle" to="." method="_on_explosion_particle_finished"]
