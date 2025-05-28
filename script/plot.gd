@@ -136,7 +136,9 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 			reset_growth_state()
 			update_image()
 			spawn_produce()
-			
+
+
+
 func spawn_produce():
 	var d
 	match grow_type:

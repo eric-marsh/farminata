@@ -3,6 +3,8 @@ extends Node
 
 var DISABLE_SLOT_MACHINE:bool = true
 
+var ALL_FULL_CROPS_AT_START:bool = true
+
 var DEBUG_ALWAYS_MUTE:bool = true
 
 var DEBUG_ENABLE_DEBUGGING_KEYS:bool = true

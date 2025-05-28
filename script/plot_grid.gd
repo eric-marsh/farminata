@@ -7,6 +7,12 @@ var plots: Array[plot] = []
 func _ready() -> void:
 	reset_plots()
 	
+	if Debug.ALL_FULL_CROPS_AT_START:
+		for p in plots:
+			p.plot_growth_state = Enum.Plot_Growth_State.Full
+			p.grow_type = Enum.Grow_Type.Carrot
+			p.update_image()
+	
 func _process(_delta: float) -> void:
 	if Globals.Main.global_timer % 20 == 0:
 		update_plots_to_check_for_drops()
