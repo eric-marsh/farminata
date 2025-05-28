@@ -3,6 +3,7 @@ class_name canvas_layer
 
 @onready var onion_button = $MarginContainer/VBoxContainer/OnionButton
 
+
 func _ready() -> void:
 	update_money_counter()
 	

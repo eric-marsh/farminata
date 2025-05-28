@@ -20,9 +20,8 @@ func update_plots_to_check_for_drops():
 
 const PLOT = preload("res://scene/plot.tscn")
 func reset_plots():
-	for c in get_children():
-		if c is plot:
-			plots.push_back(c)
+	plots.clear()
+			
 	for c in get_children():
 		if c is plot:
 			c.queue_free()
@@ -45,44 +44,11 @@ func add_plot():
 	var terrain_set: int = 0
 	tile_map_layer.set_cell(square_pos, source_id, Vector2i(1, 1), 0)
 	tile_map_layer.set_cells_terrain_connect([square_pos], terrain_set, terrain_set)
-	
+
+
+
 func get_square_position(index: int) -> Vector2:
-	var num_columns = ceil(sqrt(num_plots))
-	match index:
-		0: 
-			return Vector2(0, 0)
-		1: 
-			return Vector2(1, 0)
-		2: 
-			return Vector2(0, 1)
-		3: 
-			return Vector2(1, 1)
-		4: 
-			return Vector2(2, 0)
-		5: 
-			return Vector2(2, 1)
-		6: 
-			return Vector2(0, 2)
-		7: 
-			return Vector2(1, 2)
-		8: 
-			return Vector2(2, 2)
-		9: 
-			return Vector2(3, 0)
-		10: 
-			return Vector2(3, 1)
-		11: 
-			return Vector2(3, 2)
-		12: 
-			return Vector2(0, 3)
-		13: 
-			return Vector2(1, 3)
-		14: 
-			return Vector2(2, 3)
-		15: 
-			return Vector2(3, 3)
-		_:
-			return Vector2.ZERO
+	return square_position_array[index] if square_position_array.size() > index else Vector2.ZERO
 
 func get_plot_for_helper():
 	for c in get_children():
@@ -95,3 +61,43 @@ func get_plot_for_helper():
 func get_random_plot_position() -> Vector2:
 	var p = plots.pick_random()
 	return p.global_position + p.size / 2
+
+
+
+var square_position_array: Array[Vector2] = [
+	Vector2(0, 0),
+	Vector2(1, 0),
+	Vector2(-1,0),
+	Vector2(0, 1),
+	Vector2(1, 1),
+	Vector2(-1, 1),
+	Vector2(0, 2),
+	Vector2(1, 2),
+	Vector2(-1, 2),
+	Vector2(-2, 1),
+	Vector2(-2, 0),
+	Vector2(-2, 2),
+	Vector2(2, 1),
+	Vector2(2, 0),
+	Vector2(2, 2),
+	Vector2(0, 3),
+	Vector2(1, 3),
+	Vector2(-1, 3),
+	Vector2(2, 3),
+	Vector2(-2, 3),
+	Vector2(0, 4),
+	Vector2(1, 4),
+	Vector2(-1, 4),
+	Vector2(2, 4),
+	Vector2(-2, 4),
+	Vector2(-3, 2),
+	Vector2(3, 2),
+	Vector2(-3, 1),
+	Vector2(3, 1),
+	Vector2(-3, 3),
+	Vector2(3, 3),
+	Vector2(-3, 0),
+	Vector2(3, 0),
+	Vector2(-3, 4),
+	Vector2(3, 4),
+]

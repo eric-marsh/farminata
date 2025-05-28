@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=11 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="5_p1hux"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
+[ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
@@ -21,38 +22,39 @@ script = ExtResource("2_v0l8b")
 position = Vector2(-320, -180)
 
 [node name="PlotContainer" type="Node2D" parent="."]
-position = Vector2(138, 119)
+position = Vector2(320, 180)
 
 [node name="SlotMachine" parent="PlotContainer" node_paths=PackedStringArray("paired_plot_grid") instance=ExtResource("4_brvut")]
+visible = false
 position = Vector2(44, -32)
 paired_plot_grid = NodePath("../PlotGrid")
 
 [node name="PlotGrid" parent="PlotContainer" instance=ExtResource("4_0ha60")]
-position = Vector2(1, 1)
+position = Vector2(-16, -16)
 
 [node name="Drops" type="Node2D" parent="."]
 
 [node name="Droppable" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(239, 120)
+position = Vector2(581, 187)
 
 [node name="Droppable2" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(241, 153)
+position = Vector2(583, 220)
 drop_type = 3
 
 [node name="Droppable3" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(211, 189)
+position = Vector2(553, 256)
 drop_type = 4
 
 [node name="Droppable4" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(257, 224)
+position = Vector2(599, 291)
 drop_type = 5
 
 [node name="Droppable5" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(257, 224)
+position = Vector2(599, 291)
 drop_type = 5
 
 [node name="Droppable6" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(257, 224)
+position = Vector2(599, 291)
 drop_type = 5
 
 [node name="Helpers" type="Node2D" parent="."]
@@ -65,3 +67,6 @@ script = ExtResource("6_of57s")
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
 position = Vector2(41, 320)
 scale = Vector2(4, 4)
+
+[node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
+position = Vector2(323, 75)

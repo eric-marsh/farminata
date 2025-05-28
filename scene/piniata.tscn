@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0isrep8hx4u6"]
+
+[ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
+
+[node name="Piniata" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ddpin")

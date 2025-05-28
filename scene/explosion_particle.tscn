@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu2tfbnykray1"]
 
-[ext_resource type="Script" uid="uid://ceeprawrgdffh" path="res://scene/explosion_particle.gd" id="1_vhlo5"]
+[ext_resource type="Script" uid="uid://ceeprawrgdffh" path="res://script/explosion_particle.gd" id="1_vhlo5"]
 
 [sub_resource type="Curve" id="Curve_hnh5b"]
 _limits = [1.0, 4.0, 0.0, 1.0]

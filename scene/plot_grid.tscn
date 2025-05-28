@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8nkjd470xyme"]
+[gd_scene load_steps=4 format=3 uid="uid://b8nkjd470xyme"]
 
 [ext_resource type="Script" uid="uid://caodt7wtk6rf0" path="res://script/plot_grid.gd" id="1_iwkn7"]
+[ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="2_315pt"]
 [ext_resource type="TileSet" uid="uid://dr8cfe3biaoab" path="res://main_tileset.tres" id="3_315pt"]
 
 [node name="PlotGrid" type="Node2D"]
@@ -8,3 +9,14 @@ script = ExtResource("1_iwkn7")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = ExtResource("3_315pt")
+
+[node name="Plot" parent="." instance=ExtResource("2_315pt")]
+
+[node name="Plot2" parent="." instance=ExtResource("2_315pt")]
+position = Vector2(32, 0)
+
+[node name="Plot3" parent="." instance=ExtResource("2_315pt")]
+position = Vector2(0, 32)
+
+[node name="Plot4" parent="." instance=ExtResource("2_315pt")]
+position = Vector2(32, 32)

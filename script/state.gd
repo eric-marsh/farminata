@@ -1,6 +1,6 @@
 extends Node
 
-var money:int = 10000
+var money:int = 100000000
 
 var num_plots:int = 1
 var num_helpers:int = 0
