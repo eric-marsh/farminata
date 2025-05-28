@@ -56,6 +56,9 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 func random_offset(f) -> Vector2:
 	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))
 
+func random_chance(fraction: float) -> bool:
+	return randf() < clamp(fraction, 0.0, 1.0)
+
 const EXPLOSION_PARTICLE = preload("res://scene/explosion_particle.tscn")
 func create_explosion_particle(pos: Vector2, color: Color) -> void:
 	var p = EXPLOSION_PARTICLE.instantiate() as CPUParticles2D

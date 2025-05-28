@@ -25,12 +25,17 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			hit_piniata()
 
 
+var chance_of_output: float = 0.1
+
 func hit_piniata(strength: float = 1):
-	var drop_type: Enum.Drop_Type = get_random_output()
-	$Output.trigger_output(drop_type, Vector2.ZERO)
-	hp -= strength
 	animation_player_pulse.stop(true)
 	animation_player_pulse.play("pulse")
+	hp -= strength
+	
+	if Util.random_chance(chance_of_output):
+		var drop_type: Enum.Drop_Type = get_random_output()
+		$Output.trigger_output(drop_type, Vector2.ZERO)
+	
 	
 func get_random_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
