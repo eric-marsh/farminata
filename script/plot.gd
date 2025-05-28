@@ -25,7 +25,7 @@ func _ready() -> void:
 		
 		$DebugNodes.queue_free()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Debug.DEBUG_SHOW_PLOT_STATE and Globals.Main and Globals.Main.global_timer % 24 == 0:
 		update_debug_nodes()
 	pass
@@ -57,7 +57,6 @@ func apply_droppable(d: droppable):
 		return
 
 	var drop_type = d.drop_type
-	var texture = d.get_node("Sprite2D").texture
 	match drop_type:
 		Enum.Drop_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:
@@ -87,12 +86,12 @@ func apply_droppable(d: droppable):
 	update_image()
 
 
-func cleanup_drop(d: droppable, drop_type, target, helper):
+func cleanup_drop(d: droppable, drop_type: Enum.Drop_Type, target: droppable, h:helper) -> void:
 	d.delete()
 	if is_instance_valid(target):
 		target.is_being_targeted = false
-	if helper:
-		helper.remove_job()
+	if h:
+		h.remove_job()
 	DropUtil.create_shrink_animation(drop_type, global_position + size / 2)
 	
 	
@@ -128,7 +127,7 @@ func update_image():
 			$Plant.offset = Vector2(0, -8)
 		
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if plot_growth_state != Enum.Plot_Growth_State.Full:
 		return
 		
@@ -173,10 +172,10 @@ func find_wanted_drops() -> void:
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
 	if target_seed == null and plot_growth_state == Enum.Plot_Growth_State.None:
-		var seed = search_for_drop(Enum.Drop_Type.Carrot_Seed) 
-		if is_instance_valid(seed):
-			target_seed = seed
-			seed.is_being_targeted = true
+		var s = search_for_drop(Enum.Drop_Type.Carrot_Seed) 
+		if is_instance_valid(s):
+			target_seed = s
+			s.is_being_targeted = true
 			if Globals.HelpersContainerNode:
 				var h = Globals.HelpersContainerNode.get_inactive_helper()
 				if is_instance_valid(h):

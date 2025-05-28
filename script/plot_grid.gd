@@ -7,7 +7,7 @@ var plots: Array[plot] = []
 func _ready() -> void:
 	reset_plots()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Globals.Main.global_timer % 20 == 0:
 		update_plots_to_check_for_drops()
 

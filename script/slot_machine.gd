@@ -31,9 +31,6 @@ func _ready() -> void:
 		possible_outputs.push_back(o)
 	
 	initial_pos = global_position
-	var default_wait_time: float = 3.0
-	var min_spin_time: float = default_wait_time / 2
-	var slot_gap_time = (default_wait_time - min_spin_time) / 3
 	
 	$SpinTimer.one_shot = true
 	$SpinTimer.wait_time = default_wait_time
@@ -41,12 +38,12 @@ func _ready() -> void:
 	
 	
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_spinning() and Globals.Main and Globals.Main.global_timer % 4 == 0:
 		apply_shake()
 	pass
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		if is_spinning(): 
 			return

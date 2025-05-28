@@ -28,7 +28,7 @@ func _ready() -> void:
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	match(state):
 		Enum.Helper_State.Idle:
 			pass

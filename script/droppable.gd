@@ -54,7 +54,7 @@ func update_shadow():
 	$Sprite2D/Shadow.global_position = $Sprite2D.global_position + Vector2(0, 1)
 
 var dragging_scale:Vector2 = Vector2.ONE * 1.2
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if !Globals.Main:
 		return
 		

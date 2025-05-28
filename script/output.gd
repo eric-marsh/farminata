@@ -14,7 +14,7 @@ var max_range:int = 128
 func _ready() -> void:
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func trigger_output(drop_type: Enum.Drop_Type, target_position: Vector2) -> void:

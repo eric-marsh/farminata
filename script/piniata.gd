@@ -15,11 +15,11 @@ func _ready() -> void:
 	pass
 	
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			hit_piniata()
@@ -27,7 +27,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 
 var chance_of_output: float = 0.1
 
-func hit_piniata(strength: float = 1):
+func hit_piniata(strength: int = 1):
 	animation_player_pulse.stop(true)
 	animation_player_pulse.play("pulse")
 	hp -= strength

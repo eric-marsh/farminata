@@ -9,7 +9,7 @@ var droppable_to_sell: droppable = null
 func _ready() -> void:
 	pass
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !is_opened and animated_sprite.frame == 7:
 		animated_sprite.play_backwards("default")
 	

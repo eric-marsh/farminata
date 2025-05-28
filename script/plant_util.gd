@@ -45,7 +45,6 @@ func get_growth_state_string(type: Enum.Plot_Growth_State) -> String:
 			return ("Full")
 		_:
 			return "unknown growth stage"
-	pass
 
 func get_plant_img(growth_state: int, grow_type: int):
 	var img = PLANT_IMAGES.get(grow_type, {}).get(growth_state, null)
