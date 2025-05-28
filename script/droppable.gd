@@ -10,27 +10,32 @@ var is_being_targeted: bool = false
 var is_dragging: bool = false
 var is_produce: bool = false
 
+@export var start_static:bool = false
 
 var upwards_speed: float = 100.0
 var velocity: Vector2
 var moving_to_target: bool = false
 var time_passed: float = 0.0
 
-var min_fall_amount = 500.0
+var min_fall_amount = 50.0
 
 var start_pos: Vector2
 
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
 func _ready():
+	start_pos = global_position
 	await get_tree().create_timer(0.0001).timeout
+	collision_shape.disabled = true
 	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)
 	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
-	start_pos = global_position
-	is_produce = DropUtil.is_produce(drop_type)
 	
+	is_produce = DropUtil.is_produce(drop_type)
 
 func _physics_process(delta):
 	update_shadow()
-	if global_position.y > start_pos.y + min_fall_amount:
+	if start_static or global_position.y > start_pos.y + min_fall_amount:
+		collision_shape.disabled = false
 		gravity_scale = 0.0
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0.0

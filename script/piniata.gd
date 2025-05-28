@@ -23,7 +23,6 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			hit_piniata()
 
-
 func hit_piniata(strength: float = 1):
 	var drop_type: Enum.Drop_Type = get_random_output()
 	$Output.trigger_output(drop_type, Vector2.ZERO)

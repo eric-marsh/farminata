@@ -35,26 +35,32 @@ position = Vector2(-16, -16)
 
 [node name="Droppable" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(581, 187)
+start_static = true
 
 [node name="Droppable2" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(583, 220)
 drop_type = 3
+start_static = true
 
 [node name="Droppable3" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(553, 256)
 drop_type = 4
+start_static = true
 
 [node name="Droppable4" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(599, 291)
 drop_type = 5
+start_static = true
 
 [node name="Droppable5" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(599, 291)
 drop_type = 5
+start_static = true
 
 [node name="Droppable6" parent="Drops" instance=ExtResource("5_p1hux")]
 position = Vector2(599, 291)
 drop_type = 5
+start_static = true
 
 [node name="Helpers" type="Node2D" parent="."]
 script = ExtResource("6_of57s")

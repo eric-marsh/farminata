@@ -19,5 +19,6 @@ shape = SubResource("RectangleShape2D_ddpin")
 
 [node name="Output" parent="." instance=ExtResource("3_odym4")]
 position = Vector2(0, 23)
+enable_offset = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -67,7 +67,6 @@ func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_positi
 		#call_deferred("apply_impulse_later", d, impulse)
 	if Globals.DropsNode:
 		Globals.DropsNode.add_child(d)
-	
 	return d
 
 func apply_impulse_later(body: RigidBody2D, impulse: Vector2):
