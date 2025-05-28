@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://pcjs3l3ltyss"]
+[gd_scene load_steps=13 format=3 uid="uid://pcjs3l3ltyss"]
 
 [ext_resource type="Script" uid="uid://c07vop060c30" path="res://script/sell_chest.gd" id="1_cl27i"]
 [ext_resource type="Texture2D" uid="uid://bbqhh53b6c07n" path="res://img/chest/chest.png" id="2_bl7if"]
@@ -70,10 +70,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5yv88"]
 size = Vector2(16, 16)
 
-[sub_resource type="LabelSettings" id="LabelSettings_cl27i"]
-line_spacing = -2.0
-font_size = 6
-
 [node name="SellChest" type="Area2D"]
 collision_layer = 2
 collision_mask = 2
@@ -84,15 +80,6 @@ sprite_frames = SubResource("SpriteFrames_vcbbc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5yv88")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -8.0
-offset_top = -26.0
-offset_right = 58.0
-offset_bottom = 5.0
-text = "isOpen - false
-frame - 0"
-label_settings = SubResource("LabelSettings_cl27i")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

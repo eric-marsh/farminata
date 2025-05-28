@@ -22,11 +22,13 @@ var start_pos: Vector2
 func _ready():
 	await get_tree().create_timer(0.0001).timeout
 	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)
+	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	start_pos = global_position
 	is_produce = DropUtil.is_produce(drop_type)
 	
 
 func _physics_process(delta):
+	update_shadow()
 	if global_position.y > start_pos.y + min_fall_amount:
 		gravity_scale = 0.0
 		linear_velocity = Vector2.ZERO
@@ -42,6 +44,9 @@ func _physics_process(delta):
 		velocity = dir * speed
 		position += velocity * delta
 
+func update_shadow():
+	$Sprite2D/Shadow.global_position = $Sprite2D.global_position + Vector2(0, 1)
+	
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if !Globals.Main:
 		return

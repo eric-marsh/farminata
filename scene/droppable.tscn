@@ -1,7 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://xiwavl2b1sw0"]
+[gd_scene load_steps=6 format=3 uid="uid://xiwavl2b1sw0"]
 
 [ext_resource type="Script" uid="uid://coqg5qcenyvhh" path="res://script/droppable.gd" id="1_34vfq"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="1_j5dow"]
+[ext_resource type="Shader" path="res://shader/Shadow.gdshader" id="3_64vpq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3pul"]
+shader = ExtResource("3_64vpq")
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34vfq"]
 
@@ -13,6 +18,12 @@ input_pickable = true
 script = ExtResource("1_34vfq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_j5dow")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+z_index = -1
+material = SubResource("ShaderMaterial_j3pul")
+position = Vector2(0, 1)
 texture = ExtResource("1_j5dow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

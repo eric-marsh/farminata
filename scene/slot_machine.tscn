@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c815fpybt36io"]
+[gd_scene load_steps=16 format=3 uid="uid://c815fpybt36io"]
 
 [ext_resource type="Texture2D" uid="uid://0ujo5olp3s25" path="res://img/slots/slots.png" id="1_oebtt"]
 [ext_resource type="Script" uid="uid://b1r15orpmjjdd" path="res://script/slot_machine.gd" id="1_vdvju"]
@@ -9,6 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="5_om1wn"]
 [ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/slots/symbols/water.png" id="6_om0vh"]
 [ext_resource type="Texture2D" uid="uid://cu1u0odpnalw4" path="res://img/slots/column.png" id="7_3dobk"]
+[ext_resource type="Shader" path="res://shader/Shadow.gdshader" id="10_o61f8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8i7d"]
+shader = ExtResource("10_o61f8")
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgo26"]
 size = Vector2(68, 26)
@@ -137,6 +142,12 @@ slot_pos = 2
 
 [node name="slots_bg" type="Sprite2D" parent="."]
 texture = ExtResource("1_oebtt")
+
+[node name="shadow" type="Sprite2D" parent="slots_bg"]
+z_index = -1
+material = SubResource("ShaderMaterial_y8i7d")
+position = Vector2(0, 1)
+texture = ExtResource("2_vdvju")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cgo26")
