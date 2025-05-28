@@ -64,14 +64,11 @@ func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_positi
 	d.target_position = target_position
 	if impulse != Vector2.ZERO:
 		d.apply_central_impulse(impulse)
-		#call_deferred("apply_impulse_later", d, impulse)
 	if Globals.DropsNode:
 		Globals.DropsNode.add_child(d)
 	return d
 
-func apply_impulse_later(body: RigidBody2D, impulse: Vector2):
-	print("impulse")
-	body.apply_central_impulse(impulse)
+
 
 const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
 func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):

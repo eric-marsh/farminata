@@ -133,13 +133,15 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			reset_growth_state()
-			update_image()
-			spawn_produce()
+			pluck_crop(true)
+
+func pluck_crop(clicked:bool=false):
+	reset_growth_state()
+	update_image()
+	spawn_produce(clicked)
 
 
-
-func spawn_produce():
+func spawn_produce(clicked:bool=false):
 	var d
 	match grow_type:
 		Enum.Grow_Type.None:
@@ -148,14 +150,20 @@ func spawn_produce():
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
 		Enum.Grow_Type.Onion:
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Onion, global_position, Vector2.ZERO, Vector2.ZERO)
-			
+	
+	if !clicked:
+		# TODO: have a little hop animation
+		d.start_static = true
+		return
+	
 	if Globals.Main and !Globals.Main.is_dragging:
 		d.is_dragging = true
 		Globals.Main.is_dragging = true
+	
 
 func is_plot_needing_help():
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
-		return false
+		return true
 	
 	if assigned_helper_seed == null and target_seed and plot_growth_state == Enum.Plot_Growth_State.None:
 		return true
@@ -203,17 +211,24 @@ func find_wanted_drops() -> void:
 					assign_job_to_helper(h)
 	return
 
+var assigned_helper_plucker: helper = null
 func assign_job_to_helper(h: helper) -> bool:
 	if !is_plot_needing_help():
 		return false
 	var d: droppable
-	if assigned_helper_seed == null and target_seed and plot_growth_state == Enum.Plot_Growth_State.None:
+	
+	if !assigned_helper_plucker and plot_growth_state == Enum.Plot_Growth_State.Full:
+		assigned_helper_plucker = h
+		h.target_plot = self
+		h.set_state(Enum.Helper_State.Pluck_Crop)
+		return true
+	elif !assigned_helper_seed and target_seed and plot_growth_state == Enum.Plot_Growth_State.None:
 		assigned_helper_seed = h
 		d = target_seed
-	elif assigned_helper_water == null and target_water and plot_state == Enum.Plot_State.Dry:
+	elif !assigned_helper_water and target_water and plot_state == Enum.Plot_State.Dry:
 		assigned_helper_water = h
 		d = target_water
-	elif assigned_helper_sun == null and target_sun and plot_state == Enum.Plot_State.Wet:
+	elif !assigned_helper_sun and target_sun and plot_state == Enum.Plot_State.Wet:
 		assigned_helper_sun = h
 		d = target_sun
 	else:
@@ -222,9 +237,10 @@ func assign_job_to_helper(h: helper) -> bool:
 	if d == null:
 		return false
 	
-	d.is_being_targeted = true
+	if is_instance_valid(d):
+		d.is_being_targeted = true
+		h.target_droppable = d
 	h.target_plot = self
-	h.target_droppable = d
 	h.set_state(Enum.Helper_State.Get_Item)
 	return true
 

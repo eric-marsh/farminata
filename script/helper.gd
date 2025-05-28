@@ -40,6 +40,9 @@ func _physics_process(_delta: float) -> void:
 			move_to_target()
 		Enum.Helper_State.Deliver_Item:
 			move_to_target()
+		Enum.Helper_State.Pluck_Crop:
+			move_to_target()
+			
 
 func set_state(s: Enum.Helper_State) -> void:
 	held_item_sprite.visible = false
@@ -63,6 +66,9 @@ func set_state(s: Enum.Helper_State) -> void:
 			target_pos = target_droppable.global_position
 		Enum.Helper_State.Deliver_Item:
 			held_item_sprite.visible = true
+			target_pos = target_plot.global_position + target_plot.size / 2
+		Enum.Helper_State.Pluck_Crop:
+			held_item_sprite.visible = false
 			target_pos = target_plot.global_position + target_plot.size / 2
 		
 	state = s
@@ -91,6 +97,8 @@ func move_to_target():
 			d.start_static = true
 			remove_job()
 			return
+		if state == Enum.Helper_State.Pluck_Crop and target_plot:
+			target_plot.pluck_crop()
 		set_state(Enum.Helper_State.Idle)
 	
 	var direction = (target_pos - global_position).normalized()
