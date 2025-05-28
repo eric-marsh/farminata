@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=5 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
+[ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
+[ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="3_odym4"]
 
-[node name="Piniata" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddpin"]
+size = Vector2(129, 128)
+
+[node name="Piniata" type="Area2D"]
+script = ExtResource("1_j2vsm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ddpin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_ddpin")
+
+[node name="Output" parent="." instance=ExtResource("3_odym4")]
+position = Vector2(0, 23)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

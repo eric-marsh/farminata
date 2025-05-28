@@ -16,9 +16,10 @@ var velocity: Vector2
 var moving_to_target: bool = false
 var time_passed: float = 0.0
 
-var min_fall_amount = 50.0
+var min_fall_amount = 500.0
 
 var start_pos: Vector2
+
 func _ready():
 	await get_tree().create_timer(0.0001).timeout
 	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)

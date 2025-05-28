@@ -25,7 +25,6 @@ position = Vector2(-320, -180)
 position = Vector2(320, 180)
 
 [node name="SlotMachine" parent="PlotContainer" node_paths=PackedStringArray("paired_plot_grid") instance=ExtResource("4_brvut")]
-visible = false
 position = Vector2(44, -32)
 paired_plot_grid = NodePath("../PlotGrid")
 

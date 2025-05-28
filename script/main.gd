@@ -20,6 +20,7 @@ func _process(delta: float) -> void:
 	if Globals.Main and Globals.Main.is_paused:
 		return
 	global_timer += 1
+	
 	if is_game_over:
 		is_paused = false
 		return

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="5_om1wn"]
 [ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/slots/symbols/water.png" id="6_om0vh"]
 [ext_resource type="Texture2D" uid="uid://cu1u0odpnalw4" path="res://img/slots/column.png" id="7_3dobk"]
-[ext_resource type="Shader" path="res://shader/Shadow.gdshader" id="10_o61f8"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="10_o61f8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y8i7d"]
 shader = ExtResource("10_o61f8")
@@ -125,7 +125,6 @@ z_index = -1
 texture = ExtResource("5_3dobk")
 
 [node name="Output" parent="slot_symbols/slot_2" instance=ExtResource("5_om1wn")]
-slot_pos = 1
 
 [node name="slot_3" type="Sprite2D" parent="slot_symbols"]
 z_index = 1
@@ -137,7 +136,6 @@ z_index = -1
 texture = ExtResource("5_3dobk")
 
 [node name="Output" parent="slot_symbols/slot_3" instance=ExtResource("5_om1wn")]
-slot_pos = 2
 
 [node name="slots_bg" type="Sprite2D" parent="."]
 texture = ExtResource("1_oebtt")

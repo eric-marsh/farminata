@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://coqg5qcenyvhh" path="res://script/droppable.gd" id="1_34vfq"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="1_j5dow"]
-[ext_resource type="Shader" path="res://shader/Shadow.gdshader" id="3_64vpq"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="3_64vpq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j3pul"]
 shader = ExtResource("3_64vpq")
