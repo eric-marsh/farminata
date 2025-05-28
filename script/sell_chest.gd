@@ -10,18 +10,21 @@ func _ready() -> void:
 	pass
 	
 func _process(delta: float) -> void:
+	if !is_opened and animated_sprite.frame == 7:
+		animated_sprite.play_backwards("default")
+	
 	if is_opened and droppable_to_sell and !droppable_to_sell.is_dragging:
 		sell_droppable(droppable_to_sell)
 		droppable_to_sell = null
-		animated_sprite.play_backwards("default")
 		is_opened = false
 		# TODO: money animation
 
+
 func sell_droppable(d: droppable):
 	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
-	print(Util)
 	Util.create_explosion_particle(d.global_position, Color.YELLOW)
 	d.delete()
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if !body is droppable or !body.is_dragging or !body.is_produce:
@@ -35,7 +38,10 @@ func _on_body_exited(body: Node2D) -> void:
 	if !body is droppable or !body.is_dragging or !body.is_produce:
 		return
 	if body == droppable_to_sell:
-		print("Dragging thing exited")
-		animated_sprite.play_backwards("default")
+		#animated_sprite.play_backwards("default")
 		droppable_to_sell = null
 		is_opened = false
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if (!is_opened or !droppable_to_sell) and animated_sprite.frame > 0:
+		animated_sprite.play_backwards("default")
