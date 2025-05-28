@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgnanoyg1dkpf"]
+
+[ext_resource type="Script" uid="uid://c6qu2xue3pe5" path="res://scene/audio.gd" id="1_7cf6j"]
+[ext_resource type="AudioStream" uid="uid://d2gb83sxsubb" path="res://audio/Maximize2.wav" id="2_poe0m"]
+
+[node name="Audio" type="Node2D"]
+script = ExtResource("1_7cf6j")
+
+[node name="SlotSpin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_poe0m")
+volume_db = -15.0
+bus = &"SlotSpin"

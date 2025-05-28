@@ -57,6 +57,9 @@ func is_spinning() -> bool:
 	return !$SpinTimer.is_stopped()
 
 func start_spin_timer() -> void:
+	if !Globals.AudioNode:
+		return
+	Globals.AudioNode.play_slot_spin(get_instance_id())
 	$SpinTimer.start()
 	set_all_slots(Enum.Drop_Type.Blurry)
 	update_slot_symbols_images()
@@ -71,8 +74,18 @@ func start_spin_timer() -> void:
 		set_next_slot_symbol()
 	)
 
+func _on_spin_timer_timeout() -> void:
+	
+	$slots_animation.visible = false
+	$SlotsSpinAnimation.stop()
+	global_position = initial_pos
 
-
+func stop_spinning_slots():
+	$slots_animation.visible = false
+	$SlotsSpinAnimation.stop()
+	global_position = initial_pos
+	if Globals.AudioNode:
+		Globals.AudioNode.unplay_slot_spin(get_instance_id())
 
 func set_next_slot_symbol():
 	for i in range(slots.size()):
@@ -82,10 +95,8 @@ func set_next_slot_symbol():
 			#var target_pos = paired_plot_grid.get_random_plot_position()
 			var target_pos = Vector2.ZERO
 			
-			
 			update_slot_symbols_images()
 			$slot_symbols.get_children()[i].visible = true
-			
 			
 			# spawn output
 			if DropUtil.is_valid_droppable_type(output_type):
@@ -96,16 +107,14 @@ func set_next_slot_symbol():
 					set_next_slot_symbol()
 				)
 			else:
-				$SpinTimer.stop() # stop timer just in case it doesnt line up. It doesnt
+				$SpinTimer.stop() # stop timer just in case it doesnt line up, which it doesnt
+				stop_spinning_slots()
 			return
 
 func get_random_slot_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
 
-func _on_spin_timer_timeout() -> void:
-	$slots_animation.visible = false
-	$SlotsSpinAnimation.stop()
-	global_position = initial_pos
+
 
 func set_all_slots(symbol: Enum.Drop_Type) -> void:
 	for i in range(slots.size()):

@@ -9,6 +9,7 @@ var CameraNode: Camera2D = null
 var HelpersContainerNode: helpers_container = null
 var AnimationsContainer: Node2D = null
 var SlotMachineNodde: slot_machine = null
+var AudioNode: audio = null
 
 func _ready():
 	reset_nodes()
@@ -25,4 +26,4 @@ func reset_nodes():
 	HelpersContainerNode = get_node("/root/SceneSwitcher/Main/Helpers")
 	AnimationsContainer = get_node("/root/SceneSwitcher/Main/Animations")
 	SlotMachineNodde = get_node("/root/SceneSwitcher/Main/PlotContainer/SlotMachine")
-	
+	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
