@@ -4,7 +4,7 @@ class_name apply_droppable_animation
 var drop_type: Enum.Drop_Type
 
 @onready var sprite: Sprite2D = $Sprite2D 
-@onready var particle: CPUParticles2D = $CPUParticles2D 
+@onready var particle: CPUParticles2D = $ExplosionParticle 
 
 func _ready():
 	sprite.texture = DropUtil.get_drop_type_img(drop_type)
@@ -16,5 +16,5 @@ func _ready():
 	)
 	
 
-func _on_cpu_particles_2d_finished() -> void:
+func _on_explosion_particle_finished() -> void:
 	queue_free()

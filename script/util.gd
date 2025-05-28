@@ -55,3 +55,13 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 
 func random_offset(f) -> Vector2:
 	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))
+
+const EXPLOSION_PARTICLE = preload("res://scene/explosion_particle.tscn")
+func create_explosion_particle(pos: Vector2, color: Color) -> void:
+	var p = EXPLOSION_PARTICLE.instantiate() as CPUParticles2D
+	p.global_position =pos
+	p.color = color.lightened(0.5)
+	p.connect("finished", func(): queue_free())
+	Globals.AnimationsContainer.add_child(p)
+	p.emitting = true
+	

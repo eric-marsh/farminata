@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://pcjs3l3ltyss"]
+
+[ext_resource type="Script" uid="uid://c07vop060c30" path="res://script/sell_chest.gd" id="1_cl27i"]
+[ext_resource type="Texture2D" uid="uid://bbqhh53b6c07n" path="res://img/chest/chest.png" id="2_bl7if"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10caw"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(8, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ycwc"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(40, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qtqt"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(72, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn85v"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(104, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjxe6"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(136, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p63te"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(168, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33rjc"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(200, 7, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vgy0"]
+atlas = ExtResource("2_bl7if")
+region = Rect2(232, 7, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vcbbc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10caw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ycwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qtqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn85v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjxe6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p63te")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33rjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vgy0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yv88"]
+size = Vector2(16, 16)
+
+[node name="SellChest" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_cl27i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vcbbc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5yv88")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

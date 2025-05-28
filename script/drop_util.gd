@@ -38,6 +38,9 @@ var drop_type_colors = {
 	Enum.Drop_Type.Onion_Seed: Color.BROWN
 }
 
+func is_produce(symbol: Enum.Drop_Type) -> bool:
+	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion]
+
 func is_valid_droppable_type(symbol: Enum.Drop_Type) -> bool:
 	return symbol != Enum.Drop_Type.X and symbol != Enum.Drop_Type.Blurry
 

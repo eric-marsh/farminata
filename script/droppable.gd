@@ -23,13 +23,8 @@ func _ready():
 	await get_tree().create_timer(0.0001).timeout
 	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)
 	start_pos = global_position
+	is_produce = DropUtil.is_produce(drop_type)
 	
-	if is_produce:
-		Util.quick_timer(self,0.2, func():
-			# Todo: Money animation
-			Globals.Main.change_money(Prices.get_drop_price(drop_type))
-			queue_free()
-		)
 
 func _physics_process(delta):
 	if global_position.y > start_pos.y + min_fall_amount:
@@ -68,8 +63,3 @@ func delete():
 		is_dragging = false
 		Globals.Main.is_dragging = false
 	queue_free()
-
-func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if !body is TileMapLayer:
-		return
-	print(body_rid, " - ", body, " - ", body_shape_index, " - ", local_shape_index)
