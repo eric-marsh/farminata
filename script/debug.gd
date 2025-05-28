@@ -13,3 +13,5 @@ var DEBUG_DROPPABLE_MOVE_TO_TARGET: bool = false
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 var DEBUG_SHOW_PLOT_STATE: bool = false
+
+var DISABLE_ZOOM: bool = true

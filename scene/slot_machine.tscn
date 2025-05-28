@@ -71,8 +71,9 @@ offset_bottom = 10.0
 
 [node name="slots" type="Control" parent="slots_animation"]
 anchors_preset = 0
+offset_top = -198.0
 offset_right = 62.0
-offset_bottom = 20.0
+offset_bottom = -178.0
 
 [node name="slot" type="TextureRect" parent="slots_animation/slots"]
 layout_mode = 0
