@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=8 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
 [ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
@@ -6,6 +6,44 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddpin"]
 size = Vector2(129, 128)
+
+[sub_resource type="Animation" id="Animation_odym4"]
+resource_name = "pulse"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rrcj7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nu8ja"]
+_data = {
+&"RESET": SubResource("Animation_rrcj7"),
+&"pulse": SubResource("Animation_odym4")
+}
 
 [node name="Piniata" type="Area2D"]
 script = ExtResource("1_j2vsm")
@@ -20,5 +58,10 @@ shape = SubResource("RectangleShape2D_ddpin")
 [node name="Output" parent="." instance=ExtResource("3_odym4")]
 position = Vector2(0, 23)
 enable_offset = true
+
+[node name="AnimationPlayerPulse" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nu8ja")
+}
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

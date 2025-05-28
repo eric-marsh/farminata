@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var droppable_output = $Output
+@onready var animation_player_pulse:AnimationPlayer = $AnimationPlayerPulse
 
 var hp: int = State.piniata_hp
 
@@ -23,10 +24,13 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			hit_piniata()
 
+
 func hit_piniata(strength: float = 1):
 	var drop_type: Enum.Drop_Type = get_random_output()
 	$Output.trigger_output(drop_type, Vector2.ZERO)
 	hp -= strength
+	animation_player_pulse.stop(true)
+	animation_player_pulse.play("pulse")
 	
 func get_random_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
