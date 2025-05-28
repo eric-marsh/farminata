@@ -46,7 +46,8 @@ func _physics_process(delta):
 
 func update_shadow():
 	$Sprite2D/Shadow.global_position = $Sprite2D.global_position + Vector2(0, 1)
-	
+
+var dragging_scale:Vector2 = Vector2.ONE * 1.2
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if !Globals.Main:
 		return
@@ -56,10 +57,12 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 			if Globals.Main and Globals.Main.is_dragging:
 				return
 			is_dragging = true
+			$Sprite2D.scale = dragging_scale
 			Globals.Main.is_dragging = true
 			set_collision_layer_value(1, false)
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			is_dragging = false
+			$Sprite2D.scale = Vector2.ONE
 			Globals.Main.is_dragging = false
 			set_collision_layer_value(1, true)
 
