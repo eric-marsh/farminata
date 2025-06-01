@@ -50,6 +50,8 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 			return "Get_Item"
 		Enum.Helper_State.Deliver_Item:
 			return "Deliver_Item"
+		Enum.Helper_State.Pluck_Crop:
+			return "Pluck_Crop"
 		_:
 			return "idk that helper state"
 

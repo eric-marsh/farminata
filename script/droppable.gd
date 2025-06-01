@@ -4,7 +4,8 @@ class_name droppable
 @export var target_position: Vector2
 @export var speed: float = 200.0
 @export var drop_type: Enum.Drop_Type = Enum.Drop_Type.Water
-
+var is_held: bool = false
+var is_delivered: bool = false
 
 var is_being_targeted: bool = false
 var is_dragging: bool = false
@@ -31,6 +32,15 @@ func _ready():
 	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	
 	is_produce = DropUtil.is_produce(drop_type)
+	if is_produce and !is_delivered:
+		if Globals.HelpersContainerNode:
+			var h = Globals.HelpersContainerNode.get_inactive_helper()
+			if is_instance_valid(h):
+				is_being_targeted = true
+				h.target_droppable = self
+				h.target_plot = null
+				h.set_state(Enum.Helper_State.Get_Item)
+	
 
 func _physics_process(delta):
 	update_shadow()

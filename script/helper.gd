@@ -25,6 +25,12 @@ func _ready() -> void:
 	
 	update_animation()
 	
+	
+	if Debug.Helper_Speed > 0:
+		speed = Debug.Helper_Speed
+		min_velocity = Vector2(-speed, -speed)
+		max_velocity = Vector2(speed, speed)
+	
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
 	
@@ -35,13 +41,12 @@ func _physics_process(_delta: float) -> void:
 		Enum.Helper_State.Wander:
 			move_to_target()
 		Enum.Helper_State.Get_Item:
-			#if target_droppable == null:
-				#set_state(Enum.Helper_State.Idle)
 			move_to_target()
 		Enum.Helper_State.Deliver_Item:
 			move_to_target()
 		Enum.Helper_State.Pluck_Crop:
 			move_to_target()
+
 			
 
 func set_state(s: Enum.Helper_State) -> void:
@@ -65,11 +70,18 @@ func set_state(s: Enum.Helper_State) -> void:
 				return
 			target_pos = target_droppable.global_position
 		Enum.Helper_State.Deliver_Item:
+			target_droppable.is_held = true
 			held_item_sprite.visible = true
-			target_pos = target_plot.global_position + target_plot.size / 2
+			if target_droppable.is_produce:
+				if Globals.SellChestNode:
+					target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
+			else:
+				target_pos = target_plot.global_position + target_plot.size / 2
+			
 		Enum.Helper_State.Pluck_Crop:
 			held_item_sprite.visible = false
 			target_pos = target_plot.global_position + target_plot.size / 2
+
 		
 	state = s
 	if Debug.DEBUG_SHOW_HELPER_STATE:
@@ -91,10 +103,16 @@ func move_to_target():
 			target_droppable.delete()
 			target_droppable = null
 			return
-		if state == Enum.Helper_State.Deliver_Item and target_plot:
+		if state == Enum.Helper_State.Deliver_Item:
+			if target_plot:
+				target_pos = target_plot.global_position + target_plot.size / 2
+			else:
+				if Globals.SellChestNode:
+					target_pos = Globals.SellChestNode.global_position
 			#spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
-			var d = DropUtil.spawn_droppable(held_item_type, target_plot.global_position + target_plot.size / 2, Vector2.ZERO)
+			var d = DropUtil.spawn_droppable(held_item_type, target_pos, Vector2.ZERO)
 			d.start_static = true
+			d.is_delivered = true
 			remove_job()
 			return
 		if state == Enum.Helper_State.Pluck_Crop and target_plot:

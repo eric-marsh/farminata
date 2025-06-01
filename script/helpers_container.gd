@@ -7,14 +7,13 @@ func _ready() -> void:
 	for i in range(State.num_helpers):
 		add_helper()
 
-var timer: float = 0.0
 var assign_jobs_interval: float = 2.0
+var timer: float = 0.0
 func _physics_process(delta: float) -> void:
-	timer += delta
 	if timer >= assign_jobs_interval:
 		timer = 0
 		assign_inactive_helpers_jobs()
-	
+	timer += delta
 	
 func add_helper() -> void:
 	var h = HELPER.instantiate() as helper

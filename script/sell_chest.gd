@@ -27,7 +27,7 @@ func sell_droppable(d: droppable):
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if !body is droppable or !body.is_dragging or !body.is_produce:
+	if !body is droppable or !body.is_produce:
 		return
 	if !is_opened:
 		is_opened = true

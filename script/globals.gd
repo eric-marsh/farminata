@@ -10,6 +10,7 @@ var HelpersContainerNode: helpers_container = null
 var AnimationsContainer: Node2D = null
 var SlotMachineNodde: slot_machine = null
 var AudioNode: audio = null
+var SellChestNode: Area2D = null
 
 func _ready():
 	reset_nodes()
@@ -27,3 +28,4 @@ func reset_nodes():
 	AnimationsContainer = get_node("/root/SceneSwitcher/Main/Animations")
 	SlotMachineNodde = get_node("/root/SceneSwitcher/Main/PlotContainer/SlotMachine")
 	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
+	SellChestNode = get_node("/root/SceneSwitcher/Main/SellChest")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=11 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b8nkjd470xyme" path="res://scene/plot_grid.tscn" id="4_0ha60"]
 [ext_resource type="PackedScene" uid="uid://c815fpybt36io" path="res://scene/slot_machine.tscn" id="4_brvut"]
 [ext_resource type="PackedScene" uid="uid://jida1cnc03um" path="res://scene/canvas_layer.tscn" id="5_0ha60"]
-[ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="5_p1hux"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper.tscn" id="8_k65ib"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
@@ -33,35 +32,6 @@ paired_plot_grid = NodePath("../PlotGrid")
 position = Vector2(-16, -16)
 
 [node name="Drops" type="Node2D" parent="."]
-
-[node name="Droppable" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(581, 187)
-start_static = true
-
-[node name="Droppable2" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(583, 220)
-drop_type = 3
-start_static = true
-
-[node name="Droppable3" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(553, 256)
-drop_type = 4
-start_static = true
-
-[node name="Droppable4" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(599, 291)
-drop_type = 5
-start_static = true
-
-[node name="Droppable5" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(599, 291)
-drop_type = 5
-start_static = true
-
-[node name="Droppable6" parent="Drops" instance=ExtResource("5_p1hux")]
-position = Vector2(599, 291)
-drop_type = 5
-start_static = true
 
 [node name="Helpers" type="Node2D" parent="."]
 script = ExtResource("6_of57s")
