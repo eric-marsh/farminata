@@ -1,7 +1,6 @@
 extends Node
 
 var DEBUG_SHOW_HELPER_STATE: bool = true
-var DEBUG_SHOW_PLOT_STATE: bool = true
 
 
 var Helper_Speed: float = 200.0

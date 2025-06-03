@@ -54,6 +54,20 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 			return "Pluck_Crop"
 		_:
 			return "idk that helper state"
+			
+func get_helper_type_string(type: Enum.Helper_Type) -> String:
+	match(type):
+		Enum.Helper_Type.Seed:
+			return "Seed"
+		Enum.Helper_Type.Water:
+			return "Water"
+		Enum.Helper_Type.Sun:
+			return "Sun"
+		Enum.Helper_Type.Pluck:
+			return "Pluck"
+		_:
+			return "idk that helper state"
+
 
 func random_offset(f) -> Vector2:
 	return Vector2(Util.rng.randf_range(-f, f), Util.rng.randf_range(-f, f))

@@ -37,7 +37,19 @@ position = Vector2(-16, -16)
 script = ExtResource("6_of57s")
 
 [node name="Helper" parent="Helpers" instance=ExtResource("8_k65ib")]
-position = Vector2(244, 208)
+position = Vector2(243, 189)
+
+[node name="Helper2" parent="Helpers" instance=ExtResource("8_k65ib")]
+position = Vector2(242, 221)
+helper_type = 1
+
+[node name="Helper3" parent="Helpers" instance=ExtResource("8_k65ib")]
+position = Vector2(239, 257)
+helper_type = 2
+
+[node name="Helper4" parent="Helpers" instance=ExtResource("8_k65ib")]
+position = Vector2(280, 282)
+helper_type = 3
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 

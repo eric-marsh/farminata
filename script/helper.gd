@@ -1,10 +1,12 @@
 extends CharacterBody2D
 class_name helper
 
+@export var helper_type: Enum.Helper_Type = Enum.Helper_Type.Seed
 @onready var anim = $AnimatedSprite2D
 @onready var held_item_sprite = $HeldItem
-@export var target_droppable: droppable = null
-@export var target_plot: plot = null
+
+var target_droppable: droppable = null
+var target_plot: plot = null
 
 var state: Enum.Helper_State = Enum.Helper_State.Idle
 var dir: Enum.Dir = Enum.Dir.Down
@@ -14,17 +16,13 @@ var speed:int = 40
 
 var min_velocity: Vector2 = Vector2(-speed, -speed)
 var max_velocity: Vector2 = Vector2(speed, speed)
-
 var state_timer_set: bool = false
 
 func _ready() -> void:
 	await get_tree().create_timer(0.000001).timeout
-	target_pos = global_position + Vector2(0, -100)
 	
 	set_state(Enum.Helper_State.Get_Item)
-	
 	update_animation()
-	
 	
 	if Debug.Helper_Speed > 0:
 		speed = Debug.Helper_Speed
@@ -98,13 +96,9 @@ func set_state(s: Enum.Helper_State) -> void:
 		Enum.Helper_State.Pluck_Crop:
 			held_item_sprite.visible = false
 			target_pos = target_plot.global_position + target_plot.size / 2
-
-		
 	state = s
 	if Debug.DEBUG_SHOW_HELPER_STATE:
-		print(Util.get_helper_state_string(state))
-		$StateLabel.text = Util.get_helper_state_string(state)
-		$StateLabel.text += "1" if target_droppable != null else "0"
+		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
 	#print(Util.get_helper_state_string(state), " timer: ", state_timer_set)
 
 func move_to_target() -> bool:

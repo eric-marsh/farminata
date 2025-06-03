@@ -14,15 +14,7 @@ func _ready() -> void:
 			p.update_image()
 	
 func _process(_delta: float) -> void:
-	if Globals.Main.global_timer % 20 == 0:
-		update_plots_to_check_for_drops()
-
-
-func update_plots_to_check_for_drops():
-	for c in get_children():
-		if c is plot:
-			c.find_wanted_drops()
-
+	pass
 
 const PLOT = preload("res://scene/plot.tscn")
 func reset_plots():
@@ -57,6 +49,7 @@ func get_square_position(index: int) -> Vector2:
 	return square_position_array[index] if square_position_array.size() > index else Vector2.ZERO
 
 func get_plot_for_helper():
+	pass
 	for c in get_children():
 		if !c is plot:
 			continue
