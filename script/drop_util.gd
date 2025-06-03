@@ -68,8 +68,6 @@ func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_positi
 		Globals.DropsNode.add_child(d)
 	return d
 
-
-
 const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
 func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):
 	if !Globals.AnimationsContainer:

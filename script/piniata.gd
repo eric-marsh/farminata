@@ -25,7 +25,8 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 			hit_piniata()
 
 
-var chance_of_output: float = 0.1
+#var chance_of_output: float = 0.2
+var chance_of_output: float = 0.6
 
 func hit_piniata(strength: int = 1):
 	animation_player_pulse.stop(true)

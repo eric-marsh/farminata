@@ -1,11 +1,11 @@
 extends Node
 
-var DEBUG_SHOW_HELPER_STATE: bool = false
-var DEBUG_SHOW_PLOT_STATE: bool = false
+var DEBUG_SHOW_HELPER_STATE: bool = true
+var DEBUG_SHOW_PLOT_STATE: bool = true
 
 
-#var Helper_Speed: float = 200.0
-var Helper_Speed: float = 0.0
+var Helper_Speed: float = 200.0
+#var Helper_Speed: float = 0.0
 
 var DISABLE_SLOT_MACHINE:bool = true
 

@@ -22,7 +22,6 @@ func _ready() -> void:
 	update_image()
 	
 	if !Debug.DEBUG_SHOW_PLOT_STATE:
-		
 		$DebugNodes.queue_free()
 	
 func _process(_delta: float) -> void:
@@ -56,12 +55,20 @@ func apply_droppable(d: droppable):
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
 
+	
+
 	var drop_type = d.drop_type
+	
+	print("*****************")
+	print(d)
+	print(drop_type)
+	print(target_seed)
+	print(assigned_helper_seed)
 	match drop_type:
 		Enum.Drop_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:
 				plot_state = Enum.Plot_State.Wet
-				cleanup_drop(d, drop_type, target_water, assigned_helper_water)
+				cleanup_drop(d, drop_type, assigned_helper_water)
 				target_water = null
 				assigned_helper_water = null
 
@@ -69,7 +76,7 @@ func apply_droppable(d: droppable):
 			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
 				plot_state = Enum.Plot_State.Dry
 				set_next_growth_state()
-				cleanup_drop(d, drop_type, target_sun, assigned_helper_sun)
+				cleanup_drop(d, drop_type, assigned_helper_sun)
 				target_sun = null
 				assigned_helper_sun = null
 
@@ -77,7 +84,9 @@ func apply_droppable(d: droppable):
 			if plot_growth_state == Enum.Plot_Growth_State.None:
 				grow_type = PlantUtil.drop_type_to_grow_type(drop_type)
 				set_next_growth_state()
-				cleanup_drop(d, drop_type, target_seed, assigned_helper_seed)
+				
+				
+				cleanup_drop(d, drop_type, assigned_helper_seed)
 				target_seed = null
 				assigned_helper_seed = null
 		_:
@@ -86,10 +95,8 @@ func apply_droppable(d: droppable):
 	update_image()
 
 
-func cleanup_drop(d: droppable, drop_type: Enum.Drop_Type, target: droppable, h:helper) -> void:
+func cleanup_drop(d: droppable, drop_type: Enum.Drop_Type, h:helper) -> void:
 	d.delete()
-	if is_instance_valid(target):
-		target.is_being_targeted = false
 	if h:
 		h.remove_job()
 	DropUtil.create_shrink_animation(drop_type, global_position + size / 2)
