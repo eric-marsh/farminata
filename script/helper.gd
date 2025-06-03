@@ -35,19 +35,39 @@ func _ready() -> void:
 		$StateLabel.queue_free()
 	
 func _physics_process(_delta: float) -> void:
+	var has_reached_target:bool = move_to_target()
+	if has_reached_target:
+		on_reaching_target()
+		return
+
+func on_reaching_target():
 	match(state):
 		Enum.Helper_State.Idle:
 			pass
 		Enum.Helper_State.Wander:
-			move_to_target()
+			set_state(Enum.Helper_State.Idle)
 		Enum.Helper_State.Get_Item:
-			move_to_target()
+			set_state(Enum.Helper_State.Deliver_Item)
+			pick_up_droppable(target_droppable)
+			target_droppable = null
 		Enum.Helper_State.Deliver_Item:
-			move_to_target()
+			var d = DropUtil.spawn_droppable(held_item_type, target_pos, Vector2.ZERO)
+			d.start_static = true
+			d.is_delivered = true
+			remove_job()
 		Enum.Helper_State.Pluck_Crop:
-			move_to_target()
+			target_plot.pluck_crop()
+			set_state(Enum.Helper_State.Idle)
 
-			
+
+func pick_up_droppable(d: droppable) -> void:
+	target_droppable.is_held = true
+	held_item_sprite.visible = true
+	held_item_type = d.drop_type
+	held_item_sprite.texture = d.get_node("Sprite2D").texture
+	d.delete()
+	target_droppable = null
+	
 
 func set_state(s: Enum.Helper_State) -> void:
 	held_item_sprite.visible = false
@@ -70,14 +90,11 @@ func set_state(s: Enum.Helper_State) -> void:
 				return
 			target_pos = target_droppable.global_position
 		Enum.Helper_State.Deliver_Item:
-			target_droppable.is_held = true
-			held_item_sprite.visible = true
 			if target_droppable.is_produce:
 				if Globals.SellChestNode:
 					target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
 			else:
 				target_pos = target_plot.global_position + target_plot.size / 2
-			
 		Enum.Helper_State.Pluck_Crop:
 			held_item_sprite.visible = false
 			target_pos = target_plot.global_position + target_plot.size / 2
@@ -85,40 +102,14 @@ func set_state(s: Enum.Helper_State) -> void:
 		
 	state = s
 	if Debug.DEBUG_SHOW_HELPER_STATE:
+		print(Util.get_helper_state_string(state))
 		$StateLabel.text = Util.get_helper_state_string(state)
 		$StateLabel.text += "1" if target_droppable != null else "0"
 	#print(Util.get_helper_state_string(state), " timer: ", state_timer_set)
-		
 
-func move_to_target():
-	if target_droppable:
-		target_pos = target_droppable.global_position
-	
-	# if target reached
-	if global_position.distance_to(target_pos) <= 2:
-		if state == Enum.Helper_State.Get_Item and target_droppable:
-			set_state(Enum.Helper_State.Deliver_Item)
-			held_item_type = target_droppable.drop_type
-			held_item_sprite.texture = target_droppable.get_node("Sprite2D").texture
-			target_droppable.delete()
-			target_droppable = null
-			return
-		if state == Enum.Helper_State.Deliver_Item:
-			if target_plot:
-				target_pos = target_plot.global_position + target_plot.size / 2
-			else:
-				if Globals.SellChestNode:
-					target_pos = Globals.SellChestNode.global_position
-			#spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
-			var d = DropUtil.spawn_droppable(held_item_type, target_pos, Vector2.ZERO)
-			d.start_static = true
-			d.is_delivered = true
-			remove_job()
-			return
-		if state == Enum.Helper_State.Pluck_Crop and target_plot:
-			target_plot.pluck_crop()
-		set_state(Enum.Helper_State.Idle)
-	
+func move_to_target() -> bool:
+	if state == Enum.Helper_State.Idle:
+		return false
 	var direction = (target_pos - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
 	if new_dir != dir:
@@ -127,6 +118,11 @@ func move_to_target():
 	velocity = direction * speed
 	velocity = velocity.clamp(min_velocity, max_velocity)
 	move_and_slide()
+	
+	return global_position.distance_to(target_pos) <= 2
+		
+
+
 
 func remove_job():
 	clear_job_data()

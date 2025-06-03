@@ -54,16 +54,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func apply_droppable(d: droppable):
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
-
-	
-
 	var drop_type = d.drop_type
-	
-	print("*****************")
-	print(d)
-	print(drop_type)
-	print(target_seed)
-	print(assigned_helper_seed)
+	#print("*****************")
+	#print(d)
+	#print(drop_type)
+	#print(target_seed)
+	#print(assigned_helper_seed)
 	match drop_type:
 		Enum.Drop_Type.Water:
 			if plot_state == Enum.Plot_State.Dry:

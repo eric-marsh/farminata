@@ -12,3 +12,5 @@ enum Upgrade_Type { AddPlot, AddHelper, UnlockOnion }
 
 enum Dir { Left, Right, Up, Down}
 enum Helper_State { Idle, Wander, Get_Item, Deliver_Item, Pluck_Crop }
+
+enum Helper_Type { Seed, Water, Sun, Pluck }
