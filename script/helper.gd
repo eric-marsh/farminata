@@ -2,15 +2,15 @@ extends CharacterBody2D
 class_name helper
 
 @export var helper_type: Enum.Helper_Type = Enum.Helper_Type.Seed
-@onready var anim = $AnimatedSprite2D
-@onready var held_item_sprite = $HeldItem
+@onready var anim = $AnimatedSprite2D 
 
 var target_droppable: droppable = null
 var target_plot: plot = null
 
+var held_droppable: droppable = null
+
 var state: Enum.Helper_State = Enum.Helper_State.Idle
 var dir: Enum.Dir = Enum.Dir.Down
-var held_item_type: Enum.Drop_Type
 var target_pos: Vector2 = Vector2.ZERO
 var speed:int = 40
 
@@ -19,9 +19,10 @@ var max_velocity: Vector2 = Vector2(speed, speed)
 var state_timer_set: bool = false
 
 func _ready() -> void:
-	await get_tree().create_timer(0.000001).timeout
+	await get_tree().create_timer(0.001).timeout
 	
-	set_state(Enum.Helper_State.Get_Item)
+	#set_state(Enum.Helper_State.Get_Item)
+	set_state(Enum.Helper_State.Idle)
 	update_animation()
 	
 	if Debug.Helper_Speed > 0:
@@ -35,75 +36,216 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	var has_reached_target:bool = move_to_target()
 	if has_reached_target:
-		on_reaching_target()
-		return
-
-func on_reaching_target():
-	match(state):
-		Enum.Helper_State.Idle:
-			pass
-		Enum.Helper_State.Wander:
-			set_state(Enum.Helper_State.Idle)
-		Enum.Helper_State.Get_Item:
-			set_state(Enum.Helper_State.Deliver_Item)
-			pick_up_droppable(target_droppable)
-			target_droppable = null
-		Enum.Helper_State.Deliver_Item:
-			var d = DropUtil.spawn_droppable(held_item_type, target_pos, Vector2.ZERO)
-			d.start_static = true
-			d.is_delivered = true
-			remove_job()
-		Enum.Helper_State.Pluck_Crop:
-			target_plot.pluck_crop()
-			set_state(Enum.Helper_State.Idle)
-
-
-func pick_up_droppable(d: droppable) -> void:
-	target_droppable.is_held = true
-	held_item_sprite.visible = true
-	held_item_type = d.drop_type
-	held_item_sprite.texture = d.get_node("Sprite2D").texture
-	d.delete()
-	target_droppable = null
+		on_reaching_target_pos()
 	
+	if Debug.DEBUG_SHOW_HELPER_STATE:
+		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type), " 1" if held_droppable != null else " 0")
+
+
 
 func set_state(s: Enum.Helper_State) -> void:
-	held_item_sprite.visible = false
-	state_timer_set = false
-	match(s):
+	state = s
+	print(Util.get_helper_state_string(state))
+	match(state):
 		Enum.Helper_State.Idle:
-			clear_job_data()
-			if !state_timer_set:
-				state_timer_set = true
-				Util.quick_timer(self, 0.4, func(): 
-					if state == Enum.Helper_State.Idle:
-						set_state(Enum.Helper_State.Wander)
-				)
+			if held_droppable:
+				var p = find_plot_for_droppable(held_droppable)
+				if p:
+					target_plot = p
+					target_pos = target_plot.global_position + target_plot.size / 2
+					set_state(Enum.Helper_State.Deliver_Item)
+					return
+			else:
+				var d = find_droppable_based_on_helper_type()
+				if d:
+					target_droppable = d
+					set_state(Enum.Helper_State.Get_Item)
+					return
+			set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Wander:
-			clear_job_data()
 			target_pos = Util.random_visible_position()
 		Enum.Helper_State.Get_Item:
-			if target_droppable == null:
-				set_state(Enum.Helper_State.Idle)
-				return
-			target_pos = target_droppable.global_position
+			pass
 		Enum.Helper_State.Deliver_Item:
-			if target_droppable.is_produce:
-				if Globals.SellChestNode:
-					target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
-			else:
-				target_pos = target_plot.global_position + target_plot.size / 2
-		Enum.Helper_State.Pluck_Crop:
-			held_item_sprite.visible = false
-			target_pos = target_plot.global_position + target_plot.size / 2
-	state = s
-	if Debug.DEBUG_SHOW_HELPER_STATE:
-		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
+			if Globals.PlotGrid:
+				var p = find_plot_for_droppable(held_droppable)
+				if p:
+					target_plot = p
+					target_pos = target_plot.global_position + target_plot.size / 2
+					return
+			# finding plot failed. Wander until a new one comes up
+			set_state(Enum.Helper_State.Wander)
+		_:
+			pass
+
+func find_plot_for_droppable(d: droppable):
+	var p:plot = null
+	match(d.drop_type):
+		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
+			p = Globals.PlotGrid.get_plot_that_needs_seed()
+		Enum.Drop_Type.Water:
+			p = Globals.PlotGrid.get_plot_that_needs_water()
+		Enum.Drop_Type.Sun:
+			p = Globals.PlotGrid.get_plot_that_needs_sun()
+		_:
+			pass
+	return p
+
+func on_reaching_target_pos() -> void:
+	match(state):
+		Enum.Helper_State.Idle:
+			print("This should happen: Reached target as Idle")
+			return
+		Enum.Helper_State.Wander:
+			set_state(Enum.Helper_State.Idle) # helper checks for items when idle
+		Enum.Helper_State.Get_Item:
+			pick_up_droppable(target_droppable)
+			set_state(Enum.Helper_State.Deliver_Item)
+			return
+		Enum.Helper_State.Deliver_Item:
+			$HeldItem.visible = false
+			var d = DropUtil.spawn_droppable(held_droppable.drop_type, target_pos, Vector2.ZERO)
+			d.start_static = true
+			d.is_delivered = true
+			target_plot = null
+			held_droppable.delete()
+			held_droppable = null
+			set_state(Enum.Helper_State.Idle)
+			pass	
+		_:
+			pass
+
+func find_droppable_based_on_helper_type() -> droppable:
+	if !Globals.DropsNode:
+		return null
+	var d: droppable = null
+	match(helper_type):
+		Enum.Helper_Type.Seed:
+			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed)
+		Enum.Helper_Type.Water:
+			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Water)
+		Enum.Helper_Type.Sun:
+			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Sun)
+	return d
+
+func pick_up_droppable(d: droppable) -> void:
+	held_droppable = d
+	d.is_held = true
+	$HeldItem.visible = true
+	$HeldItem.texture = d.get_node("Sprite2D").texture
+	#d.delete()
+	d.hide_droppable()
+	target_droppable = null
+	#target_droppable = null
+
+#func is_holding_item() -> bool:
+	#return $HeldItem.visible
+#
+#func on_reaching_target():
+	#match(state):
+		#Enum.Helper_State.Idle:
+			#pass
+		#Enum.Helper_State.Wander:
+			#if is_holding_item():
+				#set_state(Enum.Helper_State.Deliver_Item)
+			#else:
+				#set_state(Enum.Helper_State.Idle)
+		#Enum.Helper_State.Get_Item:
+			#pick_up_droppable(target_droppable)
+			#set_state(Enum.Helper_State.Deliver_Item)
+		#Enum.Helper_State.Deliver_Item:
+			#held_item_sprite.visible = false
+			#var d = DropUtil.spawn_droppable(held_item_type, target_pos, Vector2.ZERO)
+			#d.start_static = true
+			#d.is_delivered = true
+			#if is_instance_valid(target_droppable):
+				#target_droppable.is_being_targeted = false
+			#$HeldItem.visible = false
+			#target_droppable = null
+			#target_plot = null
+			#set_state(Enum.Helper_State.Idle)
+		#Enum.Helper_State.Pluck_Crop:
+			#target_plot.pluck_crop()
+			#set_state(Enum.Helper_State.Idle)
+		#
+#
+#
+#var is_held_item_produce = false
+#func pick_up_droppable(d: droppable) -> void:
+	#d.is_held = true
+	#held_item_sprite.visible = true
+	#held_item_type = d.drop_type
+	#is_held_item_produce = d.is_produce
+	#held_item_sprite.texture = d.get_node("Sprite2D").texture
+	#d.delete()
+	##target_droppable = null
+#
+#func find_droppable() -> droppable:
+	#if !Globals.DropsNode:
+		#return null
+	#
+	#match(helper_type):
+		#Enum.Helper_Type.Seed:
+			#var d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed)
+			#if is_instance_valid(d):
+				#return d
+				#
+	#
+	#return null
+#
+#
+#func set_state(s: Enum.Helper_State) -> void:
+	#state_timer_set = false
+	#state = s
+	#match(s):
+		#Enum.Helper_State.Idle:
+			#var d: droppable = find_droppable()
+			#if is_instance_valid(d):
+				#target_droppable = d
+				#set_state(Enum.Helper_State.Get_Item)
+				#return
+			#elif !state_timer_set:
+				#state_timer_set = true
+				#Util.quick_timer(self, 0.2, func(): 
+					#if state == Enum.Helper_State.Idle:
+						#set_state(Enum.Helper_State.Wander)
+				#)
+		#Enum.Helper_State.Wander:
+			#target_pos = Util.random_visible_position()
+		#Enum.Helper_State.Get_Item:
+			#if target_droppable == null:
+				#set_state(Enum.Helper_State.Idle)
+				#return
+			#target_pos = target_droppable.global_position
+		#Enum.Helper_State.Deliver_Item:
+			#if is_held_item_produce and Globals.SellChestNode:
+				#target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
+			#else:
+				#if target_plot:
+					#target_pos = target_plot.global_position + target_plot.size / 2
+				#elif Globals.PlotGrid:
+					#var p = Globals.PlotGrid.get_plot_that_needs_seed()
+					#if is_instance_valid(p):
+						#target_plot = p
+						#target_pos = target_plot.global_position + target_plot.size / 2
+					#else: 
+						#print("COULDNT FIND PLOT")
+						#set_state(Enum.Helper_State.Wander)
+						#
+		#Enum.Helper_State.Pluck_Crop:
+			#held_item_sprite.visible = false
+			#target_pos = target_plot.global_position + target_plot.size / 2
+	#
+	
+	
 	#print(Util.get_helper_state_string(state), " timer: ", state_timer_set)
 
 func move_to_target() -> bool:
 	if state == Enum.Helper_State.Idle:
 		return false
+	if target_droppable:
+		target_pos = target_droppable.global_position
+	
 	var direction = (target_pos - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
 	if new_dir != dir:
@@ -114,20 +256,7 @@ func move_to_target() -> bool:
 	move_and_slide()
 	
 	return global_position.distance_to(target_pos) <= 2
-		
-
-
-
-func remove_job():
-	clear_job_data()
-	set_state(Enum.Helper_State.Idle)
-
-func clear_job_data():
-	if is_instance_valid(target_droppable):
-		target_droppable.is_being_targeted = false
-	target_droppable = null
-	target_plot = null
-	$HeldItem.visible = false
+	
 
 func update_animation() -> void:
 	match dir:

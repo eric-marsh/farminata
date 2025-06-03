@@ -53,8 +53,8 @@ func get_plot_for_helper():
 	for c in get_children():
 		if !c is plot:
 			continue
-		if !c.is_plot_needing_help():
-			continue
+		#if !c.is_plot_needing_help():
+			#continue
 		return c
 	
 func get_random_plot_position() -> Vector2:
@@ -62,6 +62,30 @@ func get_random_plot_position() -> Vector2:
 	return p.global_position + p.size / 2
 
 
+
+func get_plot_that_needs_seed() -> plot:
+	for c in get_children():
+		if !c is plot:
+			continue
+		if c.plot_growth_state == Enum.Plot_Growth_State.None:
+			return c
+	return null
+
+func get_plot_that_needs_water() -> plot:
+	for c in get_children():
+		if !c is plot:
+			continue
+		if c.plot_state == Enum.Plot_State.Dry and c.plot_growth_state != Enum.Plot_Growth_State.Full:
+			return c
+	return null
+	
+func get_plot_that_needs_sun() -> plot:
+	for c in get_children():
+		if !c is plot:
+			continue
+		if c.plot_state == Enum.Plot_State.Wet and c.plot_growth_state != Enum.Plot_Growth_State.None:
+			return c
+	return null
 
 var square_position_array: Array[Vector2] = [
 	Vector2(0, 0),

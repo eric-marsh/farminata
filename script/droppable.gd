@@ -32,14 +32,14 @@ func _ready():
 	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	
 	is_produce = DropUtil.is_produce(drop_type)
-	if is_produce and !is_delivered:
-		if Globals.HelpersContainerNode:
-			var h = Globals.HelpersContainerNode.get_inactive_helper()
-			if is_instance_valid(h):
-				is_being_targeted = true
-				h.target_droppable = self
-				h.target_plot = null
-				h.set_state(Enum.Helper_State.Get_Item)
+	#if is_produce and !is_delivered:
+		#if Globals.HelpersContainerNode:
+			#var h = Globals.HelpersContainerNode.get_inactive_helper()
+			#if is_instance_valid(h):
+				#is_being_targeted = true
+				#h.target_droppable = self
+				#h.target_plot = null
+				#h.set_state(Enum.Helper_State.Get_Item)
 	
 
 func _physics_process(delta):
@@ -83,7 +83,13 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 			set_collision_layer_value(1, true)
 
 func delete():
+	print("delete")
 	if is_dragging:
 		is_dragging = false
 		Globals.Main.is_dragging = false
 	queue_free()
+
+
+func hide_droppable():
+	$CollisionShape2D.disabled = true
+	visible = false

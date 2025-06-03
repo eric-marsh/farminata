@@ -29,3 +29,4 @@ func reset_nodes():
 	SlotMachineNodde = get_node("/root/SceneSwitcher/Main/PlotContainer/SlotMachine")
 	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
 	SellChestNode = get_node("/root/SceneSwitcher/Main/SellChest")
+	PlotGrid = get_node("/root/SceneSwitcher/Main/PlotContainer/PlotGrid")
