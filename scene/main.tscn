@@ -38,7 +38,7 @@ script = ExtResource("6_k65ib")
 
 [node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
 position = Vector2(294, 241)
-drop_type = 3
+drop_type = 5
 start_static = true
 
 [node name="Helpers" type="Node2D" parent="."]
@@ -54,6 +54,10 @@ helper_type = 1
 [node name="Helper3" parent="Helpers" instance=ExtResource("8_k65ib")]
 position = Vector2(243, 189)
 helper_type = 2
+
+[node name="Helper4" parent="Helpers" instance=ExtResource("8_k65ib")]
+position = Vector2(407, 216)
+helper_type = 3
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 

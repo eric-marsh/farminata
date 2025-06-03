@@ -86,6 +86,15 @@ func get_plot_that_needs_sun() -> plot:
 		if c.plot_state == Enum.Plot_State.Wet and c.plot_growth_state != Enum.Plot_Growth_State.None:
 			return c
 	return null
+	
+func get_plot_that_needs_plucking() -> plot:
+	for c in get_children():
+		if !c is plot:
+			continue
+		if c.plot_growth_state == Enum.Plot_Growth_State.Full:
+			return c
+	return null
+	
 
 var square_position_array: Array[Vector2] = [
 	Vector2(0, 0),
