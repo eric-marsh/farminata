@@ -8,9 +8,9 @@ enum Grow_Type { None, Carrot, Onion }
 
 enum Slot_Pos {Left, Middle, Right}
 
-enum Upgrade_Type { AddPlot, UnlockOnion, AddSeedHelper, AddSunHelper, AddWaterHelper, AddPluckHelper }
+enum Upgrade_Type { AddPlot, UnlockOnion, AddSeedHelper, AddSunHelper, AddWaterHelper, AddPluckHelper, AddAttackHelper }
 
 enum Dir { Left, Right, Up, Down}
-enum Helper_State { Idle, Wander, Get_Item, Deliver_Item, Pluck_Crop }
+enum Helper_State { Idle, Wander, Get_Item, Deliver_Item, Pluck_Crop, Attack }
 
-enum Helper_Type { Seed, Water, Sun, Pluck }
+enum Helper_Type { Seed, Water, Sun, Pluck, Attack }

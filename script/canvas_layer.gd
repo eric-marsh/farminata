@@ -74,15 +74,6 @@ func add_helper_button_pressed(upgrade_type: Enum.Upgrade_Type, helper_type: Enu
 		return
 	Globals.Main.change_money(-helper_price)
 	Globals.HelpersContainerNode.add_helper(helper_type)
-	match(helper_type):
-		Enum.Helper_Type.Seed:
-			State.num_seed_helpers += 1
-		Enum.Helper_Type.Sun:
-			State.num_sun_helpers += 1
-		Enum.Helper_Type.Water:
-			State.num_water_helpers += 1
-		Enum.Helper_Type.Pluck:
-			State.num_pluck_helpers += 1
 	update_money_counter()
 	
 		

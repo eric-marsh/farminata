@@ -96,6 +96,31 @@ func get_color_from_helper_type(type: Enum.Helper_Type) -> Color:
 			return Color.html("#00bbf9")
 		Enum.Helper_Type.Pluck:
 			return Color.html("#9b5de5")
+		Enum.Helper_Type.Attack:
+			return Color.RED
 		_:
 			return Color.WHITE
 	pass
+
+
+func get_total_helpers_of_type(helper_type: Enum.Helper_Type) -> int:
+	match(helper_type):
+		Enum.Helper_Type.Seed:
+			return State.num_seed_helpers
+		Enum.Helper_Type.Sun:
+			return State.num_sun_helpers
+		Enum.Helper_Type.Water:
+			return State.num_water_helpers
+		Enum.Helper_Type.Pluck:
+			return State.num_pluck_helpers
+		Enum.Helper_Type.Attack:
+			return State.num_attack_helpers
+		_:
+			return 0
+
+func get_total_helpers() -> int:
+	return State.num_seed_helpers +\
+		State.num_sun_helpers +\
+		State.num_water_helpers +\
+		State.num_pluck_helpers +\
+		State.num_attack_helpers
