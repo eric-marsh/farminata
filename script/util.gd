@@ -52,6 +52,8 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 			return "Deliver_Item"
 		Enum.Helper_State.Pluck_Crop:
 			return "Pluck_Crop"
+		Enum.Helper_State.Attack:
+			return "Attack"
 		_:
 			return "idk that helper state"
 			
@@ -65,6 +67,8 @@ func get_helper_type_string(type: Enum.Helper_Type) -> String:
 			return "Sun"
 		Enum.Helper_Type.Pluck:
 			return "Pluck"
+		Enum.Helper_Type.Attack:
+			return "Attack"
 		_:
 			return "idk that helper state"
 

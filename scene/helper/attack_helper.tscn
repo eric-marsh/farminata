@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://gux46i3nj3wt" path="res://script/helper/attack_helper.gd" id="1_lee8m"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_xcfqp"]
-[ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="3_3txtj"]
+[ext_resource type="Texture2D" uid="uid://dxw5mpl374jcu" path="res://img/slots/symbols/rock.png" id="4_xcfqp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
 
@@ -217,7 +217,7 @@ animation = &"walk_right"
 [node name="HeldItem" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(0, 8)
-texture = ExtResource("3_3txtj")
+texture = ExtResource("4_xcfqp")
 
 [node name="StateLabel" type="Label" parent="."]
 offset_left = -13.0
@@ -229,3 +229,9 @@ Seed"
 label_settings = SubResource("LabelSettings_ewdy1")
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Throwable" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_xcfqp")
+
+[node name="AttackTimer" type="Timer" parent="."]

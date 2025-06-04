@@ -6,10 +6,17 @@ var has_reached_attack_pos: bool = false
 var attack_pos_radius: int = 250
 var is_target_pos_reached: bool = false
 
+# Path2D seems like overkill. Just use the timer and calculate the position based on the attack interval
+
+var attack_interval: float = 1.0
+
 func _ready() -> void:
 	target_pos = get_attack_pos(id_of_type)
 	set_state(Enum.Helper_State.Attack)
 	update_animation()
+	
+	$AttackTimer.wait_time = attack_interval
+	$AttackTimer.connect("timeout", attack)
 	
 	$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
 	if Debug.Helper_Speed > 0:
@@ -20,18 +27,55 @@ func _ready() -> void:
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
 	
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Go to attack spot
 	if !is_target_pos_reached:
 		var has_reached_target:bool = move_to_target()
 		if has_reached_target:
 			is_target_pos_reached = true
+			start_attacking()
 		return
+	if is_attacking():
+		update_thowable()
 	
-	# attack
 	if Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type), " 1" if held_droppable != null else " 0")
 
+func start_attacking() -> void:
+	if !Globals.PiniataNode:
+		return
+	
+	start_position = global_position
+	$Throwable.visible = true
+	$AttackTimer.start()
+	
+	# change direction to face piniata
+	var direction = (Globals.PiniataNode.global_position - global_position).normalized()
+	var new_dir = Util.get_enum_direction(direction)
+	if new_dir != dir:
+		dir = new_dir
+		update_animation()
+		# TODO: Use idle animation
+
+func is_attacking() -> bool:
+	return !$AttackTimer.is_stopped()
+
+var start_position: Vector2
+func attack() -> void:
+	if !Globals.PiniataNode:
+		return
+	print("HIT")
+
+func update_thowable() -> void:
+	if !Globals.PiniataNode:
+		return
+	var target_position = Globals.PiniataNode.global_position
+	var total_time = $AttackTimer.wait_time
+	var elapsed_time = total_time - $AttackTimer.time_left
+	var t = clamp(elapsed_time / total_time, 0, 1) # Normalize from 0 to 1
+
+	# Interpolate from start to target
+	$Throwable.global_position = start_position.lerp(target_position, t)
 
 var num_attack_helpers = 100
 func get_attack_pos(index: int) -> Vector2:
