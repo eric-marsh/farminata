@@ -4,14 +4,21 @@ class_name helpers_container
 const HELPER = preload("res://scene/helper.tscn")
 
 func _ready() -> void:
-	for i in range(State.num_helpers):
-		add_helper()
+	for i in range(State.num_seed_helpers):
+		add_helper(Enum.Helper_Type.Seed)
+	for i in range(State.num_sun_helpers):
+		add_helper(Enum.Helper_Type.Sun)
+	for i in range(State.num_water_helpers):
+		add_helper(Enum.Helper_Type.Water)
+	for i in range(State.num_pluck_helpers):
+		add_helper(Enum.Helper_Type.Pluck)
 
 func _physics_process(delta: float) -> void:
 	pass
 	
-func add_helper() -> void:
+func add_helper(helper_type: Enum.Helper_Type) -> void:
 	var h = HELPER.instantiate() as helper
+	h.helper_type = helper_type
 	h.global_position = Util.random_visible_position()
 	add_child(h)
 

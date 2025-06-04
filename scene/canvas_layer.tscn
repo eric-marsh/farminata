@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=3 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
+
+[sub_resource type="Theme" id="Theme_xp8f4"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_xp8f4")
@@ -28,14 +30,33 @@ text = "Coins: 0"
 layout_mode = 2
 text = "+1 Plot"
 
-[node name="HelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "+1 Helper"
-
 [node name="OnionButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Unlock Onion"
 
+[node name="AddSeedHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_xp8f4")
+text = "0 🌱 - 10"
+
+[node name="AddSunHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_xp8f4")
+text = "0 🌱 - 10"
+
+[node name="AddWaterHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_xp8f4")
+text = "0 🌱 - 10"
+
+[node name="AddPluckHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_xp8f4")
+text = "0 🌱 - 10"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HelperButton" to="." method="_on_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddSeedHelperButton" to="." method="_on_add_seed_helper_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddSunHelperButton" to="." method="_on_add_sun_helper_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddWaterHelperButton" to="." method="_on_add_water_helper_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddPluckHelperButton" to="." method="_on_add_pluck_helper_button_pressed"]
