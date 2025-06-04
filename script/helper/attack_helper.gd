@@ -1,6 +1,8 @@
 class_name attack_helper
 extends helper
 
+@export var attack_interval: float = 1.0
+@export var attack_strength: int = 1
 
 var has_reached_attack_pos: bool = false
 var attack_pos_radius: int = 250
@@ -8,7 +10,6 @@ var is_target_pos_reached: bool = false
 
 # Path2D seems like overkill. Just use the timer and calculate the position based on the attack interval
 
-var attack_interval: float = 1.0
 
 func _ready() -> void:
 	target_pos = get_attack_pos(id_of_type)
@@ -64,7 +65,7 @@ var start_position: Vector2
 func attack() -> void:
 	if !Globals.PiniataNode:
 		return
-	print("HIT")
+	Globals.PiniataNode.hit_piniata(attack_strength)
 
 func update_thowable() -> void:
 	if !Globals.PiniataNode:
@@ -85,5 +86,5 @@ func get_attack_pos(index: int) -> Vector2:
 	var center = Globals.PiniataNode.global_position
 	var angle_step = PI / (num_attack_helpers + 1)
 	var angle = PI + angle_step * (index + 1)  
-	var offset = Vector2(cos(angle), sin(angle)) * attack_pos_radius
+	var offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
 	return center + offset

@@ -4,6 +4,7 @@ class_name canvas_layer
 @onready var onion_button = $MarginContainer/VBoxContainer/OnionButton
 
 
+
 func _ready() -> void:
 	update_money_counter()
 	
@@ -21,21 +22,19 @@ func update_money_counter():
 	$MarginContainer/VBoxContainer/PlotButton.text = "+1 Plot: $" + str(plot_price)
 	$MarginContainer/VBoxContainer/PlotButton.disabled = plot_price > money
 	
-	var seed_helper_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddSeedHelper)
-	$MarginContainer/VBoxContainer/AddSeedHelperButton.text = str(State.num_seed_helpers) + " 🌱: $" + str(seed_helper_price)
-	$MarginContainer/VBoxContainer/AddSeedHelperButton.disabled = seed_helper_price > money
+	var helper_data = [
+		{ "type": Enum.Upgrade_Type.AddSeedHelper, "node": $MarginContainer/VBoxContainer/AddSeedHelperButton, "count": State.num_seed_helpers, "icon": "🌱" },
+		{ "type": Enum.Upgrade_Type.AddSunHelper, "node": $MarginContainer/VBoxContainer/AddSunHelperButton, "count": State.num_sun_helpers, "icon": "☀️" },
+		{ "type": Enum.Upgrade_Type.AddWaterHelper, "node": $MarginContainer/VBoxContainer/AddWaterHelperButton, "count": State.num_water_helpers, "icon": "💧" },
+		{ "type": Enum.Upgrade_Type.AddPluckHelper, "node": $MarginContainer/VBoxContainer/AddPluckHelperButton, "count": State.num_pluck_helpers, "icon": "🥕" },
+		{ "type": Enum.Upgrade_Type.AddAttackHelper, "node": $MarginContainer/VBoxContainer/AddAttackHelperButton, "count": State.num_attack_helpers, "icon": "🔫" },
+	]
+
+	for data in helper_data:
+		var price = Prices.get_upgrade_price(data.type)
+		data.node.text = str(data.count) + " " + data.icon + ": $" + str(price)
+		data.node.disabled = price > money
 	
-	var sun_helper_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddSunHelper)
-	$MarginContainer/VBoxContainer/AddSunHelperButton.text = str(State.num_sun_helpers) + " ☀️: $" + str(sun_helper_price)
-	$MarginContainer/VBoxContainer/AddSunHelperButton.disabled = sun_helper_price > money
-	
-	var water_helper_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddWaterHelper)
-	$MarginContainer/VBoxContainer/AddWaterHelperButton.text = str(State.num_water_helpers) + " 💧: $" + str(water_helper_price)
-	$MarginContainer/VBoxContainer/AddWaterHelperButton.disabled = water_helper_price > money
-	
-	var pluck_helper_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPluckHelper)
-	$MarginContainer/VBoxContainer/AddPluckHelperButton.text = str(State.num_pluck_helpers) + " 🥕: $" + str(pluck_helper_price)
-	$MarginContainer/VBoxContainer/AddPluckHelperButton.disabled = pluck_helper_price > money
 	
 	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
 		onion_button.visible = false
@@ -53,9 +52,6 @@ func _on_plot_button_pressed() -> void:
 	State.num_plots += 1
 	$"../PlotContainer/PlotGrid".add_plot() # TODO: If there is multiple plots, do this in a better way
 	update_money_counter()
-
-
-
 
 
 func _on_onion_button_pressed():
@@ -76,8 +72,6 @@ func add_helper_button_pressed(upgrade_type: Enum.Upgrade_Type, helper_type: Enu
 	Globals.HelpersContainerNode.add_helper(helper_type)
 	update_money_counter()
 	
-		
-
 
 func _on_add_seed_helper_button_pressed() -> void:
 	add_helper_button_pressed(Enum.Upgrade_Type.AddSeedHelper, Enum.Helper_Type.Seed)
@@ -90,6 +84,8 @@ func _on_add_sun_helper_button_pressed() -> void:
 func _on_add_water_helper_button_pressed() -> void:
 	add_helper_button_pressed(Enum.Upgrade_Type.AddWaterHelper, Enum.Helper_Type.Water)
 
-
 func _on_add_pluck_helper_button_pressed() -> void:
 	add_helper_button_pressed(Enum.Upgrade_Type.AddPluckHelper, Enum.Helper_Type.Pluck)
+
+func _on_add_attack_helper_button_pressed() -> void:
+	add_helper_button_pressed(Enum.Upgrade_Type.AddAttackHelper, Enum.Helper_Type.Attack)

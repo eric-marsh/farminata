@@ -54,9 +54,15 @@ layout_mode = 2
 theme = SubResource("Theme_xp8f4")
 text = "0 🌱 - 10"
 
+[node name="AddAttackHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_xp8f4")
+text = "0 🌱 - 10"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddSeedHelperButton" to="." method="_on_add_seed_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddSunHelperButton" to="." method="_on_add_sun_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddWaterHelperButton" to="." method="_on_add_water_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddPluckHelperButton" to="." method="_on_add_pluck_helper_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddAttackHelperButton" to="." method="_on_add_attack_helper_button_pressed"]
