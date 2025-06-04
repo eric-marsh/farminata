@@ -38,6 +38,10 @@ func _physics_process(_delta: float) -> void:
 	if has_reached_target:
 		on_reaching_target_pos()
 	
+	if state == Enum.Helper_State.Get_Item and !is_instance_valid(target_droppable):
+		set_state(Enum.Helper_State.Idle)
+		return
+	
 	if state == Enum.Helper_State.Idle and Globals.Main and Globals.Main.global_timer % 20 == 0:
 		check_for_tasks_to_do()
 	
