@@ -42,7 +42,7 @@ func _physics_process(_delta: float) -> void:
 		set_state(Enum.Helper_State.Idle)
 		return
 	
-	if state == Enum.Helper_State.Idle and Globals.Main and Globals.Main.global_timer % 20 == 0:
+	if state == Enum.Helper_State.Wander and Globals.Main and Globals.Main.global_timer % 20 == 0:
 		check_for_tasks_to_do()
 	
 	if Debug.DEBUG_SHOW_HELPER_STATE:
