@@ -1,7 +1,6 @@
 extends Node2D
 class_name plot
 
-@onready var search_area = $SearchArea
 
 @export var plot_state: Enum.Plot_State = Enum.Plot_State.Dry
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None

@@ -1,10 +1,12 @@
-[gd_scene load_steps=31 format=3 uid="uid://c82wwcd2kv076"]
+[gd_scene load_steps=32 format=3 uid="uid://c82wwcd2kv076"]
 
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="1_undiq"]
 [ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper.gd" id="1_uu31v"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="3_ewdy1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewdy1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ewdy1"]
 atlas = ExtResource("1_undiq")
@@ -207,6 +209,7 @@ script = ExtResource("1_uu31v")
 shape = SubResource("CircleShape2D_uu31v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_ewdy1")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6kp2c")
 animation = &"walk_right"

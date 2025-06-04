@@ -25,6 +25,10 @@ func _ready() -> void:
 	set_state(Enum.Helper_State.Idle)
 	update_animation()
 	
+	
+	$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
+	
+	
 	if Debug.Helper_Speed > 0:
 		speed = Debug.Helper_Speed
 		min_velocity = Vector2(-speed, -speed)

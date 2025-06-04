@@ -84,3 +84,18 @@ func create_explosion_particle(pos: Vector2, color: Color) -> void:
 	p.emitting = true
 	Globals.AnimationsContainer.add_child(p)
 	
+
+# https://coolors.co/palette/ff595e-ffca3a-8ac926-1982c4-6a4c93
+func get_color_from_helper_type(type: Enum.Helper_Type) -> Color:
+	match(type):
+		Enum.Helper_Type.Seed:
+			return Color.html("#f15bb5")
+		Enum.Helper_Type.Sun:
+			return Color.html("#fee440")
+		Enum.Helper_Type.Water:
+			return Color.html("#00bbf9")
+		Enum.Helper_Type.Pluck:
+			return Color.html("#9b5de5")
+		_:
+			return Color.WHITE
+	pass
