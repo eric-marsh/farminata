@@ -134,6 +134,12 @@ func on_reaching_target_pos() -> void:
 			set_state(Enum.Helper_State.Deliver_Item)
 			return
 		Enum.Helper_State.Deliver_Item:
+			if !is_instance_valid(held_droppable):
+				target_plot = null
+				held_droppable = null
+				$HeldItem.visible = false
+				set_state(Enum.Helper_State.Idle)
+				return
 			$HeldItem.visible = false
 			var d = DropUtil.spawn_droppable(held_droppable.drop_type, target_pos, Vector2.ZERO)
 			d.start_static = true
