@@ -11,6 +11,7 @@ var AnimationsContainer: Node2D = null
 var SlotMachineNodde: slot_machine = null
 var AudioNode: audio = null
 var SellChestNode: Area2D = null
+var PiniataNode: Area2D = null
 
 func _ready():
 	reset_nodes()
@@ -30,3 +31,4 @@ func reset_nodes():
 	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
 	SellChestNode = get_node("/root/SceneSwitcher/Main/SellChest")
 	PlotGrid = get_node("/root/SceneSwitcher/Main/PlotContainer/PlotGrid")
+	PiniataNode = get_node("/root/SceneSwitcher/Main/Piniata")

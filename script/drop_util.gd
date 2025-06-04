@@ -38,6 +38,9 @@ var drop_type_colors = {
 	Enum.Drop_Type.Onion_Seed: Color.BROWN
 }
 
+func is_seed(symbol: Enum.Drop_Type) -> bool:
+	return symbol in [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed]
+
 func is_produce(symbol: Enum.Drop_Type) -> bool:
 	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion]
 

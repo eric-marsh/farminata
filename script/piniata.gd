@@ -40,3 +40,7 @@ func hit_piniata(strength: int = 1):
 	
 func get_random_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
+
+func unlock_drop_type(type: Enum.Drop_Type) -> void:
+	if !possible_outputs.has(type):
+		possible_outputs.push_back(type)
