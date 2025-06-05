@@ -77,7 +77,10 @@ func start_dragging() -> void:
 	is_dragging = true
 	$Sprite2D.scale = dragging_scale
 	Globals.Main.is_dragging = true
+	Globals.Main.dragged_droppable = self
 	set_collision_layer_value(1, false)
+	set_collision_layer_value(5, false)
+	set_collision_mask_value(5, false)
 	
 func stop_dragging() -> void:
 	if !Globals.Main:
@@ -85,7 +88,16 @@ func stop_dragging() -> void:
 	is_dragging = false
 	$Sprite2D.scale = Vector2.ONE
 	Globals.Main.is_dragging = false
+	Globals.Main.dragged_droppable = null
 	set_collision_layer_value(1, true)
+	Util.quick_timer(self, 0.000001, func():
+		if is_instance_valid(self):
+			sleeping=false
+			set_collision_layer_value(5, true)
+			set_collision_mask_value(5, true)
+			global_position += Vector2(1,0)
+		)
+	
 
 func delete():
 	print("delete")

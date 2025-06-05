@@ -2,7 +2,7 @@ extends Node
 
 var DEBUG_SHOW_HELPER_STATE: bool = true
 
-var STARTING_MONEY: int = 0.0
+var STARTING_MONEY: int = 10000
 
 #var Helper_Speed: float = 200.0
 var Helper_Speed: float = 0.0

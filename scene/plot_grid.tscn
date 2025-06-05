@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8nkjd470xyme"]
+[gd_scene load_steps=5 format=3 uid="uid://b8nkjd470xyme"]
 
 [ext_resource type="Script" uid="uid://caodt7wtk6rf0" path="res://script/plot_grid.gd" id="1_iwkn7"]
 [ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="2_315pt"]
 [ext_resource type="TileSet" uid="uid://dr8cfe3biaoab" path="res://main_tileset.tres" id="3_315pt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_315pt"]
+size = Vector2(64, 64)
 
 [node name="PlotGrid" type="Node2D"]
 script = ExtResource("1_iwkn7")
@@ -20,3 +23,11 @@ position = Vector2(0, 32)
 
 [node name="Plot4" parent="." instance=ExtResource("2_315pt")]
 position = Vector2(32, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_315pt")

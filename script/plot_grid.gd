@@ -42,6 +42,8 @@ func add_plot():
 	var terrain_set: int = 0
 	tile_map_layer.set_cell(square_pos, source_id, Vector2i(1, 1), 0)
 	tile_map_layer.set_cells_terrain_connect([square_pos], terrain_set, terrain_set)
+	
+	update_push_zone(p.size.x)
 
 
 
@@ -133,3 +135,33 @@ var square_position_array: Array[Vector2] = [
 	Vector2(-3, 4),
 	Vector2(3, 4),
 ]
+
+
+func update_push_zone(square_size: int) -> void:
+	var min_x = INF
+	var max_x = -INF
+	var min_y = INF
+	var max_y = -INF
+
+	var squares = square_position_array.slice(0, plots.size())
+
+	# Find bounds in tile coordinates
+	for pos in squares:
+		min_x = min(min_x, pos.x)
+		max_x = max(max_x, pos.x)
+		min_y = min(min_y, pos.y)
+		max_y = max(max_y, pos.y)
+
+	# Convert to pixels
+	var rect_width = (max_x - min_x + 1) * square_size
+	var rect_height = (max_y - min_y + 1) * square_size
+	var rect_center = Vector2(
+		(min_x + max_x + 1) / 2.0 * square_size - square_size / 2,
+		(min_y + max_y + 1) / 2.0 * square_size - square_size / 2
+	)
+
+	var shape = RectangleShape2D.new()
+	shape.extents = Vector2(rect_width, rect_height) / 2.0
+	$StaticBody2D/CollisionShape2D.shape = shape
+	$StaticBody2D/CollisionShape2D.position = rect_center + Vector2(square_size/2,square_size/2)
+	

@@ -8,6 +8,7 @@ var is_paused: bool = false
 
 var max_blocks: int = 900
 var is_dragging: bool = false
+var dragged_droppable: droppable = null
 
 func _ready() -> void:
 	global_timer = 0
@@ -15,9 +16,8 @@ func _ready() -> void:
 	is_game_over = false
 	is_paused = false
 	
-	
 	if Debug.STARTING_MONEY > 0:
-		State.money = Debug.STARTING_MONEY
+		change_money(Debug.STARTING_MONEY)
 	
 func _process(delta: float) -> void:
 	if Globals.Main and Globals.Main.is_paused:
@@ -39,13 +39,13 @@ func _input(event):
 		if is_paused and Globals.Audio:
 			Globals.Audio.ship_hover_stop()
 			
-	#if event is InputEventMouseButton:
-		#if event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-			#is_dragging = false
-			#if dragged_droppable:
-				#dragged_droppable.is_dragging = false
-				#dragged_droppable.start_static = true
-				#dragged_droppable = null
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+		call_deferred("stop_dragging_droppable") 
+
+func stop_dragging_droppable() -> void:
+	if dragged_droppable:
+		dragged_droppable.stop_dragging()
+
 
 var can_restart_game = false
 func check_game_over():
@@ -59,8 +59,9 @@ func check_game_over():
 	pass
 	
 func change_money(money_dif: int):
-	State.money += money_dif
-	Globals.CanvasLayerNode.update_money_counter()
+	if Globals.CanvasLayerNode:
+		State.money += money_dif
+		Globals.CanvasLayerNode.update_money_counter()
 
 #
 #var ParticleBrickHit = preload("res://scene/particle_brick_hit.tscn")
