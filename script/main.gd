@@ -16,6 +16,10 @@ func _ready() -> void:
 	is_game_over = false
 	is_paused = false
 	
+	
+	if Debug.STARTING_MONEY > 0:
+		State.money = Debug.STARTING_MONEY
+	
 func _process(delta: float) -> void:
 	if Globals.Main and Globals.Main.is_paused:
 		return

@@ -31,16 +31,14 @@ func _ready():
 	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)
 	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	
-	is_produce = DropUtil.is_produce(drop_type)
-	#if is_produce and !is_delivered:
-		#if Globals.HelpersContainerNode:
-			#var h = Globals.HelpersContainerNode.get_inactive_helper()
-			#if is_instance_valid(h):
-				#is_being_targeted = true
-				#h.target_droppable = self
-				#h.target_plot = null
-				#h.set_state(Enum.Helper_State.Get_Item)
-	
+	is_produce = DropUtil.is_produce(drop_type) 
+	print("is_produce: ", is_produce)
+	if is_produce:
+		var new_radius = $CollisionShape2D.shape.radius * 2
+		$CollisionShape2D.shape = null
+		var new_shape = CircleShape2D.new() as CircleShape2D
+		new_shape.radius = new_radius
+		$CollisionShape2D.shape = new_shape
 
 func _physics_process(delta):
 	update_shadow()

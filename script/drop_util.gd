@@ -61,7 +61,6 @@ func get_drop_type_color(drop_type: Enum.Drop_Type) -> Color:
 
 const DROPPABLE = preload("res://scene/droppable.tscn")
 func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
-	print("spawn droppable")
 	var d = DROPPABLE.instantiate() as droppable
 	d.drop_type = drop_type
 	d.global_position = position
