@@ -32,7 +32,6 @@ func _ready():
 	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	
 	is_produce = DropUtil.is_produce(drop_type) 
-	print("is_produce: ", is_produce)
 	if is_produce:
 		var new_radius = $CollisionShape2D.shape.radius * 2
 		$CollisionShape2D.shape = null
@@ -68,17 +67,25 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if Globals.Main and Globals.Main.is_dragging:
-				return
-			is_dragging = true
-			$Sprite2D.scale = dragging_scale
-			Globals.Main.is_dragging = true
-			set_collision_layer_value(1, false)
+			start_dragging()
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-			is_dragging = false
-			$Sprite2D.scale = Vector2.ONE
-			Globals.Main.is_dragging = false
-			set_collision_layer_value(1, true)
+			stop_dragging()
+
+func start_dragging() -> void:
+	if !Globals.Main or Globals.Main.is_dragging:
+		return
+	is_dragging = true
+	$Sprite2D.scale = dragging_scale
+	Globals.Main.is_dragging = true
+	set_collision_layer_value(1, false)
+	
+func stop_dragging() -> void:
+	if !Globals.Main:
+		return
+	is_dragging = false
+	$Sprite2D.scale = Vector2.ONE
+	Globals.Main.is_dragging = false
+	set_collision_layer_value(1, true)
 
 func delete():
 	print("delete")

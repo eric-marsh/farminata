@@ -98,7 +98,6 @@ func pluck_crop(clicked:bool=false):
 	spawn_produce(clicked)
 
 
-var dragging_droppable_temp: droppable = null
 func spawn_produce(clicked:bool=false):
 	var d
 	match grow_type:
@@ -115,7 +114,6 @@ func spawn_produce(clicked:bool=false):
 		return
 	
 	if Globals.Main and !Globals.Main.is_dragging:
-		dragging_droppable_temp = d
-		d.is_dragging = true
+		d.start_dragging()
+		d.start_static=true
 		Globals.Main.is_dragging = true
-		Globals.Main.dragged_droppable = d
