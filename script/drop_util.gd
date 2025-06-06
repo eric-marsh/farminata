@@ -59,18 +59,6 @@ func get_drop_type_string(symbol: Enum.Drop_Type) -> String:
 func get_drop_type_color(drop_type: Enum.Drop_Type) -> Color:
 	return drop_type_colors.get(drop_type, Color.WHITE)
 
-const DROPPABLE = preload("res://scene/droppable.tscn")
-func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
-	var d = DROPPABLE.instantiate() as droppable
-	d.drop_type = drop_type
-	d.global_position = position
-	d.target_position = target_position
-	if impulse != Vector2.ZERO:
-		d.apply_central_impulse(impulse)
-	if Globals.DropsNode:
-		Globals.DropsNode.add_child(d)
-	return d
-
 const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
 func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):
 	if !Globals.AnimationsContainer:
@@ -79,4 +67,45 @@ func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):
 	a.drop_type = drop_type
 	a.global_position = pos
 	Globals.AnimationsContainer.add_child(a)
+
+const DROPPABLE = preload("res://scene/droppable.tscn")
+func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_position: Vector2, impulse: Vector2 = Vector2.ZERO):
+	var d = DROPPABLE.instantiate() as droppable
+	d.drop_type = drop_type
+	d.global_position = position
+	d.target_position = target_position
+	update_droppable_count(drop_type, 1)
+	
+	print_drop_counts()
+	
+	if impulse != Vector2.ZERO:
+		d.apply_central_impulse(impulse)
+	if Globals.DropsNode:
+		Globals.DropsNode.add_child(d)
+	return d
+
+
+var droppable_count = {}
+func update_droppable_count(drop_type: Enum.Drop_Type, difference: int) -> void:
+	if !droppable_count.has(drop_type):
+		droppable_count.set(drop_type, 0)
+	droppable_count.set(drop_type, droppable_count.get(drop_type) + difference)
+	
+func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
+	if !droppable_count.has(drop_type):
+		return 0
+		
+	return droppable_count.get(drop_type, 0)
+
+	
+func print_drop_counts()->void:
+	if droppable_count.size() == 0:
+		return
+	
+	var result = ""
+	for k in droppable_count.keys():
+		result += get_drop_type_string(k as Enum.Drop_Type) + ": " + str(get_total_drops_of_type(k as Enum.Drop_Type)) + " "
+	
+	if result != "":
+		print(result)
 	

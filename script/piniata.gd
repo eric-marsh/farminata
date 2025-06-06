@@ -34,10 +34,25 @@ func hit_piniata(strength: int = 1):
 	hp -= strength
 	
 	if Util.random_chance(chance_of_output):
-		var drop_type: Enum.Drop_Type = get_random_output()
-		$Output.trigger_output(drop_type, Vector2.ZERO)
+		create_drop()
 	
+
+var max_seed_offset: int = 4
+func create_drop()->void:
+	if !Globals.PlotGrid:
+		return
 	
+	print(Globals.PlotGrid.get_total_plots() + max_seed_offset)
+	
+	var drop_type: Enum.Drop_Type
+	for i in range(100):
+		drop_type = get_random_output()
+		if !DropUtil.is_seed(drop_type) or DropUtil.get_total_drops_of_type(drop_type) < Globals.PlotGrid.get_total_plots() + max_seed_offset:
+			break
+			
+	$Output.trigger_output(drop_type, Vector2.ZERO)
+
+
 func get_random_output() -> Enum.Drop_Type:
 	return possible_outputs[randi() % possible_outputs.size()]
 

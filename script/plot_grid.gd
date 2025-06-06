@@ -32,7 +32,7 @@ func reset_plots():
 
 func add_plot():
 	var p = PLOT.instantiate() as plot
-	var square_pos = get_square_position(plots.size())
+	var square_pos = get_square_position(get_total_plots())
 	p.position = square_pos * p.size
 	add_child(p)
 	plots.push_back(p)
@@ -46,6 +46,8 @@ func add_plot():
 	update_push_zone(p.size.x)
 
 
+func get_total_plots() -> int:
+	return plots.size()
 
 func get_square_position(index: int) -> Vector2:
 	return square_position_array[index] if square_position_array.size() > index else Vector2.ZERO

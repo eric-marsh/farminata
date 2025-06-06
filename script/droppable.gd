@@ -104,6 +104,7 @@ func delete():
 	if is_dragging:
 		is_dragging = false
 		Globals.Main.is_dragging = false
+	DropUtil.update_droppable_count(drop_type, -1)
 	queue_free()
 
 

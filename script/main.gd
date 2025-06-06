@@ -20,15 +20,17 @@ func _ready() -> void:
 		change_money(Debug.STARTING_MONEY)
 	
 func _process(delta: float) -> void:
-	if Globals.Main and Globals.Main.is_paused:
+	if is_paused:
 		return
 	global_timer += 1
+	
 	
 	if is_game_over:
 		is_paused = false
 		return
 	total_seconds += delta
-	
+
+
 	
 func _input(event):
 	if Debug.DEBUG_ENABLE_DEBUGGING_KEYS and event.is_action_pressed("ui_cancel"):
