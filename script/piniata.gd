@@ -5,8 +5,6 @@ extends Node2D
 
 @onready var health_bar = $HealthBar
 
-
-
 var possible_outputs: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.Sun, 
 	Enum.Drop_Type.Water, 
@@ -19,23 +17,25 @@ func _ready() -> void:
 	update_health_bar()
 
 var path_velocity: float = 0.0
-var path_default_progress: float = 0.5
+var path_default_progress: float = 0.0
 var damping: float = 1.0       # slows it down
 var spring_force: float = 5.0  # pulls back to center
 func _process(delta: float) -> void:
-	var path_follow = $Path2D/PathFollow2D
-	var displacement = path_follow.progress_ratio - path_default_progress
+	var displacement = $Node2D.rotation - path_default_progress
 
 	# spring + damping motion
 	var acceleration = -displacement * spring_force - path_velocity * damping
 	path_velocity += acceleration * delta
-	path_follow.progress_ratio += path_velocity * delta
-
+	$Node2D.rotation += path_velocity * delta
+	
 	# clamp to [0.0, 1.0] to stay on path
-	path_follow.progress_ratio = clamp(path_follow.progress_ratio, 0.0, 1.0)
+	$Node2D.rotation = clamp($Node2D.rotation, -360.0, 360.0)
+	
 
 func animate_hit(strength: float) -> void:
 	path_velocity += strength
+	var n = 0.1	
+	path_velocity = clamp(path_velocity, -n, n)
 
 	
 func update_health_bar(damage_amount: int = 0) -> void:
@@ -45,7 +45,6 @@ func update_health_bar(damage_amount: int = 0) -> void:
 		return
 	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.piniata_hp / State.max_piniata_hp)), 6)
 	Util.create_explosion_particle(pos, Color.RED, damage_amount)
-
 
 #var chance_of_output: float = 0.2
 var chance_of_output: float = 0.6
@@ -70,7 +69,7 @@ func create_drop()->void:
 	if drop_type == Enum.Drop_Type.X:
 		return
 			
-	$Output.trigger_output(drop_type, Vector2.ZERO)
+	$Node2D/Output.trigger_output(drop_type, Vector2.ZERO)
 
 
 func get_random_output() -> Enum.Drop_Type:
@@ -96,10 +95,10 @@ func unlock_drop_type(type: Enum.Drop_Type) -> void:
 func _on_left_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata(State.hit_strength)
+			hit_piniata(State.hit_strength * -1)
 
 
 func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata(State.hit_strength * -1)
+			hit_piniata(State.hit_strength)
