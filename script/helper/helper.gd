@@ -130,6 +130,9 @@ func on_reaching_target_pos() -> void:
 		Enum.Helper_State.Wander:
 			set_state(Enum.Helper_State.Idle) # helper checks for items when idle
 		Enum.Helper_State.Get_Item:
+			if !target_droppable:
+				set_state(Enum.Helper_State.Idle)
+				return
 			pick_up_droppable(target_droppable)
 			set_state(Enum.Helper_State.Deliver_Item)
 			return
@@ -208,7 +211,10 @@ func move_to_target() -> bool:
 	velocity = velocity.clamp(min_velocity, max_velocity)
 	move_and_slide()
 	
-	return global_position.distance_to(target_pos) <= 2
+	if state == Enum.Helper_State.Get_Item:
+		return global_position.distance_to(target_pos) <= 2
+		
+	return global_position.distance_to(target_pos) <= 32
 	
 
 func update_animation() -> void:

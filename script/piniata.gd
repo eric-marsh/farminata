@@ -18,7 +18,7 @@ func _ready() -> void:
 	
 func update_health_bar(damage_amount: int = 0) -> void:
 	health_bar.value = State.piniata_hp
-	$HealthBar/Label.text = str(State.piniata_hp) + "/" + str(State.max_piniata_hp)
+	$HealthBar/Label.text = str(int(State.piniata_hp)) + "/" + str(int(State.max_piniata_hp))
 	if damage_amount == 0:
 		return
 	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.piniata_hp / State.max_piniata_hp)), 6)
@@ -41,28 +41,33 @@ func hit_piniata(strength: int = 1):
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
-	
-	
-	
 
-var max_seed_offset: int = 4
 func create_drop()->void:
 	if !Globals.PlotGrid:
 		return
+	 
 	
-	print(Globals.PlotGrid.get_total_plots() + max_seed_offset)
-	
-	var drop_type: Enum.Drop_Type
-	for i in range(100):
-		drop_type = get_random_output()
-		if !DropUtil.is_seed(drop_type) or DropUtil.get_total_drops_of_type(drop_type) < Globals.PlotGrid.get_total_plots() + max_seed_offset:
-			break
+	var drop_type = get_random_output() 
+	if drop_type == Enum.Drop_Type.X:
+		return
 			
 	$Output.trigger_output(drop_type, Vector2.ZERO)
 
 
 func get_random_output() -> Enum.Drop_Type:
-	return possible_outputs[randi() % possible_outputs.size()]
+	var weighted_drops: Array[Enum.Drop_Type] = [
+		Enum.Drop_Type.Water,
+		Enum.Drop_Type.Water,
+		Enum.Drop_Type.Water,
+		Enum.Drop_Type.Sun,
+		Enum.Drop_Type.Sun,
+		Enum.Drop_Type.X  # placeholder for best seed
+	]
+	var result = weighted_drops[randi() % weighted_drops.size()]
+	if result == Enum.Drop_Type.X:
+		var seed = DropUtil.get_best_possible_seed()
+		return null if seed == Enum.Drop_Type.X else seed
+	return result
 
 func unlock_drop_type(type: Enum.Drop_Type) -> void:
 	if !possible_outputs.has(type):

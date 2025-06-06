@@ -76,8 +76,6 @@ func spawn_droppable(drop_type: Enum.Drop_Type, position: Vector2, target_positi
 	d.target_position = target_position
 	update_droppable_count(drop_type, 1)
 	
-	print_drop_counts()
-	
 	if impulse != Vector2.ZERO:
 		d.apply_central_impulse(impulse)
 	if Globals.DropsNode:
@@ -96,6 +94,18 @@ func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
 		return 0
 		
 	return droppable_count.get(drop_type, 0)
+
+
+var max_seed_offset: int = 4
+func get_best_possible_seed() -> Enum.Drop_Type:
+	var max_seeds_allowed: int = Globals.PlotGrid.get_total_plots() + max_seed_offset
+	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed) and DropUtil.get_total_drops_of_type(Enum.Drop_Type.Onion_Seed) < max_seeds_allowed:
+		return Enum.Drop_Type.Onion_Seed
+	
+	if DropUtil.get_total_drops_of_type(Enum.Drop_Type.Carrot_Seed) < max_seeds_allowed:
+		return Enum.Drop_Type.Carrot_Seed
+	
+	return Enum.Drop_Type.X
 
 	
 func print_drop_counts()->void:

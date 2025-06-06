@@ -100,7 +100,6 @@ func stop_dragging() -> void:
 	
 
 func delete():
-	print("delete")
 	if is_dragging:
 		is_dragging = false
 		Globals.Main.is_dragging = false
