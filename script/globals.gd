@@ -11,7 +11,7 @@ var AnimationsContainer: Node2D = null
 var SlotMachineNodde: slot_machine = null
 var AudioNode: audio = null
 var SellChestNode: Area2D = null
-var PiniataNode: Area2D = null
+var PiniataNode: Node2D = null
 
 func _ready():
 	reset_nodes()

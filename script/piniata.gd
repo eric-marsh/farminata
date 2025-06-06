@@ -1,9 +1,11 @@
-extends Area2D
+extends Node2D
 
 @onready var droppable_output = $Output
 @onready var animation_player_pulse:AnimationPlayer = $AnimationPlayerPulse
 
 @onready var health_bar = $HealthBar
+
+
 
 var possible_outputs: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.Sun, 
@@ -15,6 +17,26 @@ func _ready() -> void:
 	health_bar.max_value = State.max_piniata_hp
 	health_bar.min_value = 0
 	update_health_bar()
+
+var path_velocity: float = 0.0
+var path_default_progress: float = 0.5
+var damping: float = 1.0       # slows it down
+var spring_force: float = 5.0  # pulls back to center
+func _process(delta: float) -> void:
+	var path_follow = $Path2D/PathFollow2D
+	var displacement = path_follow.progress_ratio - path_default_progress
+
+	# spring + damping motion
+	var acceleration = -displacement * spring_force - path_velocity * damping
+	path_velocity += acceleration * delta
+	path_follow.progress_ratio += path_velocity * delta
+
+	# clamp to [0.0, 1.0] to stay on path
+	path_follow.progress_ratio = clamp(path_follow.progress_ratio, 0.0, 1.0)
+
+func animate_hit(strength: float) -> void:
+	path_velocity += strength
+
 	
 func update_health_bar(damage_amount: int = 0) -> void:
 	health_bar.value = State.piniata_hp
@@ -24,11 +46,6 @@ func update_health_bar(damage_amount: int = 0) -> void:
 	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.piniata_hp / State.max_piniata_hp)), 6)
 	Util.create_explosion_particle(pos, Color.RED, damage_amount)
 
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata()
-
 
 #var chance_of_output: float = 0.2
 var chance_of_output: float = 0.6
@@ -36,8 +53,10 @@ var chance_of_output: float = 0.6
 func hit_piniata(strength: int = 1):
 	animation_player_pulse.stop(true)
 	animation_player_pulse.play("pulse")
-	State.piniata_hp -= strength
+	State.piniata_hp -= abs(strength)
 	update_health_bar(strength)
+	
+	animate_hit(strength)
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
@@ -65,10 +84,22 @@ func get_random_output() -> Enum.Drop_Type:
 	]
 	var result = weighted_drops[randi() % weighted_drops.size()]
 	if result == Enum.Drop_Type.X:
-		var seed = DropUtil.get_best_possible_seed()
-		return null if seed == Enum.Drop_Type.X else seed
+		return DropUtil.get_best_possible_seed()
 	return result
 
 func unlock_drop_type(type: Enum.Drop_Type) -> void:
 	if !possible_outputs.has(type):
 		possible_outputs.push_back(type)
+
+
+
+func _on_left_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			hit_piniata(State.hit_strength)
+
+
+func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			hit_piniata(State.hit_strength * -1)

@@ -14,3 +14,6 @@ var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
 
 var max_piniata_hp:float = 100000
 var piniata_hp:float = max_piniata_hp
+
+
+var hit_strength: float = 1.0
