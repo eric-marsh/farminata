@@ -3,7 +3,7 @@ extends Area2D
 @onready var droppable_output = $Output
 @onready var animation_player_pulse:AnimationPlayer = $AnimationPlayerPulse
 
-var hp: int = State.piniata_hp
+@onready var health_bar = $HealthBar
 
 var possible_outputs: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.Sun, 
@@ -12,12 +12,17 @@ var possible_outputs: Array[Enum.Drop_Type] = [
 	]
 
 func _ready() -> void:
-	pass
+	health_bar.max_value = State.max_piniata_hp
+	health_bar.min_value = 0
+	update_health_bar()
 	
-	
-func _process(_delta: float) -> void:
-	pass
-
+func update_health_bar(damage_amount: int = 0) -> void:
+	health_bar.value = State.piniata_hp
+	$HealthBar/Label.text = str(State.piniata_hp) + "/" + str(State.max_piniata_hp)
+	if damage_amount == 0:
+		return
+	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.piniata_hp / State.max_piniata_hp)), 6)
+	Util.create_explosion_particle(pos, Color.RED, damage_amount)
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -31,10 +36,13 @@ var chance_of_output: float = 0.6
 func hit_piniata(strength: int = 1):
 	animation_player_pulse.stop(true)
 	animation_player_pulse.play("pulse")
-	hp -= strength
+	State.piniata_hp -= strength
+	update_health_bar(strength)
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
+	
+	
 	
 
 var max_seed_offset: int = 4
