@@ -31,13 +31,12 @@ func _ready() -> void:
 	$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
 	
 	if Debug.Helper_Speed > 0:
-		speed = Debug.Helper_Speed
-		min_velocity = Vector2(-speed, -speed)
-		max_velocity = Vector2(speed, speed)
+		update_speed(Debug.Helper_Speed)
 	
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
-	
+
+
 func _physics_process(_delta: float) -> void:
 	var has_reached_target:bool = move_to_target()
 	if has_reached_target:
@@ -127,12 +126,19 @@ func set_state(s: Enum.Helper_State) -> void:
 		_:
 			pass
 
+
+var apply_upgrade: bool = false
 func equip_hat(d: droppable) -> void:
-	print("equip_hat")
 	$HatSprite.visible = true
 	$HatSprite.texture = d.get_node("Sprite2D").texture
 	held_droppable = null
 	worn_hat = d.drop_type
+	
+	# apply upgrade
+	update_speed(80)
+	if helper_type == Enum.Helper_Type.Attack:
+		apply_upgrade = true
+	
 
 func on_reaching_target_pos() -> void:
 	match(state):
@@ -252,3 +258,10 @@ func update_animation() -> void:
 			anim.flip_h = false
 		_:
 			print("Dont know that direction")
+
+
+
+func update_speed(s:int)->void:
+	speed = s
+	min_velocity = Vector2(-speed, -speed)
+	max_velocity = Vector2(speed, speed)

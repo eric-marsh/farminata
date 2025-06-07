@@ -21,14 +21,17 @@ func _ready() -> void:
 	
 	$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
 	if Debug.Helper_Speed > 0:
-		speed = Debug.Helper_Speed
-		min_velocity = Vector2(-speed, -speed)
-		max_velocity = Vector2(speed, speed)
+		update_speed(Debug.Helper_Speed)
 	
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
 	
 func _physics_process(delta: float) -> void:
+	if apply_upgrade:
+		attack_interval = 0.5
+		attack_strength = 2
+		apply_upgrade = false
+	
 	if state == Enum.Helper_State.Get_Item:
 		if !target_droppable:
 			set_state(Enum.Helper_State.Idle)
@@ -45,7 +48,7 @@ func _physics_process(delta: float) -> void:
 				return
 	
 	# Go to attack spot
-	if !is_target_pos_reached:
+	if state == Enum.Helper_State.Attack and !is_target_pos_reached:
 		var has_reached_target:bool = move_to_target()
 		if has_reached_target:
 			is_target_pos_reached = true
