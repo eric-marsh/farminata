@@ -29,6 +29,21 @@ func _ready() -> void:
 		$StateLabel.queue_free()
 	
 func _physics_process(delta: float) -> void:
+	if state == Enum.Helper_State.Get_Item:
+		if !target_droppable:
+			set_state(Enum.Helper_State.Idle)
+			return
+		if target_droppable.is_hat:
+			var has_reached_target:bool = move_to_target()
+			if has_reached_target:
+				equip_hat(target_droppable)
+				target_droppable.hide_droppable()
+				target_droppable = null
+				is_target_pos_reached = false
+				target_pos = get_attack_pos(id_of_type)
+				set_state(Enum.Helper_State.Attack)
+				return
+	
 	# Go to attack spot
 	if !is_target_pos_reached:
 		var has_reached_target:bool = move_to_target()

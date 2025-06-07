@@ -10,6 +10,7 @@ var target_droppable: droppable = null
 var target_plot: plot = null
 
 var held_droppable: droppable = null
+var worn_hat: Enum.Drop_Type
 
 var state: Enum.Helper_State = Enum.Helper_State.Idle
 var dir: Enum.Dir = Enum.Dir.Down
@@ -51,6 +52,11 @@ func _physics_process(_delta: float) -> void:
 	
 	if Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type), " 1" if held_droppable != null else " 0")
+
+
+func drop_held_item() ->void:
+	# dont actually drop it for now, just delete
+	held_droppable = null
 
 
 func on_idle() -> void:
@@ -121,6 +127,12 @@ func set_state(s: Enum.Helper_State) -> void:
 		_:
 			pass
 
+func equip_hat(d: droppable) -> void:
+	print("equip_hat")
+	$HatSprite.visible = true
+	$HatSprite.texture = d.get_node("Sprite2D").texture
+	held_droppable = null
+	worn_hat = d.drop_type
 
 func on_reaching_target_pos() -> void:
 	match(state):
@@ -133,6 +145,13 @@ func on_reaching_target_pos() -> void:
 			if !target_droppable:
 				set_state(Enum.Helper_State.Idle)
 				return
+			if target_droppable.is_hat:
+				equip_hat(target_droppable)
+				target_droppable.hide_droppable()
+				target_droppable = null
+				set_state(Enum.Helper_State.Idle)
+				return
+			
 			pick_up_droppable(target_droppable)
 			set_state(Enum.Helper_State.Deliver_Item)
 			return

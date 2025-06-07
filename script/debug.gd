@@ -21,3 +21,6 @@ var SLOT_MACHINE_WAIT_TIME: float = 3.0
 var DEBUG_DROPPABLE_MOVE_TO_TARGET: bool = false
 
 var DISABLE_ZOOM: bool = true
+
+
+var SPAWN_HATS: bool = true

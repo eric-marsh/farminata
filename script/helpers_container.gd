@@ -47,3 +47,21 @@ func get_inactive_helper() -> helper:
 		if c.state == Enum.Helper_State.Idle or c.state == Enum.Helper_State.Wander:
 			return c
 	return null
+
+func get_helper_that_needs_hat(hat: Enum.Drop_Type) -> helper:
+	for c in get_children():
+		if !c is helper or c.worn_hat:
+			continue
+		match(hat):
+			Enum.Drop_Type.Farm_Hat:
+				if c.helper_type == Enum.Helper_Type.Seed or c.helper_type == Enum.Helper_Type.Water or c.helper_type == Enum.Helper_Type.Sun:
+					return c
+			Enum.Drop_Type.Delivery_Hat:
+				if c.helper_type == Enum.Helper_Type.Pluck:
+					return c 
+			Enum.Drop_Type.Attack_Hat:
+				if c.helper_type == Enum.Helper_Type.Attack:
+					return c 
+			_:
+				return null
+	return null

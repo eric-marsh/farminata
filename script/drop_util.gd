@@ -9,6 +9,11 @@ const CARROT = preload("res://img/plants/carrot/carrot.png")
 const ONION_SEED = preload("res://img/slots/symbols/onion_seed.png")
 const ONION = preload("res://img/plants/onion/onion.png")
 
+const DELIVERY_HAT = preload("res://img/helper/delivery_hat.png")
+const FARMER_HAT = preload("res://img/helper/farmer_hat.png")
+const ATTACK_HAT = preload("res://img/helper/attack_hat.png")
+
+
 var drop_type_images = {
 	Enum.Drop_Type.Blurry: BLURRY,
 	Enum.Drop_Type.X: X,
@@ -17,7 +22,11 @@ var drop_type_images = {
 	Enum.Drop_Type.Carrot_Seed: CARROT_SEED,
 	Enum.Drop_Type.Carrot: CARROT,
 	Enum.Drop_Type.Onion_Seed: ONION_SEED,
-	Enum.Drop_Type.Onion: ONION
+	Enum.Drop_Type.Onion: ONION,
+	
+	Enum.Drop_Type.Delivery_Hat: DELIVERY_HAT,
+	Enum.Drop_Type.Farm_Hat: FARMER_HAT,
+	Enum.Drop_Type.Attack_Hat: ATTACK_HAT,
 }
 
 var drop_type_strings = {
@@ -28,7 +37,11 @@ var drop_type_strings = {
 	Enum.Drop_Type.Carrot_Seed: "CARROT_SEED",
 	Enum.Drop_Type.Onion_Seed: "ONION_SEED",
 	Enum.Drop_Type.Carrot: "CARROT",
-	Enum.Drop_Type.Onion: "ONION"
+	Enum.Drop_Type.Onion: "ONION",
+	
+	Enum.Drop_Type.Delivery_Hat: "DELIVERY_HAT",
+	Enum.Drop_Type.Farm_Hat: "FARMER_HAT",
+	Enum.Drop_Type.Attack_Hat: "ATTACK_HAT",
 }
 
 var drop_type_colors = {
@@ -43,6 +56,9 @@ func is_seed(symbol: Enum.Drop_Type) -> bool:
 
 func is_produce(symbol: Enum.Drop_Type) -> bool:
 	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion]
+
+func is_hat(symbol: Enum.Drop_Type) -> bool:
+	return symbol in [Enum.Drop_Type.Farm_Hat, Enum.Drop_Type.Delivery_Hat, Enum.Drop_Type.Attack_Hat]
 
 func is_valid_droppable_type(symbol: Enum.Drop_Type) -> bool:
 	return symbol != Enum.Drop_Type.X and symbol != Enum.Drop_Type.Blurry

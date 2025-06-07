@@ -10,6 +10,7 @@ var is_delivered: bool = false
 var is_being_targeted: bool = false
 var is_dragging: bool = false
 var is_produce: bool = false
+var is_hat: bool = false
 
 @export var start_static:bool = false
 
@@ -32,12 +33,16 @@ func _ready():
 	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	
 	is_produce = DropUtil.is_produce(drop_type) 
-	if is_produce:
+	is_hat = DropUtil.is_hat(drop_type)
+	if is_produce or is_hat:
+		# change this code if produce or hat should not be bigger collision radius
 		var new_radius = $CollisionShape2D.shape.radius * 2
 		$CollisionShape2D.shape = null
 		var new_shape = CircleShape2D.new() as CircleShape2D
 		new_shape.radius = new_radius
 		$CollisionShape2D.shape = new_shape
+
+var target_hat_helper: helper = null
 
 func _physics_process(delta):
 	update_shadow()
@@ -50,7 +55,16 @@ func _physics_process(delta):
 	
 	if is_dragging:
 		global_transform.origin = get_global_mouse_position()
-		
+	
+	
+	#if is_hat and Globals.Main.global_timer % 100 == 0:
+	if is_hat and Globals.Main.global_timer % 1 == 0 and !target_hat_helper and Globals.HelpersContainerNode:
+		var h = Globals.HelpersContainerNode.get_helper_that_needs_hat(drop_type)
+		if h:
+			target_hat_helper = h
+			h.drop_held_item()
+			h.target_droppable = self
+			h.set_state(Enum.Helper_State.Get_Item)
 	
 	if Debug.DEBUG_DROPPABLE_MOVE_TO_TARGET and moving_to_target:
 		var dir = (target_position - global_position).normalized()

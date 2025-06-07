@@ -1,6 +1,6 @@
 extends Node
 
-enum Drop_Type { Blurry, X, Water, Sun, Carrot_Seed, Carrot, Onion_Seed, Onion }
+enum Drop_Type { Blurry, X, Water, Sun, Carrot_Seed, Carrot, Onion_Seed, Onion, Farm_Hat, Delivery_Hat, Attack_Hat }
 enum Plot_State { Dry, Wet }
 
 enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }

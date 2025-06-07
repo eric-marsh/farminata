@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://chtfgabv635v4"]
+[gd_scene load_steps=33 format=3 uid="uid://chtfgabv635v4"]
 
 [ext_resource type="Script" uid="uid://gux46i3nj3wt" path="res://script/helper/attack_helper.gd" id="1_lee8m"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_xcfqp"]
+[ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="4_3txtj"]
 [ext_resource type="Texture2D" uid="uid://dxw5mpl374jcu" path="res://img/slots/symbols/rock.png" id="4_xcfqp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
@@ -235,3 +236,8 @@ visible = false
 texture = ExtResource("4_xcfqp")
 
 [node name="AttackTimer" type="Timer" parent="."]
+
+[node name="HatSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -13)
+texture = ExtResource("4_3txtj")

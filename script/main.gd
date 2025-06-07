@@ -18,12 +18,18 @@ func _ready() -> void:
 	
 	if Debug.STARTING_MONEY > 0:
 		change_money(Debug.STARTING_MONEY)
+		
+		
+	if Debug.SPAWN_HATS:
+		DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, Util.random_visible_position(), Vector2.ZERO)
+		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position(), Vector2.ZERO)
+		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position(), Vector2.ZERO)
+	
 	
 func _process(delta: float) -> void:
 	if is_paused:
 		return
 	global_timer += 1
-	
 	
 	if is_game_over:
 		is_paused = false
