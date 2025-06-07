@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=6 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
+[ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="2_oc3i3"]
+[ext_resource type="Texture2D" uid="uid://mf5rpqaai70l" path="res://img/helper/delivery_hat.png" id="3_f60wf"]
+[ext_resource type="Texture2D" uid="uid://b3av6rfxcn5ss" path="res://img/helper/attack_hat.png" id="4_vqic1"]
 
 [sub_resource type="Theme" id="Theme_xp8f4"]
 
@@ -59,6 +62,21 @@ layout_mode = 2
 theme = SubResource("Theme_xp8f4")
 text = "0 🌱 - 10"
 
+[node name="AddFarmerHatButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Farmer hat - $20"
+icon = ExtResource("2_oc3i3")
+
+[node name="AddDeliveryHatButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Delivery hat - $20"
+icon = ExtResource("3_f60wf")
+
+[node name="AddAttackHatButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Warrior hat - $20"
+icon = ExtResource("4_vqic1")
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddSeedHelperButton" to="." method="_on_add_seed_helper_button_pressed"]
@@ -66,3 +84,6 @@ text = "0 🌱 - 10"
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddWaterHelperButton" to="." method="_on_add_water_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddPluckHelperButton" to="." method="_on_add_pluck_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/AddAttackHelperButton" to="." method="_on_add_attack_helper_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddFarmerHatButton" to="." method="_on_farmer_hat_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddDeliveryHatButton" to="." method="_on_delivery_hat_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/AddAttackHatButton" to="." method="_on_attack_hat_button_pressed"]

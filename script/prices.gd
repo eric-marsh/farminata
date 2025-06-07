@@ -25,6 +25,8 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 			return max(4, State.num_attack_helpers * State.num_attack_helpers * 10)
 		Enum.Upgrade_Type.UnlockOnion:
 			return 24
+		Enum.Upgrade_Type.AddHat:
+			return 20
 			
 			
 	

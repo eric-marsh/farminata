@@ -65,6 +65,7 @@ func _physics_process(delta):
 			h.drop_held_item()
 			h.target_droppable = self
 			h.set_state(Enum.Helper_State.Get_Item)
+			
 	
 	if Debug.DEBUG_DROPPABLE_MOVE_TO_TARGET and moving_to_target:
 		var dir = (target_position - global_position).normalized()

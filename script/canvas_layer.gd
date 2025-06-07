@@ -3,6 +3,10 @@ class_name canvas_layer
 
 @onready var onion_button = $MarginContainer/VBoxContainer/OnionButton
 
+@onready var add_farmer_hat_button = $MarginContainer/VBoxContainer/AddFarmerHatButton
+@onready var add_delivery_hat_button = $MarginContainer/VBoxContainer/AddDeliveryHatButton
+@onready var add_attack_hat_button = $MarginContainer/VBoxContainer/AddAttackHatButton
+
 
 
 func _ready() -> void:
@@ -42,6 +46,20 @@ func update_money_counter():
 		var onion_price = Prices.get_upgrade_price(Enum.Upgrade_Type.UnlockOnion)
 		onion_button.text = "Unlock Onion: $" + str(onion_price)
 		onion_button.disabled = onion_price > money
+	
+	# update hat buttons
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	add_farmer_hat_button.text = "Farmer hat - $" + str(hat_price)
+	add_farmer_hat_button.disabled = hat_price > money
+	
+	add_delivery_hat_button.text = "Delivery hat - $" + str(hat_price)
+	add_delivery_hat_button.disabled = hat_price > money
+	
+	add_attack_hat_button.text = "Warrior hat - $" + str(hat_price)
+	add_attack_hat_button.disabled = hat_price > money
+	
+	
+	
 
 func _on_plot_button_pressed() -> void:
 	var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
@@ -89,3 +107,30 @@ func _on_add_pluck_helper_button_pressed() -> void:
 
 func _on_add_attack_helper_button_pressed() -> void:
 	add_helper_button_pressed(Enum.Upgrade_Type.AddAttackHelper, Enum.Helper_Type.Attack)
+
+var spawn_hat_pos: Vector2 = Vector2(64, 64)
+func _on_farmer_hat_button_pressed():
+	if !Globals.Main:
+		return
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	Globals.Main.change_money(-hat_price)
+	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	update_money_counter()
+
+
+func _on_delivery_hat_button_pressed():
+	if !Globals.Main:
+		return
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	Globals.Main.change_money(-hat_price)
+	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	update_money_counter()
+
+
+func _on_attack_hat_button_pressed():
+	if !Globals.Main:
+		return
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	Globals.Main.change_money(-hat_price)
+	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	update_money_counter()
