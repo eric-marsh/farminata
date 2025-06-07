@@ -31,11 +31,10 @@ func _process(delta: float) -> void:
 	# clamp to [0.0, 1.0] to stay on path
 	$Node2D.rotation = clamp($Node2D.rotation, -360.0, 360.0)
 	
-
+var n = 1	
 func animate_hit(strength: float) -> void:
 	path_velocity += strength
-	var n = 0.1	
-	path_velocity = clamp(path_velocity, -n, n)
+	path_velocity = clamp(strength/10, -n, n)
 
 	
 func update_health_bar(damage_amount: int = 0) -> void:
@@ -50,6 +49,8 @@ func update_health_bar(damage_amount: int = 0) -> void:
 var chance_of_output: float = 0.6
 
 func hit_piniata(strength: int = 1):
+	strength *= 1
+	
 	animation_player_pulse.stop(true)
 	animation_player_pulse.play("pulse")
 	State.piniata_hp -= abs(strength)

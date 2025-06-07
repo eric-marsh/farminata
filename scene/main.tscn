@@ -53,4 +53,4 @@ position = Vector2(41, 320)
 scale = Vector2(4, 4)
 
 [node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
-position = Vector2(334, 53)
+position = Vector2(337, -5)
