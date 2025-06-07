@@ -57,14 +57,17 @@ func _physics_process(delta):
 		global_transform.origin = get_global_mouse_position()
 	
 	
-	#if is_hat and Globals.Main.global_timer % 100 == 0:
-	if is_hat and Globals.Main.global_timer % 1 == 0 and !target_hat_helper and Globals.HelpersContainerNode:
-		var h = Globals.HelpersContainerNode.get_helper_that_needs_hat(drop_type)
-		if h:
-			target_hat_helper = h
-			h.drop_held_item()
-			h.target_droppable = self
-			h.set_state(Enum.Helper_State.Get_Item)
+	if is_hat and Globals.Main.global_timer % 1 == 0:
+		if target_hat_helper and target_hat_helper.worn_hat:
+			target_hat_helper=null
+		
+		if !target_hat_helper and Globals.HelpersContainerNode:
+			var h = Globals.HelpersContainerNode.get_helper_that_needs_hat(drop_type)
+			if h:
+				target_hat_helper = h
+				h.drop_held_item()
+				h.target_droppable = self
+				h.set_state(Enum.Helper_State.Get_Item)
 			
 	
 	if Debug.DEBUG_DROPPABLE_MOVE_TO_TARGET and moving_to_target:
