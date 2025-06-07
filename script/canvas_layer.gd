@@ -36,7 +36,7 @@ func update_money_counter():
 
 	for data in helper_data:
 		var price = Prices.get_upgrade_price(data.type)
-		data.node.text = str(data.count) + " " + data.icon + ": $" + str(price)
+		data.node.text = "$" + str(price)
 		data.node.disabled = price > money
 	
 	
@@ -44,18 +44,18 @@ func update_money_counter():
 		onion_button.visible = false
 	else:
 		var onion_price = Prices.get_upgrade_price(Enum.Upgrade_Type.UnlockOnion)
-		onion_button.text = "Unlock Onion: $" + str(onion_price)
+		onion_button.text = "$" + str(onion_price)
 		onion_button.disabled = onion_price > money
 	
 	# update hat buttons
 	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
-	add_farmer_hat_button.text = "Farmer hat - $" + str(hat_price)
+	add_farmer_hat_button.text = "$" + str(hat_price)
 	add_farmer_hat_button.disabled = hat_price > money
 	
-	add_delivery_hat_button.text = "Delivery hat - $" + str(hat_price)
+	add_delivery_hat_button.text = "$" + str(hat_price)
 	add_delivery_hat_button.disabled = hat_price > money
 	
-	add_attack_hat_button.text = "Warrior hat - $" + str(hat_price)
+	add_attack_hat_button.text = "W$" + str(hat_price)
 	add_attack_hat_button.disabled = hat_price > money
 	
 	

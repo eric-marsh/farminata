@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=12 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
 [ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="2_oc3i3"]
+[ext_resource type="Texture2D" uid="uid://d0e58q85wrtx4" path="res://img/plants/onion/onion.png" id="2_r6mtg"]
 [ext_resource type="Texture2D" uid="uid://mf5rpqaai70l" path="res://img/helper/delivery_hat.png" id="3_f60wf"]
+[ext_resource type="Texture2D" uid="uid://bjcruqivyg4ue" path="res://img/ui/buy_seed_icon.png" id="3_hpb7r"]
+[ext_resource type="Texture2D" uid="uid://x3cff68yuikn" path="res://img/ui/buy_sun_icon.png" id="4_i30vn"]
 [ext_resource type="Texture2D" uid="uid://b3av6rfxcn5ss" path="res://img/helper/attack_hat.png" id="4_vqic1"]
+[ext_resource type="Texture2D" uid="uid://bpnpoj5ugauew" path="res://img/ui/buy_water_icon.png" id="5_ngnek"]
+[ext_resource type="Texture2D" uid="uid://bja3s1pdx3jmv" path="res://img/ui/buy_delivery_icon.png" id="6_c7vqt"]
+[ext_resource type="Texture2D" uid="uid://but6iese2yrbb" path="res://img/ui/buy_attack_icon.png" id="7_5gad3"]
 
 [sub_resource type="Theme" id="Theme_xp8f4"]
 
@@ -35,46 +41,52 @@ text = "+1 Plot"
 
 [node name="OnionButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Unlock Onion"
+text = "$24"
+icon = ExtResource("2_r6mtg")
 
 [node name="AddSeedHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_xp8f4")
-text = "0 🌱 - 10"
+text = "$10"
+icon = ExtResource("3_hpb7r")
 
 [node name="AddSunHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_xp8f4")
-text = "0 🌱 - 10"
+text = "$10"
+icon = ExtResource("4_i30vn")
 
 [node name="AddWaterHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_xp8f4")
-text = "0 🌱 - 10"
+text = "$10"
+icon = ExtResource("5_ngnek")
 
 [node name="AddPluckHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_xp8f4")
-text = "0 🌱 - 10"
+text = "$10"
+icon = ExtResource("6_c7vqt")
 
 [node name="AddAttackHelperButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_xp8f4")
-text = "0 🌱 - 10"
+text = "$10"
+icon = ExtResource("7_5gad3")
 
 [node name="AddFarmerHatButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Farmer hat - $20"
+text = "$20"
 icon = ExtResource("2_oc3i3")
 
 [node name="AddDeliveryHatButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Delivery hat - $20"
+text = "$20"
 icon = ExtResource("3_f60wf")
 
 [node name="AddAttackHatButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Warrior hat - $20"
+text = "$20"
 icon = ExtResource("4_vqic1")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
