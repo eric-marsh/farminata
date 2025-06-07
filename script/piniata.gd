@@ -5,6 +5,8 @@ extends Node2D
 
 @onready var health_bar = $HealthBar
 
+var piniata_center: Vector2 = Vector2.ZERO
+
 var possible_outputs: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.Sun, 
 	Enum.Drop_Type.Water, 
@@ -21,6 +23,7 @@ var path_default_progress: float = 0.0
 var damping: float = 1.0       # slows it down
 var spring_force: float = 5.0  # pulls back to center
 func _process(delta: float) -> void:
+	piniata_center = $Node2D/Output.global_position
 	var displacement = $Node2D.rotation - path_default_progress
 
 	# spring + damping motion

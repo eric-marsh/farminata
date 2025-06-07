@@ -73,7 +73,7 @@ width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Output" parent="Node2D" instance=ExtResource("3_odym4")]
-position = Vector2(0, 149)
+position = Vector2(1, 108)
 enable_offset = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]

@@ -51,7 +51,7 @@ func start_attacking() -> void:
 	$AttackTimer.start()
 	
 	# change direction to face piniata
-	var direction = (Globals.PiniataNode.global_position - global_position).normalized()
+	var direction = (Globals.PiniataNode.piniata_center - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
 	if new_dir != dir:
 		dir = new_dir
@@ -65,12 +65,15 @@ var start_position: Vector2
 func attack() -> void:
 	if !Globals.PiniataNode:
 		return
-	Globals.PiniataNode.hit_piniata(attack_strength)
+	if dir == Enum.Dir.Left:
+		Globals.PiniataNode.hit_piniata(attack_strength )
+	else:
+		Globals.PiniataNode.hit_piniata(attack_strength * -1)
 
 func update_thowable() -> void:
 	if !Globals.PiniataNode:
 		return
-	var target_position = Globals.PiniataNode.global_position
+	var target_position = Globals.PiniataNode.piniata_center
 	var total_time = $AttackTimer.wait_time
 	var elapsed_time = total_time - $AttackTimer.time_left
 	var t = clamp(elapsed_time / total_time, 0, 1) # Normalize from 0 to 1
@@ -83,7 +86,7 @@ func get_attack_pos(index: int) -> Vector2:
 	if !Globals.PiniataNode:
 		return Vector2.ZERO
 
-	var center = Globals.PiniataNode.global_position
+	var center = Globals.PiniataNode.piniata_center
 	var angle_step = PI / (num_attack_helpers + 1)
 	var angle = PI + angle_step * (index + 1)  
 	var offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
