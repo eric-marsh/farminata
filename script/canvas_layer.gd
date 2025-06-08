@@ -1,11 +1,22 @@
 extends CanvasLayer
 class_name canvas_layer
 
-@onready var onion_button = $MarginContainer/VBoxContainer/OnionButton
+@onready var plot_button = $MarginContainer/VBoxContainer/HBoxContainer/PlotButton
+@onready var onion_button = $MarginContainer/VBoxContainer/HBoxContainer/OnionButton
 
-@onready var add_farmer_hat_button = $MarginContainer/VBoxContainer/AddFarmerHatButton
-@onready var add_delivery_hat_button = $MarginContainer/VBoxContainer/AddDeliveryHatButton
-@onready var add_attack_hat_button = $MarginContainer/VBoxContainer/AddAttackHatButton
+@onready var add_seed_helper_button = $MarginContainer/VBoxContainer/HBoxContainer2/AddSeedHelperButton
+@onready var add_sun_helper_button = $MarginContainer/VBoxContainer/HBoxContainer2/AddSunHelperButton
+@onready var add_water_helper_button = $MarginContainer/VBoxContainer/HBoxContainer3/AddWaterHelperButton
+@onready var add_pluck_helper_button = $MarginContainer/VBoxContainer/HBoxContainer3/AddPluckHelperButton
+@onready var add_attack_helper_button = $MarginContainer/VBoxContainer/HBoxContainer4/AddAttackHelperButton
+
+
+@onready var add_farmer_hat_button = $MarginContainer/VBoxContainer/HBoxContainer5/AddFarmerHatButton
+@onready var add_delivery_hat_button = $MarginContainer/VBoxContainer/HBoxContainer5/AddDeliveryHatButton
+@onready var add_attack_hat_button = $MarginContainer/VBoxContainer/HBoxContainer6/AddAttackHatButton
+
+@onready var money_label = $MarginContainer/VBoxContainer/MoneyLabel
+
 
 
 
@@ -20,18 +31,21 @@ func update_money_counter():
 		return
 	var money: int = State.money
 	
-	$MarginContainer/VBoxContainer/MoneyLabel.text = "$" + str(money)
+	money_label.text = "$" + str(money)
 	
 	var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
-	$MarginContainer/VBoxContainer/PlotButton.text = "+1 Plot: $" + str(plot_price)
-	$MarginContainer/VBoxContainer/PlotButton.disabled = plot_price > money
+	
+	plot_button.text = "+1 Plot: $" + str(plot_price)
+	plot_button.disabled = plot_price > money
+	
+	
 	
 	var helper_data = [
-		{ "type": Enum.Upgrade_Type.AddSeedHelper, "node": $MarginContainer/VBoxContainer/AddSeedHelperButton, "count": State.num_seed_helpers, "icon": "🌱" },
-		{ "type": Enum.Upgrade_Type.AddSunHelper, "node": $MarginContainer/VBoxContainer/AddSunHelperButton, "count": State.num_sun_helpers, "icon": "☀️" },
-		{ "type": Enum.Upgrade_Type.AddWaterHelper, "node": $MarginContainer/VBoxContainer/AddWaterHelperButton, "count": State.num_water_helpers, "icon": "💧" },
-		{ "type": Enum.Upgrade_Type.AddPluckHelper, "node": $MarginContainer/VBoxContainer/AddPluckHelperButton, "count": State.num_pluck_helpers, "icon": "🥕" },
-		{ "type": Enum.Upgrade_Type.AddAttackHelper, "node": $MarginContainer/VBoxContainer/AddAttackHelperButton, "count": State.num_attack_helpers, "icon": "🔫" },
+		{ "type": Enum.Upgrade_Type.AddSeedHelper, "node": add_seed_helper_button, "count": State.num_seed_helpers, "icon": "🌱" },
+		{ "type": Enum.Upgrade_Type.AddSunHelper, "node": add_sun_helper_button, "count": State.num_sun_helpers, "icon": "☀️" },
+		{ "type": Enum.Upgrade_Type.AddWaterHelper, "node": add_water_helper_button, "count": State.num_water_helpers, "icon": "💧" },
+		{ "type": Enum.Upgrade_Type.AddPluckHelper, "node": add_pluck_helper_button, "count": State.num_pluck_helpers, "icon": "🥕" },
+		{ "type": Enum.Upgrade_Type.AddAttackHelper, "node": add_attack_helper_button, "count": State.num_attack_helpers, "icon": "🔫" },
 	]
 
 	for data in helper_data:
@@ -55,7 +69,7 @@ func update_money_counter():
 	add_delivery_hat_button.text = "$" + str(hat_price)
 	add_delivery_hat_button.disabled = hat_price > money
 	
-	add_attack_hat_button.text = "W$" + str(hat_price)
+	add_attack_hat_button.text = "$" + str(hat_price)
 	add_attack_hat_button.disabled = hat_price > money
 	
 	
