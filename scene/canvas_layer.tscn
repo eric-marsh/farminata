@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=13 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
 [ext_resource type="Theme" uid="uid://qrqka6k5if6b" path="res://scene/upgrade_menu_theme.tres" id="2_hpb7r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0e58q85wrtx4" path="res://img/plants/onion/onion.png" id="2_r6mtg"]
 [ext_resource type="Texture2D" uid="uid://mf5rpqaai70l" path="res://img/helper/delivery_hat.png" id="3_f60wf"]
 [ext_resource type="Texture2D" uid="uid://bjcruqivyg4ue" path="res://img/ui/buy_seed_icon.png" id="3_hpb7r"]
+[ext_resource type="Texture2D" uid="uid://bnividkmflxb2" path="res://img/ui/buy_plot_icon.png" id="3_i30vn"]
 [ext_resource type="Texture2D" uid="uid://x3cff68yuikn" path="res://img/ui/buy_sun_icon.png" id="4_i30vn"]
 [ext_resource type="Texture2D" uid="uid://b3av6rfxcn5ss" path="res://img/helper/attack_hat.png" id="4_vqic1"]
 [ext_resource type="Texture2D" uid="uid://bpnpoj5ugauew" path="res://img/ui/buy_water_icon.png" id="5_ngnek"]
@@ -50,7 +51,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
-text = "+1 Plot"
+text = "$2"
+icon = ExtResource("3_i30vn")
 expand_icon = true
 
 [node name="OnionButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]

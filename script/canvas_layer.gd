@@ -33,10 +33,7 @@ func update_money_counter():
 	
 	money_label.text = "$" + str(money)
 	
-	var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
-	
-	plot_button.text = "+1 Plot: $" + str(plot_price)
-	plot_button.disabled = plot_price > money
+
 	
 	
 	
@@ -53,7 +50,10 @@ func update_money_counter():
 		data.node.text = "$" + str(price)
 		data.node.disabled = price > money
 	
-	
+		var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
+		plot_button.text = "$" + str(plot_price)
+		plot_button.disabled = plot_price > money
+		
 	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
 		onion_button.visible = false
 	else:
