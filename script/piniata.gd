@@ -48,8 +48,8 @@ func update_health_bar(damage_amount: int = 0) -> void:
 	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.piniata_hp / State.max_piniata_hp)), 6)
 	Util.create_explosion_particle(pos, Color.RED, damage_amount)
 
-#var chance_of_output: float = 0.2
-var chance_of_output: float = 0.6
+var chance_of_output: float = 0.2
+#var chance_of_output: float = 0.6
 
 func hit_piniata(strength: int = 1):
 	strength *= 1

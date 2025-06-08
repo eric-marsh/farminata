@@ -7,8 +7,8 @@ var offset_max = 20.0
 
 var output_force:int = 300
 var output_impulse: Vector2 = Vector2(0, -output_force)
-var min_range: int = 32
-var max_range:int = 128
+var min_range: int = 140
+var max_range:int = 180
 
 
 func _ready() -> void:

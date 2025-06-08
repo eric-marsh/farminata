@@ -12,17 +12,17 @@ func get_drop_price(symbol: Enum.Drop_Type) -> int:
 func get_upgrade_price(type: Enum.Upgrade_Type):
 	match type:
 		Enum.Upgrade_Type.AddPlot:
-			return State.num_plots * State.num_plots
+			return State.num_plots * State.num_plots + 4
 		Enum.Upgrade_Type.AddSeedHelper:
-			return max(4, State.num_seed_helpers * State.num_seed_helpers * 10)
+			return max(2, State.num_seed_helpers * State.num_seed_helpers * 4)
 		Enum.Upgrade_Type.AddWaterHelper:
-			return max(4, State.num_water_helpers * State.num_water_helpers * 10)
+			return max(2, State.num_water_helpers * State.num_water_helpers * 4)
 		Enum.Upgrade_Type.AddSunHelper:
-			return max(4, State.num_sun_helpers * State.num_sun_helpers * 10)
+			return max(2, State.num_sun_helpers * State.num_sun_helpers * 4)
 		Enum.Upgrade_Type.AddPluckHelper:
-			return max(4, State.num_pluck_helpers * State.num_pluck_helpers * 10)
+			return max(2, State.num_pluck_helpers * State.num_pluck_helpers * 4)
 		Enum.Upgrade_Type.AddAttackHelper:
-			return max(4, State.num_attack_helpers * State.num_attack_helpers * 10)
+			return max(2, State.num_attack_helpers * State.num_attack_helpers * 4)
 		Enum.Upgrade_Type.UnlockOnion:
 			return 24
 		Enum.Upgrade_Type.AddHat:
