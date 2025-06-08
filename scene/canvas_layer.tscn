@@ -47,14 +47,14 @@ text = "Farm Upgrades"
 layout_mode = 2
 
 [node name="PlotButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "+1 Plot"
 expand_icon = true
 
 [node name="OnionButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$24"
@@ -71,15 +71,16 @@ text = "Buy Helpers"
 layout_mode = 2
 
 [node name="AddSeedHelperButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
+disabled = true
 text = "$10"
 icon = ExtResource("3_hpb7r")
 expand_icon = true
 
 [node name="AddSunHelperButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$10"
@@ -91,7 +92,7 @@ layout_mode = 2
 theme = ExtResource("2_hpb7r")
 
 [node name="AddWaterHelperButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$10"
@@ -99,7 +100,7 @@ icon = ExtResource("5_ngnek")
 expand_icon = true
 
 [node name="AddPluckHelperButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$10"
@@ -111,7 +112,7 @@ layout_mode = 2
 theme = ExtResource("2_hpb7r")
 
 [node name="AddAttackHelperButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$10"
@@ -128,7 +129,7 @@ text = "Hat Upgrades"
 layout_mode = 2
 
 [node name="AddFarmerHatButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$20"
@@ -136,7 +137,7 @@ icon = ExtResource("2_oc3i3")
 expand_icon = true
 
 [node name="AddDeliveryHatButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$20"
@@ -147,7 +148,7 @@ expand_icon = true
 layout_mode = 2
 
 [node name="AddAttackHatButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$20"
