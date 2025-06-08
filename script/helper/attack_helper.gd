@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 		update_thowable()
 	
 	if Debug.DEBUG_SHOW_HELPER_STATE:
-		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type), " 1" if held_droppable != null else " 0")
+		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
 
 func start_attacking() -> void:
 	if !Globals.PiniataNode:

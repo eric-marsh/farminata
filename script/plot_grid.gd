@@ -65,40 +65,75 @@ func get_random_plot_position() -> Vector2:
 	var p = plots.pick_random()
 	return p.global_position + p.size / 2
 
+func does_plot_need_seed(p: plot) -> bool:
+	return p.plot_growth_state == Enum.Plot_Growth_State.None
 
 
 func get_plot_that_needs_seed() -> plot:
 	for c in get_children():
 		if !c is plot:
 			continue
-		if c.plot_growth_state == Enum.Plot_Growth_State.None:
+		if does_plot_need_seed(c):
 			return c
 	return null
+
+func does_plot_need_water(p: plot) -> bool:
+	return p.plot_state == Enum.Plot_State.Dry and p.plot_growth_state != Enum.Plot_Growth_State.Full
 
 func get_plot_that_needs_water() -> plot:
 	for c in get_children():
 		if !c is plot:
 			continue
-		if c.plot_state == Enum.Plot_State.Dry and c.plot_growth_state != Enum.Plot_Growth_State.Full:
+		if does_plot_need_water(c):
 			return c
 	return null
-	
+
+
+func does_plot_need_sun(p: plot) -> bool:
+	return p.plot_state == Enum.Plot_State.Wet and p.plot_growth_state != Enum.Plot_Growth_State.None
+
 func get_plot_that_needs_sun() -> plot:
 	for c in get_children():
 		if !c is plot:
 			continue
-		if c.plot_state == Enum.Plot_State.Wet and c.plot_growth_state != Enum.Plot_Growth_State.None:
+		if does_plot_need_sun(c):
 			return c
 	return null
-	
+
+func does_plot_need_plucking(p: plot) -> bool:
+	return p.plot_growth_state == Enum.Plot_Growth_State.Full
+
 func get_plot_that_needs_plucking() -> plot:
 	for c in get_children():
 		if !c is plot:
 			continue
-		if c.plot_growth_state == Enum.Plot_Growth_State.Full:
+		if does_plot_need_plucking(c):
 			return c
 	return null
-	
+
+func find_plot_for_droppable(d: droppable):
+	var p:plot = null
+	match(d.drop_type):
+		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
+			p = get_plot_that_needs_seed()
+		Enum.Drop_Type.Water:
+			p = get_plot_that_needs_water()
+		Enum.Drop_Type.Sun:
+			p = get_plot_that_needs_sun()
+		_:
+			pass
+	return p	
+
+func does_plot_need_droppable(d: droppable, p: plot) -> bool:
+	match(d.drop_type):
+		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
+			return does_plot_need_seed(p)
+		Enum.Drop_Type.Water:
+			return does_plot_need_water(p)
+		Enum.Drop_Type.Sun:
+			return does_plot_need_sun(p)
+		_:
+			return false
 
 var square_position_array: Array[Vector2] = [
 	Vector2(0, 0),

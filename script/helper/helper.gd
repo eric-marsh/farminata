@@ -9,7 +9,9 @@ class_name helper
 var target_droppable: droppable = null
 var target_plot: plot = null
 
-var held_droppable: droppable = null
+var held_droppables: Array[droppable] = []
+
+
 var worn_hat: Enum.Drop_Type
 
 var state: Enum.Helper_State = Enum.Helper_State.Idle
@@ -50,33 +52,41 @@ func _physics_process(_delta: float) -> void:
 		check_for_tasks_to_do()
 	
 	if Debug.DEBUG_SHOW_HELPER_STATE:
-		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type), " 1" if held_droppable != null else " 0")
+		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
 
 
 func drop_held_item() ->void:
 	# dont actually drop it for now, just delete
-	held_droppable = null
+	held_droppables.clear()
+
 
 
 func on_idle() -> void:
-	if held_droppable:
-		var p = find_plot_for_droppable(held_droppable)
-		if p:
-			target_plot = p
-			target_pos = target_plot.global_position + target_plot.size / 2
-			set_state(Enum.Helper_State.Deliver_Item)
-			return
-	else:
-		var d = find_droppable_based_on_helper_type()
-		if d:
-			target_droppable = d
-			set_state(Enum.Helper_State.Get_Item)
-			return
+	if !Globals.PlotGrid:
+		return
 		
+	# see if it can apply a droppable
+	if held_droppables.size() > 0:
+		for d in held_droppables:
+			var p = Globals.PlotGrid.find_plot_for_droppable(d)
+			if p:
+				target_plot = p
+				target_pos = target_plot.global_position + target_plot.size / 2
+				set_state(Enum.Helper_State.Deliver_Item)
+				return
+	
+	# look for droppable
+	var d = find_droppable_based_on_helper_type()
+	if d:
+		target_droppable = d
+		set_state(Enum.Helper_State.Get_Item)
+		return
+	
+	# just wander
 	set_state(Enum.Helper_State.Wander)
 
 func on_plucker_idle() -> void:
-	if !held_droppable:
+	if !held_droppables.size():
 		# first, check for any produce on the ground
 		var d = find_droppable_based_on_helper_type()
 		if d:
@@ -113,11 +123,12 @@ func set_state(s: Enum.Helper_State) -> void:
 				return
 				#if is_held_item_produce and Globals.SellChestNode:
 			if Globals.PlotGrid:
-				var p = find_plot_for_droppable(held_droppable)
-				if p:
-					target_plot = p
-					target_pos = target_plot.global_position + target_plot.size / 2
-					return
+				for d in held_droppables:
+					var p = Globals.PlotGrid.find_plot_for_droppable(d)
+					if p:
+						target_plot = p
+						target_pos = target_plot.global_position + target_plot.size / 2
+						return
 			# finding plot failed. Wander until a new one comes up
 			set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Pluck_Crop:
@@ -131,7 +142,7 @@ var apply_upgrade: bool = false
 func equip_hat(d: droppable) -> void:
 	$HatSprite.visible = true
 	$HatSprite.texture = d.get_node("Sprite2D").texture
-	held_droppable = null
+	held_droppables.clear()
 	worn_hat = d.drop_type
 	
 	# apply upgrade
@@ -162,21 +173,30 @@ func on_reaching_target_pos() -> void:
 			set_state(Enum.Helper_State.Deliver_Item)
 			return
 		Enum.Helper_State.Deliver_Item:
-			if !is_instance_valid(held_droppable):
+			if held_droppables.size() == 0:
 				target_plot = null
-				held_droppable = null
+				held_droppables.clear()
 				$HeldItem.visible = false
 				set_state(Enum.Helper_State.Idle)
 				return
-			$HeldItem.visible = false
-			var d = DropUtil.spawn_droppable(held_droppable.drop_type, target_pos, Vector2.ZERO)
-			d.start_static = true
-			d.is_delivered = true
-			target_plot = null
-			held_droppable.delete()
-			held_droppable = null
-			set_state(Enum.Helper_State.Idle)
-			pass	
+			# apply droppables
+			for d in held_droppables:
+				if Globals.PlotGrid and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
+					continue
+				$HeldItem.visible = false
+				var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
+				appliedDrop.start_static = true
+				appliedDrop.is_delivered = true
+				target_plot = null
+				var i = 0
+				for temp_drop in held_droppables:
+					if temp_drop == d:
+						held_droppables.remove_at(i)
+						break
+					i += 1
+				d.delete()
+				set_state(Enum.Helper_State.Idle)
+				pass	
 		Enum.Helper_State.Pluck_Crop:
 			target_plot.pluck_crop()
 			target_plot = null
@@ -189,18 +209,39 @@ func find_droppable_based_on_helper_type() -> droppable:
 		return null
 	var d: droppable = null
 	match(helper_type):
-		Enum.Helper_Type.Seed:
-			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed) #TODO: onion Seed
-		Enum.Helper_Type.Water:
-			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Water)
-		Enum.Helper_Type.Sun:
-			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Sun)
+		Enum.Helper_Type.Seed, Enum.Helper_Type.Water, Enum.Helper_Type.Sun:
+			if !is_holding_drop_type(Enum.Drop_Type.Carrot_Seed):
+				print("Found seed")
+				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed) #TODO: onion Seed
+				if d:
+					return d
+			if !is_holding_drop_type(Enum.Drop_Type.Water):
+				print("Found Water")
+				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Water)
+				if d:
+					return d
+			if !is_holding_drop_type(Enum.Drop_Type.Sun):
+				print("Found Sun")
+				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Sun) 
+				if d:
+					return d
+		
 		Enum.Helper_Type.Pluck:
 			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot) #TODO: Onion
 	return d
 
+func is_holding_drop_type(d_type: Enum.Drop_Type) -> bool:
+	for temp_drop in held_droppables:
+		if temp_drop.drop_type == d_type:
+			return true
+
+	return false
+
 func pick_up_droppable(d: droppable) -> void:
-	held_droppable = d
+	for temp_drop in held_droppables:
+		if temp_drop.drop_type == d.drop_type:
+			return
+	held_droppables.push_back(d)
 	d.is_held = true
 	$HeldItem.visible = true
 	$HeldItem.texture = d.get_node("Sprite2D").texture
@@ -208,18 +249,7 @@ func pick_up_droppable(d: droppable) -> void:
 	d.hide_droppable()
 	target_droppable = null
 
-func find_plot_for_droppable(d: droppable):
-	var p:plot = null
-	match(d.drop_type):
-		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
-			p = Globals.PlotGrid.get_plot_that_needs_seed()
-		Enum.Drop_Type.Water:
-			p = Globals.PlotGrid.get_plot_that_needs_water()
-		Enum.Drop_Type.Sun:
-			p = Globals.PlotGrid.get_plot_that_needs_sun()
-		_:
-			pass
-	return p
+
 
 func move_to_target() -> bool:
 	if state == Enum.Helper_State.Idle:
