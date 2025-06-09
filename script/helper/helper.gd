@@ -247,16 +247,18 @@ func pick_up_droppable(d: droppable) -> void:
 	target_droppable = null
 	
 	# update images
-	for c in $HeldItem.get_children():
-		c.queue_free()
 	
-	var held_drop_position: Vector2 = Vector2(0, 0)
-	for temp_drop in held_droppables:
-		var s = Sprite2D.new() as Sprite2D
-		s.texture = temp_drop.get_node("Sprite2D").texture
-		s.position = held_drop_position
-		held_drop_position += Vector2(0, -8)
-		$HeldItem.add_child(s)
+	var size = held_droppables.size()
+	
+	$HeldItem.visible = size > 0
+	$HeldItem.texture = held_droppables[0].get_node("Sprite2D").texture if size > 0 else null
+
+	$HeldItem/HeldItem2.visible = size > 1
+	$HeldItem/HeldItem2.texture = held_droppables[1].get_node("Sprite2D").texture if size > 1 else null	
+	
+	$HeldItem/HeldItem3.visible = size > 2
+	$HeldItem/HeldItem3.texture = held_droppables[2].get_node("Sprite2D").texture if size > 2 else null	
+	
 
 
 
@@ -279,28 +281,32 @@ func move_to_target() -> bool:
 		return global_position.distance_to(target_pos) <= 2
 		
 	return global_position.distance_to(target_pos) <= 32
-	
-
-func update_animation() -> void:
-	match dir:
-		Enum.Dir.Left:
-			anim.play("walk_right")
-			anim.flip_h = true
-		Enum.Dir.Right:
-			anim.play("walk_right")
-			anim.flip_h = false
-		Enum.Dir.Up:
-			anim.play("walk_up")
-			anim.flip_h = false
-		Enum.Dir.Down:
-			anim.play("walk_down")
-			anim.flip_h = false
-		_:
-			print("Dont know that direction")
-
-
 
 func update_speed(s:int)->void:
 	speed = s
 	min_velocity = Vector2(-speed, -speed)
 	max_velocity = Vector2(speed, speed)
+
+
+func update_animation() -> void:
+	$HeldItem.z_index=0
+	match dir:
+		Enum.Dir.Left:
+			anim.play("walk_right")
+			anim.flip_h = true
+			$HeldItem.position = Vector2(-7, 7)
+		Enum.Dir.Right:
+			anim.play("walk_right")
+			anim.flip_h = false
+			$HeldItem.position = Vector2(-8, 7)
+		Enum.Dir.Up:
+			anim.play("walk_up")
+			anim.flip_h = false
+			$HeldItem.position = Vector2(-9, -4)
+			$HeldItem.z_index=-1
+		Enum.Dir.Down:
+			anim.play("walk_down")
+			anim.flip_h = false
+			$HeldItem.position = Vector2(-7, 7)
+		_:
+			print("Dont know that direction")

@@ -1,15 +1,15 @@
 extends Node
 
-var DEBUG_SHOW_HELPER_STATE: bool = true
+var DEBUG_SHOW_HELPER_STATE: bool = false
 
 var STARTING_MONEY: int = 2
 
-var Helper_Speed: float = 200.0
-#var Helper_Speed: float = 0.0
+#var Helper_Speed: float = 200.0
+var Helper_Speed: float = 0.0
 
 var DISABLE_SLOT_MACHINE:bool = true
 
-var ALL_FULL_CROPS_AT_START:bool = false
+var ALL_FULL_CROPS_AT_START:bool = true
 
 var DEBUG_ALWAYS_MUTE:bool = true
 
