@@ -215,18 +215,22 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6kp2c")
 animation = &"walk_right"
 
-[node name="HeldItem" type="Sprite2D" parent="."]
-visible = false
+[node name="HeldItem" type="Node2D" parent="."]
 position = Vector2(-6, 7)
 scale = Vector2(0.8, 0.8)
+
+[node name="HeldItem1" type="Sprite2D" parent="HeldItem"]
+position = Vector2(1.43051e-06, -9.53674e-07)
+scale = Vector2(1, 1)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItem2" type="Sprite2D" parent="HeldItem"]
-position = Vector2(20, -1.43051e-06)
+position = Vector2(10, 3.75)
+scale = Vector2(1, 1)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItem3" type="Sprite2D" parent="HeldItem"]
-position = Vector2(10, 3.75)
+position = Vector2(20, -1.43051e-06)
 texture = ExtResource("3_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]

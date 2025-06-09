@@ -108,11 +108,18 @@ func check_for_tasks_to_do() -> void:
 	else:
 		on_idle()
 
+
+var has_checked_for_tasks = false
 func set_state(s: Enum.Helper_State) -> void:
 	state = s
 	match(state):
 		Enum.Helper_State.Idle:
-			check_for_tasks_to_do()
+			if !has_checked_for_tasks:
+				has_checked_for_tasks = true
+				Util.quick_timer(self, 1.0, func():
+					check_for_tasks_to_do()
+					has_checked_for_tasks = false
+				)
 		Enum.Helper_State.Wander:
 			target_pos = Util.random_visible_position()
 		Enum.Helper_State.Get_Item:
@@ -183,6 +190,7 @@ func on_reaching_target_pos() -> void:
 			for d in held_droppables:
 				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
 					continue
+				
 				$HeldItem.visible = false
 				var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
 				appliedDrop.start_static = true
@@ -196,6 +204,7 @@ func on_reaching_target_pos() -> void:
 					i += 1
 				d.delete()
 				set_state(Enum.Helper_State.Idle)
+				return
 				pass	
 		Enum.Helper_State.Pluck_Crop:
 			target_plot.pluck_crop()
@@ -250,16 +259,22 @@ func pick_up_droppable(d: droppable) -> void:
 	
 	var size = held_droppables.size()
 	
-	$HeldItem.visible = size > 0
-	$HeldItem.texture = held_droppables[0].get_node("Sprite2D").texture if size > 0 else null
+	$HeldItem/HeldItem1.visible = size > 0
+	$HeldItem/HeldItem1.texture = held_droppables[0].get_node("Sprite2D").texture if size > 0 else null
+	held_droppable_1_type = held_droppables[0].drop_type
 
 	$HeldItem/HeldItem2.visible = size > 1
 	$HeldItem/HeldItem2.texture = held_droppables[1].get_node("Sprite2D").texture if size > 1 else null	
+	held_droppable_1_type = held_droppables[1].drop_type
 	
 	$HeldItem/HeldItem3.visible = size > 2
 	$HeldItem/HeldItem3.texture = held_droppables[2].get_node("Sprite2D").texture if size > 2 else null	
+	held_droppable_1_type = held_droppables[2].drop_type
 	
 
+var held_droppable_1_type: Enum.Drop_Type
+var held_droppable_2_type: Enum.Drop_Type
+var held_droppable_3_type: Enum.Drop_Type
 
 
 func move_to_target() -> bool:
