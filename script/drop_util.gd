@@ -76,12 +76,14 @@ func get_drop_type_color(drop_type: Enum.Drop_Type) -> Color:
 	return drop_type_colors.get(drop_type, Color.WHITE)
 
 const APPLY_DROPPABLE_ANIMATION = preload("res://scene/apply_droppable_animation.tscn")
-func create_shrink_animation(drop_type: Enum.Drop_Type, pos: Vector2):
+func create_apply_droppable_animation(drop_type: Enum.Drop_Type, start_pos: Vector2, target_pos: Vector2):
 	if !Globals.AnimationsContainer:
 		return
 	var a = APPLY_DROPPABLE_ANIMATION.instantiate() 
 	a.drop_type = drop_type
-	a.global_position = pos
+	a.global_position = start_pos
+	a.start_pos = start_pos
+	a.target_pos = target_pos
 	Globals.AnimationsContainer.add_child(a)
 
 const DROPPABLE = preload("res://scene/droppable.tscn")

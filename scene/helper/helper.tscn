@@ -238,7 +238,6 @@ texture = ExtResource("3_eoi31")
 [node name="HeldItemProduce" type="Sprite2D" parent="HeldItem"]
 visible = false
 position = Vector2(17.5, -5)
-scale = Vector2(1, 1)
 texture = ExtResource("4_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]
