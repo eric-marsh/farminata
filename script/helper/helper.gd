@@ -175,7 +175,6 @@ func on_reaching_target_pos() -> void:
 				target_droppable = null
 				set_state(Enum.Helper_State.Idle)
 				return
-			
 			pick_up_droppable(target_droppable)
 			set_state(Enum.Helper_State.Deliver_Item)
 			return
@@ -191,7 +190,7 @@ func on_reaching_target_pos() -> void:
 				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
 					continue
 				
-				$HeldItem.visible = false
+				hide_held_item(d)
 				var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
 				appliedDrop.start_static = true
 				appliedDrop.is_delivered = true
@@ -250,31 +249,32 @@ func pick_up_droppable(d: droppable) -> void:
 	held_droppables.push_back(d)
 	d.is_held = true
 	$HeldItem.visible = true
-	$HeldItem.texture = d.get_node("Sprite2D").texture
 	#d.delete()
 	d.hide_droppable()
 	target_droppable = null
 	
 	# update images
+	if d.drop_type == Enum.Drop_Type.Carrot_Seed or d.drop_type == Enum.Drop_Type.Carrot_Seed:
+		$HeldItem/HeldItem1.visible = true
+		$HeldItem/HeldItem1.texture = d.get_node("Sprite2D").texture
 	
-	var size = held_droppables.size()
+	if d.drop_type == Enum.Drop_Type.Water:
+		$HeldItem/HeldItem2.visible = true
+		$HeldItem/HeldItem2.texture = d.get_node("Sprite2D").texture
 	
-	$HeldItem/HeldItem1.visible = size > 0
-	$HeldItem/HeldItem1.texture = held_droppables[0].get_node("Sprite2D").texture if size > 0 else null
-	held_droppable_1_type = held_droppables[0].drop_type
+	if d.drop_type == Enum.Drop_Type.Sun:
+		$HeldItem/HeldItem3.visible = true
+		$HeldItem/HeldItem3.texture = d.get_node("Sprite2D").texture
 
-	$HeldItem/HeldItem2.visible = size > 1
-	$HeldItem/HeldItem2.texture = held_droppables[1].get_node("Sprite2D").texture if size > 1 else null	
-	held_droppable_1_type = held_droppables[1].drop_type
-	
-	$HeldItem/HeldItem3.visible = size > 2
-	$HeldItem/HeldItem3.texture = held_droppables[2].get_node("Sprite2D").texture if size > 2 else null	
-	held_droppable_1_type = held_droppables[2].drop_type
-	
-
-var held_droppable_1_type: Enum.Drop_Type
-var held_droppable_2_type: Enum.Drop_Type
-var held_droppable_3_type: Enum.Drop_Type
+func hide_held_item(d:droppable) -> void:
+	if d.drop_type == Enum.Drop_Type.Carrot_Seed or d.drop_type == Enum.Drop_Type.Carrot_Seed:
+		$HeldItem/HeldItem1.visible = false
+		
+	if d.drop_type == Enum.Drop_Type.Water:
+		$HeldItem/HeldItem2.visible = false
+		
+	if d.drop_type == Enum.Drop_Type.Sun:
+		$HeldItem/HeldItem3.visible = false
 
 
 func move_to_target() -> bool:

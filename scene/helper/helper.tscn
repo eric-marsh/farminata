@@ -220,16 +220,17 @@ position = Vector2(-6, 7)
 scale = Vector2(0.8, 0.8)
 
 [node name="HeldItem1" type="Sprite2D" parent="HeldItem"]
+visible = false
 position = Vector2(1.43051e-06, -9.53674e-07)
-scale = Vector2(1, 1)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItem2" type="Sprite2D" parent="HeldItem"]
+visible = false
 position = Vector2(10, 3.75)
-scale = Vector2(1, 1)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItem3" type="Sprite2D" parent="HeldItem"]
+visible = false
 position = Vector2(20, -1.43051e-06)
 texture = ExtResource("3_eoi31")
 
