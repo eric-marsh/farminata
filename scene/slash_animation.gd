@@ -35,5 +35,4 @@ func init_animation() -> void:
 
 
 func _on_animation_finished() -> void:
-	print("_on_animation_finished")
 	queue_free()

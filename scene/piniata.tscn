@@ -1,14 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=10 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
 [ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="3_odym4"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddpin"]
-size = Vector2(64.5, 128)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_odym4"]
-size = Vector2(64, 128)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_odym4"]
 
@@ -83,16 +77,14 @@ offset = Vector2(0, 90)
 [node name="LeftArea" type="Area2D" parent="Node2D"]
 position = Vector2(-1, 89)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/LeftArea"]
-position = Vector2(-32.25, 0)
-shape = SubResource("RectangleShape2D_ddpin")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/LeftArea"]
+polygon = PackedVector2Array(-65, -49, -49, -49, -49, -65, -9, -65, -9, -5, 0, -5, 0, 50, -2, 50, -2, 66, -20, 66, -20, 49, -30, 49, -30, 66, -49, 66, -49, -14, -65, -14)
 
 [node name="RightArea" type="Area2D" parent="Node2D"]
 position = Vector2(-1, 89)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/RightArea"]
-position = Vector2(32, 0.5)
-shape = SubResource("RectangleShape2D_odym4")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/RightArea"]
+polygon = PackedVector2Array(0, -5, 53, -5, 67, 7, 67, 26, 51, 26, 51, 66, 32, 66, 28, 62, 11, 62, 11, 50, 0, 50)
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 custom_minimum_size = Vector2(129, 2)
