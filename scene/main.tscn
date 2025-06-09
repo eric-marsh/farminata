@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=12 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
-[ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper/helper.tscn" id="8_k65ib"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 
@@ -50,9 +49,6 @@ drop_type = 4
 
 [node name="Helpers" type="Node2D" parent="."]
 script = ExtResource("6_of57s")
-
-[node name="Helper" parent="Helpers" instance=ExtResource("8_k65ib")]
-position = Vector2(29, 190)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 

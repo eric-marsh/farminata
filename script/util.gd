@@ -59,12 +59,8 @@ func get_helper_state_string(type: Enum.Helper_State) -> String:
 			
 func get_helper_type_string(type: Enum.Helper_Type) -> String:
 	match(type):
-		Enum.Helper_Type.Seed:
-			return "Seed"
-		Enum.Helper_Type.Water:
-			return "Water"
-		Enum.Helper_Type.Sun:
-			return "Sun"
+		Enum.Helper_Type.Farmer:
+			return "Farmer" 
 		Enum.Helper_Type.Pluck:
 			return "Pluck"
 		Enum.Helper_Type.Attack:
@@ -93,12 +89,8 @@ func create_explosion_particle(pos: Vector2, color: Color, num_squares: int = 12
 # https://coolors.co/palette/ff595e-ffca3a-8ac926-1982c4-6a4c93
 func get_color_from_helper_type(type: Enum.Helper_Type) -> Color:
 	match(type):
-		Enum.Helper_Type.Seed:
+		Enum.Helper_Type.Farmer:
 			return Color.html("#f15bb5")
-		Enum.Helper_Type.Sun:
-			return Color.html("#fee440")
-		Enum.Helper_Type.Water:
-			return Color.html("#00bbf9")
 		Enum.Helper_Type.Pluck:
 			return Color.html("#9b5de5")
 		Enum.Helper_Type.Attack:
@@ -110,12 +102,8 @@ func get_color_from_helper_type(type: Enum.Helper_Type) -> Color:
 
 func get_total_helpers_of_type(helper_type: Enum.Helper_Type) -> int:
 	match(helper_type):
-		Enum.Helper_Type.Seed:
-			return State.num_seed_helpers
-		Enum.Helper_Type.Sun:
-			return State.num_sun_helpers
-		Enum.Helper_Type.Water:
-			return State.num_water_helpers
+		Enum.Helper_Type.Farmer:
+			return State.num_farmer_helpers 
 		Enum.Helper_Type.Pluck:
 			return State.num_pluck_helpers
 		Enum.Helper_Type.Attack:
@@ -124,8 +112,4 @@ func get_total_helpers_of_type(helper_type: Enum.Helper_Type) -> int:
 			return 0
 
 func get_total_helpers() -> int:
-	return State.num_seed_helpers +\
-		State.num_sun_helpers +\
-		State.num_water_helpers +\
-		State.num_pluck_helpers +\
-		State.num_attack_helpers
+	return State.num_farmer_helpers + State.num_pluck_helpers + State.num_attack_helpers

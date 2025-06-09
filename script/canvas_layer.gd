@@ -4,16 +4,14 @@ class_name canvas_layer
 @onready var plot_button = $MarginContainer/VBoxContainer/HBoxContainer/PlotButton
 @onready var onion_button = $MarginContainer/VBoxContainer/HBoxContainer/OnionButton
 
-@onready var add_seed_helper_button = $MarginContainer/VBoxContainer/HBoxContainer2/AddSeedHelperButton
-@onready var add_sun_helper_button = $MarginContainer/VBoxContainer/HBoxContainer2/AddSunHelperButton
-@onready var add_water_helper_button = $MarginContainer/VBoxContainer/HBoxContainer3/AddWaterHelperButton
-@onready var add_pluck_helper_button = $MarginContainer/VBoxContainer/HBoxContainer3/AddPluckHelperButton
-@onready var add_attack_helper_button = $MarginContainer/VBoxContainer/HBoxContainer4/AddAttackHelperButton
+@onready var add_farmer_helper: Button = $MarginContainer/VBoxContainer/HBoxContainer2/AddFarmerHelper
+@onready var add_pluck_helper_button: Button = $MarginContainer/VBoxContainer/HBoxContainer2/AddPluckHelperButton
+@onready var add_attack_helper_button: Button = $MarginContainer/VBoxContainer/HBoxContainer3/AddAttackHelperButton
 
+@onready var add_farmer_hat_button: Button = $MarginContainer/VBoxContainer/HBoxContainer4/AddFarmerHatButton
+@onready var add_delivery_hat_button: Button = $MarginContainer/VBoxContainer/HBoxContainer4/AddDeliveryHatButton
+@onready var add_attack_hat_button: Button = $MarginContainer/VBoxContainer/HBoxContainer5/AddAttackHatButton
 
-@onready var add_farmer_hat_button = $MarginContainer/VBoxContainer/HBoxContainer5/AddFarmerHatButton
-@onready var add_delivery_hat_button = $MarginContainer/VBoxContainer/HBoxContainer5/AddDeliveryHatButton
-@onready var add_attack_hat_button = $MarginContainer/VBoxContainer/HBoxContainer6/AddAttackHatButton
 
 @onready var money_label = $MarginContainer/VBoxContainer/MoneyLabel
 
@@ -33,16 +31,10 @@ func update_money_counter():
 	
 	money_label.text = "$" + str(money)
 	
-
-	
-	
-	
 	var helper_data = [
-		{ "type": Enum.Upgrade_Type.AddSeedHelper, "node": add_seed_helper_button, "count": State.num_seed_helpers, "icon": "🌱" },
-		{ "type": Enum.Upgrade_Type.AddSunHelper, "node": add_sun_helper_button, "count": State.num_sun_helpers, "icon": "☀️" },
-		{ "type": Enum.Upgrade_Type.AddWaterHelper, "node": add_water_helper_button, "count": State.num_water_helpers, "icon": "💧" },
-		{ "type": Enum.Upgrade_Type.AddPluckHelper, "node": add_pluck_helper_button, "count": State.num_pluck_helpers, "icon": "🥕" },
-		{ "type": Enum.Upgrade_Type.AddAttackHelper, "node": add_attack_helper_button, "count": State.num_attack_helpers, "icon": "🔫" },
+		{ "type": Enum.Upgrade_Type.AddFarmerHelper, "node": add_farmer_helper, "count": State.num_farmer_helpers },
+		{ "type": Enum.Upgrade_Type.AddPluckHelper, "node": add_pluck_helper_button, "count": State.num_pluck_helpers },
+		{ "type": Enum.Upgrade_Type.AddAttackHelper, "node": add_attack_helper_button, "count": State.num_attack_helpers },
 	]
 
 	for data in helper_data:
@@ -103,18 +95,9 @@ func add_helper_button_pressed(upgrade_type: Enum.Upgrade_Type, helper_type: Enu
 	Globals.Main.change_money(-helper_price)
 	Globals.HelpersContainerNode.add_helper(helper_type)
 	update_money_counter()
-	
 
-func _on_add_seed_helper_button_pressed() -> void:
-	add_helper_button_pressed(Enum.Upgrade_Type.AddSeedHelper, Enum.Helper_Type.Seed)
-
-
-func _on_add_sun_helper_button_pressed() -> void:
-	add_helper_button_pressed(Enum.Upgrade_Type.AddSunHelper, Enum.Helper_Type.Sun)
-
-
-func _on_add_water_helper_button_pressed() -> void:
-	add_helper_button_pressed(Enum.Upgrade_Type.AddWaterHelper, Enum.Helper_Type.Water)
+func _on_add_farmer_helper_pressed() -> void:
+	add_helper_button_pressed(Enum.Upgrade_Type.AddFarmerHelper, Enum.Helper_Type.Farmer)
 
 func _on_add_pluck_helper_button_pressed() -> void:
 	add_helper_button_pressed(Enum.Upgrade_Type.AddPluckHelper, Enum.Helper_Type.Pluck)

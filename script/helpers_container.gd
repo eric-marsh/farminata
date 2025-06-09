@@ -5,12 +5,8 @@ const HELPER = preload("res://scene/helper/helper.tscn")
 const ATTACK_HELPER = preload("res://scene/helper/attack_helper.tscn")
 
 func _ready() -> void:
-	for i in range(State.num_seed_helpers):
-		add_helper(Enum.Helper_Type.Seed)
-	for i in range(State.num_sun_helpers):
-		add_helper(Enum.Helper_Type.Sun)
-	for i in range(State.num_water_helpers):
-		add_helper(Enum.Helper_Type.Water)
+	for i in range(State.num_farmer_helpers):
+		add_helper(Enum.Helper_Type.Farmer)
 	for i in range(State.num_pluck_helpers):
 		add_helper(Enum.Helper_Type.Pluck)
 	for i in range(State.num_attack_helpers):
@@ -31,12 +27,8 @@ func add_helper(helper_type: Enum.Helper_Type) -> void:
 	h.id_of_type = Util.get_total_helpers_of_type(helper_type)
 	add_child(h)
 	match(helper_type):
-		Enum.Helper_Type.Seed:
-			State.num_seed_helpers += 1
-		Enum.Helper_Type.Sun:
-			State.num_sun_helpers += 1
-		Enum.Helper_Type.Water:
-			State.num_water_helpers += 1
+		Enum.Helper_Type.Farmer:
+			State.num_farmer_helpers += 1
 		Enum.Helper_Type.Pluck:
 			State.num_pluck_helpers += 1
 		Enum.Helper_Type.Attack:
@@ -54,7 +46,7 @@ func get_helper_that_needs_hat(hat: Enum.Drop_Type) -> helper:
 			continue
 		match(hat):
 			Enum.Drop_Type.Farm_Hat:
-				if c.helper_type == Enum.Helper_Type.Seed or c.helper_type == Enum.Helper_Type.Water or c.helper_type == Enum.Helper_Type.Sun:
+				if c.helper_type == Enum.Helper_Type.Farmer:
 					return c
 			Enum.Drop_Type.Delivery_Hat:
 				if c.helper_type == Enum.Helper_Type.Pluck:

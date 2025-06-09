@@ -3,7 +3,7 @@ class_name helper
 
 @export var id: int = 0
 @export var id_of_type: int = 0
-@export var helper_type: Enum.Helper_Type = Enum.Helper_Type.Seed
+@export var helper_type: Enum.Helper_Type = Enum.Helper_Type.Farmer
 @onready var anim = $AnimatedSprite2D 
 
 var target_droppable: droppable = null
@@ -217,7 +217,7 @@ func find_droppable_based_on_helper_type() -> droppable:
 		return null
 	var d: droppable = null
 	match(helper_type):
-		Enum.Helper_Type.Seed, Enum.Helper_Type.Water, Enum.Helper_Type.Sun:
+		Enum.Helper_Type.Farmer:
 			if !is_holding_drop_type(Enum.Drop_Type.Carrot_Seed):
 				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed) #TODO: onion Seed
 				if d:
