@@ -76,11 +76,12 @@ func random_chance(fraction: float) -> bool:
 	return randf() < clamp(fraction, 0.0, 1.0)
 
 const EXPLOSION_PARTICLE = preload("res://scene/explosion_particle.tscn")
-func create_explosion_particle(pos: Vector2, color: Color, num_squares: int = 12) -> void:
+func create_explosion_particle(pos: Vector2, color: Color, num_squares: int = 12, speed_scale: float = 0.6) -> void:
 	var p = EXPLOSION_PARTICLE.instantiate() as CPUParticles2D
 	p.global_position =pos
 	p.color = color.lightened(0.5)
 	p.amount = num_squares
+	p.speed_scale = speed_scale
 	p.connect("finished", func(): p.queue_free())
 	p.emitting = true
 	Globals.AnimationsContainer.add_child(p)
@@ -113,3 +114,13 @@ func get_total_helpers_of_type(helper_type: Enum.Helper_Type) -> int:
 
 func get_total_helpers() -> int:
 	return State.num_farmer_helpers + State.num_pluck_helpers + State.num_attack_helpers
+	
+	
+const SLASH_ANIMATION = preload("res://scene/slash_animation.tscn")
+func create_slash_animation(pos: Vector2, flip_h: bool = false):
+	if !Globals.AnimationsContainer:
+		return
+	var a = SLASH_ANIMATION.instantiate() 
+	a.global_position = pos
+	a.flip_horiz = flip_h
+	Globals.AnimationsContainer.add_child(a)

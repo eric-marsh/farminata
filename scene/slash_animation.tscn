@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://y8n5coy3f6k0"]
+
+[ext_resource type="SpriteFrames" uid="uid://cf0amn80r23ya" path="res://img/particle/slash_animation.tres" id="1_jfwg7"]
+[ext_resource type="Script" uid="uid://dm76srq073yof" path="res://scene/slash_animation.gd" id="2_jfwg7"]
+
+[node name="SlashAnimation" type="AnimatedSprite2D"]
+z_index = 10
+sprite_frames = ExtResource("1_jfwg7")
+animation = &"slash_3"
+speed_scale = 4.0
+offset = Vector2(-30, -2)
+script = ExtResource("2_jfwg7")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

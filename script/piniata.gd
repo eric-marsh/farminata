@@ -35,9 +35,23 @@ func _process(delta: float) -> void:
 	$Node2D.rotation = clamp($Node2D.rotation, -360.0, 360.0)
 	
 var n = 1	
-func animate_hit(strength: float) -> void:
+var particle_color_index=0
+var particle_colors = [
+	Color.html("#ff55ff"),
+	Color.html("#ffff55"),
+	Color.html("#55ffff"),
+]
+func animate_hit(strength: float, is_click: bool = false) -> void:
 	path_velocity += strength
 	path_velocity = clamp(strength/10, -n, n)
+	
+	var c = particle_colors[particle_color_index]
+	particle_color_index = (particle_color_index + 1) % particle_colors.size()
+	var mouse_pos:Vector2 = get_global_mouse_position()
+	Util.create_explosion_particle(mouse_pos, c, 6, 1.9)
+	
+	if is_click:
+		Util.create_slash_animation(mouse_pos, strength > 0)
 
 	
 func update_health_bar(damage_amount: int = 0) -> void:
@@ -51,7 +65,7 @@ func update_health_bar(damage_amount: int = 0) -> void:
 #var chance_of_output: float = 0.2
 var chance_of_output: float = 0.6
 
-func hit_piniata(strength: int = 1):
+func hit_piniata(strength: int = 1, is_click: bool = false):
 	strength *= 1
 	
 	animation_player_pulse.stop(true)
@@ -59,7 +73,7 @@ func hit_piniata(strength: int = 1):
 	State.piniata_hp -= abs(strength)
 	update_health_bar(abs(strength))
 	
-	animate_hit(strength)
+	animate_hit(strength, is_click)
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
@@ -99,10 +113,10 @@ func unlock_drop_type(type: Enum.Drop_Type) -> void:
 func _on_left_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata(State.hit_strength * -1)
+			hit_piniata(State.hit_strength * -1, true)
 
 
 func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata(State.hit_strength)
+			hit_piniata(State.hit_strength, true)
