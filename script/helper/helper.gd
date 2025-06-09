@@ -207,15 +207,18 @@ func on_reaching_target_pos() -> void:
 			set_state(Enum.Helper_State.Idle)
 		_:
 			pass
-		
+
+
+
+
 func find_droppable_based_on_helper_type() -> droppable:
 	if !Globals.DropsNode:
 		return null
 	var d: droppable = null
 	match(helper_type):
 		Enum.Helper_Type.Farmer:
-			if !is_holding_drop_type(Enum.Drop_Type.Carrot_Seed):
-				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed) #TODO: onion Seed
+			if !is_holding_seed():
+				d = get_highest_seed()
 				if d:
 					return d
 			if !is_holding_drop_type(Enum.Drop_Type.Water):
@@ -226,16 +229,38 @@ func find_droppable_based_on_helper_type() -> droppable:
 				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Sun) 
 				if d:
 					return d
-		
 		Enum.Helper_Type.Pluck:
-			d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot) #TODO: Onion
+			d = get_highest_produce()
+	return d
+
+func get_highest_produce()-> droppable:
+	var d: droppable
+	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
+		d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Onion)
+		if d:
+			return d
+	d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot)
+	return d
+
+func get_highest_seed()-> droppable:
+	var d: droppable
+	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
+		d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Onion_Seed)
+		if d:
+			return d
+	d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed)
 	return d
 
 func is_holding_drop_type(d_type: Enum.Drop_Type) -> bool:
 	for temp_drop in held_droppables:
 		if temp_drop.drop_type == d_type:
 			return true
-
+	return false
+	
+func is_holding_seed() -> bool:
+	for temp_drop in held_droppables:
+		if DropUtil.is_seed(temp_drop.drop_type):
+			return true
 	return false
 
 func pick_up_droppable(d: droppable) -> void:
@@ -250,7 +275,7 @@ func pick_up_droppable(d: droppable) -> void:
 	target_droppable = null
 	
 	# update images
-	if d.drop_type == Enum.Drop_Type.Carrot_Seed or d.drop_type == Enum.Drop_Type.Carrot_Seed:
+	if DropUtil.is_seed(d.drop_type):
 		$HeldItem/HeldItem1.visible = true
 		$HeldItem/HeldItem1.texture = d.get_node("Sprite2D").texture
 	
