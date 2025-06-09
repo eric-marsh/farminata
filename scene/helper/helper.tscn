@@ -217,7 +217,14 @@ animation = &"walk_right"
 
 [node name="HeldItem" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(0, 8)
+texture = ExtResource("3_eoi31")
+
+[node name="HeldItem2" type="Sprite2D" parent="HeldItem"]
+position = Vector2(0, -8)
+texture = ExtResource("3_eoi31")
+
+[node name="HeldItem3" type="Sprite2D" parent="HeldItem"]
+position = Vector2(0, -16)
 texture = ExtResource("3_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]

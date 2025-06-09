@@ -181,7 +181,7 @@ func on_reaching_target_pos() -> void:
 				return
 			# apply droppables
 			for d in held_droppables:
-				if Globals.PlotGrid and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
+				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
 					continue
 				$HeldItem.visible = false
 				var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
@@ -211,17 +211,14 @@ func find_droppable_based_on_helper_type() -> droppable:
 	match(helper_type):
 		Enum.Helper_Type.Seed, Enum.Helper_Type.Water, Enum.Helper_Type.Sun:
 			if !is_holding_drop_type(Enum.Drop_Type.Carrot_Seed):
-				print("Found seed")
 				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed) #TODO: onion Seed
 				if d:
 					return d
 			if !is_holding_drop_type(Enum.Drop_Type.Water):
-				print("Found Water")
 				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Water)
 				if d:
 					return d
 			if !is_holding_drop_type(Enum.Drop_Type.Sun):
-				print("Found Sun")
 				d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Sun) 
 				if d:
 					return d
@@ -248,6 +245,18 @@ func pick_up_droppable(d: droppable) -> void:
 	#d.delete()
 	d.hide_droppable()
 	target_droppable = null
+	
+	# update images
+	for c in $HeldItem.get_children():
+		c.queue_free()
+	
+	var held_drop_position: Vector2 = Vector2(0, 0)
+	for temp_drop in held_droppables:
+		var s = Sprite2D.new() as Sprite2D
+		s.texture = temp_drop.get_node("Sprite2D").texture
+		s.position = held_drop_position
+		held_drop_position += Vector2(0, -8)
+		$HeldItem.add_child(s)
 
 
 
