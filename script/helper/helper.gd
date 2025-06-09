@@ -187,6 +187,8 @@ func on_reaching_target_pos() -> void:
 				return
 			# apply droppables
 			for d in held_droppables:
+				if !d:
+					hide_held_item(d)
 				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
 					continue
 				
@@ -195,12 +197,6 @@ func on_reaching_target_pos() -> void:
 				appliedDrop.start_static = true
 				appliedDrop.is_delivered = true
 				target_plot = null
-				var i = 0
-				for temp_drop in held_droppables:
-					if temp_drop == d:
-						held_droppables.remove_at(i)
-						break
-					i += 1
 				d.delete()
 				set_state(Enum.Helper_State.Idle)
 				return
@@ -211,7 +207,7 @@ func on_reaching_target_pos() -> void:
 			set_state(Enum.Helper_State.Idle)
 		_:
 			pass
-
+		
 func find_droppable_based_on_helper_type() -> droppable:
 	if !Globals.DropsNode:
 		return null
@@ -265,6 +261,13 @@ func pick_up_droppable(d: droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Sun:
 		$HeldItem/HeldItem3.visible = true
 		$HeldItem/HeldItem3.texture = d.get_node("Sprite2D").texture
+	
+	if d.drop_type == Enum.Drop_Type.Carrot or d.drop_type == Enum.Drop_Type.Onion:
+		$HeldItem/HeldItemProduce.visible = true
+		$HeldItem/HeldItemProduce.texture = d.get_node("Sprite2D").texture
+	
+	
+	
 
 func hide_held_item(d:droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Carrot_Seed or d.drop_type == Enum.Drop_Type.Carrot_Seed:
@@ -275,6 +278,16 @@ func hide_held_item(d:droppable) -> void:
 		
 	if d.drop_type == Enum.Drop_Type.Sun:
 		$HeldItem/HeldItem3.visible = false
+		
+	if d.drop_type == Enum.Drop_Type.Carrot or d.drop_type == Enum.Drop_Type.Onion:
+		$HeldItem/HeldItemProduce.visible = false
+		
+	var i = 0
+	for temp_drop in held_droppables:
+		if temp_drop == d:
+			held_droppables.remove_at(i)
+			break
+		i += 1
 
 
 func move_to_target() -> bool:

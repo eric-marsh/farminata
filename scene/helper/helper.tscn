@@ -1,9 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://c82wwcd2kv076"]
+[gd_scene load_steps=34 format=3 uid="uid://c82wwcd2kv076"]
 
 [ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper/helper.gd" id="1_xnnrj"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_edx7r"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="3_eoi31"]
 [ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="4_edx7r"]
+[ext_resource type="Texture2D" uid="uid://dfivp000yegyb" path="res://img/plants/carrot/carrot.png" id="4_eoi31"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
 
@@ -227,12 +228,18 @@ texture = ExtResource("3_eoi31")
 [node name="HeldItem2" type="Sprite2D" parent="HeldItem"]
 visible = false
 position = Vector2(10, 3.75)
-texture = ExtResource("3_eoi31")
+texture = ExtResource("4_eoi31")
 
 [node name="HeldItem3" type="Sprite2D" parent="HeldItem"]
 visible = false
 position = Vector2(20, -1.43051e-06)
 texture = ExtResource("3_eoi31")
+
+[node name="HeldItemProduce" type="Sprite2D" parent="HeldItem"]
+visible = false
+position = Vector2(17.5, -5)
+scale = Vector2(1, 1)
+texture = ExtResource("4_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]
 offset_left = -13.0
