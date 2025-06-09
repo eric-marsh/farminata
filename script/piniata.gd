@@ -57,7 +57,7 @@ func hit_piniata(strength: int = 1):
 	animation_player_pulse.stop(true)
 	animation_player_pulse.play("pulse")
 	State.piniata_hp -= abs(strength)
-	update_health_bar(strength)
+	update_health_bar(abs(strength))
 	
 	animate_hit(strength)
 	

@@ -98,6 +98,8 @@ func start_dragging() -> void:
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(5, false)
 	set_collision_mask_value(5, false)
+	Globals.SellChestNode.open_chest(self)
+	
 	
 func stop_dragging() -> void:
 	if !Globals.Main:
