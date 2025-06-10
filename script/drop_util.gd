@@ -14,6 +14,7 @@ const FARMER_HAT = preload("res://img/helper/farmer_hat.png")
 const ATTACK_HAT = preload("res://img/helper/attack_hat.png")
 
 
+
 var drop_type_images = {
 	Enum.Drop_Type.Blurry: BLURRY,
 	Enum.Drop_Type.X: X,
@@ -114,17 +115,39 @@ func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
 	return droppable_count.get(drop_type, 0)
 
 
-var max_seed_offset: int = 4
-func get_best_possible_seed() -> Enum.Drop_Type:
-	var max_seeds_allowed: int = Globals.PlotGrid.get_total_plots() + max_seed_offset
-	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed) and DropUtil.get_total_drops_of_type(Enum.Drop_Type.Onion_Seed) < max_seeds_allowed:
-		return Enum.Drop_Type.Onion_Seed
-	
-	if DropUtil.get_total_drops_of_type(Enum.Drop_Type.Carrot_Seed) < max_seeds_allowed:
-		return Enum.Drop_Type.Carrot_Seed
-	
-	return Enum.Drop_Type.X
 
+var priority: Array = [
+		{ "seed": Enum.Drop_Type.Onion_Seed, "produce": Enum.Drop_Type.Onion },
+		{ "seed": Enum.Drop_Type.Carrot_Seed, "produce": Enum.Drop_Type.Carrot },
+	]
+	
+func get_highest_produce() -> droppable:
+	for pair in priority:
+		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
+			var d = Globals.DropsNode.get_droppable_of_type(pair.produce)
+			if d:
+				return d
+	return null  
+
+func get_highest_seed() -> droppable:
+	for pair in priority:
+		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
+			var d = Globals.DropsNode.get_droppable_of_type(pair.seed)
+			if d:
+				return d
+	return null  
+	
+var max_seed_offset: int = 4
+func get_highest_seed_within_limit() -> Enum.Drop_Type:
+	var max_seeds_allowed: int = Globals.PlotGrid.get_total_plots() + max_seed_offset
+	for pair in priority:
+		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
+			if DropUtil.get_total_drops_of_type(pair.seed) < max_seeds_allowed:
+				return pair.seed
+	return Enum.Drop_Type.X
+				
+
+	
 	
 func print_drop_counts()->void:
 	if droppable_count.size() == 0:

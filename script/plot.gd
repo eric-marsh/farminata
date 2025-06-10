@@ -21,32 +21,32 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	apply_droppable(body)
 
-func apply_droppable(d: droppable):
+func apply_droppable(d: droppable) -> void:
 	if plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
-	var drop_type = d.drop_type
-	match drop_type:
-		Enum.Drop_Type.Water:
-			if plot_state == Enum.Plot_State.Dry:
-				plot_state = Enum.Plot_State.Wet
-				cleanup_droppable(d)
-
-		Enum.Drop_Type.Sun:
-			if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
-				plot_state = Enum.Plot_State.Dry
-				set_next_growth_state()
-				cleanup_droppable(d)
-
-		Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed:
-			if plot_growth_state == Enum.Plot_Growth_State.None:
-				grow_type = PlantUtil.drop_type_to_grow_type(drop_type)
-				set_next_growth_state()
-				cleanup_droppable(d)
-
-		_:
-			return
-
-	update_image()
+	
+	if 	DropUtil.is_seed(d.drop_type):
+		if plot_growth_state == Enum.Plot_Growth_State.None:
+			grow_type = PlantUtil.drop_type_to_grow_type(d.drop_type)
+			set_next_growth_state()
+			cleanup_droppable(d)
+			update_image()
+		return
+	
+	if d.drop_type == Enum.Drop_Type.Water:
+		if plot_state == Enum.Plot_State.Dry:
+			plot_state = Enum.Plot_State.Wet
+			cleanup_droppable(d)
+			update_image()
+		return
+	
+	if d.drop_type == Enum.Drop_Type.Sun:
+		if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
+			plot_state = Enum.Plot_State.Dry
+			set_next_growth_state()
+			cleanup_droppable(d)
+			update_image()
+		return
 
 func cleanup_droppable(d: droppable) -> void:
 	DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, global_position + size / 2)

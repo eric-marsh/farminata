@@ -97,7 +97,8 @@ func get_random_output() -> Enum.Drop_Type:
 	]
 	var result = weighted_drops[randi() % weighted_drops.size()]
 	if result == Enum.Drop_Type.X:
-		return DropUtil.get_best_possible_seed()
+		var s = DropUtil.get_highest_seed_within_limit()
+		return s if s != null else Enum.Drop_Type.X
 	return result
 
 func unlock_drop_type(type: Enum.Drop_Type) -> void:

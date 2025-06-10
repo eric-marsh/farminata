@@ -11,7 +11,6 @@ var target_plot: plot = null
 
 var held_droppables: Array[droppable] = []
 
-
 var worn_hat: Enum.Drop_Type
 
 var state: Enum.Helper_State = Enum.Helper_State.Idle
@@ -216,8 +215,6 @@ func on_reaching_target_pos() -> void:
 			pass
 
 
-
-
 func find_droppable_based_on_helper_type() -> droppable:
 	if !Globals.DropsNode:
 		return null
@@ -225,7 +222,7 @@ func find_droppable_based_on_helper_type() -> droppable:
 	match(helper_type):
 		Enum.Helper_Type.Farmer:
 			if !is_holding_seed():
-				d = get_highest_seed()
+				d = DropUtil.get_highest_seed()
 				if d:
 					return d
 			if !is_holding_drop_type(Enum.Drop_Type.Water):
@@ -237,26 +234,12 @@ func find_droppable_based_on_helper_type() -> droppable:
 				if d:
 					return d
 		Enum.Helper_Type.Pluck:
-			d = get_highest_produce()
+			d = DropUtil.get_highest_produce()
 	return d
 
-func get_highest_produce()-> droppable:
-	var d: droppable
-	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
-		d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Onion)
-		if d:
-			return d
-	d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot)
-	return d
 
-func get_highest_seed()-> droppable:
-	var d: droppable
-	if State.unlocked_slot_outputs.has(Enum.Drop_Type.Onion_Seed):
-		d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Onion_Seed)
-		if d:
-			return d
-	d = Globals.DropsNode.get_droppable_of_type(Enum.Drop_Type.Carrot_Seed)
-	return d
+
+
 
 func is_holding_drop_type(d_type: Enum.Drop_Type) -> bool:
 	for temp_drop in held_droppables:
@@ -308,7 +291,7 @@ func check_held_items_for_freed()->void:
 		
 
 func hide_held_item(d:droppable) -> void:
-	if d.drop_type == Enum.Drop_Type.Carrot_Seed or d.drop_type == Enum.Drop_Type.Carrot_Seed:
+	if DropUtil.is_seed(d.drop_type):
 		$HeldItem/HeldItem1.visible = false
 		
 	if d.drop_type == Enum.Drop_Type.Water:
@@ -317,7 +300,7 @@ func hide_held_item(d:droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Sun:
 		$HeldItem/HeldItem3.visible = false
 		
-	if d.drop_type == Enum.Drop_Type.Carrot or d.drop_type == Enum.Drop_Type.Onion:
+	if DropUtil.is_produce(d.drop_type):
 		$HeldItem/HeldItemProduce.visible = false
 		
 	for i in range(held_droppables.size() - 1, -1, -1):
