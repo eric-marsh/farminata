@@ -84,22 +84,30 @@ func attack() -> void:
 	if !Globals.PiniataNode:
 		return
 	if dir == Enum.Dir.Left:
-		Globals.PiniataNode.hit_piniata(attack_strength )
+		Globals.PiniataNode.hit_piniata(attack_strength, $Throwable.global_position)
 	else:
-		Globals.PiniataNode.hit_piniata(attack_strength * -1)
+		Globals.PiniataNode.hit_piniata(attack_strength * -1, $Throwable.global_position)
+	
 
 func update_thowable() -> void:
 	if !Globals.PiniataNode:
 		return
-	var target_position = Globals.PiniataNode.piniata_center
+	var target_position: Vector2
+	if dir == Enum.Dir.Left:
+		target_position = Globals.PiniataNode.piniata_center + Vector2(42, 0)
+	else:
+		target_position = Globals.PiniataNode.piniata_center + Vector2(-42, 0)
+	
+	
 	var total_time = $AttackTimer.wait_time
 	var elapsed_time = total_time - $AttackTimer.time_left
 	var t = clamp(elapsed_time / total_time, 0, 1) # Normalize from 0 to 1
 
 	# Interpolate from start to target
 	$Throwable.global_position = start_position.lerp(target_position, t)
+	$Throwable.z_index = 15
 
-var num_attack_helpers = 100
+var num_attack_helpers = 50
 func get_attack_pos(index: int) -> Vector2:
 	if !Globals.PiniataNode:
 		return Vector2.ZERO

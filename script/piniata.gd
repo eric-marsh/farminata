@@ -41,17 +41,7 @@ var particle_colors = [
 	Color.html("#ffff55"),
 	Color.html("#55ffff"),
 ]
-func animate_hit(strength: float, is_click: bool = false) -> void:
-	path_velocity += strength
-	path_velocity = clamp(strength/10, -n, n)
-	
-	var c = particle_colors[particle_color_index]
-	particle_color_index = (particle_color_index + 1) % particle_colors.size()
-	var mouse_pos:Vector2 = get_global_mouse_position()
-	Util.create_explosion_particle(mouse_pos, c, 6, 1.9)
-	
-	if is_click:
-		Util.create_slash_animation(mouse_pos, strength > 0)
+
 
 	
 func update_health_bar(damage_amount: int = 0) -> void:
@@ -65,7 +55,7 @@ func update_health_bar(damage_amount: int = 0) -> void:
 #var chance_of_output: float = 0.2
 var chance_of_output: float = 0.6
 
-func hit_piniata(strength: int = 1, is_click: bool = false):
+func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	strength *= 1
 	
 	animation_player_pulse.stop(true)
@@ -73,22 +63,28 @@ func hit_piniata(strength: int = 1, is_click: bool = false):
 	State.piniata_hp -= abs(strength)
 	update_health_bar(abs(strength))
 	
-	animate_hit(strength, is_click)
+	animate_hit(strength, pos)
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
 
+func animate_hit(strength: float, pos: Vector2 = Vector2.ZERO) -> void:
+	path_velocity += strength
+	path_velocity = clamp(strength/10, -n, n)
+	
+	var c = particle_colors[particle_color_index]
+	particle_color_index = (particle_color_index + 1) % particle_colors.size()
+	Util.create_explosion_particle(pos, c, 6, 1.9)
+
 func create_drop()->void:
 	if !Globals.PlotGrid:
 		return
-	 
 	
 	var drop_type = get_random_output() 
 	if drop_type == Enum.Drop_Type.X:
 		return
 			
 	$Node2D/Output.trigger_output(drop_type, Vector2.ZERO)
-
 
 func get_random_output() -> Enum.Drop_Type:
 	var weighted_drops: Array[Enum.Drop_Type] = [
@@ -108,15 +104,15 @@ func unlock_drop_type(type: Enum.Drop_Type) -> void:
 	if !possible_outputs.has(type):
 		possible_outputs.push_back(type)
 
-
-
 func _on_left_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata(State.hit_strength * -1, true)
-
+			hit_piniata(State.hit_strength * -1, get_global_mouse_position())
+			Util.create_slash_animation(get_global_mouse_position(), false)
 
 func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			hit_piniata(State.hit_strength, true)
+			hit_piniata(State.hit_strength, get_global_mouse_position())
+			Util.create_slash_animation(get_global_mouse_position(), true)
+			
