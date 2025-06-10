@@ -187,6 +187,8 @@ func on_reaching_target_pos() -> void:
 				$HeldItem.visible = false
 				set_state(Enum.Helper_State.Idle)
 				return
+			if target_plot and target_plot.is_droppable_being_applied:
+				return
 			# apply droppables
 			for d in held_droppables:
 				if !d:
@@ -323,6 +325,13 @@ func move_to_target() -> bool:
 	if target_droppable:
 		target_pos = target_droppable.global_position
 	
+	if state == Enum.Helper_State.Get_Item and global_position.distance_to(target_pos) <= 2:
+		return true
+	if global_position.distance_to(target_pos) <= 32:
+		return true
+	
+	
+	
 	var direction = (target_pos - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
 	if new_dir != dir:
@@ -332,10 +341,7 @@ func move_to_target() -> bool:
 	velocity = velocity.clamp(min_velocity, max_velocity)
 	move_and_slide()
 	
-	if state == Enum.Helper_State.Get_Item:
-		return global_position.distance_to(target_pos) <= 2
-		
-	return global_position.distance_to(target_pos) <= 32
+	return false
 
 func update_speed(s:int)->void:
 	speed = s

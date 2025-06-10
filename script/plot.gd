@@ -21,9 +21,15 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 	apply_droppable(body)
 
+
+var is_droppable_being_applied: bool = false
 func apply_droppable(d: droppable) -> void:
-	if plot_growth_state == Enum.Plot_Growth_State.Full:
+	if is_droppable_being_applied or plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
+	is_droppable_being_applied = true
+	Util.quick_timer(self, 0.5, func():
+		is_droppable_being_applied = false
+		)
 	
 	if 	DropUtil.is_seed(d.drop_type):
 		if plot_growth_state == Enum.Plot_Growth_State.None:
