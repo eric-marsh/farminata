@@ -15,6 +15,12 @@ const TURNIP_SAPLING_3 = preload("res://img/plants/turnip/turnip_sapling3.png")
 const POTATO_SAPLING_1 = preload("res://img/plants/potato/potato_sapling1.png")
 const POTATO_SAPLING_2 = preload("res://img/plants/potato/potato_sapling2.png")
 const POTATO_SAPLING_3 = preload("res://img/plants/potato/potato_sapling3.png")
+const KALE_SAPLING_1 = preload("res://img/plants/kale/kale_sapling1.png")
+const KALE_SAPLING_2 = preload("res://img/plants/kale/kale_sapling2.png")
+const KALE_SAPLING_3 = preload("res://img/plants/kale/kale_sapling3.png")
+const RADISH_SAPLING_1 = preload("res://img/plants/radish/radish_sapling1.png")
+const RADISH_SAPLING_2 = preload("res://img/plants/radish/radish_sapling2.png")
+const RADISH_SAPLING_3 = preload("res://img/plants/radish/radish_sapling3.png")
 
 
 const PLANT_IMAGES = {
@@ -42,6 +48,18 @@ const PLANT_IMAGES = {
 		Enum.Plot_Growth_State.Partial_2: POTATO_SAPLING_2,
 		Enum.Plot_Growth_State.Full: POTATO_SAPLING_3,
 	},
+	Enum.Grow_Type.Kale: {
+		Enum.Plot_Growth_State.Seed: SEED,
+		Enum.Plot_Growth_State.Partial_1: KALE_SAPLING_1,
+		Enum.Plot_Growth_State.Partial_2: KALE_SAPLING_2,
+		Enum.Plot_Growth_State.Full: KALE_SAPLING_3,
+	},
+	Enum.Grow_Type.Radish: {
+		Enum.Plot_Growth_State.Seed: SEED,
+		Enum.Plot_Growth_State.Partial_1: RADISH_SAPLING_1,
+		Enum.Plot_Growth_State.Partial_2: RADISH_SAPLING_2,
+		Enum.Plot_Growth_State.Full: RADISH_SAPLING_3,
+	},
 }
 
 func get_grow_type_string(type: Enum.Grow_Type) -> String:
@@ -54,6 +72,10 @@ func get_grow_type_string(type: Enum.Grow_Type) -> String:
 			return ("Turnip")
 		Enum.Grow_Type.Potato:
 			return ("Potato")
+		Enum.Grow_Type.Kale:
+			return ("Kale")
+		Enum.Grow_Type.Radish:
+			return ("Radish")
 		_:
 			return "unknown grow type"
 
@@ -84,6 +106,10 @@ func drop_type_to_grow_type(drop_type: Enum.Drop_Type) -> Enum.Grow_Type:
 			return Enum.Grow_Type.Turnip
 		Enum.Drop_Type.Potato_Seed:
 			return Enum.Grow_Type.Potato
+		Enum.Drop_Type.Kale_Seed:
+			return Enum.Grow_Type.Kale
+		Enum.Drop_Type.Radish_Seed:
+			return Enum.Grow_Type.Radish
 		_:
 			print("Invalid drop_type in drop_type_to_grow_type()")
 			return Enum.Grow_Type.Carrot

@@ -112,6 +112,10 @@ func spawn_produce(clicked:bool=false):
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Turnip, global_position, Vector2.ZERO, Vector2.ZERO)
 		Enum.Grow_Type.Potato:
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Potato, global_position, Vector2.ZERO, Vector2.ZERO)
+		Enum.Grow_Type.Kale:
+			d = DropUtil.spawn_droppable(Enum.Drop_Type.Kale, global_position, Vector2.ZERO, Vector2.ZERO)
+		Enum.Grow_Type.Radish:
+			d = DropUtil.spawn_droppable(Enum.Drop_Type.Radish, global_position, Vector2.ZERO, Vector2.ZERO)
 	
 	if !clicked:
 		# TODO: have a little hop animation

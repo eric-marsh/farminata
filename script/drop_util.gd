@@ -19,6 +19,10 @@ const TURNIP = preload("res://img/plants/turnip/turnip.png")
 const TURNIP_SEED = preload("res://img/plants/turnip/turnip_seed.png")
 const POTATO = preload("res://img/plants/potato/potato.png")
 const POTATO_SEED = preload("res://img/plants/potato/potato_seed.png")
+const KALE = preload("res://img/plants/kale/kale.png")
+const KALE_SEED = preload("res://img/plants/kale/kale_seed.png")
+const RADISH = preload("res://img/plants/radish/radish.png")
+const RADISH_SEED = preload("res://img/plants/radish/radish_seed.png")
 
 
 var drop_type_images = {
@@ -35,6 +39,10 @@ var drop_type_images = {
 	Enum.Drop_Type.Turnip: TURNIP,
 	Enum.Drop_Type.Potato_Seed: POTATO_SEED,
 	Enum.Drop_Type.Potato: POTATO,
+	Enum.Drop_Type.Kale_Seed: KALE_SEED,
+	Enum.Drop_Type.Kale: KALE,
+	Enum.Drop_Type.Radish_Seed: RADISH_SEED,
+	Enum.Drop_Type.Radish: RADISH,
 	
 	
 	Enum.Drop_Type.Delivery_Hat: DELIVERY_HAT,
@@ -55,6 +63,10 @@ var drop_type_strings = {
 	Enum.Drop_Type.Turnip: "TURNIP",
 	Enum.Drop_Type.Potato_Seed: "Potato_Seed",
 	Enum.Drop_Type.Potato: "Potato",
+	Enum.Drop_Type.Kale_Seed: "Kale_Seed",
+	Enum.Drop_Type.Kale: "KALE",
+	Enum.Drop_Type.Radish_Seed: "RADISH_SEED",
+	Enum.Drop_Type.Radish: "RADISH",
 	
 	Enum.Drop_Type.Delivery_Hat: "DELIVERY_HAT",
 	Enum.Drop_Type.Farm_Hat: "FARMER_HAT",
@@ -68,14 +80,16 @@ var drop_type_colors = {
 	Enum.Drop_Type.Onion_Seed: Color.BROWN,
 	Enum.Drop_Type.Turnip_Seed: Color.BROWN,
 	Enum.Drop_Type.Potato_Seed: Color.BROWN,
+	Enum.Drop_Type.Kale_Seed: Color.BROWN,
+	Enum.Drop_Type.Radish_Seed: Color.BROWN,
 	
 }
 
 func is_seed(symbol: Enum.Drop_Type) -> bool:
-	return symbol in [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed]
+	return symbol in [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed, Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
 
 func is_produce(symbol: Enum.Drop_Type) -> bool:
-	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion, Enum.Drop_Type.Turnip, Enum.Drop_Type.Potato]
+	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion, Enum.Drop_Type.Turnip, Enum.Drop_Type.Potato, Enum.Drop_Type.Kale, Enum.Drop_Type.Radish]
 
 func is_hat(symbol: Enum.Drop_Type) -> bool:
 	return symbol in [Enum.Drop_Type.Farm_Hat, Enum.Drop_Type.Delivery_Hat, Enum.Drop_Type.Attack_Hat]
@@ -136,6 +150,8 @@ func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
 
 
 var priority: Array = [
+		{ "seed": Enum.Drop_Type.Radish_Seed, "produce": Enum.Drop_Type.Radish },
+		{ "seed": Enum.Drop_Type.Kale_Seed, "produce": Enum.Drop_Type.Kale },
 		{ "seed": Enum.Drop_Type.Potato_Seed, "produce": Enum.Drop_Type.Potato },
 		{ "seed": Enum.Drop_Type.Turnip_Seed, "produce": Enum.Drop_Type.Turnip },
 		{ "seed": Enum.Drop_Type.Onion_Seed, "produce": Enum.Drop_Type.Onion },
@@ -166,9 +182,6 @@ func get_highest_seed_within_limit() -> Enum.Drop_Type:
 			if DropUtil.get_total_drops_of_type(pair.seed) < max_seeds_allowed:
 				return pair.seed
 	return Enum.Drop_Type.X
-				
-
-	
 	
 func print_drop_counts()->void:
 	if droppable_count.size() == 0:

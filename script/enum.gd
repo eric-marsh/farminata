@@ -1,17 +1,17 @@
 extends Node
 
 enum Drop_Type { Blurry, X, Water, Sun, 
-Carrot_Seed, Carrot, Onion_Seed, Onion, Turnip_Seed, Turnip, Potato_Seed, Potato,
+Carrot_Seed, Carrot, Onion_Seed, Onion, Turnip_Seed, Turnip, Potato_Seed, Potato, Kale_Seed, Kale, Radish_Seed, Radish,
 Farm_Hat, Delivery_Hat, Attack_Hat 
 }
 enum Plot_State { Dry, Wet }
 
 enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
-enum Grow_Type { None, Carrot, Onion, Turnip, Potato }
+enum Grow_Type { None, Carrot, Onion, Turnip, Potato, Kale, Radish }
 
 enum Slot_Pos {Left, Middle, Right}
 
-enum Upgrade_Type { AddPlot, UnlockOnion, UnlockTurnip, UnlockPotato, AddFarmerHelper,
+enum Upgrade_Type { AddPlot, UnlockOnion, UnlockTurnip, UnlockPotato, UnlockKale, UnlockRadish, AddFarmerHelper,
 AddPluckHelper, AddAttackHelper,
 AddHat
  }
