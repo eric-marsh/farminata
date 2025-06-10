@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjquupv63ahs1"
-path="res://.godot/imported/carrot_sapling_1.png-853dbd83b6b798f5b31c373e58154374.ctex"
+uid="uid://b2vgwwlgjar12"
+path="res://.godot/imported/turnip_sapling1.png-cb303dd8ef5383c40edf48a6d12e3e50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/plants/carrot/carrot_sapling_1.png"
-dest_files=["res://.godot/imported/carrot_sapling_1.png-853dbd83b6b798f5b31c373e58154374.ctex"]
+source_file="res://img/plants/turnip/turnip_sapling1.png"
+dest_files=["res://.godot/imported/turnip_sapling1.png-cb303dd8ef5383c40edf48a6d12e3e50.ctex"]
 
 [params]
 

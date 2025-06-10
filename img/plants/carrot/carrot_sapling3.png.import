@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkr3n18nbigfu"
-path="res://.godot/imported/onion_sapling_1.png-e58e31b35ebbdb93627d6574ee67d6f5.ctex"
+uid="uid://bhreatr0ikkps"
+path="res://.godot/imported/carrot_sapling3.png-8fdb1e5b8bd546f0f57cda66507c1a34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/plants/onion/onion_sapling_1.png"
-dest_files=["res://.godot/imported/onion_sapling_1.png-e58e31b35ebbdb93627d6574ee67d6f5.ctex"]
+source_file="res://img/plants/carrot/carrot_sapling3.png"
+dest_files=["res://.godot/imported/carrot_sapling3.png-8fdb1e5b8bd546f0f57cda66507c1a34.ctex"]
 
 [params]
 

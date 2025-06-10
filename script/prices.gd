@@ -6,6 +6,8 @@ func get_drop_price(symbol: Enum.Drop_Type) -> int:
 			return 1
 		Enum.Drop_Type.Onion:
 			return 2
+		Enum.Drop_Type.Turnip_Seed:
+			return 4
 		_:
 			return 0
 

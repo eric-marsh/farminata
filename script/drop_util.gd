@@ -16,15 +16,21 @@ const CARROT_SEED = preload("res://img/plants/carrot/carrot_seed.png")
 const ONION = preload("res://img/plants/onion/onion.png")
 const ONION_SEED = preload("res://img/plants/onion/onion_seed.png")
 
+const TURNIP = preload("res://img/plants/turnip/turnip.png")
+const TURNIP_SEED = preload("res://img/plants/turnip/turnip_seed.png")
+
 var drop_type_images = {
 	Enum.Drop_Type.Blurry: BLURRY,
 	Enum.Drop_Type.X: X,
 	Enum.Drop_Type.Water: WATER,
 	Enum.Drop_Type.Sun: SUN,
+	
 	Enum.Drop_Type.Carrot_Seed: CARROT_SEED,
 	Enum.Drop_Type.Carrot: CARROT,
 	Enum.Drop_Type.Onion_Seed: ONION_SEED,
 	Enum.Drop_Type.Onion: ONION,
+	Enum.Drop_Type.Turnip_Seed: TURNIP_SEED,
+	Enum.Drop_Type.Turnip: TURNIP,
 	
 	Enum.Drop_Type.Delivery_Hat: DELIVERY_HAT,
 	Enum.Drop_Type.Farm_Hat: FARMER_HAT,
@@ -40,6 +46,8 @@ var drop_type_strings = {
 	Enum.Drop_Type.Onion_Seed: "ONION_SEED",
 	Enum.Drop_Type.Carrot: "CARROT",
 	Enum.Drop_Type.Onion: "ONION",
+	Enum.Drop_Type.Turnip_Seed: "TURNIP_SEED",
+	Enum.Drop_Type.Turnip: "TURNIP",
 	
 	Enum.Drop_Type.Delivery_Hat: "DELIVERY_HAT",
 	Enum.Drop_Type.Farm_Hat: "FARMER_HAT",
@@ -50,14 +58,16 @@ var drop_type_colors = {
 	Enum.Drop_Type.Water: Color.BLUE,
 	Enum.Drop_Type.Sun: Color.YELLOW,
 	Enum.Drop_Type.Carrot_Seed: Color.BROWN,
-	Enum.Drop_Type.Onion_Seed: Color.BROWN
+	Enum.Drop_Type.Onion_Seed: Color.BROWN,
+	Enum.Drop_Type.Turnip_Seed: Color.BROWN,
+	
 }
 
 func is_seed(symbol: Enum.Drop_Type) -> bool:
-	return symbol in [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed]
+	return symbol in [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed]
 
 func is_produce(symbol: Enum.Drop_Type) -> bool:
-	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion]
+	return symbol in [Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion, Enum.Drop_Type.Turnip]
 
 func is_hat(symbol: Enum.Drop_Type) -> bool:
 	return symbol in [Enum.Drop_Type.Farm_Hat, Enum.Drop_Type.Delivery_Hat, Enum.Drop_Type.Attack_Hat]
@@ -118,6 +128,7 @@ func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
 
 
 var priority: Array = [
+		{ "seed": Enum.Drop_Type.Turnip_Seed, "produce": Enum.Drop_Type.Turnip },
 		{ "seed": Enum.Drop_Type.Onion_Seed, "produce": Enum.Drop_Type.Onion },
 		{ "seed": Enum.Drop_Type.Carrot_Seed, "produce": Enum.Drop_Type.Carrot },
 	]

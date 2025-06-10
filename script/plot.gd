@@ -100,6 +100,7 @@ func pluck_crop(clicked:bool=false):
 
 func spawn_produce(clicked:bool=false):
 	var d
+	
 	match grow_type:
 		Enum.Grow_Type.None:
 			return
@@ -107,6 +108,8 @@ func spawn_produce(clicked:bool=false):
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Carrot, global_position, Vector2.ZERO, Vector2.ZERO)
 		Enum.Grow_Type.Onion:
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Onion, global_position, Vector2.ZERO, Vector2.ZERO)
+		Enum.Grow_Type.Turnip:
+			d = DropUtil.spawn_droppable(Enum.Drop_Type.Turnip, global_position, Vector2.ZERO, Vector2.ZERO)
 	
 	if !clicked:
 		# TODO: have a little hop animation

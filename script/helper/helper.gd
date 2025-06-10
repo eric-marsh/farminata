@@ -277,7 +277,7 @@ func pick_up_droppable(d: droppable) -> void:
 		$HeldItem/HeldItem3.visible = true
 		$HeldItem/HeldItem3.texture = d.get_node("Sprite2D").texture
 	
-	if d.drop_type == Enum.Drop_Type.Carrot or d.drop_type == Enum.Drop_Type.Onion:
+	if DropUtil.is_produce(d.drop_type):
 		$HeldItem/HeldItemProduce.visible = true
 		$HeldItem/HeldItemProduce.texture = d.get_node("Sprite2D").texture
 	
