@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name droppable
 
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
 @export var target_position: Vector2
 @export var speed: float = 200.0
 @export var drop_type: Enum.Drop_Type = Enum.Drop_Type.Water
@@ -23,7 +25,8 @@ var min_fall_amount = 50.0
 
 var start_pos: Vector2
 
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+func can_be_picked_up() -> bool:
+	return !is_being_targeted and !is_held and !is_delivered
 
 func _ready():
 	start_pos = global_position

@@ -44,7 +44,8 @@ func _physics_process(_delta: float) -> void:
 	if has_reached_target:
 		on_reaching_target_pos()
 	
-	if state == Enum.Helper_State.Get_Item and !is_instance_valid(target_droppable):
+	if state == Enum.Helper_State.Get_Item and (!is_instance_valid(target_droppable) or target_droppable.is_held):
+		target_droppable = null
 		set_state(Enum.Helper_State.Idle)
 		return
 	
@@ -67,6 +68,7 @@ func on_idle() -> void:
 		
 	# see if it can apply a droppable
 	if held_droppables.size() > 0:
+		
 		for d in held_droppables:
 			var p = Globals.PlotGrid.find_plot_for_droppable(d)
 			if p:
@@ -166,7 +168,8 @@ func on_reaching_target_pos() -> void:
 		Enum.Helper_State.Wander:
 			set_state(Enum.Helper_State.Idle) # helper checks for items when idle
 		Enum.Helper_State.Get_Item:
-			if !target_droppable:
+			if !target_droppable or !target_droppable.can_be_picked_up():
+				target_droppable = null
 				set_state(Enum.Helper_State.Idle)
 				return
 			if target_droppable.is_hat:
@@ -188,15 +191,16 @@ func on_reaching_target_pos() -> void:
 			# apply droppables
 			for d in held_droppables:
 				if !d:
-					hide_held_item(d)
+					check_held_items_for_freed()
+					d.delete()
 				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
 					continue
 				
-				hide_held_item(d)
 				var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
 				appliedDrop.start_static = true
 				appliedDrop.is_delivered = true
 				target_plot = null
+				hide_held_item(d)
 				d.delete()
 				set_state(Enum.Helper_State.Idle)
 				return
@@ -292,7 +296,13 @@ func pick_up_droppable(d: droppable) -> void:
 		$HeldItem/HeldItemProduce.texture = d.get_node("Sprite2D").texture
 	
 	
-	
+
+func check_held_items_for_freed()->void:
+	for i in range(held_droppables.size() - 1, -1, -1):
+		if !is_instance_valid(held_droppables[i]):
+			held_droppables.remove_at(i)
+			break
+		
 
 func hide_held_item(d:droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Carrot_Seed or d.drop_type == Enum.Drop_Type.Carrot_Seed:
@@ -307,12 +317,11 @@ func hide_held_item(d:droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Carrot or d.drop_type == Enum.Drop_Type.Onion:
 		$HeldItem/HeldItemProduce.visible = false
 		
-	var i = 0
-	for temp_drop in held_droppables:
+	for i in range(held_droppables.size() - 1, -1, -1):
+		var temp_drop = held_droppables[i]
 		if temp_drop == d:
 			held_droppables.remove_at(i)
 			break
-		i += 1
 
 
 func move_to_target() -> bool:
