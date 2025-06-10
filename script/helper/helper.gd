@@ -29,7 +29,9 @@ func _ready() -> void:
 	set_state(Enum.Helper_State.Idle)
 	update_animation()
 	
-	$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
+	#$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
+	# TODO: This wont work with hat pickups
+	configure_hat()
 	
 	if Debug.Helper_Speed > 0:
 		update_speed(Debug.Helper_Speed)
@@ -37,6 +39,19 @@ func _ready() -> void:
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
 
+func configure_hat()->void:
+	match(helper_type):
+		Enum.Helper_Type.Farmer:
+			$HatSprite.visible = true
+			$HatSprite.texture = DropUtil.get_drop_type_img(Enum.Drop_Type.Farm_Hat)
+		Enum.Helper_Type.Pluck:
+			$HatSprite.visible = true
+			$HatSprite.texture = DropUtil.get_drop_type_img(Enum.Drop_Type.Delivery_Hat)
+		Enum.Helper_Type.Attack:
+			$HatSprite.visible = true
+			$HatSprite.texture = DropUtil.get_drop_type_img(Enum.Drop_Type.Attack_Hat)
+		_:
+			pass
 
 func _physics_process(_delta: float) -> void:
 	var has_reached_target:bool = move_to_target()

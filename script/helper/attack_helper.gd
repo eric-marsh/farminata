@@ -19,7 +19,8 @@ func _ready() -> void:
 	$AttackTimer.wait_time = attack_interval
 	$AttackTimer.connect("timeout", attack)
 	
-	$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
+	#$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
+	configure_hat()
 	if Debug.Helper_Speed > 0:
 		update_speed(Debug.Helper_Speed)
 	

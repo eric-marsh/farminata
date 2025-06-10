@@ -253,6 +253,6 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="HatSprite" type="Sprite2D" parent="."]
-visible = false
+z_index = 1
 position = Vector2(0, -13)
 texture = ExtResource("4_edx7r")

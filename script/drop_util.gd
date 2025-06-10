@@ -44,11 +44,11 @@ var drop_type_images = {
 	Enum.Drop_Type.Radish_Seed: RADISH_SEED,
 	Enum.Drop_Type.Radish: RADISH,
 	
-	
 	Enum.Drop_Type.Delivery_Hat: DELIVERY_HAT,
 	Enum.Drop_Type.Farm_Hat: FARMER_HAT,
 	Enum.Drop_Type.Attack_Hat: ATTACK_HAT,
 }
+
 
 var drop_type_strings = {
 	Enum.Drop_Type.Blurry: "BLURRY",
