@@ -20,14 +20,15 @@ func _process(_delta: float) -> void:
 
 
 
-func sell_droppable(d: droppable) -> void:
-	var is_colliding:bool =false
-	for b in get_overlapping_bodies():
-		if d == droppable_to_sell:
-			is_colliding = true
-			break
-	if !is_colliding:
-		return
+func sell_droppable(d: droppable, ignore_collision: bool = false) -> void:
+	if !ignore_collision:
+		var is_colliding:bool =false
+		for b in get_overlapping_bodies():
+			if d == droppable_to_sell:
+				is_colliding = true
+				break
+		if !is_colliding:
+			return
 	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
 	Util.create_explosion_particle(d.global_position, Color.YELLOW)
 	d.delete()

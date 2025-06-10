@@ -195,9 +195,16 @@ func on_reaching_target_pos() -> void:
 				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
 					continue
 				
-				var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
-				appliedDrop.start_static = true
-				appliedDrop.is_delivered = true
+				d.global_position = global_position
+				if helper_type == Enum.Helper_Type.Pluck:
+					DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, Globals.SellChestNode.global_position)
+					Globals.SellChestNode.open_chest(d)
+					Globals.SellChestNode.sell_droppable(d, true)
+				else:
+					target_plot.apply_droppable(d)
+				#var appliedDrop = DropUtil.spawn_droppable(d.drop_type, target_pos, Vector2.ZERO)
+				#appliedDrop.start_static = true
+				#appliedDrop.is_delivered = true
 				target_plot = null
 				hide_held_item(d)
 				d.delete()
