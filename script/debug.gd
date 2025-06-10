@@ -2,10 +2,10 @@ extends Node
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
-var STARTING_MONEY: int = 0
+var STARTING_MONEY: int = 1111110
 
-#var Helper_Speed: float = 200.0
-var Helper_Speed: float = 0.0
+var Helper_Speed: float = 200.0
+#var Helper_Speed: float = 0.0
 
 var DISABLE_SLOT_MACHINE:bool = true
 

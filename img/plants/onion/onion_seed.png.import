@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxw5mpl374jcu"
-path="res://.godot/imported/rock.png-fcc3f7ff542139359f8bc228b76e0758.ctex"
+uid="uid://dilbyohvlpn43"
+path="res://.godot/imported/onion_seed.png-5dfe84160d1bf2ac0a2e82763e78371c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/slots/symbols/rock.png"
-dest_files=["res://.godot/imported/rock.png-fcc3f7ff542139359f8bc228b76e0758.ctex"]
+source_file="res://img/plants/onion/onion_seed.png"
+dest_files=["res://.godot/imported/onion_seed.png-5dfe84160d1bf2ac0a2e82763e78371c.ctex"]
 
 [params]
 

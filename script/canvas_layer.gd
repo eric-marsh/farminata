@@ -79,13 +79,9 @@ func _on_plot_button_pressed() -> void:
 
 
 func _on_onion_button_pressed():
-	if !Globals.SlotMachineNodde:
-		return
 	State.unlocked_slot_outputs.push_back(Enum.Drop_Type.Onion_Seed)
-	Globals.SlotMachineNodde.unlock_drop_type(Enum.Drop_Type.Onion_Seed)
 	Globals.PiniataNode.unlock_drop_type(Enum.Drop_Type.Onion_Seed)
 	onion_button.visible = false
-
 
 
 func add_helper_button_pressed(upgrade_type: Enum.Upgrade_Type, helper_type: Enum.Helper_Type) -> void:

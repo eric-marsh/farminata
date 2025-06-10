@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4wsbuk2bg1gf"
-path="res://.godot/imported/water.png-cccbf27049dbd308c9ecefe94528ab2b.ctex"
+uid="uid://cbwbtlvvg511o"
+path="res://.godot/imported/x.png-9eacb796ebf30fe8066476834cf16b35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/slots/symbols/water.png"
-dest_files=["res://.godot/imported/water.png-cccbf27049dbd308c9ecefe94528ab2b.ctex"]
+source_file="res://img/droppables/x.png"
+dest_files=["res://.godot/imported/x.png-9eacb796ebf30fe8066476834cf16b35.ctex"]
 
 [params]
 

@@ -1,13 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://c815fpybt36io"]
+[gd_scene load_steps=16 format=3 uid="uid://c0qg383oqoyur"]
 
 [ext_resource type="Texture2D" uid="uid://0ujo5olp3s25" path="res://img/slots/slots.png" id="1_oebtt"]
-[ext_resource type="Script" uid="uid://b1r15orpmjjdd" path="res://script/slot_machine.gd" id="1_vdvju"]
+[ext_resource type="Script" path="res://script/slot_machine.gd" id="1_vdvju"]
 [ext_resource type="Texture2D" uid="uid://dk4c43vvjcjhn" path="res://img/slots/slots_white_bg.png" id="2_vdvju"]
-[ext_resource type="Texture2D" uid="uid://0iu24mce7o6g" path="res://img/slots/symbols/sun.png" id="4_bvqe5"]
-[ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/slots/symbols/carrot_seed.png" id="4_om1wn"]
+[ext_resource type="Texture2D" uid="uid://0iu24mce7o6g" path="res://img/droppables/sun.png" id="4_bvqe5"]
+[ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/plants/carrot/carrot_seed.png" id="4_om1wn"]
 [ext_resource type="Texture2D" uid="uid://c0qt0t4xhh3y6" path="res://img/slots/slots_white_bg_single.png" id="5_3dobk"]
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="5_om1wn"]
-[ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/slots/symbols/water.png" id="6_om0vh"]
+[ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/droppables/water.png" id="6_om0vh"]
 [ext_resource type="Texture2D" uid="uid://cu1u0odpnalw4" path="res://img/slots/column.png" id="7_3dobk"]
 [ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="10_o61f8"]
 

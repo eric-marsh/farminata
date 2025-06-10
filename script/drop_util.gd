@@ -1,19 +1,20 @@
 extends Node
 
+
+const ROCK = preload("res://img/droppables/rock.png")
+const SUN = preload("res://img/droppables/sun.png")
+const WATER = preload("res://img/droppables/water.png")
+const X = preload("res://img/droppables/x.png")
 const BLURRY = preload("res://img/slots/symbols/blurry.png")
-const SUN = preload("res://img/slots/symbols/sun.png")
-const WATER = preload("res://img/slots/symbols/water.png")
-const X = preload("res://img/slots/symbols/x.png")
-const CARROT_SEED = preload("res://img/slots/symbols/carrot_seed.png")
-const CARROT = preload("res://img/plants/carrot/carrot.png")
-const ONION_SEED = preload("res://img/slots/symbols/onion_seed.png")
-const ONION = preload("res://img/plants/onion/onion.png")
 
 const DELIVERY_HAT = preload("res://img/helper/delivery_hat.png")
 const FARMER_HAT = preload("res://img/helper/farmer_hat.png")
 const ATTACK_HAT = preload("res://img/helper/attack_hat.png")
 
-
+const CARROT = preload("res://img/plants/carrot/carrot.png")
+const CARROT_SEED = preload("res://img/plants/carrot/carrot_seed.png")
+const ONION = preload("res://img/plants/onion/onion.png")
+const ONION_SEED = preload("res://img/plants/onion/onion_seed.png")
 
 var drop_type_images = {
 	Enum.Drop_Type.Blurry: BLURRY,

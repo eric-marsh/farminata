@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0iu24mce7o6g"
-path="res://.godot/imported/sun.png-038ab02a9cfc045293fbe083c0d81635.ctex"
+uid="uid://4wsbuk2bg1gf"
+path="res://.godot/imported/water.png-f59a90f27f95c0c870cfa2a580fc8991.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/slots/symbols/sun.png"
-dest_files=["res://.godot/imported/sun.png-038ab02a9cfc045293fbe083c0d81635.ctex"]
+source_file="res://img/droppables/water.png"
+dest_files=["res://.godot/imported/water.png-f59a90f27f95c0c870cfa2a580fc8991.ctex"]
 
 [params]
 

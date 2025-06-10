@@ -8,7 +8,6 @@ var CanvasLayerNode: CanvasLayer = null
 var CameraNode: Camera2D = null
 var HelpersContainerNode: helpers_container = null
 var AnimationsContainer: Node2D = null
-var SlotMachineNodde: slot_machine = null
 var AudioNode: audio = null
 var SellChestNode: Area2D = null
 var PiniataNode: Node2D = null
@@ -27,7 +26,6 @@ func reset_nodes():
 	CameraNode = get_node("/root/SceneSwitcher/Main/Camera2D")
 	HelpersContainerNode = get_node("/root/SceneSwitcher/Main/Helpers")
 	AnimationsContainer = get_node("/root/SceneSwitcher/Main/Animations")
-	SlotMachineNodde = get_node("/root/SceneSwitcher/Main/PlotContainer/SlotMachine")
 	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
 	SellChestNode = get_node("/root/SceneSwitcher/Main/SellChest")
 	PlotGrid = get_node("/root/SceneSwitcher/Main/PlotContainer/PlotGrid")

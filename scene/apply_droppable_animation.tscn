@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://6ru4hvg8mx6l"]
 
-[ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/slots/symbols/water.png" id="1_em725"]
+[ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/droppables/water.png" id="1_em725"]
 [ext_resource type="Script" uid="uid://bqef84mve7fv7" path="res://script/apply_droppable_animation.gd" id="1_hnh5b"]
 
 [sub_resource type="Animation" id="Animation_hctvv"]
