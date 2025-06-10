@@ -113,6 +113,8 @@ func check_for_tasks_to_do() -> void:
 
 var has_checked_for_tasks = false
 func set_state(s: Enum.Helper_State) -> void:
+	if !Globals.PlotGrid:
+		return
 	state = s
 	match(state):
 		Enum.Helper_State.Idle:
@@ -130,14 +132,12 @@ func set_state(s: Enum.Helper_State) -> void:
 			if helper_type == Enum.Helper_Type.Pluck and Globals.SellChestNode:
 				target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
 				return
-				#if is_held_item_produce and Globals.SellChestNode:
-			if Globals.PlotGrid:
-				for d in held_droppables:
-					var p = Globals.PlotGrid.find_plot_for_droppable(d)
-					if p:
-						target_plot = p
-						target_pos = target_plot.global_position + target_plot.size / 2
-						return
+			for d in held_droppables:
+				var p = Globals.PlotGrid.find_plot_for_droppable(d)
+				if p:
+					target_plot = p
+					target_pos = target_plot.global_position + target_plot.size / 2
+					return
 			# finding plot failed. Wander until a new one comes up
 			set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Pluck_Crop:
@@ -205,6 +205,9 @@ func on_reaching_target_pos() -> void:
 				set_state(Enum.Helper_State.Idle)
 				return
 				pass	
+			# couldnt deliver. Restart
+			target_plot = null
+			set_state(Enum.Helper_State.Idle)
 		Enum.Helper_State.Pluck_Crop:
 			target_plot.pluck_crop()
 			target_plot = null
