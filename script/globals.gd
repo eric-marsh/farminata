@@ -28,5 +28,5 @@ func reset_nodes():
 	AnimationsContainer = get_node("/root/SceneSwitcher/Main/Animations")
 	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
 	SellChestNode = get_node("/root/SceneSwitcher/Main/SellChest")
-	PlotGrid = get_node("/root/SceneSwitcher/Main/PlotContainer/PlotGrid")
+	PlotGrid = get_node("/root/SceneSwitcher/Main/PlotGrid")
 	PiniataNode = get_node("/root/SceneSwitcher/Main/Piniata")

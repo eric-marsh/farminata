@@ -91,6 +91,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			stop_dragging()
 
+
 func start_dragging() -> void:
 	if !Globals.Main or Globals.Main.is_dragging:
 		return
@@ -101,8 +102,11 @@ func start_dragging() -> void:
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(5, false)
 	set_collision_mask_value(5, false)
+	z_index = 20
 	if DropUtil.is_produce(drop_type):
 		Globals.SellChestNode.open_chest(self)
+	
+	
 	
 	
 func stop_dragging() -> void:
@@ -113,6 +117,7 @@ func stop_dragging() -> void:
 	Globals.Main.is_dragging = false
 	Globals.Main.dragged_droppable = null
 	set_collision_layer_value(1, true)
+	z_index = 0
 	Util.quick_timer(self, 0.000001, func():
 		if is_instance_valid(self):
 			sleeping=false

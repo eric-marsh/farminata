@@ -202,7 +202,7 @@ font_size = 8
 font_color = Color(0, 1, 0, 1)
 
 [node name="Helper" type="CharacterBody2D"]
-z_index = 2
+y_sort_enabled = true
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_xnnrj")
@@ -211,6 +211,7 @@ script = ExtResource("1_xnnrj")
 shape = SubResource("CircleShape2D_uu31v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_ewdy1")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6kp2c")
