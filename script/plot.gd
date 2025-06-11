@@ -102,6 +102,7 @@ func pluck_crop(clicked:bool=false):
 	reset_growth_state()
 	update_image()
 	spawn_produce(clicked)
+	queue_free()
 
 
 func spawn_produce(clicked:bool=false):

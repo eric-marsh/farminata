@@ -19,7 +19,6 @@ func _ready() -> void:
 	if Debug.STARTING_MONEY > 0:
 		change_money(Debug.STARTING_MONEY)
 		
-		
 	if Debug.SPAWN_HATS:
 		DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, Util.random_visible_position(), Vector2.ZERO)
 		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position(), Vector2.ZERO)
@@ -32,7 +31,6 @@ func _ready() -> void:
 				p.grow_type = Enum.Grow_Type.Carrot
 				p.update_image()
 	
-	
 func _process(delta: float) -> void:
 	if is_paused:
 		return
@@ -42,7 +40,6 @@ func _process(delta: float) -> void:
 		is_paused = false
 		return
 	total_seconds += delta
-
 
 	
 func _input(event):

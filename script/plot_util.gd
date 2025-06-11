@@ -19,13 +19,26 @@ func reset_plots():
 	
 	var plots_left = State.num_plots
 	while plots_left > 0:
-		add_plot(Util.random_visible_position())
+		add_plot(get_random_position_in_grow_area())
 		plots_left -= 1
 
 func get_total_plots() -> int:
 	if !Globals.PlotsContainer:
 		return 0
 	return Globals.PlotsContainer.get_children().size()
+
+func get_random_position_in_grow_area() -> Vector2:
+	var collision_shape = Globals.GrowArea.get_node("CollisionShape2D")
+	var shape = collision_shape.shape
+	if shape is RectangleShape2D:
+		var extents = shape.extents
+		var local_pos = Vector2(
+			randf_range(-extents.x, extents.x),
+			randf_range(-extents.y, extents.y)
+		)
+		return collision_shape.global_position + local_pos
+	return collision_shape.global_position
+
 
 
 func get_plot_for_helper():
