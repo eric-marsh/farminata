@@ -25,6 +25,13 @@ func _ready() -> void:
 		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position(), Vector2.ZERO)
 		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position(), Vector2.ZERO)
 	
+	if Debug.ALL_FULL_CROPS_AT_START and Globals.PlotsContainer:
+		for p in Globals.PlotsContainer.get_children():
+			if p is plot:
+				p.plot_growth_state = Enum.Plot_Growth_State.Full
+				p.grow_type = Enum.Grow_Type.Carrot
+				p.update_image()
+	
 	
 func _process(delta: float) -> void:
 	if is_paused:

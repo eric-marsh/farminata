@@ -203,7 +203,8 @@ func on_reaching_target_pos() -> void:
 			for d in held_droppables:
 				if !d:
 					check_held_items_for_freed()
-					d.delete()
+					d = null
+					continue
 				if target_plot and !PlotUtil.does_plot_need_droppable(d, target_plot):
 					continue
 				

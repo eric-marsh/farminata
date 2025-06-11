@@ -2,23 +2,30 @@ extends Node
 
 const PLOT = preload("res://scene/plot.tscn")
 
+
+func add_plot(pos: Vector2):
+	var p = PLOT.instantiate() as plot
+	p.global_position = pos
+	add_child(p)
+	
+
 func reset_plots():
-	if !Globals.PlotGrid:
+	if !Globals.PlotsContainer:
 		return
 		
-	for c in Globals.PlotGrid.get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if c is plot:
 			c.queue_free()
 	
 	var plots_left = State.num_plots
 	while plots_left > 0:
-		Globals.PlotGrid.add_plot()
+		add_plot(Util.random_visible_position())
 		plots_left -= 1
 
 func get_total_plots() -> int:
-	if !Globals.PlotGrid:
+	if !Globals.PlotsContainer:
 		return 0
-	return Globals.PlotGrid.total_plots
+	return Globals.PlotsContainer.get_children().size()
 
 
 func get_plot_for_helper():
@@ -31,9 +38,9 @@ func get_plot_for_helper():
 		return c
 	
 func get_random_plot_position() -> Vector2:
-	if !Globals.PlotGrid:
+	if !Globals.PlotsContainer:
 		return Vector2.ZERO
-	var p = Globals.PlotGrid.get_children().pick_random()
+	var p = Globals.PlotsContainer.get_children().pick_random()
 	return p.global_position + p.size / 2
 
 func does_plot_need_seed(p: plot) -> bool:
