@@ -1,6 +1,7 @@
 extends Node2D
 class_name plot
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var plot_state: Enum.Plot_State = Enum.Plot_State.Dry
 @export var plot_growth_state: Enum.Plot_Growth_State = Enum.Plot_Growth_State.None
@@ -20,7 +21,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !body.is_in_group("droppable"):
 		return
 	apply_droppable(body)
-
 
 var is_droppable_being_applied: bool = false
 func apply_droppable(d: droppable) -> void:
@@ -87,25 +87,32 @@ func update_image():
 		$Plant.offset = Vector2.ZERO
 		if plot_growth_state == Enum.Plot_Growth_State.Full:
 			$Plant.offset = Vector2(0, -8)
-		
 
+var is_plucking: bool = false
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if plot_growth_state != Enum.Plot_Growth_State.Full:
 		return
 		
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			pluck_crop(true)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			animation_player.play("pluck_crop")
+			is_plucking = true
+		else:
+			animation_player.stop()
+			is_plucking = false
 
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if is_plucking:
+		pluck_crop(true)
 
 func pluck_crop(clicked:bool=false):
 	reset_growth_state()
 	update_image()
 	spawn_produce(clicked)
 
-
+static var flip_horiz = false
 func spawn_produce(clicked:bool=false):
-	var d
+	var d: droppable
 	
 	match grow_type:
 		Enum.Grow_Type.None:
@@ -122,6 +129,9 @@ func spawn_produce(clicked:bool=false):
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Kale, global_position, Vector2.ZERO, Vector2.ZERO)
 		Enum.Grow_Type.Radish:
 			d = DropUtil.spawn_droppable(Enum.Drop_Type.Radish, global_position, Vector2.ZERO, Vector2.ZERO)
+	d.get_node("Sprite2D").flip_h = flip_horiz
+	d.get_node("Sprite2D/Shadow").flip_h = flip_horiz
+	flip_horiz = !flip_horiz
 	
 	if !clicked:
 		# TODO: have a little hop animation
@@ -132,3 +142,14 @@ func spawn_produce(clicked:bool=false):
 		d.start_dragging()
 		d.start_static=true
 		Globals.Main.is_dragging = true
+
+
+var is_mouse_over: bool = false
+func _on_area_2d_mouse_entered() -> void:
+	is_mouse_over = true
+
+func _on_area_2d_mouse_exited() -> void:
+	if is_plucking:
+		is_mouse_over = false
+		is_plucking = false
+		animation_player.stop()
