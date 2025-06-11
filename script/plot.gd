@@ -55,7 +55,7 @@ func apply_droppable(d: droppable) -> void:
 		return
 
 func cleanup_droppable(d: droppable) -> void:
-	DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, global_position + size / 2)
+	DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, global_position)
 	d.delete()
 
 func reset_growth_state():

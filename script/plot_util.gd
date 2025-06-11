@@ -7,7 +7,7 @@ func add_plot(pos: Vector2):
 	var p = PLOT.instantiate() as plot
 	p.global_position = pos
 	add_child(p)
-	
+
 
 func reset_plots():
 	if !Globals.PlotsContainer:
@@ -55,7 +55,7 @@ func get_random_plot_position() -> Vector2:
 	if !Globals.PlotsContainer:
 		return Vector2.ZERO
 	var p = Globals.PlotsContainer.get_children().pick_random()
-	return p.global_position + p.size / 2
+	return p.global_position
 
 func does_plot_need_seed(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.None
