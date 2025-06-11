@@ -81,6 +81,10 @@ func on_idle() -> void:
 	if held_droppables.size() > 0:
 		
 		for d in held_droppables:
+			if !d:
+				check_held_items_for_freed()
+				d = null
+				continue
 			var p = PlotUtil.find_plot_for_droppable(d)
 			if p:
 				target_plot = p
