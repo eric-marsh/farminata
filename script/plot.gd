@@ -60,18 +60,19 @@ func cleanup_droppable(d: droppable) -> void:
 
 func reset_growth_state():
 	plot_growth_state = Enum.Plot_Growth_State.None
+	growth_stage_index = 0
 
+
+var growth_stage_index: int = 0
 func set_next_growth_state():
-	match plot_growth_state:
-		Enum.Plot_Growth_State.None:
-			plot_growth_state = Enum.Plot_Growth_State.Seed
-		Enum.Plot_Growth_State.Seed:
-			plot_growth_state = Enum.Plot_Growth_State.Partial_1
-		Enum.Plot_Growth_State.Partial_1:
-			plot_growth_state = Enum.Plot_Growth_State.Partial_2
-		Enum.Plot_Growth_State.Partial_2:
-			plot_growth_state = Enum.Plot_Growth_State.Full
-		
+	if is_full_grown():
+		var stage = PlantUtil.PLANT_IMAGES[grow_type][growth_stage_index]
+		plot_growth_state = stage.state
+		#current_image = stage.image
+		growth_stage_index += 1
+
+func is_full_grown() -> bool:
+	return PlantUtil.PLANT_IMAGES[grow_type].size() > growth_stage_index
 
 const PLOT_WET = preload("res://img/plot/plot_wet.png")
 const PLOT_DRY = preload("res://img/plot/plot_dry.png")

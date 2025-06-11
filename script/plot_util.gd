@@ -15,9 +15,9 @@ func reset_plots():
 	
 	if !Debug.KEEP_PLOTS_ON_START:	
 		for c in Globals.PlotsContainer.get_children():
-			if c is plot:
-				c.queue_free()
+			c.queue_free()
 	
+	await get_tree().create_timer(0.1).timeout
 	var plots_left = State.num_plots - get_total_plots()
 	while plots_left > 0:
 		add_plot(get_random_position_in_grow_area())

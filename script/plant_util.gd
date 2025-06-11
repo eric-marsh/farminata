@@ -24,42 +24,42 @@ const RADISH_SAPLING_3 = preload("res://img/plants/radish/radish_sapling3.png")
 
 
 const PLANT_IMAGES = {
-	Enum.Grow_Type.Carrot: {
-		Enum.Plot_Growth_State.Seed: SEED,
-		Enum.Plot_Growth_State.Partial_1: CARROT_SAPLING_1,
-		Enum.Plot_Growth_State.Partial_2: CARROT_SAPLING_2,
-		Enum.Plot_Growth_State.Full: CARROT_SAPLING_3,
-	},
-	Enum.Grow_Type.Onion: {
-		Enum.Plot_Growth_State.Seed: SEED,
-		Enum.Plot_Growth_State.Partial_1: ONION_SAPLING_1,
-		Enum.Plot_Growth_State.Partial_2: ONION_SAPLING_2,
-		Enum.Plot_Growth_State.Full: ONION_SAPLING_3,
-	},
-	Enum.Grow_Type.Turnip: {
-		Enum.Plot_Growth_State.Seed: SEED,
-		Enum.Plot_Growth_State.Partial_1: TURNIP_SAPLING_1,
-		Enum.Plot_Growth_State.Partial_2: TURNIP_SAPLING_2,
-		Enum.Plot_Growth_State.Full: TURNIP_SAPLING_3,
-	},
-	Enum.Grow_Type.Potato: {
-		Enum.Plot_Growth_State.Seed: SEED,
-		Enum.Plot_Growth_State.Partial_1: POTATO_SAPLING_1,
-		Enum.Plot_Growth_State.Partial_2: POTATO_SAPLING_2,
-		Enum.Plot_Growth_State.Full: POTATO_SAPLING_3,
-	},
-	Enum.Grow_Type.Kale: {
-		Enum.Plot_Growth_State.Seed: SEED,
-		Enum.Plot_Growth_State.Partial_1: KALE_SAPLING_1,
-		Enum.Plot_Growth_State.Partial_2: KALE_SAPLING_2,
-		Enum.Plot_Growth_State.Full: KALE_SAPLING_3,
-	},
-	Enum.Grow_Type.Radish: {
-		Enum.Plot_Growth_State.Seed: SEED,
-		Enum.Plot_Growth_State.Partial_1: RADISH_SAPLING_1,
-		Enum.Plot_Growth_State.Partial_2: RADISH_SAPLING_2,
-		Enum.Plot_Growth_State.Full: RADISH_SAPLING_3,
-	},
+	Enum.Grow_Type.Carrot: [
+		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
+		{ state = Enum.Plot_Growth_State.Partial_1, image = CARROT_SAPLING_1 },
+		{ state = Enum.Plot_Growth_State.Partial_2, image = CARROT_SAPLING_2 },
+		{ state = Enum.Plot_Growth_State.Full, image = CARROT_SAPLING_3 },
+	],
+	Enum.Grow_Type.Onion: [
+		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
+		{ state = Enum.Plot_Growth_State.Partial_1, image = ONION_SAPLING_1 },
+		{ state = Enum.Plot_Growth_State.Partial_2, image = ONION_SAPLING_2 },
+		{ state = Enum.Plot_Growth_State.Full, image = ONION_SAPLING_3 },
+	],
+	Enum.Grow_Type.Turnip: [
+		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
+		{ state = Enum.Plot_Growth_State.Partial_1, image = TURNIP_SAPLING_1 },
+		{ state = Enum.Plot_Growth_State.Partial_2, image = TURNIP_SAPLING_2 },
+		{ state = Enum.Plot_Growth_State.Full, image = TURNIP_SAPLING_3 },
+	],
+	Enum.Grow_Type.Potato: [
+		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
+		{ state = Enum.Plot_Growth_State.Partial_1, image = POTATO_SAPLING_1 },
+		{ state = Enum.Plot_Growth_State.Partial_2, image = POTATO_SAPLING_2 },
+		{ state = Enum.Plot_Growth_State.Full, image = POTATO_SAPLING_3 },
+	],
+	Enum.Grow_Type.Kale: [
+		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
+		{ state = Enum.Plot_Growth_State.Partial_1, image = KALE_SAPLING_1 },
+		{ state = Enum.Plot_Growth_State.Partial_2, image = KALE_SAPLING_2 },
+		{ state = Enum.Plot_Growth_State.Full, image = KALE_SAPLING_3 },
+	],
+	Enum.Grow_Type.Radish: [
+		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
+		{ state = Enum.Plot_Growth_State.Partial_1, image = RADISH_SAPLING_1 },
+		{ state = Enum.Plot_Growth_State.Partial_2, image = RADISH_SAPLING_2 },
+		{ state = Enum.Plot_Growth_State.Full, image = RADISH_SAPLING_3 },
+	],
 }
 
 func get_grow_type_string(type: Enum.Grow_Type) -> String:
@@ -93,8 +93,11 @@ func get_growth_state_string(type: Enum.Plot_Growth_State) -> String:
 			return "unknown growth stage"
 
 func get_plant_img(growth_state: int, grow_type: int):
-	var img = PLANT_IMAGES.get(grow_type, {}).get(growth_state, null)
-	return img
+	var stages = PLANT_IMAGES.get(grow_type, [])
+	for stage in stages:
+		if stage.state == growth_state:
+			return stage.image
+	return null
 
 func drop_type_to_grow_type(drop_type: Enum.Drop_Type) -> Enum.Grow_Type:
 	match drop_type:
