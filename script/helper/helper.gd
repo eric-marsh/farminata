@@ -77,14 +77,11 @@ func drop_held_item() ->void:
 
 
 func on_idle() -> void:
-	if !Globals.PlotGrid:
-		return
-		
 	# see if it can apply a droppable
 	if held_droppables.size() > 0:
 		
 		for d in held_droppables:
-			var p = Globals.PlotGrid.find_plot_for_droppable(d)
+			var p = PlotUtil.find_plot_for_droppable(d)
 			if p:
 				target_plot = p
 				target_pos = target_plot.global_position + target_plot.size / 2
@@ -110,7 +107,7 @@ func on_plucker_idle() -> void:
 			set_state(Enum.Helper_State.Get_Item)
 			return
 		# otherwise, check for pluckable plot
-		var p:plot = Globals.PlotGrid.get_plot_that_needs_plucking()
+		var p:plot = PlotUtil.get_plot_that_needs_plucking()
 		if p:
 			target_plot = p
 			target_pos = target_plot.global_position + target_plot.size / 2
@@ -127,8 +124,6 @@ func check_for_tasks_to_do() -> void:
 
 var has_checked_for_tasks = false
 func set_state(s: Enum.Helper_State) -> void:
-	if !Globals.PlotGrid:
-		return
 	state = s
 	match(state):
 		Enum.Helper_State.Idle:
@@ -147,7 +142,7 @@ func set_state(s: Enum.Helper_State) -> void:
 				target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
 				return
 			for d in held_droppables:
-				var p = Globals.PlotGrid.find_plot_for_droppable(d)
+				var p = PlotUtil.find_plot_for_droppable(d)
 				if p:
 					target_plot = p
 					target_pos = target_plot.global_position + target_plot.size / 2
@@ -209,7 +204,7 @@ func on_reaching_target_pos() -> void:
 				if !d:
 					check_held_items_for_freed()
 					d.delete()
-				if Globals.PlotGrid and target_plot and !Globals.PlotGrid.does_plot_need_droppable(d, target_plot):
+				if target_plot and !PlotUtil.does_plot_need_droppable(d, target_plot):
 					continue
 				
 				d.global_position = global_position

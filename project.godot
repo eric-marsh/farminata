@@ -25,6 +25,7 @@ Prices="*res://script/prices.gd"
 State="*res://script/state.gd"
 DropUtil="*res://script/drop_util.gd"
 PlantUtil="*res://script/plant_util.gd"
+PlotUtil="*res://script/plot_util.gd"
 
 [display]
 

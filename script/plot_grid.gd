@@ -1,130 +1,41 @@
 extends Node2D
 class_name plot_grid
 
-var num_plots = State.num_plots
+static var total_plots: int = 0
 
-var plots: Array[plot] = []
 func _ready() -> void:
-	reset_plots()
+	PlotUtil.reset_plots()
 	
 	if Debug.ALL_FULL_CROPS_AT_START:
-		for p in plots:
-			p.plot_growth_state = Enum.Plot_Growth_State.Full
-			p.grow_type = Enum.Grow_Type.Carrot
-			p.update_image()
+		for p in Globals.PlotGrid.get_children():
+			if p is plot:
+				p.plot_growth_state = Enum.Plot_Growth_State.Full
+				p.grow_type = Enum.Grow_Type.Carrot
+				p.update_image()
 	
 func _process(_delta: float) -> void:
 	pass
 
+
 const PLOT = preload("res://scene/plot.tscn")
-func reset_plots():
-	plots.clear()
-			
-	for c in get_children():
-		if c is plot:
-			c.queue_free()
-	
-	var plots_left = num_plots
-	while plots_left > 0:
-		add_plot()
-		plots_left -= 1
-
-
 func add_plot():
 	var p = PLOT.instantiate() as plot
-	var square_pos = get_square_position(get_total_plots())
+	var square_pos = get_square_position(PlotUtil.get_total_plots())
 	p.position = square_pos * p.size
 	add_child(p)
-	plots.push_back(p)
 	
 	var tile_map_layer = $TileMapLayer as TileMapLayer
 	var source_id: int = 2
 	var terrain_set: int = 0
 	tile_map_layer.set_cell(square_pos, source_id, Vector2i(1, 1), 0)
 	tile_map_layer.set_cells_terrain_connect([square_pos], terrain_set, terrain_set)
-	
+	total_plots += 1
 	update_push_zone(p.size.x)
-
-func get_total_plots() -> int:
-	return plots.size()
 
 func get_square_position(index: int) -> Vector2:
 	return square_position_array[index] if square_position_array.size() > index else Vector2.ZERO
 
-func get_plot_for_helper():
-	pass
-	for c in get_children():
-		if !c is plot:
-			continue
-		#if !c.is_plot_needing_help():
-			#continue
-		return c
-	
-func get_random_plot_position() -> Vector2:
-	var p = plots.pick_random()
-	return p.global_position + p.size / 2
 
-func does_plot_need_seed(p: plot) -> bool:
-	return p.plot_growth_state == Enum.Plot_Growth_State.None
-
-func get_plot_that_needs_seed() -> plot:
-	for c in get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_seed(c):
-			return c
-	return null
-
-func does_plot_need_water(p: plot) -> bool:
-	return p.plot_state == Enum.Plot_State.Dry and p.plot_growth_state != Enum.Plot_Growth_State.Full
-
-func get_plot_that_needs_water() -> plot:
-	for c in get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_water(c):
-			return c
-	return null
-
-func does_plot_need_sun(p: plot) -> bool:
-	return p.plot_state == Enum.Plot_State.Wet and p.plot_growth_state != Enum.Plot_Growth_State.None
-
-func get_plot_that_needs_sun() -> plot:
-	for c in get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_sun(c):
-			return c
-	return null
-
-func does_plot_need_plucking(p: plot) -> bool:
-	return p.plot_growth_state == Enum.Plot_Growth_State.Full
-
-func get_plot_that_needs_plucking() -> plot:
-	for c in get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_plucking(c):
-			return c
-	return null
-
-func find_plot_for_droppable(d: droppable):
-	if DropUtil.is_seed(d.drop_type):
-		return get_plot_that_needs_seed()
-	if d.drop_type == Enum.Drop_Type.Water:
-		return get_plot_that_needs_water()
-	if d.drop_type == Enum.Drop_Type.Sun:
-		return get_plot_that_needs_sun()
-	return null
-
-func does_plot_need_droppable(d: droppable, p: plot) -> bool:
-	if DropUtil.is_seed(d.drop_type):
-		return does_plot_need_seed(p)
-	if d.drop_type == Enum.Drop_Type.Water:
-		return does_plot_need_water(p)
-	if d.drop_type == Enum.Drop_Type.Sun:
-		return does_plot_need_sun(p)
-	return false
 
 var square_position_array: Array[Vector2] = [
 	Vector2(0, 0),
@@ -171,7 +82,7 @@ func update_push_zone(square_size: int) -> void:
 	var min_y = INF
 	var max_y = -INF
 
-	var squares = square_position_array.slice(0, plots.size())
+	var squares = square_position_array.slice(0, PlotUtil.get_total_plots())
 
 	# Find bounds in tile coordinates
 	for pos in squares:

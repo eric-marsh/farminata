@@ -176,7 +176,7 @@ func get_highest_seed() -> droppable:
 	
 var max_seed_offset: int = 4
 func get_highest_seed_within_limit() -> Enum.Drop_Type:
-	var max_seeds_allowed: int = Globals.PlotGrid.get_total_plots() + max_seed_offset
+	var max_seeds_allowed: int = PlotUtil.get_total_plots() + max_seed_offset
 	for pair in priority:
 		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
 			if DropUtil.get_total_drops_of_type(pair.seed) < max_seeds_allowed:

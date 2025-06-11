@@ -77,9 +77,6 @@ func animate_hit(strength: float, pos: Vector2 = Vector2.ZERO) -> void:
 	Util.create_explosion_particle(pos, c, 6, 1.9)
 
 func create_drop()->void:
-	if !Globals.PlotGrid:
-		return
-	
 	var drop_type = get_random_output() 
 	if drop_type == Enum.Drop_Type.X:
 		return
