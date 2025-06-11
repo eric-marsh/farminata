@@ -242,6 +242,7 @@ position = Vector2(17.5, -5)
 texture = ExtResource("4_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]
+z_index = 3
 offset_left = -13.0
 offset_top = -28.0
 offset_right = 13.0

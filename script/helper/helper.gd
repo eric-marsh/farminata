@@ -11,7 +11,6 @@ var target_plot: plot = null
 
 var held_droppables: Array[droppable] = []
 
-var worn_hat: Enum.Drop_Type
 
 var state: Enum.Helper_State = Enum.Helper_State.Idle
 var dir: Enum.Dir = Enum.Dir.Down
@@ -161,14 +160,20 @@ func set_state(s: Enum.Helper_State) -> void:
 
 
 var apply_upgrade: bool = false
+var num_hats = 1
 func equip_hat(d: droppable) -> void:
-	$HatSprite.visible = true
-	$HatSprite.texture = d.get_node("Sprite2D").texture
+	var s: Sprite2D = Sprite2D.new()
+	s.texture = d.get_node("Sprite2D").texture
+	if helper_type == Enum.Helper_Type.Attack:
+		s.position = Vector2(0, -4*num_hats)
+	else:
+		s.position = Vector2(0, -8*num_hats)
+		
+	$HatSprite.add_child(s)
+	num_hats += 1
 	held_droppables.clear()
-	worn_hat = d.drop_type
-	
 	# apply upgrade
-	update_speed(80)
+	update_speed(40)
 	if helper_type == Enum.Helper_Type.Attack:
 		apply_upgrade = true
 	
@@ -188,6 +193,7 @@ func on_reaching_target_pos() -> void:
 			if target_droppable.is_hat:
 				equip_hat(target_droppable)
 				target_droppable.hide_droppable()
+				target_droppable.delete()
 				target_droppable = null
 				set_state(Enum.Helper_State.Idle)
 				return
@@ -359,7 +365,7 @@ func move_to_target() -> bool:
 	return false
 
 func update_speed(s:int)->void:
-	speed = s
+	speed += s
 	min_velocity = Vector2(-speed, -speed)
 	max_velocity = Vector2(speed, speed)
 
