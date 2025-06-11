@@ -61,7 +61,7 @@ func does_plot_need_seed(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.None
 
 func get_plot_that_needs_seed() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_seed(c):
@@ -72,7 +72,7 @@ func does_plot_need_water(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Dry and p.plot_growth_state != Enum.Plot_Growth_State.Full
 
 func get_plot_that_needs_water() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_water(c):
@@ -83,7 +83,7 @@ func does_plot_need_sun(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Wet and p.plot_growth_state != Enum.Plot_Growth_State.None
 
 func get_plot_that_needs_sun() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_sun(c):
@@ -94,7 +94,7 @@ func does_plot_need_plucking(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.Full
 
 func get_plot_that_needs_plucking() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_plucking(c):

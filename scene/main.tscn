@@ -46,6 +46,57 @@ position = Vector2(233, 163)
 [node name="Plot5" parent="Plots" instance=ExtResource("5_wscrc")]
 position = Vector2(287, 196)
 
+[node name="Plot6" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(287, 196)
+
+[node name="Plot7" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(321, 217)
+
+[node name="Plot8" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(346, 194)
+
+[node name="Plot9" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(393, 172)
+
+[node name="Plot10" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(440, 196)
+
+[node name="Plot11" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(403, 203)
+
+[node name="Plot12" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(442, 238)
+
+[node name="Plot13" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(411, 258)
+
+[node name="Plot14" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(376, 236)
+
+[node name="Plot15" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(335, 257)
+
+[node name="Plot16" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(298, 254)
+
+[node name="Plot17" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(267, 241)
+
+[node name="Plot18" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(232, 253)
+
+[node name="Plot19" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(190, 247)
+
+[node name="Plot20" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(159, 265)
+
+[node name="Plot21" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(127, 236)
+
+[node name="Plot22" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(139, 196)
+
 [node name="Drops" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
@@ -68,6 +119,7 @@ script = ExtResource("6_of57s")
 
 [node name="Helper" parent="Helpers" instance=ExtResource("8_k65ib")]
 position = Vector2(316, 173)
+helper_type = 1
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 

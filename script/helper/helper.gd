@@ -88,7 +88,7 @@ func on_idle() -> void:
 			var p = PlotUtil.find_plot_for_droppable(d)
 			if p:
 				target_plot = p
-				target_pos = target_plot.global_position + target_plot.size / 2
+				target_pos = target_plot.global_position
 				set_state(Enum.Helper_State.Deliver_Item)
 				return
 	
@@ -114,7 +114,7 @@ func on_plucker_idle() -> void:
 		var p:plot = PlotUtil.get_plot_that_needs_plucking()
 		if p:
 			target_plot = p
-			target_pos = target_plot.global_position + target_plot.size / 2
+			target_pos = target_plot.global_position
 			set_state(Enum.Helper_State.Pluck_Crop)
 			return
 	set_state(Enum.Helper_State.Wander)
@@ -149,13 +149,13 @@ func set_state(s: Enum.Helper_State) -> void:
 				var p = PlotUtil.find_plot_for_droppable(d)
 				if p:
 					target_plot = p
-					target_pos = target_plot.global_position + target_plot.size / 2
+					target_pos = target_plot.global_position
 					return
 			# finding plot failed. Wander until a new one comes up
 			set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Pluck_Crop:
 			$HeldItem.visible = false
-			target_pos = target_plot.global_position + target_plot.size / 2
+			target_pos = target_plot.global_position
 		_:
 			pass
 
