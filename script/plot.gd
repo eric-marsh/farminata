@@ -24,9 +24,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 var is_droppable_being_applied: bool = false
 func apply_droppable(d: droppable) -> void:
-	if is_droppable_being_applied or plot_growth_state == Enum.Plot_Growth_State.Full:
+	if is_droppable_being_applied or is_growing or plot_growth_state == Enum.Plot_Growth_State.Full:
 		return
 	is_droppable_being_applied = true
+	
+	# i think i can get rid of this
 	Util.quick_timer(self, 0.5, func():
 		is_droppable_being_applied = false
 		)
@@ -63,16 +65,28 @@ func reset_growth_state():
 	growth_stage_index = 0
 
 
+var is_growing:bool = false
 var growth_stage_index: int = 0
 func set_next_growth_state():
-	if is_full_grown():
-		var stage = PlantUtil.PLANT_IMAGES[grow_type][growth_stage_index]
-		plot_growth_state = stage.state
-		#current_image = stage.image
-		growth_stage_index += 1
+	if !is_full_grown():
+		if growth_stage_index == 0:
+			done_growing()
+			return
+		else:
+			is_growing = true
+			animation_player.play("grow_crop")
+			animation_player.speed_scale = 0.5
+
+func done_growing()->void:
+	var stage = PlantUtil.PLANT_IMAGES[grow_type][growth_stage_index]
+	plot_growth_state = stage.state
+	growth_stage_index += 1
+	is_growing = false
+	update_image()
+	animation_player.play("pulse_crop")
 
 func is_full_grown() -> bool:
-	return PlantUtil.PLANT_IMAGES[grow_type].size() > growth_stage_index
+	return PlantUtil.PLANT_IMAGES[grow_type].size() == growth_stage_index
 
 const PLOT_WET = preload("res://img/plot/plot_wet.png")
 const PLOT_DRY = preload("res://img/plot/plot_dry.png")
@@ -84,10 +98,11 @@ func update_image():
 				$Dirt.texture = PLOT_DRY
 			Enum.Plot_State.Wet:
 				$Dirt.texture = PLOT_WET
-		$Plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
-		$Plant.offset = Vector2.ZERO
-		if plot_growth_state == Enum.Plot_Growth_State.Full:
-			$Plant.offset = Vector2(0, -8)
+		if !is_growing:
+			$Plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
+			$Plant.offset = Vector2(0, 2)
+			if plot_growth_state == Enum.Plot_Growth_State.Full:
+				$Plant.offset = Vector2(0, -8)
 
 var is_plucking: bool = false
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -103,8 +118,18 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 			is_plucking = false
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if is_plucking:
-		pluck_crop(true)
+	animation_player.speed_scale = 1.0
+	$Plant.scale = Vector2.ONE
+	if anim_name == "pluck_crop":
+		if is_plucking:
+			pluck_crop(true)
+		return
+	if anim_name == "grow_crop":
+		is_growing = false
+		done_growing()
+		return
+	if anim_name == "pulse_crop":
+		return
 
 func pluck_crop(clicked:bool=false):
 	reset_growth_state()

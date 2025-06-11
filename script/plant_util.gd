@@ -25,7 +25,6 @@ const RADISH_SAPLING_3 = preload("res://img/plants/radish/radish_sapling3.png")
 
 const PLANT_IMAGES = {
 	Enum.Grow_Type.Carrot: [
-		{ state = Enum.Plot_Growth_State.Seed, image = SEED },
 		{ state = Enum.Plot_Growth_State.Partial_1, image = CARROT_SAPLING_1 },
 		{ state = Enum.Plot_Growth_State.Partial_2, image = CARROT_SAPLING_2 },
 		{ state = Enum.Plot_Growth_State.Full, image = CARROT_SAPLING_3 },
