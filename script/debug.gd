@@ -9,6 +9,8 @@ var Helper_Speed: float = 200.0
 
 var DISABLE_SLOT_MACHINE:bool = true
 
+var KEEP_PLOTS_ON_START:bool = true
+
 var ALL_FULL_CROPS_AT_START:bool = true
 
 var DEBUG_ALWAYS_MUTE:bool = true

@@ -12,12 +12,13 @@ func add_plot(pos: Vector2):
 func reset_plots():
 	if !Globals.PlotsContainer:
 		return
-		
-	for c in Globals.PlotsContainer.get_children():
-		if c is plot:
-			c.queue_free()
 	
-	var plots_left = State.num_plots
+	if !Debug.KEEP_PLOTS_ON_START:	
+		for c in Globals.PlotsContainer.get_children():
+			if c is plot:
+				c.queue_free()
+	
+	var plots_left = State.num_plots - get_total_plots()
 	while plots_left > 0:
 		add_plot(get_random_position_in_grow_area())
 		plots_left -= 1

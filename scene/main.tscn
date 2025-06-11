@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=14 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://dgnanoyg1dkpf" path="res://scene/audio.tscn" id="3_b5f6u"]
 [ext_resource type="Script" uid="uid://b8pxcom8tcd8s" path="res://scene/plots_container.gd" id="4_k65ib"]
 [ext_resource type="PackedScene" uid="uid://jida1cnc03um" path="res://scene/canvas_layer.tscn" id="5_0ha60"]
+[ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
@@ -13,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
-size = Vector2(370, 160.5)
+size = Vector2(366, 133)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -27,14 +28,30 @@ script = ExtResource("2_v0l8b")
 position = Vector2(-320, -180)
 
 [node name="Plots" type="Node2D" parent="."]
+y_sort_enabled = true
 script = ExtResource("4_k65ib")
+
+[node name="Plot" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(143, 140)
+
+[node name="Plot2" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(187, 183)
+
+[node name="Plot3" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(223, 213)
+
+[node name="Plot4" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(233, 163)
+
+[node name="Plot5" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(287, 196)
 
 [node name="Drops" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
 
 [node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(132, 176)
+position = Vector2(227, 189)
 
 [node name="Droppable2" parent="Drops" instance=ExtResource("7_wscrc")]
 position = Vector2(110, 191)
@@ -66,5 +83,5 @@ position = Vector2(337, -5)
 [node name="GrowArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrowArea"]
-position = Vector2(286, 207.75)
+position = Vector2(288, 221.5)
 shape = SubResource("RectangleShape2D_k65ib")
