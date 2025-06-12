@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=17 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
+[ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper/helper.tscn" id="9_hybxs"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
 [ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="13_mswub"]
@@ -120,6 +121,9 @@ drop_type = 4
 y_sort_enabled = true
 position = Vector2(0, 6)
 script = ExtResource("6_of57s")
+
+[node name="Helper" parent="Helpers" instance=ExtResource("9_hybxs")]
+position = Vector2(138, 190)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 

@@ -371,24 +371,18 @@ func update_speed(s:int)->void:
 
 
 func update_animation() -> void:
-	$HeldItem.z_index=0
 	match dir:
 		Enum.Dir.Left:
 			anim.play("walk_right")
 			anim.flip_h = true
-			$HeldItem.position = Vector2(-7, 7)
 		Enum.Dir.Right:
 			anim.play("walk_right")
 			anim.flip_h = false
-			$HeldItem.position = Vector2(-8, 7)
 		Enum.Dir.Up:
-			anim.play("walk_up")
-			anim.flip_h = false
-			$HeldItem.position = Vector2(-9, -4)
-			$HeldItem.z_index=-1
+			#anim.play("walk_up")
+			anim.play("walk_right")
 		Enum.Dir.Down:
 			anim.play("walk_down")
 			anim.flip_h = false
-			$HeldItem.position = Vector2(-7, 7)
 		_:
 			print("Dont know that direction")
