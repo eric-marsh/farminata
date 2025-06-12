@@ -164,16 +164,25 @@ var num_hats = 1
 func equip_hat(d: droppable) -> void:
 	var s: Sprite2D = Sprite2D.new()
 	s.texture = d.get_node("Sprite2D").texture
+	
+	s.z_index=1
+	s.y_sort_enabled=true
 	if helper_type == Enum.Helper_Type.Attack:
-		s.position = Vector2(0, -4*num_hats)
+		s.offset = Vector2(0, -25)
+		s.position = Vector2(0, -4)
 	else:
-		s.position = Vector2(0, -8*num_hats)
-		
-	$HatSprite.add_child(s)
+		s.offset = Vector2(0, -28)
+		s.position = Vector2(0, -7)
+	
+	var current_hat = $HatSprite
+	while current_hat.get_child_count() > 0:
+		current_hat = current_hat.get_child(0)
+
+	current_hat.add_child(s)
 	num_hats += 1
 	held_droppables.clear()
 	# apply upgrade
-	update_speed(40)
+	update_speed(10)
 	if helper_type == Enum.Helper_Type.Attack:
 		apply_upgrade = true
 	
@@ -370,19 +379,29 @@ func update_speed(s:int)->void:
 	max_velocity = Vector2(speed, speed)
 
 
+@onready var hat_sprite: Sprite2D = $HatSprite
 func update_animation() -> void:
+	
 	match dir:
 		Enum.Dir.Left:
 			anim.play("walk_right")
 			anim.flip_h = true
+			hat_sprite.flip_h = true
 		Enum.Dir.Right:
 			anim.play("walk_right")
 			anim.flip_h = false
+			hat_sprite.flip_h = false
 		Enum.Dir.Up:
 			#anim.play("walk_up")
 			anim.play("walk_right")
 		Enum.Dir.Down:
 			anim.play("walk_down")
 			anim.flip_h = false
+			hat_sprite.flip_h = false
 		_:
 			print("Dont know that direction")
+	if helper_type == Enum.Helper_Type.Pluck:
+		if hat_sprite.flip_h:
+			$HatSprite.offset.x = -3
+		else:
+			$HatSprite.offset.x = 3

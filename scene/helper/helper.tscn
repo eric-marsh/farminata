@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper/helper.gd" id="1_xnnrj"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_edx7r"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/plants/carrot/carrot_seed.png" id="3_eoi31"]
-[ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="4_edx7r"]
 [ext_resource type="Texture2D" uid="uid://dfivp000yegyb" path="res://img/plants/carrot/carrot.png" id="4_eoi31"]
 [ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/droppables/water.png" id="4_x75v7"]
+[ext_resource type="Texture2D" uid="uid://mf5rpqaai70l" path="res://img/helper/delivery_hat.png" id="6_x75v7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
 
@@ -227,25 +227,25 @@ scale = Vector2(0.8, 0.8)
 [node name="HeldItem1" type="Sprite2D" parent="HeldItem"]
 visible = false
 y_sort_enabled = true
-position = Vector2(-8.75, -7.5)
+position = Vector2(-9, -8)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItem2" type="Sprite2D" parent="HeldItem"]
 visible = false
 y_sort_enabled = true
-position = Vector2(1.25, -3.75)
+position = Vector2(1, -4)
 texture = ExtResource("4_x75v7")
 
 [node name="HeldItem3" type="Sprite2D" parent="HeldItem"]
 visible = false
 y_sort_enabled = true
-position = Vector2(11.25, -7.5)
+position = Vector2(11, -7)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItemProduce" type="Sprite2D" parent="HeldItem"]
 visible = false
 y_sort_enabled = true
-position = Vector2(11.25, -12.5)
+position = Vector2(11, -11)
 texture = ExtResource("4_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]
@@ -263,5 +263,5 @@ autowrap_mode = 2
 [node name="HatSprite" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
-texture = ExtResource("4_edx7r")
+texture = ExtResource("6_x75v7")
 offset = Vector2(0, -28)

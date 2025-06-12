@@ -23,10 +23,11 @@ func get_random_enum_value(enum_type: Dictionary) -> int:
 	return values[randi() % values.size()]
 
 func get_enum_direction(dir: Vector2) -> Enum.Dir:
-	if abs(dir.x) > abs(dir.y):
-		return Enum.Dir.Right if dir.x > 0 else Enum.Dir.Left
-	else:
-		return Enum.Dir.Down if dir.y > 0 else Enum.Dir.Up
+	return Enum.Dir.Right if dir.x > 0 else Enum.Dir.Left
+	#if abs(dir.x) > abs(dir.y):
+		#return Enum.Dir.Right if dir.x > 0 else Enum.Dir.Left
+	#else:
+		#return Enum.Dir.Down if dir.y > 0 else Enum.Dir.Up
 
 func random_visible_position() -> Vector2:
 	if !Globals.CameraNode:

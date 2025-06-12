@@ -1,6 +1,6 @@
 extends Node
 
-var DEBUG_SHOW_HELPER_STATE: bool = true
+var DEBUG_SHOW_HELPER_STATE: bool = false
 
 var STARTING_MONEY: int = 1111110
 

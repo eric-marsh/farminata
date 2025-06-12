@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://gux46i3nj3wt" path="res://script/helper/attack_helper.gd" id="1_lee8m"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_xcfqp"]
-[ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="4_3txtj"]
+[ext_resource type="Texture2D" uid="uid://b3av6rfxcn5ss" path="res://img/helper/attack_hat.png" id="4_3txtj"]
 [ext_resource type="Texture2D" uid="uid://dxw5mpl374jcu" path="res://img/droppables/rock.png" id="4_xcfqp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
@@ -202,11 +202,13 @@ font_color = Color(0, 1, 0, 1)
 
 [node name="AttackHelper" type="CharacterBody2D"]
 z_index = 2
+y_sort_enabled = true
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_lee8m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -7)
 shape = SubResource("CircleShape2D_uu31v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -214,17 +216,20 @@ material = SubResource("ShaderMaterial_ewdy1")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6kp2c")
 animation = &"walk_right"
+offset = Vector2(0, -7)
 
 [node name="HeldItem" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(0, 8)
+z_index = 1
+position = Vector2(13, -10)
 texture = ExtResource("4_xcfqp")
 
 [node name="StateLabel" type="Label" parent="."]
-offset_left = -13.0
-offset_top = -28.0
-offset_right = 13.0
-offset_bottom = -5.0
+z_index = 4
+offset_left = -12.0
+offset_top = -40.0
+offset_right = 14.0
+offset_bottom = -17.0
 text = "Idle
 Seed"
 label_settings = SubResource("LabelSettings_ewdy1")
@@ -233,11 +238,13 @@ autowrap_mode = 2
 
 [node name="Throwable" type="Sprite2D" parent="."]
 visible = false
+z_index = 1
+position = Vector2(13, -10)
 texture = ExtResource("4_xcfqp")
 
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="HatSprite" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(0, -13)
+y_sort_enabled = true
 texture = ExtResource("4_3txtj")
+offset = Vector2(0, -25)

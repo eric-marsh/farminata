@@ -123,7 +123,7 @@ position = Vector2(0, 6)
 script = ExtResource("6_of57s")
 
 [node name="Helper" parent="Helpers" instance=ExtResource("9_hybxs")]
-position = Vector2(138, 190)
+position = Vector2(152, 170)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 
