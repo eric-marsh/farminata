@@ -4,9 +4,16 @@ const PLOT = preload("res://scene/plot.tscn")
 
 
 func add_plot():
+	if !Globals.PlotsContainer:
+		return
 	var p = PLOT.instantiate() as plot
 	p.global_position = get_random_position_in_grow_area()
-	add_child(p)
+	if Debug.ALL_FULL_CROPS_AT_START:
+		p.plot_growth_state = Enum.Plot_Growth_State.Full
+		p.grow_type = Enum.Grow_Type.Carrot
+		p.update_image()
+	Globals.PlotsContainer.add_child(p)
+	
 
 var num_rows = 8
 var num_cols = 12
@@ -17,24 +24,23 @@ func reset_plots():
 	if !Debug.KEEP_PLOTS_ON_START:	
 		for c in Globals.PlotsContainer.get_children():
 			c.queue_free()
+		
 	
+	# figure out the positions
 	var width: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.x * 2 
 	var height: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.y * 2 
-	
-	
 	Globals.PlotsContainer.remaining_plot_points.clear()
 	for i in range(num_cols):
 		for j in range(num_rows):
 			Globals.PlotsContainer.remaining_plot_points.push_back( Vector2((width/num_cols) * i, (height/num_rows) * j)  )
 	Globals.PlotsContainer.remaining_plot_points.shuffle()
 	
+	# add the plots
 	await get_tree().create_timer(0.1).timeout
 	var plots_left = State.num_plots - get_total_plots()
 	while plots_left > 0:
 		add_plot()
 		plots_left -= 1
-
- 
 
 func get_random_position_in_grow_area() -> Vector2:
 	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty():

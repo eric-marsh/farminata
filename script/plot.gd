@@ -100,9 +100,9 @@ func update_image():
 				$Dirt.texture = PLOT_WET
 		if !is_growing:
 			$Plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
-			$Plant.offset = Vector2(0, 2)
+			$Plant.offset = Vector2(0, -4)
 			if plot_growth_state == Enum.Plot_Growth_State.Full:
-				$Plant.offset = Vector2(0, -8)
+				$Plant.offset = Vector2(0, -13)
 
 var is_plucking: bool = false
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

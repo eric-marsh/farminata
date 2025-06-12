@@ -48,6 +48,7 @@ func update_enviornment_layer(percent: float):
 		var s: Sprite2D = Sprite2D.new()
 		s.texture = good_enviornment_images.pick_random()
 		s.flip_h = Util.random_chance(0.5)
+		s.offset.y = -6
 		s.global_position = good_enviornment_positions[0]
 		good_enviornment_positions = good_enviornment_positions.slice(1)
 		$GoodLayer.add_child(s)

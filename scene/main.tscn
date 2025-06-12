@@ -106,7 +106,7 @@ y_sort_enabled = true
 script = ExtResource("6_k65ib")
 
 [node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(227, 189)
+position = Vector2(102, 144)
 
 [node name="Droppable2" parent="Drops" instance=ExtResource("7_wscrc")]
 position = Vector2(110, 191)
@@ -126,7 +126,7 @@ script = ExtResource("6_of57s")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
-position = Vector2(41, 320)
+position = Vector2(41, 344)
 scale = Vector2(4, 4)
 
 [node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
@@ -154,8 +154,9 @@ y_sort_enabled = true
 position = Vector2(0, 2)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enviornment/GoodLayer"]
-position = Vector2(-234, -105)
+position = Vector2(-176, -40)
 texture = ExtResource("13_mswub")
+offset = Vector2(0, -7)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Enviornment/GoodLayer"]
 position = Vector2(-233, -110)
