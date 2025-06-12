@@ -26,11 +26,16 @@ func _ready() -> void:
 	update_money_counter()
 	
 func _process(_delta: float) -> void:
+	# TODO: remove this
+	$MarginContainer/VBoxContainer/EnviornmentPercentage.text = str(State.enviornment_percentage) + "%"
 	pass
 	
 func update_money_counter():
 	if !Globals.Main:
 		return
+	
+	
+		
 	var money: int = State.money
 	money_label.text = "$" + str(money)
 
@@ -81,7 +86,6 @@ func _on_plot_button_pressed() -> void:
 		return
 		
 	Globals.Main.change_money(-plot_price)
-	State.num_plots += 1
 	PlotUtil.add_plot() 
 	update_money_counter()
 

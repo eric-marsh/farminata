@@ -3,7 +3,6 @@ class_name enviornment
 
 static var good_enviornment_positions: Array[Vector2] = []
 
-var enviornment_percentage: float = 1.0
 
 const good_enviornment_images = [
 	preload("res://img/enviornment/good/flower_1.png"),
@@ -31,13 +30,16 @@ func reset_good_env() -> void:
 	for c in $GoodLayer.get_children():
 		c.queue_free()
 	reset_sprite_points()
-	update_enviornment_layer(enviornment_percentage)
+	update_enviornment_layer()
 
-func update_enviornment_layer(percent: float): 
-	var num_desired_sprites = total_good_sprites * percent
+
+
+func update_enviornment_layer(): 
+	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
+	var num_desired_sprites = total_good_sprites * State.enviornment_percentage
 	
 	var i: int = 0
-	while i < num_desired_sprites - $GoodLayer.get_children().size() and good_enviornment_positions[0]:
+	while i < num_desired_sprites - $GoodLayer.get_children().size() and good_enviornment_positions.size() > 0:
 		var s: Sprite2D = Sprite2D.new()
 		s.texture = good_enviornment_images.pick_random()
 		s.flip_h = Util.random_chance(0.5)

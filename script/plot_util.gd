@@ -4,7 +4,7 @@ const PLOT = preload("res://scene/plot.tscn")
 
 
 func add_plot():
-	if !Globals.PlotsContainer:
+	if !Globals.PlotsContainer or !Globals.EnviornmentLayers:
 		return
 	var p = PLOT.instantiate() as plot
 	p.global_position = get_random_position_in_grow_area()
@@ -12,7 +12,10 @@ func add_plot():
 		p.plot_growth_state = Enum.Plot_Growth_State.Full
 		p.grow_type = Enum.Grow_Type.Carrot
 		p.update_image()
+	
 	Globals.PlotsContainer.add_child(p)
+	State.num_plots += 1
+	Globals.EnviornmentLayers.update_enviornment_layer()
 	
 
 var num_rows = 8

@@ -2,12 +2,14 @@ extends Node
 
 var money:int = 0
 
-var num_plots:int = 50
+var max_plots: int = 100
+var num_plots:int = 1
 
 var num_farmer_helpers:int = 0
 var num_pluck_helpers:int = 0
 var num_attack_helpers:int = 0
 
+var enviornment_percentage: float = 0.0
 
 var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
 
