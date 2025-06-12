@@ -57,6 +57,8 @@ func _physics_process(_delta: float) -> void:
 	if has_reached_target:
 		on_reaching_target_pos()
 	
+	update_hat_animation()
+	
 	if state == Enum.Helper_State.Get_Item and (!is_instance_valid(target_droppable) or target_droppable.is_held):
 		target_droppable = null
 		set_state(Enum.Helper_State.Idle)
@@ -378,10 +380,15 @@ func update_speed(s:int)->void:
 	min_velocity = Vector2(-speed, -speed)
 	max_velocity = Vector2(speed, speed)
 
+func update_hat_animation() -> void:
+	if [1,2,5,6].has($AnimatedSprite2D.frame):
+		$HatSprite.position = Vector2(0, 1)
+	else:
+		$HatSprite.position = Vector2(0, 0)
+
 
 @onready var hat_sprite: Sprite2D = $HatSprite
 func update_animation() -> void:
-	
 	match dir:
 		Enum.Dir.Left:
 			anim.play("walk_right")

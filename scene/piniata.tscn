@@ -105,7 +105,7 @@ _data = {
 }
 
 [node name="Piniata" type="Node2D"]
-z_index = 3
+z_index = 10
 script = ExtResource("1_j2vsm")
 
 [node name="Node2D" type="Node2D" parent="."]
