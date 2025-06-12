@@ -82,7 +82,7 @@ func _on_plot_button_pressed() -> void:
 		
 	Globals.Main.change_money(-plot_price)
 	State.num_plots += 1
-	PlotUtil.add_plot(PlotUtil.get_random_position_in_grow_area()) # TODO: If there is multiple plots, do this in a better way
+	PlotUtil.add_plot() 
 	update_money_counter()
 
 

@@ -3,12 +3,13 @@ extends Node
 const PLOT = preload("res://scene/plot.tscn")
 
 
-func add_plot(pos: Vector2):
+func add_plot():
 	var p = PLOT.instantiate() as plot
-	p.global_position = pos
+	p.global_position = get_random_position_in_grow_area()
 	add_child(p)
 
-
+var num_rows = 8
+var num_cols = 12
 func reset_plots():
 	if !Globals.PlotsContainer:
 		return
@@ -17,30 +18,41 @@ func reset_plots():
 		for c in Globals.PlotsContainer.get_children():
 			c.queue_free()
 	
+	var width: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.x * 2 
+	var height: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.y * 2 
+	
+	
+	Globals.PlotsContainer.remaining_plot_points.clear()
+	for i in range(num_cols):
+		for j in range(num_rows):
+			Globals.PlotsContainer.remaining_plot_points.push_back( Vector2((width/num_cols) * i, (height/num_rows) * j)  )
+	Globals.PlotsContainer.remaining_plot_points.shuffle()
+	
 	await get_tree().create_timer(0.1).timeout
 	var plots_left = State.num_plots - get_total_plots()
 	while plots_left > 0:
-		add_plot(get_random_position_in_grow_area())
+		add_plot()
 		plots_left -= 1
+
+ 
+
+func get_random_position_in_grow_area() -> Vector2:
+	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty():
+		return Vector2.ZERO
+
+	var pos: Vector2 = Globals.PlotsContainer.remaining_plot_points[0]
+	Globals.PlotsContainer.remaining_plot_points = Globals.PlotsContainer.remaining_plot_points.slice(1)
+
+	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
+	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
+	
+	return top_left + pos + Util.random_offset(8)
+	
 
 func get_total_plots() -> int:
 	if !Globals.PlotsContainer:
 		return 0
 	return Globals.PlotsContainer.get_children().size()
-
-func get_random_position_in_grow_area() -> Vector2:
-	var collision_shape = Globals.GrowArea.get_node("CollisionShape2D")
-	var shape = collision_shape.shape
-	if shape is RectangleShape2D:
-		var extents = shape.extents
-		var local_pos = Vector2(
-			randf_range(-extents.x, extents.x),
-			randf_range(-extents.y, extents.y)
-		)
-		return collision_shape.global_position + local_pos
-	return collision_shape.global_position
-
-
 
 func get_plot_for_helper():
 	pass

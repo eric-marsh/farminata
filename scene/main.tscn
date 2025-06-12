@@ -128,7 +128,7 @@ scale = Vector2(4, 4)
 position = Vector2(337, -5)
 
 [node name="GrowArea" type="Area2D" parent="."]
+position = Vector2(288, 223)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrowArea"]
-position = Vector2(288, 221.5)
 shape = SubResource("RectangleShape2D_k65ib")
