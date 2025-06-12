@@ -15,7 +15,14 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	pass
+	animate_breeze()
+
+
+func animate_breeze():
+	$Plant.skew = Util.get_breeze_skew()
+	$Plant.offset.x = tan($Plant.skew) * 8
+
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !body.is_in_group("droppable"):

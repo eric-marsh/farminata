@@ -124,3 +124,17 @@ func create_slash_animation(pos: Vector2, flip_h: bool = false):
 	a.global_position = pos
 	a.flip_horiz = flip_h
 	Globals.AnimationsContainer.add_child(a)
+
+
+
+
+var current_skew: float = 0.0
+var skew_dir: float = 0.0001
+
+func update_breeze():
+	if abs(current_skew) > 0.15:
+		skew_dir *= -1
+	current_skew += skew_dir
+
+func get_breeze_skew():
+	return current_skew

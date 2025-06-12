@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 	if is_paused:
 		return
 	global_timer += 1
+	Util.update_breeze()
 	
 	if is_game_over:
 		is_paused = false
