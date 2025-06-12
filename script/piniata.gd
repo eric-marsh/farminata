@@ -91,6 +91,7 @@ func get_random_output() -> Enum.Drop_Type:
 		Enum.Drop_Type.Sun,
 		Enum.Drop_Type.Sun,
 		Enum.Drop_Type.Sun,
+		Enum.Drop_Type.X,  # placeholder for best seed
 		Enum.Drop_Type.X  # placeholder for best seed
 	]
 	var result = weighted_drops[randi() % weighted_drops.size()]

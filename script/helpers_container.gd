@@ -42,7 +42,7 @@ func get_inactive_helper() -> helper:
 
 func get_helper_that_needs_hat(hat: Enum.Drop_Type) -> helper:
 	for c in get_children():
-		if !c is helper or c.worn_hat:
+		if !(c is helper):
 			continue
 		match(hat):
 			Enum.Drop_Type.Farm_Hat:

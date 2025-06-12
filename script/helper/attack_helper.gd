@@ -29,8 +29,8 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	if apply_upgrade:
-		attack_interval = 0.5
-		attack_strength = 2
+		attack_interval = max(0.1, attack_interval / 2)
+		attack_strength += 1
 		apply_upgrade = false
 	
 	if state == Enum.Helper_State.Get_Item:
@@ -42,6 +42,7 @@ func _physics_process(delta: float) -> void:
 			if has_reached_target:
 				equip_hat(target_droppable)
 				target_droppable.hide_droppable()
+				target_droppable.delete()
 				target_droppable = null
 				is_target_pos_reached = false
 				target_pos = get_attack_pos(id_of_type)

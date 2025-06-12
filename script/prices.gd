@@ -20,7 +20,7 @@ func get_drop_price(symbol: Enum.Drop_Type) -> int:
 func get_upgrade_price(type: Enum.Upgrade_Type):
 	match type:
 		Enum.Upgrade_Type.AddPlot:
-			return State.num_plots * State.num_plots + 4
+			return State.num_plots
 		Enum.Upgrade_Type.AddFarmerHelper:
 			return max(2, State.num_farmer_helpers * State.num_farmer_helpers * 4)
 		Enum.Upgrade_Type.AddPluckHelper:

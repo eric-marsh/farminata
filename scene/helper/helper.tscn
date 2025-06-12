@@ -1,10 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://c82wwcd2kv076"]
+[gd_scene load_steps=35 format=3 uid="uid://c82wwcd2kv076"]
 
 [ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper/helper.gd" id="1_xnnrj"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_edx7r"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/plants/carrot/carrot_seed.png" id="3_eoi31"]
 [ext_resource type="Texture2D" uid="uid://c2bsooqksa4j0" path="res://img/helper/farmer_hat.png" id="4_edx7r"]
 [ext_resource type="Texture2D" uid="uid://dfivp000yegyb" path="res://img/plants/carrot/carrot.png" id="4_eoi31"]
+[ext_resource type="Texture2D" uid="uid://4wsbuk2bg1gf" path="res://img/droppables/water.png" id="4_x75v7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu31v"]
 
@@ -208,6 +209,7 @@ collision_mask = 0
 script = ExtResource("1_xnnrj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -5)
 shape = SubResource("CircleShape2D_uu31v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -216,36 +218,42 @@ material = SubResource("ShaderMaterial_ewdy1")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6kp2c")
 animation = &"walk_right"
+offset = Vector2(0, -7)
 
 [node name="HeldItem" type="Node2D" parent="."]
-position = Vector2(-6, 7)
+position = Vector2(-4.76837e-07, -4.76837e-07)
 scale = Vector2(0.8, 0.8)
 
 [node name="HeldItem1" type="Sprite2D" parent="HeldItem"]
 visible = false
-position = Vector2(1.43051e-06, -9.53674e-07)
+y_sort_enabled = true
+position = Vector2(-8.75, -7.5)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItem2" type="Sprite2D" parent="HeldItem"]
 visible = false
-position = Vector2(10, 3.75)
-texture = ExtResource("4_eoi31")
+y_sort_enabled = true
+position = Vector2(1.25, -3.75)
+texture = ExtResource("4_x75v7")
 
 [node name="HeldItem3" type="Sprite2D" parent="HeldItem"]
 visible = false
-position = Vector2(20, -1.43051e-06)
+y_sort_enabled = true
+position = Vector2(11.25, -7.5)
 texture = ExtResource("3_eoi31")
 
 [node name="HeldItemProduce" type="Sprite2D" parent="HeldItem"]
 visible = false
-position = Vector2(17.5, -5)
+y_sort_enabled = true
+position = Vector2(11.25, -12.5)
 texture = ExtResource("4_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]
+z_index = 3
 offset_left = -13.0
-offset_top = -28.0
+offset_top = -42.0
 offset_right = 13.0
-offset_bottom = -5.0
+offset_bottom = -19.0
 text = "Idle
 Seed"
 label_settings = SubResource("LabelSettings_ewdy1")
@@ -254,5 +262,6 @@ autowrap_mode = 2
 
 [node name="HatSprite" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(0, -13)
+y_sort_enabled = true
 texture = ExtResource("4_edx7r")
+offset = Vector2(0, -28)

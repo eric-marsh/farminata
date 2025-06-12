@@ -2,24 +2,63 @@ extends Node
 
 const PLOT = preload("res://scene/plot.tscn")
 
-func reset_plots():
-	if !Globals.PlotGrid:
+
+func add_plot():
+	if !Globals.PlotsContainer:
 		return
-		
-	for c in Globals.PlotGrid.get_children():
-		if c is plot:
-			c.queue_free()
+	var p = PLOT.instantiate() as plot
+	p.global_position = get_random_position_in_grow_area()
+	if Debug.ALL_FULL_CROPS_AT_START:
+		p.plot_growth_state = Enum.Plot_Growth_State.Full
+		p.grow_type = Enum.Grow_Type.Carrot
+		p.update_image()
+	Globals.PlotsContainer.add_child(p)
 	
-	var plots_left = State.num_plots
+
+var num_rows = 8
+var num_cols = 12
+func reset_plots():
+	if !Globals.PlotsContainer:
+		return
+	
+	if !Debug.KEEP_PLOTS_ON_START:	
+		for c in Globals.PlotsContainer.get_children():
+			c.queue_free()
+		
+	
+	# figure out the positions
+	var width: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.x * 2 
+	var height: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.y * 2 
+	Globals.PlotsContainer.remaining_plot_points.clear()
+	for i in range(num_cols):
+		for j in range(num_rows):
+			Globals.PlotsContainer.remaining_plot_points.push_back( Vector2((width/num_cols) * i, (height/num_rows) * j)  )
+	Globals.PlotsContainer.remaining_plot_points.shuffle()
+	
+	# add the plots
+	await get_tree().create_timer(0.1).timeout
+	var plots_left = State.num_plots - get_total_plots()
 	while plots_left > 0:
-		Globals.PlotGrid.add_plot()
+		add_plot()
 		plots_left -= 1
 
-func get_total_plots() -> int:
-	if !Globals.PlotGrid:
-		return 0
-	return Globals.PlotGrid.total_plots
+func get_random_position_in_grow_area() -> Vector2:
+	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty():
+		return Vector2.ZERO
 
+	var pos: Vector2 = Globals.PlotsContainer.remaining_plot_points[0]
+	Globals.PlotsContainer.remaining_plot_points = Globals.PlotsContainer.remaining_plot_points.slice(1)
+
+	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
+	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
+	
+	return top_left + pos + Util.random_offset(8)
+	
+
+func get_total_plots() -> int:
+	if !Globals.PlotsContainer:
+		return 0
+	return Globals.PlotsContainer.get_children().size()
 
 func get_plot_for_helper():
 	pass
@@ -31,16 +70,16 @@ func get_plot_for_helper():
 		return c
 	
 func get_random_plot_position() -> Vector2:
-	if !Globals.PlotGrid:
+	if !Globals.PlotsContainer:
 		return Vector2.ZERO
-	var p = Globals.PlotGrid.get_children().pick_random()
-	return p.global_position + p.size / 2
+	var p = Globals.PlotsContainer.get_children().pick_random()
+	return p.global_position
 
 func does_plot_need_seed(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.None
 
 func get_plot_that_needs_seed() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_seed(c):
@@ -51,7 +90,7 @@ func does_plot_need_water(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Dry and p.plot_growth_state != Enum.Plot_Growth_State.Full
 
 func get_plot_that_needs_water() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_water(c):
@@ -62,7 +101,7 @@ func does_plot_need_sun(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Wet and p.plot_growth_state != Enum.Plot_Growth_State.None
 
 func get_plot_that_needs_sun() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_sun(c):
@@ -73,7 +112,7 @@ func does_plot_need_plucking(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.Full
 
 func get_plot_that_needs_plucking() -> plot:
-	for c in get_children():
+	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_plucking(c):

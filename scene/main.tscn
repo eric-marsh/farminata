@@ -1,16 +1,25 @@
-[gd_scene load_steps=12 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=17 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://dgnanoyg1dkpf" path="res://scene/audio.tscn" id="3_b5f6u"]
-[ext_resource type="PackedScene" uid="uid://b8nkjd470xyme" path="res://scene/plot_grid.tscn" id="4_0ha60"]
+[ext_resource type="Script" uid="uid://b8pxcom8tcd8s" path="res://scene/plots_container.gd" id="4_k65ib"]
 [ext_resource type="PackedScene" uid="uid://jida1cnc03um" path="res://scene/canvas_layer.tscn" id="5_0ha60"]
+[ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
-[ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper/helper.tscn" id="8_k65ib"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
+[ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper/helper.tscn" id="9_hybxs"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
+[ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
+[ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="13_mswub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
+size = Vector2(366, 133)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wscrc"]
+size = Vector2(640, 360)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -23,15 +32,82 @@ script = ExtResource("2_v0l8b")
 [node name="Audio" parent="Camera2D" instance=ExtResource("3_b5f6u")]
 position = Vector2(-320, -180)
 
-[node name="PlotGrid" parent="." instance=ExtResource("4_0ha60")]
-position = Vector2(304, 181)
+[node name="Plots" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("4_k65ib")
+
+[node name="Plot" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(143, 140)
+
+[node name="Plot2" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(187, 183)
+
+[node name="Plot3" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(223, 213)
+
+[node name="Plot4" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(233, 163)
+
+[node name="Plot5" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(287, 196)
+
+[node name="Plot6" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(287, 196)
+
+[node name="Plot7" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(321, 217)
+
+[node name="Plot8" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(346, 194)
+
+[node name="Plot9" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(393, 172)
+
+[node name="Plot10" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(440, 196)
+
+[node name="Plot11" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(403, 203)
+
+[node name="Plot12" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(442, 238)
+
+[node name="Plot13" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(411, 258)
+
+[node name="Plot14" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(376, 236)
+
+[node name="Plot15" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(335, 257)
+
+[node name="Plot16" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(298, 254)
+
+[node name="Plot17" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(267, 241)
+
+[node name="Plot18" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(232, 253)
+
+[node name="Plot19" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(190, 247)
+
+[node name="Plot20" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(159, 265)
+
+[node name="Plot21" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(127, 236)
+
+[node name="Plot22" parent="Plots" instance=ExtResource("5_wscrc")]
+position = Vector2(139, 196)
 
 [node name="Drops" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
 
 [node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(132, 176)
+position = Vector2(102, 144)
 
 [node name="Droppable2" parent="Drops" instance=ExtResource("7_wscrc")]
 position = Vector2(110, 191)
@@ -46,16 +122,46 @@ y_sort_enabled = true
 position = Vector2(0, 6)
 script = ExtResource("6_of57s")
 
-[node name="Helper" parent="Helpers" instance=ExtResource("8_k65ib")]
-position = Vector2(316, 173)
+[node name="Helper" parent="Helpers" instance=ExtResource("9_hybxs")]
+position = Vector2(138, 190)
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
-position = Vector2(41, 320)
+position = Vector2(41, 344)
 scale = Vector2(4, 4)
 
 [node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
 position = Vector2(337, -5)
+
+[node name="GrowArea" type="Area2D" parent="."]
+position = Vector2(288, 223)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrowArea"]
+shape = SubResource("RectangleShape2D_k65ib")
+
+[node name="Enviornment" type="Area2D" parent="."]
+y_sort_enabled = true
+position = Vector2(320, 180)
+script = ExtResource("12_wscrc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enviornment"]
+shape = SubResource("RectangleShape2D_wscrc")
+
+[node name="BadLayer" type="Node2D" parent="Enviornment"]
+y_sort_enabled = true
+
+[node name="GoodLayer" type="Node2D" parent="Enviornment"]
+y_sort_enabled = true
+position = Vector2(0, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enviornment/GoodLayer"]
+position = Vector2(-176, -40)
+texture = ExtResource("13_mswub")
+offset = Vector2(0, -7)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Enviornment/GoodLayer"]
+position = Vector2(-233, -110)
+texture = ExtResource("13_mswub")

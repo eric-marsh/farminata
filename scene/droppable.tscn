@@ -21,14 +21,16 @@ script = ExtResource("1_34vfq")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture = ExtResource("1_j5dow")
+offset = Vector2(0, -8)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 z_index = -1
 material = SubResource("ShaderMaterial_j3pul")
-position = Vector2(0, 1)
 texture = ExtResource("1_j5dow")
+offset = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_34vfq")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
