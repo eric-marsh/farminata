@@ -14,7 +14,24 @@ func _ready() -> void:
 	reset_good_env()
 	
 func _process(_delta: float) -> void:
+	animate_flowers()
 	pass
+
+
+var current_skew: float = 0.0
+#var skew_dir: float = 0.002
+var skew_dir: float = 0.0002
+
+func animate_flowers():
+	if abs(current_skew) > 0.2:
+		skew_dir *= -1
+	current_skew += skew_dir
+
+	for f in $GoodLayer.get_children():
+		f.skew = current_skew
+		f.offset.x = tan(current_skew) * 8
+		
+		
 
 func reset_good_env() -> void:
 	total_good_sprites = 0
