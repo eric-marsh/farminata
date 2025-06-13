@@ -44,6 +44,7 @@ func reset_plots():
 	while plots_left > 0:
 		add_plot()
 		plots_left -= 1
+	State.num_plots = get_total_plots()
 
 func get_random_position_in_grow_area() -> Vector2:
 	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty():

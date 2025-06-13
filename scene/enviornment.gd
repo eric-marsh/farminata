@@ -27,19 +27,25 @@ func reset_good_env() -> void:
 
 const FLOWER = preload("res://flower.tscn")
 func update_enviornment_layer(): 
-	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
-	var num_desired_sprites = total_good_sprites * State.enviornment_percentage
+	if(State.num_plots < 5):
+		return
+	var num_flowers_to_add = 0
+	if(State.num_plots < 20 and State.num_plots % 2 == 0):
+		num_flowers_to_add = 1
+	if State.num_plots > 20:
+		num_flowers_to_add = 2
 	
-	var i: int = 0
-	while i < num_desired_sprites - $GoodLayer.get_children().size() and good_enviornment_positions.size() > 0:
-		var f = FLOWER.instantiate()
-		f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
-		f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
-		f.get_node("FlowerSprite").offset.y = -6
-		f.global_position = good_enviornment_positions[0]
-		good_enviornment_positions = good_enviornment_positions.slice(1)
-		$GoodLayer.add_child(f)
-		i += 1
+	
+	# add one flower
+	var f = FLOWER.instantiate()
+	f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
+	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
+	f.get_node("FlowerSprite").offset.y = -6
+	f.global_position = good_enviornment_positions[0]
+	good_enviornment_positions = good_enviornment_positions.slice(1)
+	$GoodLayer.add_child(f)
+	
+	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
 
 
 
