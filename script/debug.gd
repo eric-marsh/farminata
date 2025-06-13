@@ -1,5 +1,7 @@
 extends Node
 
+var ALL_FULL_CROPS_AT_START:bool = true
+
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
 var STARTING_MONEY: int = 111110
@@ -11,7 +13,7 @@ var DISABLE_SLOT_MACHINE:bool = true
 
 var KEEP_PLOTS_ON_START:bool = false
 
-var ALL_FULL_CROPS_AT_START:bool = false
+
 
 var DEBUG_ALWAYS_MUTE:bool = true
 

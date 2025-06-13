@@ -66,6 +66,10 @@ func _physics_process(_delta: float) -> void:
 	
 	if state == Enum.Helper_State.Wander and Globals.Main and Globals.Main.global_timer % 20 == 0:
 		check_for_tasks_to_do()
+		
+		
+	if state == Enum.Helper_State.Pluck_Crop && target_plot.plot_growth_state != Enum.Plot_Growth_State.Full:
+		set_state(Enum.Helper_State.Idle)
 	
 	if Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
@@ -249,7 +253,8 @@ func on_reaching_target_pos() -> void:
 			target_plot = null
 			set_state(Enum.Helper_State.Idle)
 		Enum.Helper_State.Pluck_Crop:
-			target_plot.pluck_crop()
+			if target_plot.plot_growth_state == Enum.Plot_Growth_State.Full:
+				target_plot.pluck_crop()
 			target_plot = null
 			set_state(Enum.Helper_State.Idle)
 		_:
