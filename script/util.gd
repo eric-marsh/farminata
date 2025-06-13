@@ -80,7 +80,7 @@ const EXPLOSION_PARTICLE = preload("res://scene/explosion_particle.tscn")
 func create_explosion_particle(pos: Vector2, color: Color, num_squares: int = 12, speed_scale: float = 0.6) -> void:
 	var p = EXPLOSION_PARTICLE.instantiate() as CPUParticles2D
 	p.global_position =pos
-	p.color = color.lightened(0.5)
+	p.color = color
 	p.amount = num_squares
 	p.speed_scale = speed_scale
 	p.connect("finished", func(): p.queue_free())

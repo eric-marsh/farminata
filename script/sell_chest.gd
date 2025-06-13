@@ -30,7 +30,7 @@ func sell_droppable(d: droppable, ignore_collision: bool = false) -> void:
 		if !is_colliding:
 			return
 	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
-	Util.create_explosion_particle(d.global_position, Color.YELLOW)
+	Util.create_explosion_particle(d.global_position, Color.YELLOW.lightened(0.5))
 	d.delete()
 
 func _on_body_entered(body: Node2D) -> void:

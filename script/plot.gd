@@ -12,6 +12,7 @@ var size: Vector2 = Vector2(32, 32)
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
 	update_image()
+	animation_player.play("popup_crop")
 	
 	
 func _process(_delta: float) -> void:
@@ -134,6 +135,9 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "grow_crop":
 		is_growing = false
 		done_growing()
+		return
+	if anim_name == "popup_crop":
+		Util.create_explosion_particle(global_position - Vector2(0,8), Color.html("#806359"), 6, 1.1)
 		return
 	if anim_name == "pulse_crop":
 		return

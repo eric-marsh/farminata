@@ -74,7 +74,7 @@ func animate_hit(strength: float, pos: Vector2 = Vector2.ZERO) -> void:
 	
 	var c = particle_colors[particle_color_index]
 	particle_color_index = (particle_color_index + 1) % particle_colors.size()
-	Util.create_explosion_particle(pos, c, 6, 1.9)
+	Util.create_explosion_particle(pos, c.lightened(0.5), 6, 1.9)
 
 func create_drop()->void:
 	var drop_type = get_random_output() 
