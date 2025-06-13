@@ -28,6 +28,8 @@ func _ready() -> void:
 		$StateLabel.queue_free()
 	
 func _physics_process(delta: float) -> void:
+	
+	update_hat_animation()
 	if apply_upgrade:
 		attack_interval = max(0.1, attack_interval / 2)
 		attack_strength += 1
