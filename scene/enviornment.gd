@@ -12,18 +12,10 @@ const good_enviornment_images = [
 func _ready() -> void:
 	reset_good_env()
 	
-func _process(_delta: float) -> void:
-	animate_breeze()
-	pass
+
 
 var current_skew: float = 0.0
 var skew_dir: float = 0.0002
-
-func animate_breeze():
-	for f in $GoodLayer.get_children():
-		f.skew = Util.get_breeze_skew()
-		f.offset.x = tan(f.skew) * 8
-
 
 func reset_good_env() -> void:
 	total_good_sprites = 0
@@ -41,9 +33,9 @@ func update_enviornment_layer():
 	var i: int = 0
 	while i < num_desired_sprites - $GoodLayer.get_children().size() and good_enviornment_positions.size() > 0:
 		var f = FLOWER.instantiate()
-		f.texture = good_enviornment_images.pick_random()
-		f.flip_h = Util.random_chance(0.5)
-		f.offset.y = -6
+		f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
+		f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
+		f.get_node("FlowerSprite").offset.y = -6
 		f.global_position = good_enviornment_positions[0]
 		good_enviornment_positions = good_enviornment_positions.slice(1)
 		$GoodLayer.add_child(f)

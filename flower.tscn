@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b60032nv5tx0k"]
+[gd_scene load_steps=4 format=3 uid="uid://b60032nv5tx0k"]
 
+[ext_resource type="Script" uid="uid://420cc26tmwu5" path="res://flower.gd" id="1_511j0"]
 [ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="1_p547k"]
 [ext_resource type="Texture2D" uid="uid://cpybc6y22sltq" path="res://img/enviornment/flower_bg.png" id="2_nageh"]
 
-[node name="Flower" type="Sprite2D"]
+[node name="Flower" type="Node2D"]
+script = ExtResource("1_511j0")
+
+[node name="FlowerSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_p547k")
 offset = Vector2(0, -7)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="GroundSprite" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(0, -5)
+position = Vector2(0, -2)
 texture = ExtResource("2_nageh")
