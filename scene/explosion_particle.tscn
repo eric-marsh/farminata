@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu2tfbnykray1"]
+[gd_scene load_steps=4 format=3 uid="uid://cu2tfbnykray1"]
 
 [ext_resource type="Script" uid="uid://ceeprawrgdffh" path="res://script/explosion_particle.gd" id="1_vhlo5"]
 
@@ -7,16 +7,18 @@ _limits = [1.0, 4.0, 0.0, 1.0]
 _data = [Vector2(0, 1.03198), 0.0, 0.0, 0, 0, Vector2(1, 4), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Gradient" id="Gradient_vhlo5"]
+offsets = PackedFloat32Array(0.0146199, 0.745614, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="CPUParticles2D" type="CPUParticles2D"]
 z_index = 12
 emitting = false
 amount = 12
-lifetime = 0.5
+lifetime = 0.75
 one_shot = true
 speed_scale = 0.6
 explosiveness = 1.0
-emission_shape = 1
-emission_sphere_radius = 1.0
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)
@@ -29,6 +31,7 @@ damping_max = 50.0
 angle_min = -160.0
 angle_max = 160.0
 scale_amount_curve = SubResource("Curve_hnh5b")
+color_ramp = SubResource("Gradient_vhlo5")
 script = ExtResource("1_vhlo5")
 
 [connection signal="finished" from="." to="." method="_on_finished"]
