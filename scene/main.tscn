@@ -50,7 +50,7 @@ y_sort_enabled = true
 script = ExtResource("4_k65ib")
 
 [node name="Plot" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(143, 140)
+position = Vector2(320, 240)
 
 [node name="Plot2" parent="Plots" instance=ExtResource("5_wscrc")]
 position = Vector2(187, 183)

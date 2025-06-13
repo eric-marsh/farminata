@@ -27,6 +27,8 @@ func reset_good_env() -> void:
 
 const FLOWER = preload("res://flower.tscn")
 func update_enviornment_layer(): 
+	
+	
 	if(State.num_plots < 5):
 		return
 	var num_flowers_to_add = 0
