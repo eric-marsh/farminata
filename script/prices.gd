@@ -31,14 +31,12 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 			return 10
 		Enum.Upgrade_Type.UnlockTurnip:
 			return 40
-		Enum.Upgrade_Type.UnlockRadish:
-			return 80
 		Enum.Upgrade_Type.UnlockPotato:
-			return 120
+			return 80
 		Enum.Upgrade_Type.UnlockKale:
-			return 240
+			return 120
 		Enum.Upgrade_Type.UnlockRadish:
-			return 480
+			return 240
 		Enum.Upgrade_Type.AddHat:
 			return 20
 			

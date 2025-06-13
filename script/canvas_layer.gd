@@ -5,22 +5,18 @@ class_name canvas_layer
 
 @onready var plot_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
 @onready var onion_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
-@onready var turnip_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton
+@onready var turnip_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/TurnipButton
 @onready var potato_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/PotatoButton
-@onready var kale_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/KaleButton
-@onready var radish_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/RadishButton
+@onready var kale_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3/KaleButton
+@onready var radish_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3/RadishButton
 
 @onready var add_farmer_helper: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper
 @onready var add_pluck_helper_button: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton
-@onready var add_attack_helper_button: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddAttackHelperButton
+@onready var add_attack_helper_button: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer2/AddAttackHelperButton
 
 @onready var add_farmer_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddFarmerHatButton
 @onready var add_delivery_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddDeliveryHatButton
-@onready var add_attack_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddAttackHatButton
-
-
-
-
+@onready var add_attack_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer2/AddAttackHatButton
 
 func _ready() -> void:
 	update_money_counter()
