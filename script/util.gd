@@ -130,7 +130,7 @@ func create_slash_animation(pos: Vector2, flip_h: bool = false):
 
 
 var current_skew: float = 0.0
-var skew_dir: float = 0.0001
+var skew_dir: float = 0.00001
 
 func update_breeze():
 	if abs(current_skew) > 0.15:

@@ -4,7 +4,7 @@ enum Drop_Type { Blurry, X, Water, Sun,
 Carrot_Seed, Carrot, Onion_Seed, Onion, Turnip_Seed, Turnip, Potato_Seed, Potato, Kale_Seed, Kale, Radish_Seed, Radish,
 Farm_Hat, Delivery_Hat, Attack_Hat 
 }
-enum Plot_State { Dry, Wet }
+enum Plot_State { Dry, Wet, Grow }
 
 enum Plot_Growth_State { None, Seed, Partial_1, Partial_2, Full }
 enum Grow_Type { None, Carrot, Onion, Turnip, Potato, Kale, Radish }

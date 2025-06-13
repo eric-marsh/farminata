@@ -16,7 +16,8 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	animate_breeze()
+	if !is_growing:
+		animate_breeze()
 
 
 func animate_breeze():
@@ -44,7 +45,9 @@ func apply_droppable(d: droppable) -> void:
 	if 	DropUtil.is_seed(d.drop_type):
 		if plot_growth_state == Enum.Plot_Growth_State.None:
 			grow_type = PlantUtil.drop_type_to_grow_type(d.drop_type)
+			var prev_plot_state = plot_state
 			set_next_growth_state()
+			plot_state = prev_plot_state # TODO: do this the right way
 			cleanup_droppable(d)
 			update_image()
 		return
@@ -58,14 +61,14 @@ func apply_droppable(d: droppable) -> void:
 	
 	if d.drop_type == Enum.Drop_Type.Sun:
 		if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
-			plot_state = Enum.Plot_State.Dry
+			#plot_state = Enum.Plot_State.Dry
 			set_next_growth_state()
 			cleanup_droppable(d)
 			update_image()
 		return
 
 func cleanup_droppable(d: droppable) -> void:
-	DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, global_position)
+	DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, global_position - Vector2(0, 8))
 	d.delete()
 
 func reset_growth_state():
@@ -82,6 +85,7 @@ func set_next_growth_state():
 			return
 		else:
 			is_growing = true
+			plot_state = Enum.Plot_State.Grow
 			animation_player.play("grow_crop")
 			animation_player.speed_scale = 0.5
 
@@ -90,6 +94,8 @@ func done_growing()->void:
 	plot_growth_state = stage.state
 	growth_stage_index += 1
 	is_growing = false
+	plot_state = Enum.Plot_State.Dry
+	
 	update_image()
 	animation_player.play("pulse_crop")
 
@@ -98,7 +104,10 @@ func is_full_grown() -> bool:
 
 const PLOT_WET = preload("res://img/plot/plot_wet.png")
 const PLOT_DRY = preload("res://img/plot/plot_dry.png")
+const PLOT_GROW = preload("res://img/plot/plot_grow.png")
 const SEED = preload("res://img/plants/seed.png")
+
+
 
 func update_image():
 		match plot_state:
@@ -106,6 +115,8 @@ func update_image():
 				$Dirt.texture = PLOT_DRY
 			Enum.Plot_State.Wet:
 				$Dirt.texture = PLOT_WET
+			Enum.Plot_State.Grow:
+				$Dirt.texture = PLOT_GROW
 		if !is_growing:
 			$Plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
 			$Plant.offset = Vector2(0, -4)
@@ -134,6 +145,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		return
 	if anim_name == "grow_crop":
 		is_growing = false
+		plot_state = Enum.Plot_State.Dry
 		done_growing()
 		return
 	if anim_name == "popup_crop":

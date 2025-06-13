@@ -57,7 +57,7 @@ func _physics_process(delta):
 		moving_to_target = true
 	
 	if is_dragging:
-		global_transform.origin = get_global_mouse_position()
+		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)
 	
 	
 	if is_hat and Globals.Main.global_timer % 1 == 0:
