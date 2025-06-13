@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
-[ext_resource type="Texture2D" uid="uid://dqblub5jwrxx5" path="res://img/enviornment/parking_lot_bg.png" id="2_v2gmf"]
 [ext_resource type="PackedScene" uid="uid://dgnanoyg1dkpf" path="res://scene/audio.tscn" id="3_b5f6u"]
 [ext_resource type="TileSet" uid="uid://dr8cfe3biaoab" path="res://main_tileset.tres" id="3_hybxs"]
 [ext_resource type="Script" uid="uid://b8pxcom8tcd8s" path="res://scene/plots_container.gd" id="4_k65ib"]
 [ext_resource type="PackedScene" uid="uid://jida1cnc03um" path="res://scene/canvas_layer.tscn" id="5_0ha60"]
+[ext_resource type="Texture2D" uid="uid://c4hoovdka8vtc" path="res://img/ui/tutorial.png" id="5_v2gmf"]
 [ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
@@ -26,12 +26,6 @@ size = Vector2(639, 297)
 y_sort_enabled = true
 script = ExtResource("1_ig7tw")
 
-[node name="ParkingLotBackground" type="Sprite2D" parent="."]
-visible = false
-z_index = -1
-texture = ExtResource("2_v2gmf")
-centered = false
-
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -4
 position = Vector2(64, 128)
@@ -44,6 +38,10 @@ script = ExtResource("2_v0l8b")
 
 [node name="Audio" parent="Camera2D" instance=ExtResource("3_b5f6u")]
 position = Vector2(-320, -180)
+
+[node name="Tutorial" type="Sprite2D" parent="."]
+position = Vector2(328, 324)
+texture = ExtResource("5_v2gmf")
 
 [node name="Plots" type="Node2D" parent="."]
 y_sort_enabled = true
