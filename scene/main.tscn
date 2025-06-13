@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=16 format=3 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -11,22 +11,21 @@
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
-[ext_resource type="PackedScene" uid="uid://c82wwcd2kv076" path="res://scene/helper/helper.tscn" id="9_hybxs"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
-[ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="13_mswub"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
 size = Vector2(366, 133)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wscrc"]
-size = Vector2(640, 308)
+size = Vector2(639, 297)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_ig7tw")
 
 [node name="ParkingLotBackground" type="Sprite2D" parent="."]
+z_index = -1
 texture = ExtResource("2_v2gmf")
 centered = false
 
@@ -127,9 +126,6 @@ y_sort_enabled = true
 position = Vector2(0, 6)
 script = ExtResource("6_of57s")
 
-[node name="Helper" parent="Helpers" instance=ExtResource("9_hybxs")]
-position = Vector2(152, 170)
-
 [node name="CanvasLayer" parent="." instance=ExtResource("5_0ha60")]
 
 [node name="Animations" type="Node2D" parent="."]
@@ -153,7 +149,7 @@ position = Vector2(320, 180)
 script = ExtResource("12_wscrc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enviornment"]
-position = Vector2(0, 26)
+position = Vector2(0.5, 31.5)
 shape = SubResource("RectangleShape2D_wscrc")
 
 [node name="BadLayer" type="Node2D" parent="Enviornment"]
@@ -162,12 +158,3 @@ y_sort_enabled = true
 [node name="GoodLayer" type="Node2D" parent="Enviornment"]
 y_sort_enabled = true
 position = Vector2(0, 2)
-
-[node name="Sprite2D" type="Sprite2D" parent="Enviornment/GoodLayer"]
-position = Vector2(-176, -40)
-texture = ExtResource("13_mswub")
-offset = Vector2(0, -7)
-
-[node name="Sprite2D2" type="Sprite2D" parent="Enviornment/GoodLayer"]
-position = Vector2(-233, -110)
-texture = ExtResource("13_mswub")

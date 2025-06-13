@@ -59,4 +59,4 @@ SCROLL_DOWN={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.521569, 0.745098, 0.54902, 1)
+environment/defaults/default_clear_color=Color(0.607843, 0.607843, 0.678431, 1)
