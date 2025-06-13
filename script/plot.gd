@@ -137,7 +137,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		done_growing()
 		return
 	if anim_name == "popup_crop":
-		Util.create_explosion_particle(global_position - Vector2(0,8), Color.html("#806359"), 6, 1.1)
+		Util.create_explosion_particle(global_position - Vector2(0,8), Color(Color.html("#806359"), 0.7), 6, 1.0)
 		return
 	if anim_name == "pulse_crop":
 		return

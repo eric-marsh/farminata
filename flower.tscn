@@ -1,8 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://b60032nv5tx0k"]
+[gd_scene load_steps=7 format=3 uid="uid://b60032nv5tx0k"]
 
 [ext_resource type="Script" uid="uid://420cc26tmwu5" path="res://flower.gd" id="1_511j0"]
 [ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="1_p547k"]
 [ext_resource type="Texture2D" uid="uid://cpybc6y22sltq" path="res://img/enviornment/flower_bg.png" id="2_nageh"]
+
+[sub_resource type="Animation" id="Animation_511j0"]
+resource_name = "popup_flower"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GroundSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlowerSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_r72as"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GroundSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlowerSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cd1mw"]
+_data = {
+&"RESET": SubResource("Animation_r72as"),
+&"popup_flower": SubResource("Animation_511j0")
+}
 
 [node name="Flower" type="Node2D"]
 script = ExtResource("1_511j0")
@@ -15,3 +77,8 @@ offset = Vector2(0, -7)
 z_index = -1
 position = Vector2(0, -2)
 texture = ExtResource("2_nageh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cd1mw")
+}
