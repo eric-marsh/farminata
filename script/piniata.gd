@@ -19,10 +19,10 @@ func is_piniata_dead() -> bool:
 func _ready() -> void:
 	health_bar.max_value = State.max_piniata_hp
 	health_bar.min_value = 0
-	update_health_bar()
 	
 	if Debug.PINIATA_HP > 0:
 		State.piniata_hp = Debug.PINIATA_HP
+	update_health_bar()
 
 var path_velocity: float = 0.0
 var path_default_progress: float = 0.0

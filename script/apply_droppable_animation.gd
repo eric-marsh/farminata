@@ -15,7 +15,6 @@ var arc_up_amount: int = 80
 func _ready():
 	global_position = start_pos
 	var diff: Vector2 = target_pos - start_pos
-	
 	var curve := Curve2D.new()
 	
 	# Add start and end points
