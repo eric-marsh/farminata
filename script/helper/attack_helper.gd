@@ -118,5 +118,9 @@ func get_attack_pos(index: int) -> Vector2:
 	var center = Globals.PiniataNode.piniata_center
 	var angle_step = PI / (num_attack_helpers + 1)
 	var angle = PI + angle_step * (index + 1)  
-	var offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
+	var offset
+	if State.num_attack_helpers % 2 == 0:
+		offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
+	else:
+		offset = Vector2(-cos(angle), -sin(angle)) * attack_pos_radius
 	return center + offset
