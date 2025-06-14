@@ -19,13 +19,16 @@ var skew_dir: float = 0.0002
 
 func reset_good_env() -> void:
 	total_good_sprites = 0
-	for c in $GoodLayer.get_children():
+	for c in $GoodLayer/Flowers.get_children():
+		c.queue_free()
+	for c in $GoodLayer/Snails.get_children():
 		c.queue_free()
 	reset_sprite_points()
 	update_enviornment_layer()
 
 
 const FLOWER = preload("res://flower.tscn")
+const SNAIL = preload("res://scene/snail.tscn")
 func update_enviornment_layer(): 
 	if(State.num_plots < 5):
 		if(State.num_plots > 2):
@@ -49,7 +52,15 @@ func update_enviornment_layer():
 	f.get_node("FlowerSprite").offset.y = -6
 	f.global_position = good_enviornment_positions[0]
 	good_enviornment_positions = good_enviornment_positions.slice(1)
-	$GoodLayer.add_child(f)
+	$GoodLayer/Flowers.add_child(f)
+	
+	# maybe add snail
+	if State.num_plots % 15 == 0 and Globals.PlotsContainer:
+		var s = SNAIL.instantiate()
+		s.global_position = Globals.PlotsContainer.remaining_plot_points[0]
+		$GoodLayer/Snails.add_child(s)
+		
+	
 	
 	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
 

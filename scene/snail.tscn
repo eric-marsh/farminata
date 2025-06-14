@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://3tvpadkeqqoh"]
+
+[ext_resource type="Texture2D" uid="uid://bwcacdttlra8m" path="res://img/enviornment/snail-sheet.png" id="1_0y6is"]
+[ext_resource type="Script" uid="uid://drg8o17f5bnjk" path="res://scene/snail.gd" id="2_xg0px"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xg0px"]
+atlas = ExtResource("1_0y6is")
+region = Rect2(0, 0, 13, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iue35"]
+atlas = ExtResource("1_0y6is")
+region = Rect2(13, 0, 13, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3kis"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xg0px")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iue35")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.5
+}]
+
+[node name="Snail" type="AnimatedSprite2D"]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_m3kis")
+frame_progress = 0.883394
+script = ExtResource("2_xg0px")
