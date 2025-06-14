@@ -9,15 +9,27 @@ class_name plot
 
 var size: Vector2 = Vector2(32, 32)
 
+var grass_scale_speed: float = 1.5
+
+@onready var grass = $Grass
+
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
 	update_image()
 	animation_player.play("popup_crop")
 	
-	
-func _process(_delta: float) -> void:
+
+func _process(delta: float) -> void:
 	if !is_growing:
 		animate_breeze()
+	
+	if grass.visible and grass.scale < State.target_grass_scale:
+		print(grass.scale, " , ", State.target_grass_scale)
+		grass.scale = grass.scale.lerp(State.target_grass_scale, delta * grass_scale_speed)
+		# Snap to target if close enough
+		if grass.scale.distance_to(State.target_grass_scale) < 0.01:
+			grass.scale = State.target_grass_scale
+		grass.offset = Vector2(0, -8) + (grass.scale * Vector2(0, 1))
 
 
 func animate_breeze():
@@ -142,15 +154,13 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "pluck_crop":
 		if is_plucking:
 			pluck_crop(true)
-		return
 	if anim_name == "grow_crop":
 		is_growing = false
 		plot_state = Enum.Plot_State.Dry
 		done_growing()
-		return
 	if anim_name == "popup_crop":
 		Util.create_explosion_particle(global_position - Vector2(0,8), Color(Color.html("#806359"), 0.7), 6, 1.0)
-		return
+		grass.visible = true
 	if anim_name == "pulse_crop":
 		return
 

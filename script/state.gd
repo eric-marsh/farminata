@@ -11,8 +11,10 @@ var num_pluck_helpers: int = 0
 var num_attack_helpers: int = 0
 
 var enviornment_percentage: float = 0.0
+var target_grass_scale: Vector2 = Vector2.ONE * 1.0
 
 var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
+
 
 var max_piniata_hp: float = 100000
 var piniata_hp: float = max_piniata_hp

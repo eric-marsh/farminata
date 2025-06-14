@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=20 format=4 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -10,18 +10,16 @@
 [ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
-[ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
-[ext_resource type="Script" path="res://scene/enviornment.gd" id="12_wscrc"]
-[ext_resource type="PackedScene" uid="uid://b60032nv5tx0k" path="res://flower.tscn" id="14_v2gmf"]
+[ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
 [ext_resource type="Script" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
-size = Vector2(366, 133)
+size = Vector2(514, 199)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wscrc"]
-size = Vector2(639, 297)
+size = Vector2(637, 355)
 
 [sub_resource type="Animation" id="Animation_smf0o"]
 length = 0.001
@@ -156,17 +154,6 @@ position = Vector2(139, 196)
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
 
-[node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(102, 144)
-
-[node name="Droppable2" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(110, 191)
-drop_type = 3
-
-[node name="Droppable3" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(85, 191)
-drop_type = 4
-
 [node name="Helpers" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(0, 6)
@@ -177,7 +164,7 @@ script = ExtResource("6_of57s")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
-position = Vector2(41, 344)
+position = Vector2(42, 64)
 scale = Vector2(4, 4)
 
 [node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
@@ -187,6 +174,7 @@ position = Vector2(337, -5)
 position = Vector2(288, 223)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrowArea"]
+position = Vector2(-23, 32.5)
 shape = SubResource("RectangleShape2D_k65ib")
 
 [node name="Enviornment" type="Area2D" parent="."]
@@ -195,7 +183,7 @@ position = Vector2(320, 180)
 script = ExtResource("12_wscrc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enviornment"]
-position = Vector2(0.5, 31.5)
+position = Vector2(-0.5, 2.5)
 shape = SubResource("RectangleShape2D_wscrc")
 
 [node name="BadLayer" type="Node2D" parent="Enviornment"]
@@ -204,9 +192,6 @@ y_sort_enabled = true
 [node name="GoodLayer" type="Node2D" parent="Enviornment"]
 y_sort_enabled = true
 position = Vector2(0, 2)
-
-[node name="Flower" parent="Enviornment/GoodLayer" instance=ExtResource("14_v2gmf")]
-position = Vector2(-285, -138)
 
 [node name="FadeAwayRect" type="ColorRect" parent="."]
 visible = false

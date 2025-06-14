@@ -27,12 +27,13 @@ func reset_good_env() -> void:
 
 const FLOWER = preload("res://flower.tscn")
 func update_enviornment_layer(): 
-	if(State.num_plots > 2):
-		$"../Tutorial".visible = false
-		return
-	
 	if(State.num_plots < 5):
+		if(State.num_plots > 2):
+			$"../Tutorial".visible = false
+			return
 		return
+		
+	#State.target_grass_scale = Vector2.ONE * max(3,(State.num_plots / 2))
 	var num_flowers_to_add = 0
 	if(State.num_plots < 20 and State.num_plots % 2 == 0):
 		num_flowers_to_add = 1
