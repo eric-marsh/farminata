@@ -3,12 +3,12 @@ class_name canvas_layer
 
 @onready var money_label: Label = $MarginContainer/VBoxContainer/MoneyLabel
 
-@onready var plot_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
-@onready var onion_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
-@onready var turnip_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/TurnipButton
-@onready var potato_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/PotatoButton
-@onready var kale_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3/KaleButton
-@onready var radish_button: Button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3/RadishButton
+@onready var plot_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
+@onready var onion_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
+@onready var turnip_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton
+@onready var potato_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PotatoButton
+@onready var kale_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/KaleButton
+@onready var radish_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/RadishButton
 
 @onready var add_farmer_helper: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper
 @onready var add_pluck_helper_button: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton
@@ -30,8 +30,6 @@ func update_money_counter():
 	if !Globals.Main:
 		return
 	
-	
-		
 	var money: int = State.money
 	money_label.text = "$" + str(money)
 
@@ -57,10 +55,16 @@ func update_money_counter():
 		{"seed": Enum.Drop_Type.Radish_Seed, "upgrade_type": Enum.Upgrade_Type.UnlockRadish, "button": radish_button },
 	]
 	
+	var seed_button_shown: bool = false
 	for seed in seed_upgrades:
 		var price = Prices.get_upgrade_price(seed["upgrade_type"])
 		seed["button"].text = "$" + str(price) if !State.unlocked_slot_outputs.has(seed["seed"]) else ""
 		seed["button"].disabled = price > money or State.unlocked_slot_outputs.has(seed["seed"])
+		seed["button"].visible = false
+		if !seed_button_shown and !State.unlocked_slot_outputs.has(seed["seed"]):
+			seed_button_shown = true
+			seed["button"].visible = true
+			
 	
 	# update hat buttons
 	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)

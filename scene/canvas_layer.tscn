@@ -68,10 +68,8 @@ text = "$24"
 icon = ExtResource("2_r6mtg")
 expand_icon = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FarmUpgrades"]
-layout_mode = 2
-
-[node name="TurnipButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2"]
+[node name="TurnipButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -79,7 +77,8 @@ text = "$24"
 icon = ExtResource("5_c7vqt")
 expand_icon = true
 
-[node name="PotatoButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2"]
+[node name="PotatoButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -87,10 +86,8 @@ text = "$24"
 icon = ExtResource("6_5gad3")
 expand_icon = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FarmUpgrades"]
-layout_mode = 2
-
-[node name="KaleButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3"]
+[node name="KaleButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -98,7 +95,8 @@ text = "$24"
 icon = ExtResource("7_espfs")
 expand_icon = true
 
-[node name="RadishButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3"]
+[node name="RadishButton" type="Button" parent="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -193,10 +191,10 @@ text = "Env: 0.0%"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/TurnipButton" to="." method="_on_turnip_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer2/PotatoButton" to="." method="_on_potato_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3/KaleButton" to="." method="_on_kale_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer3/RadishButton" to="." method="_on_radish_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton" to="." method="_on_turnip_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PotatoButton" to="." method="_on_potato_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/KaleButton" to="." method="_on_kale_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/RadishButton" to="." method="_on_radish_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper" to="." method="_on_add_farmer_helper_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton" to="." method="_on_add_pluck_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer2/AddAttackHelperButton" to="." method="_on_add_attack_helper_button_pressed"]
