@@ -71,7 +71,7 @@ script = ExtResource("1_511j0")
 
 [node name="FlowerSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_p547k")
-offset = Vector2(0, -7)
+offset = Vector2(0, -13)
 
 [node name="GroundSprite" type="Sprite2D" parent="."]
 z_index = -1

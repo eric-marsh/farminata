@@ -4,8 +4,9 @@ const PLOT = preload("res://scene/plot.tscn")
 
 
 func add_plot():
-	if !Globals.PlotsContainer or !Globals.EnviornmentLayers:
+	if !Globals.PlotsContainer or !Globals.EnviornmentLayers or Globals.PlotsContainer.remaining_plot_points.size() == 0:
 		return
+		
 	var p = PLOT.instantiate() as plot
 	p.global_position = get_random_position_in_grow_area()
 	if Debug.ALL_FULL_CROPS_AT_START:
@@ -56,7 +57,7 @@ func get_random_position_in_grow_area() -> Vector2:
 	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
 	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
 	
-	return top_left + pos + Util.random_offset(8)
+	return top_left + pos + Util.random_offset(8) + Vector2(0, 32)
 	
 
 func get_total_plots() -> int:

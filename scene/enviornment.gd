@@ -5,8 +5,12 @@ static var good_enviornment_positions: Array[Vector2] = []
 
 
 const good_enviornment_images = [
+	preload("res://img/enviornment/good/bush_1.png"),
+	preload("res://img/enviornment/good/flower_1.png"),
 	preload("res://img/enviornment/good/flower_1.png"),
 	preload("res://img/enviornment/good/flower_2.png"),
+	preload("res://img/enviornment/good/flower_2.png"),
+	preload("res://img/enviornment/good/grass_1.png")
 ]
 
 func _ready() -> void:
@@ -62,7 +66,8 @@ func add_flower() -> void:
 	f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
 	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
 	f.get_node("FlowerSprite").offset.y = -6
-	f.global_position = good_enviornment_positions[0]
+	f.is_flower = true
+	f.global_position = good_enviornment_positions[0] + Util.random_offset(4)
 	good_enviornment_positions.push_back(good_enviornment_positions[0])
 	good_enviornment_positions = good_enviornment_positions.slice(1)
 	$GoodLayer/Flowers.add_child(f)
