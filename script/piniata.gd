@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var droppable_output = $Output
-@onready var animation_player_pulse:AnimationPlayer = $AnimationPlayerPulse
+@onready var animation_player:AnimationPlayer = $AnimationPlayerPulse
 
 @onready var health_bar = $HealthBar
 
@@ -17,12 +17,29 @@ func _ready() -> void:
 	health_bar.max_value = State.max_piniata_hp
 	health_bar.min_value = 0
 	update_health_bar()
+	
+	if Debug.PINIATA_HP > 0:
+		State.piniata_hp = Debug.PINIATA_HP
 
 var path_velocity: float = 0.0
 var path_default_progress: float = 0.0
 var damping: float = 1.0       # slows it down
 var spring_force: float = 5.0  # pulls back to center
+
+var play_kill_animation: bool = false
 func _process(delta: float) -> void:
+	if !play_kill_animation and State.piniata_hp <= 0:
+		play_kill_animation = true
+		animation_player.stop(true)
+		animation_player.play("kill_piniata")
+		return
+	
+	if play_kill_animation and Globals.Main.global_timer % 5 == 0:
+		var pos: Vector2 = piniata_center + Util.random_offset(32)
+		piniata_particle(pos)
+		DropUtil.create_apply_droppable_animation(get_random_output(), pos - Vector2(0, 16), Util.random_visible_position())
+	
+	
 	piniata_center = $Node2D/Output.global_position
 	var displacement = $Node2D.rotation - path_default_progress
 
@@ -58,8 +75,8 @@ var chance_of_output: float = 0.2
 func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	strength *= 1
 	
-	animation_player_pulse.stop(true)
-	animation_player_pulse.play("pulse")
+	animation_player.stop(true)
+	animation_player.play("pulse")
 	State.piniata_hp -= abs(strength)
 	update_health_bar(abs(strength))
 	
@@ -71,7 +88,9 @@ func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 func animate_hit(strength: float, pos: Vector2 = Vector2.ZERO) -> void:
 	path_velocity += strength
 	path_velocity = clamp(strength/10, -n, n)
-	
+	piniata_particle(pos)
+
+func piniata_particle(pos: Vector2):
 	var c = particle_colors[particle_color_index]
 	particle_color_index = (particle_color_index + 1) % particle_colors.size()
 	Util.create_explosion_particle(pos, c.lightened(0.5), 6, 1.9)
@@ -116,3 +135,6 @@ func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: in
 			hit_piniata(State.hit_strength, get_global_mouse_position())
 			Util.create_slash_animation(get_global_mouse_position(), true)
 			
+			
+			
+	

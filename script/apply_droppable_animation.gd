@@ -14,9 +14,15 @@ var arc_up_amount: int = 80
 
 func _ready():
 	global_position = start_pos
-	var diff:Vector2 = target_pos - start_pos
-	path_2d.curve.set_point_position(1, diff)
-	path_2d.curve.set_point_in(1, Vector2(-diff.x/2, -arc_up_amount))
+	var diff: Vector2 = target_pos - start_pos
+	var curve := Curve2D.new()
+	curve.add_point(Vector2.ZERO)
+	curve.add_point(diff)
+
+	# Control points for the curve shape
+	curve.set_point_in(1, Vector2(-diff.x / 2, -arc_up_amount))
+	curve.set_point_out(0, Vector2(diff.x / 2, arc_up_amount))
+	path_2d.curve = curve
 	sprite_2d.modulate.a = 0.8
 	sprite_2d.texture = DropUtil.get_drop_type_img(drop_type)
 

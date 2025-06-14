@@ -2,6 +2,8 @@ extends Node
 
 var ALL_FULL_CROPS_AT_START:bool = true
 
+var PINIATA_HP: int = 1
+
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
 var STARTING_MONEY: int = 111110
