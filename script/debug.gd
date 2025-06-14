@@ -2,14 +2,16 @@ extends Node
 
 var ALL_FULL_CROPS_AT_START:bool = false
 
-var DONT_SAVE:bool = true
-var DONT_LOAD:bool = true
+var DONT_SAVE:bool = false
+var DONT_LOAD:bool = false
+
+var DELETE_SAVE:bool = false
 
 var PINIATA_HP: int = 0
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
-var STARTING_MONEY: int = 111110
+var STARTING_MONEY: int = 100000
 
 #var Helper_Speed: float = 200.0
 var Helper_Speed: float = 0.0

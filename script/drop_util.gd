@@ -179,11 +179,8 @@ func get_highest_seed() -> droppable:
 	return null  
 
 
-func can_spawn_water() -> bool:
-	return DropUtil.get_total_drops_of_type(Enum.Drop_Type.Water) < State.num_plots * 3
-	
 
-var max_seed_offset: int = 4
+var max_seed_offset: int = 1
 func get_highest_seed_within_limit() -> Enum.Drop_Type:
 	var max_seeds_allowed: int = PlotUtil.get_total_plots() + max_seed_offset
 	for pair in seed_to_produce:

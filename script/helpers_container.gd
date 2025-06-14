@@ -5,18 +5,13 @@ const HELPER = preload("res://scene/helper/helper.tscn")
 const ATTACK_HELPER = preload("res://scene/helper/attack_helper.tscn")
 
 func _ready() -> void:
-	for i in range(State.num_farmer_helpers):
-		add_helper(Enum.Helper_Type.Farmer)
-	for i in range(State.num_pluck_helpers):
-		add_helper(Enum.Helper_Type.Pluck)
-	for i in range(State.num_attack_helpers):
-		add_helper(Enum.Helper_Type.Attack)
+	pass
 
 func _physics_process(delta: float) -> void:
 	pass
 
 
-func add_helper(helper_type: Enum.Helper_Type) -> void:
+func add_helper(helper_type: Enum.Helper_Type, update_count: bool = true) -> void:
 	var h
 	if helper_type == Enum.Helper_Type.Attack:
 		h = ATTACK_HELPER.instantiate() as attack_helper
@@ -27,13 +22,14 @@ func add_helper(helper_type: Enum.Helper_Type) -> void:
 	h.id = Util.get_total_helpers()
 	h.id_of_type = Util.get_total_helpers_of_type(helper_type)
 	add_child(h)
-	match(helper_type):
-		Enum.Helper_Type.Farmer:
-			State.num_farmer_helpers += 1
-		Enum.Helper_Type.Pluck:
-			State.num_pluck_helpers += 1
-		Enum.Helper_Type.Attack:
-			State.num_attack_helpers += 1
+	if update_count:
+		match(helper_type):
+			Enum.Helper_Type.Farmer:
+				State.num_farmer_helpers += 1
+			Enum.Helper_Type.Pluck:
+				State.num_pluck_helpers += 1
+			Enum.Helper_Type.Attack:
+				State.num_attack_helpers += 1
 
 func get_inactive_helper() -> helper:
 	for c in get_children():

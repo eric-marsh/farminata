@@ -141,7 +141,6 @@ y_sort_enabled = true
 script = ExtResource("1_xmivb")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 y_sort_enabled = true
 position = Vector2(0, -11)
 

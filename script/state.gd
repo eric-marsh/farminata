@@ -46,7 +46,24 @@ func load_game():
 				for i in save_data[key]:
 					unlocked_slot_outputs.append(int(i))
 			else:
+				print(key, ": ", save_data[key])
 				self.set(key, save_data[key])
+	
+	if Globals.CanvasLayerNode:
+		Globals.CanvasLayerNode.update_money_counter()
+	if Globals.HelpersContainerNode:
+		var num_farmers = num_farmer_helpers
+		num_farmer_helpers = 0
+		for i in range(num_farmers):
+			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Farmer)
+		var num_pluckers = num_pluck_helpers
+		num_pluck_helpers = 0
+		for i in range(num_pluckers):
+			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Pluck)
+		var num_attackers = num_attack_helpers
+		num_attack_helpers = 0
+		for i in range(num_attackers):
+			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Attack)
 
 func save_game():
 	if Debug.DONT_SAVE:

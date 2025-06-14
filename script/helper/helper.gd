@@ -363,8 +363,12 @@ func move_to_target() -> bool:
 	
 	if state == Enum.Helper_State.Get_Item and global_position.distance_to(target_pos) <= 2:
 		return true
-	if global_position.distance_to(target_pos) <= 32:
-		return true
+	if helper_type == Enum.Helper_Type.Attack:
+		if global_position.distance_to(target_pos) <= 2:
+			return true
+	else:
+		if global_position.distance_to(target_pos) <= 32:
+			return true
 	
 	
 	

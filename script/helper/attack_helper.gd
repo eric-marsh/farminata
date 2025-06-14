@@ -10,7 +10,6 @@ var is_target_pos_reached: bool = false
 
 var always_wander: bool = false
 
-# Path2D seems like overkill. Just use the timer and calculate the position based on the attack interval
 
 
 func _ready() -> void:
@@ -138,7 +137,6 @@ func get_attack_pos(index: int) -> Vector2:
 	if !Globals.PiniataNode:
 		return Vector2.ZERO
 
-	var center = Globals.PiniataNode.piniata_center
 	var angle_step = PI / (num_attack_helpers + 1)
 	var angle = PI + angle_step * (index + 1)  
 	var offset
@@ -146,4 +144,4 @@ func get_attack_pos(index: int) -> Vector2:
 		offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
 	else:
 		offset = Vector2(-cos(angle), -sin(angle)) * attack_pos_radius
-	return center + offset
+	return Globals.PiniataNode.piniata_center + offset + Vector2(0, 84)

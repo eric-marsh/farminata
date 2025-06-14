@@ -125,8 +125,6 @@ const PLOT_DRY = preload("res://img/plot/plot_dry.png")
 const PLOT_GROW = preload("res://img/plot/plot_grow.png")
 const SEED = preload("res://img/plants/seed.png")
 
-
-
 func update_image():
 		match plot_state:
 			Enum.Plot_State.Dry:
@@ -145,9 +143,9 @@ var is_plucking: bool = false
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if plot_growth_state != Enum.Plot_Growth_State.Full:
 		return
-		
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			
 			animation_player.play("pluck_crop")
 			is_plucking = true
 		else:

@@ -12,6 +12,9 @@ var dragged_droppable: droppable = null
 func _ready() -> void:
 	if !Debug.DONT_LOAD:
 		State.load_game()
+	if Debug.DELETE_SAVE:
+		State.delete_save()
+	
 	global_timer = 0
 	is_game_over = false
 	is_paused = false

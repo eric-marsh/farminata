@@ -17,6 +17,7 @@ func is_piniata_dead() -> bool:
 	return !visible
 
 func _ready() -> void:
+	piniata_center = global_position
 	health_bar.max_value = State.max_piniata_hp
 	health_bar.min_value = 0
 	
