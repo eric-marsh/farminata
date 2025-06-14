@@ -107,21 +107,48 @@ func create_drop()->void:
 	$Node2D/Output.trigger_output(drop_type, Vector2.ZERO)
 
 func get_random_output() -> Enum.Drop_Type:
-	var weighted_drops: Array[Enum.Drop_Type] = [
-		Enum.Drop_Type.Water,
-		Enum.Drop_Type.Water,
-		Enum.Drop_Type.Water,
-		Enum.Drop_Type.Sun,
-		Enum.Drop_Type.Sun,
-		Enum.Drop_Type.Sun,
-		Enum.Drop_Type.X,  # placeholder for best seed
-		Enum.Drop_Type.X  # placeholder for best seed
-	]
-	var result = weighted_drops[randi() % weighted_drops.size()]
-	if result == Enum.Drop_Type.X:
-		var s = DropUtil.get_highest_seed_within_limit()
-		return s if s != null else Enum.Drop_Type.X
-	return result
+	# Use integer weights; 100 = base scale
+	var drop_weights = {
+		Enum.Drop_Type.Water: 300,
+		Enum.Drop_Type.Sun: 300,
+		Enum.Drop_Type.X: 200,
+		Enum.Drop_Type.Carrot: 20,  
+	}
+
+	var filtered_weights := {}
+
+	for drop_type in drop_weights.keys():
+		if drop_type in [Enum.Drop_Type.Water, Enum.Drop_Type.Sun]:
+			var too_much = DropUtil.get_total_drops_of_type(drop_type) >= State.num_plots * 3
+			if not too_much:
+				filtered_weights[drop_type] = drop_weights[drop_type]
+		else:
+			filtered_weights[drop_type] = drop_weights[drop_type]
+
+	if filtered_weights.is_empty():
+		return Enum.Drop_Type.X
+
+	var total_weight = 0
+	for weight in filtered_weights.values():
+		total_weight += weight
+
+	var choice = randi() % total_weight
+	var cumulative = 0
+	for drop_type in filtered_weights.keys():
+		cumulative += filtered_weights[drop_type]
+		if choice < cumulative:
+			match drop_type:
+				Enum.Drop_Type.X:
+					var s = DropUtil.get_highest_seed_within_limit()
+					return s if s != null else Enum.Drop_Type.X
+				Enum.Drop_Type.Carrot:
+					var rand_seed = State.unlocked_slot_outputs.pick_random()
+					return DropUtil.get_produce_from_seed(rand_seed if rand_seed else Enum.Drop_Type.Carrot_Seed)
+				_:
+					return drop_type
+
+	return Enum.Drop_Type.X  # fallback
+
 
 func unlock_drop_type(type: Enum.Drop_Type) -> void:
 	if !possible_outputs.has(type):

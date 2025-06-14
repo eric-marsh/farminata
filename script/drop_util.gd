@@ -147,9 +147,7 @@ func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
 		
 	return droppable_count.get(drop_type, 0)
 
-
-
-var priority: Array = [
+var seed_to_produce: Array = [
 		{ "seed": Enum.Drop_Type.Radish_Seed, "produce": Enum.Drop_Type.Radish },
 		{ "seed": Enum.Drop_Type.Kale_Seed, "produce": Enum.Drop_Type.Kale },
 		{ "seed": Enum.Drop_Type.Potato_Seed, "produce": Enum.Drop_Type.Potato },
@@ -158,8 +156,14 @@ var priority: Array = [
 		{ "seed": Enum.Drop_Type.Carrot_Seed, "produce": Enum.Drop_Type.Carrot },
 	]
 	
+func get_produce_from_seed(seed: Enum.Drop_Type) -> Enum.Drop_Type:
+	for pair in seed_to_produce:
+		if pair.seed == seed:
+			return pair.produce
+	return Enum.Drop_Type.X
+	
 func get_highest_produce() -> droppable:
-	for pair in priority:
+	for pair in seed_to_produce:
 		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
 			var d = Globals.DropsNode.get_droppable_of_type(pair.produce)
 			if d:
@@ -167,17 +171,22 @@ func get_highest_produce() -> droppable:
 	return null  
 
 func get_highest_seed() -> droppable:
-	for pair in priority:
+	for pair in seed_to_produce:
 		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
 			var d = Globals.DropsNode.get_droppable_of_type(pair.seed)
 			if d:
 				return d
 	return null  
+
+
+func can_spawn_water() -> bool:
+	return DropUtil.get_total_drops_of_type(Enum.Drop_Type.Water) < State.num_plots * 3
 	
+
 var max_seed_offset: int = 4
 func get_highest_seed_within_limit() -> Enum.Drop_Type:
 	var max_seeds_allowed: int = PlotUtil.get_total_plots() + max_seed_offset
-	for pair in priority:
+	for pair in seed_to_produce:
 		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
 			if DropUtil.get_total_drops_of_type(pair.seed) < max_seeds_allowed:
 				return pair.seed
