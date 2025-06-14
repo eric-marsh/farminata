@@ -149,8 +149,8 @@ position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_4pdpe")
 
 [node name="Grass" type="Sprite2D" parent="."]
+visible = false
 z_index = -2
-scale = Vector2(2, 2)
 texture = ExtResource("2_7bgvt")
 offset = Vector2(0, -8)
 

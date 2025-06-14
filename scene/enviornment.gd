@@ -33,7 +33,8 @@ func update_enviornment_layer():
 			return
 		return
 		
-	#State.target_grass_scale = Vector2.ONE * max(3,(State.num_plots / 2))
+	update_target_grass_scale()
+	
 	var num_flowers_to_add = 0
 	if(State.num_plots < 20 and State.num_plots % 2 == 0):
 		num_flowers_to_add = 1
@@ -52,7 +53,15 @@ func update_enviornment_layer():
 	
 	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
 
-
+var min_scale = 1.0
+var max_scale = 2.5
+var min_plots_grass_growth: int = 10
+func update_target_grass_scale():
+	if State.num_plots < min_plots_grass_growth:
+		return
+	var growth_factor = log(State.num_plots + 1 - min_plots_grass_growth) / log(100 + 1)  # normalized [0, 1]
+	var scale = lerp(min_scale, max_scale, growth_factor)
+	State.target_grass_scale = Vector2(scale, scale)
 
 
 var total_good_sprites: float = 0

@@ -9,22 +9,28 @@ class_name plot
 
 var size: Vector2 = Vector2(32, 32)
 
-var grass_scale_speed: float = 1.5
+#var grass_scale_speed: float = 0.2
+var grass_scale_speed: float = 1.1
 
 @onready var grass = $Grass
+@onready var dirt = $Dirt
+@onready var plant = $Plant
+
 
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
 	update_image()
 	animation_player.play("popup_crop")
 	
+	grass.flip_h = Util.random_chance(0.5)
+	dirt.flip_h = Util.random_chance(0.5)
+	plant.flip_h = Util.random_chance(0.5)
 
 func _process(delta: float) -> void:
 	if !is_growing:
 		animate_breeze()
 	
 	if grass.visible and grass.scale < State.target_grass_scale:
-		print(grass.scale, " , ", State.target_grass_scale)
 		grass.scale = grass.scale.lerp(State.target_grass_scale, delta * grass_scale_speed)
 		# Snap to target if close enough
 		if grass.scale.distance_to(State.target_grass_scale) < 0.01:
