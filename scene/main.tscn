@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=22 format=4 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -15,12 +15,51 @@
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
 [ext_resource type="PackedScene" uid="uid://b60032nv5tx0k" path="res://flower.tscn" id="14_v2gmf"]
+[ext_resource type="Script" uid="uid://cp50src3rv8rv" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
 size = Vector2(366, 133)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wscrc"]
 size = Vector2(639, 297)
+
+[sub_resource type="Animation" id="Animation_jcbur"]
+resource_name = "fade_to_white"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_smf0o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tv8i1"]
+_data = {
+&"RESET": SubResource("Animation_smf0o"),
+&"fade_to_white": SubResource("Animation_jcbur")
+}
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -168,3 +207,18 @@ position = Vector2(0, 2)
 
 [node name="Flower" parent="Enviornment/GoodLayer" instance=ExtResource("14_v2gmf")]
 position = Vector2(-285, -138)
+
+[node name="FadeAwayRect" type="ColorRect" parent="."]
+visible = false
+z_index = 20
+offset_top = -32.0
+offset_right = 640.0
+offset_bottom = 384.0
+script = ExtResource("16_jcbur")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeAwayRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_tv8i1")
+}
+
+[connection signal="animation_finished" from="FadeAwayRect/AnimationPlayer" to="FadeAwayRect" method="_on_animation_player_animation_finished"]

@@ -28,10 +28,14 @@ var spring_force: float = 5.0  # pulls back to center
 
 var play_kill_animation: bool = false
 func _process(delta: float) -> void:
+	if !visible:
+		return
+	
 	if !play_kill_animation and State.piniata_hp <= 0:
 		play_kill_animation = true
 		animation_player.stop(true)
 		animation_player.play("kill_piniata")
+		Util.quick_timer(self, 5.0, func(): $"../FadeAwayRect".trigger_fade_to_white())
 		return
 	
 	if play_kill_animation and Globals.Main.global_timer % 5 == 0:
@@ -73,6 +77,8 @@ var chance_of_output: float = 0.2
 #var chance_of_output: float = 0.6
 
 func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
+	if play_kill_animation:
+		return
 	strength *= 1
 	
 	animation_player.stop(true)
