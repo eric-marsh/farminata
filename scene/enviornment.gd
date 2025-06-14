@@ -49,9 +49,9 @@ func update_enviornment_layer():
 		num_flowers_to_add = 2
 	
 	
-	Util.quick_timer(self, Util.rng.randf_range(0.5, 3.0), func(): add_flower())
+	add_flower()
 	if State.num_plots % 4 == 0:
-		Util.quick_timer(self, Util.rng.randf_range(0.5, 3.0), func(): add_lump())
+		add_lump()
 	
 	# maybe add snail
 	if State.num_plots % 15 == 0 and Globals.PlotsContainer:
@@ -68,6 +68,7 @@ func add_flower() -> void:
 	f.get_node("FlowerSprite").offset.y = -6
 	f.is_flower = true
 	f.global_position = good_enviornment_positions[0] + Util.random_offset(4)
+	
 	good_enviornment_positions.push_back(good_enviornment_positions[0])
 	good_enviornment_positions = good_enviornment_positions.slice(1)
 	$GoodLayer/Flowers.add_child(f)
