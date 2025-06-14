@@ -2,7 +2,10 @@ extends Node
 
 var ALL_FULL_CROPS_AT_START:bool = false
 
-var PINIATA_HP: int = 1
+var DONT_SAVE:bool = true
+var DONT_LOAD:bool = true
+
+var PINIATA_HP: int = 0
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 

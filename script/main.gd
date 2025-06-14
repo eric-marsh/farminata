@@ -2,7 +2,6 @@ extends Node2D
 class_name MainNode
 
 var global_timer: int = 0
-var total_seconds: float = 0.0
 var is_game_over: bool = false
 var is_paused: bool = false
 
@@ -11,8 +10,9 @@ var is_dragging: bool = false
 var dragged_droppable: droppable = null
 
 func _ready() -> void:
+	if !Debug.DONT_LOAD:
+		State.load_game()
 	global_timer = 0
-	total_seconds = 0.0
 	is_game_over = false
 	is_paused = false
 	
@@ -25,17 +25,23 @@ func _ready() -> void:
 		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position(), Vector2.ZERO)
 	
 
-	
+
+var save_timer: float = 0.0
 func _process(delta: float) -> void:
 	if is_paused:
 		return
 	global_timer += 1
+	State.total_game_time += delta
+	save_timer += delta
+	if save_timer >= 5.0:
+		State.save_game()
+		save_timer = 0.0
+	
 	Util.update_breeze()
 	
 	if is_game_over:
 		is_paused = false
 		return
-	total_seconds += delta
 
 	
 func _input(event):
