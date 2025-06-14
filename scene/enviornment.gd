@@ -6,7 +6,7 @@ static var good_enviornment_positions: Array[Vector2] = []
 
 const good_enviornment_images = [
 	preload("res://img/enviornment/good/flower_1.png"),
-	preload("res://img/enviornment/good/flower_2.png")
+	preload("res://img/enviornment/good/flower_2.png"),
 ]
 
 func _ready() -> void:
@@ -45,24 +45,41 @@ func update_enviornment_layer():
 		num_flowers_to_add = 2
 	
 	
-	# add one flower
-	var f = FLOWER.instantiate()
-	f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
-	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
-	f.get_node("FlowerSprite").offset.y = -6
-	f.global_position = good_enviornment_positions[0]
-	good_enviornment_positions = good_enviornment_positions.slice(1)
-	$GoodLayer/Flowers.add_child(f)
+	Util.quick_timer(self, Util.rng.randf_range(0.5, 3.0), func(): add_flower())
+	if State.num_plots % 4 == 0:
+		Util.quick_timer(self, Util.rng.randf_range(0.5, 3.0), func(): add_lump())
 	
 	# maybe add snail
 	if State.num_plots % 15 == 0 and Globals.PlotsContainer:
 		var s = SNAIL.instantiate()
 		s.global_position = Globals.PlotsContainer.remaining_plot_points[0]
 		$GoodLayer/Snails.add_child(s)
-		
-	
 	
 	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
+
+func add_flower() -> void:
+	var f = FLOWER.instantiate()
+	f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
+	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
+	f.get_node("FlowerSprite").offset.y = -6
+	f.global_position = good_enviornment_positions[0]
+	good_enviornment_positions.push_back(good_enviornment_positions[0])
+	good_enviornment_positions = good_enviornment_positions.slice(1)
+	$GoodLayer/Flowers.add_child(f)
+
+const lumps = [
+	preload("res://img/enviornment/good/green_lump_1.png"),
+	preload("res://img/enviornment/good/green_lump_2.png"),
+]
+
+func add_lump() -> void:
+	var f = FLOWER.instantiate()
+	f.get_node("FlowerSprite").texture = lumps.pick_random()
+	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
+	f.global_position = good_enviornment_positions[0] + Util.random_offset(4.0)
+	good_enviornment_positions.push_back(good_enviornment_positions[0])
+	good_enviornment_positions = good_enviornment_positions.slice(1)
+	$GoodLayer/Flowers.add_child(f)
 
 var min_scale = 1.0
 var max_scale = 2.5
