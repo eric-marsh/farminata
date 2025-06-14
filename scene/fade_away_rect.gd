@@ -18,8 +18,12 @@ func trigger_fade_back_in()->void:
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if !Globals.HelpersContainerNode:
+		return
+		
 	if is_fade_forwards:
 		$"../Piniata".visible = false
+		Globals.HelpersContainerNode.on_game_over()
 		Util.quick_timer(self, 3.0, func(): 
 			is_fade_forwards = false
 			trigger_fade_back_in()

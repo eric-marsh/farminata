@@ -14,7 +14,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	pass
-	
+
+
 func add_helper(helper_type: Enum.Helper_Type) -> void:
 	var h
 	if helper_type == Enum.Helper_Type.Attack:
@@ -57,3 +58,9 @@ func get_helper_that_needs_hat(hat: Enum.Drop_Type) -> helper:
 			_:
 				return null
 	return null
+
+func on_game_over():
+	for c in get_children():
+		if c.helper_type == Enum.Helper_Type.Attack:
+			c.stop_attacking()
+			print(c)

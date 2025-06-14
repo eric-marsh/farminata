@@ -12,6 +12,9 @@ var possible_outputs: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.Water, 
 	Enum.Drop_Type.Carrot_Seed
 	]
+	
+func is_piniata_dead() -> bool:
+	return !visible
 
 func _ready() -> void:
 	health_bar.max_value = State.max_piniata_hp
@@ -31,12 +34,7 @@ func _process(delta: float) -> void:
 	if !visible:
 		return
 	
-	if !play_kill_animation and State.piniata_hp <= 0:
-		play_kill_animation = true
-		animation_player.stop(true)
-		animation_player.play("kill_piniata")
-		Util.quick_timer(self, 5.0, func(): $"../FadeAwayRect".trigger_fade_to_white())
-		return
+	
 	
 	if play_kill_animation and Globals.Main.global_timer % 5 == 0:
 		var pos: Vector2 = piniata_center + Util.random_offset(32)
@@ -83,7 +81,7 @@ func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	
 	animation_player.stop(true)
 	animation_player.play("pulse")
-	State.piniata_hp -= abs(strength)
+	State.piniata_hp = max(1, State.piniata_hp - abs(strength))
 	update_health_bar(abs(strength))
 	
 	animate_hit(strength, pos)
@@ -132,15 +130,24 @@ func unlock_drop_type(type: Enum.Drop_Type) -> void:
 func _on_left_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			check_for_gameover(State.hit_strength)
 			hit_piniata(State.hit_strength * -1, get_global_mouse_position())
 			Util.create_slash_animation(get_global_mouse_position(), false)
 
 func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			check_for_gameover(State.hit_strength)
 			hit_piniata(State.hit_strength, get_global_mouse_position())
 			Util.create_slash_animation(get_global_mouse_position(), true)
 			
-			
-			
-	
+
+func check_for_gameover(strength: float):
+	if !play_kill_animation and State.piniata_hp - abs(strength) <= 0:
+		State.piniata_hp = 0
+		play_kill_animation = true
+		animation_player.stop(true)
+		animation_player.play("kill_piniata")
+		Util.quick_timer(self, 5.0, func(): $"../FadeAwayRect".trigger_fade_to_white())
+		update_health_bar(abs(strength))
+		

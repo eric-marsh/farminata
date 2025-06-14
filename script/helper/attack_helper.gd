@@ -8,6 +8,8 @@ var has_reached_attack_pos: bool = false
 var attack_pos_radius: int = 250
 var is_target_pos_reached: bool = false
 
+var always_wander: bool = false
+
 # Path2D seems like overkill. Just use the timer and calculate the position based on the attack interval
 
 
@@ -33,6 +35,13 @@ func _physics_process(delta: float) -> void:
 		attack_interval = max(0.1, attack_interval / 2)
 		attack_strength += 1
 		apply_upgrade = false
+	
+	
+	if state == Enum.Helper_State.Attack and always_wander:
+		set_state(Enum.Helper_State.Wander)
+		print("set WANDER state")
+		return
+	
 	
 	if state == Enum.Helper_State.Get_Item:
 		if !target_droppable:
@@ -60,6 +69,11 @@ func _physics_process(delta: float) -> void:
 	if is_attacking():
 		update_thowable()
 	
+	if state == Enum.Helper_State.Wander:
+		var has_reached_target:bool = move_to_target()
+		if has_reached_target:
+			set_state(Enum.Helper_State.Wander)
+	
 	if Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
 
@@ -81,6 +95,15 @@ func start_attacking() -> void:
 
 func is_attacking() -> bool:
 	return !$AttackTimer.is_stopped()
+
+func stop_attacking() -> void:
+	$AttackTimer.stop()
+	set_state(Enum.Helper_State.Idle)
+	target_pos = global_position
+	always_wander = true
+	$Throwable.visible = false
+	$HeldItem.visible = false
+	
 
 var start_position: Vector2
 func attack() -> void:

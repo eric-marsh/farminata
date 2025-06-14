@@ -1,6 +1,6 @@
 extends Node
 
-var ALL_FULL_CROPS_AT_START:bool = true
+var ALL_FULL_CROPS_AT_START:bool = false
 
 var PINIATA_HP: int = 1
 

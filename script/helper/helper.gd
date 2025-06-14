@@ -84,7 +84,6 @@ func drop_held_item() ->void:
 func on_idle() -> void:
 	# see if it can apply a droppable
 	if held_droppables.size() > 0:
-		
 		for d in held_droppables:
 			if !d:
 				check_held_items_for_freed()
