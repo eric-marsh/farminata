@@ -43,9 +43,14 @@ func update_money_counter():
 		var price = Prices.get_upgrade_price(data.type)
 		data.node.text = "$" + str(price)
 		data.node.disabled = price > money
+	
+	if PlotUtil.get_total_plots() < 100:
 		var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
 		plot_button.text = "$" + str(plot_price)
 		plot_button.disabled = plot_price > money
+	else:
+		plot_button.text = ""
+		plot_button.disabled = true
 	
 	var seed_upgrades: Array = [
 		{"seed": Enum.Drop_Type.Onion_Seed, "upgrade_type": Enum.Upgrade_Type.UnlockOnion, "button": onion_button },

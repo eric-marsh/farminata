@@ -48,16 +48,29 @@ func reset_plots():
 	State.num_plots = get_total_plots()
 
 func get_random_position_in_grow_area() -> Vector2:
-	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty():
-		return Vector2.ZERO
+	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty() or Globals.PlotsContainer.get_children().size() == 0:
+		return Vector2(320, 240)
+		
+	var last_plot_position = Globals.PlotsContainer.get_children()[Globals.PlotsContainer.get_children().size() - 1].global_position
 	
-	var pos: Vector2 = Globals.PlotsContainer.remaining_plot_points[0]
-	Globals.PlotsContainer.remaining_plot_points = Globals.PlotsContainer.remaining_plot_points.slice(1)
+	var result_pos: Vector2
+	var i:int = 0
+	for pos in Globals.PlotsContainer.remaining_plot_points:
+		var dist: float = last_plot_position.distance_to(pos)
+		if dist < 200 and dist > 8:
+			result_pos = pos
+			break
+		i += 1
+	
+	if !result_pos:
+		result_pos =  Globals.PlotsContainer.remaining_plot_points.pick_random()
+	else:
+		Globals.PlotsContainer.remaining_plot_points.remove_at(i)
 
 	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
 	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
 	
-	return top_left + pos + Util.random_offset(8) + Vector2(0, 32)
+	return top_left + result_pos + Util.random_offset(8) + Vector2(0, 32)
 	
 
 func get_total_plots() -> int:
