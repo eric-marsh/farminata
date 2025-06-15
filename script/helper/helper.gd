@@ -89,7 +89,7 @@ func on_idle() -> void:
 				check_held_items_for_freed()
 				d = null
 				continue
-			var p = PlotUtil.find_plot_for_droppable(d)
+			var p = PlotUtil.find_plot_for_droppable(d, global_position)
 			if p:
 				target_plot = p
 				target_pos = target_plot.global_position
@@ -137,7 +137,7 @@ func set_state(s: Enum.Helper_State) -> void:
 		Enum.Helper_State.Idle:
 			if !has_checked_for_tasks:
 				has_checked_for_tasks = true
-				Util.quick_timer(self, 1.0, func():
+				Util.quick_timer(self, 0.2, func():
 					check_for_tasks_to_do()
 					has_checked_for_tasks = false
 				)
@@ -150,13 +150,13 @@ func set_state(s: Enum.Helper_State) -> void:
 				target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
 				return
 			for d in held_droppables:
-				var p = PlotUtil.find_plot_for_droppable(d)
+				var p = PlotUtil.find_plot_for_droppable(d, global_position)
 				if p:
 					target_plot = p
 					target_pos = target_plot.global_position
 					return
-			# finding plot failed. Wander until a new one comes up
-			set_state(Enum.Helper_State.Wander)
+				# finding plot failed. Wander until a new one comes up
+				set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Pluck_Crop:
 			$HeldItem.visible = false
 			target_pos = target_plot.global_position

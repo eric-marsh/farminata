@@ -41,7 +41,6 @@ func update_enviornment_layer():
 			return
 		return
 	
-	print(total_plots)
 	update_target_grass_scale()
 	
 	var num_flowers_to_add = 0

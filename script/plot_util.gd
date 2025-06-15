@@ -83,54 +83,98 @@ func get_random_plot_position() -> Vector2:
 func does_plot_need_seed(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.None
 
-func get_plot_that_needs_seed() -> plot:
+func get_plot_that_needs_seed(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	var current_closest_plot: plot = null
+	var current_closest_distance: float = 999999
 	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_seed(c):
-			return c
-	return null
+			if target_pos == Vector2.ZERO:
+				# not checking for closest plot. Just return first plot found
+				return c
+			var dist: float = c.global_position.distance_to(target_pos)
+			if !current_closest_plot or dist < current_closest_distance:
+				if current_closest_distance <= 128:
+					return c
+				current_closest_plot = c
+				current_closest_distance = dist
+	return current_closest_plot
 
 func does_plot_need_water(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Dry and p.plot_growth_state != Enum.Plot_Growth_State.Full
 
-func get_plot_that_needs_water() -> plot:
+func get_plot_that_needs_water(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	var current_closest_plot: plot = null
+	var current_closest_distance: float = 999999
 	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_water(c):
-			return c
-	return null
+			if target_pos == Vector2.ZERO:
+				# not checking for closest plot. Just return first plot found
+				return c
+			var dist: float = c.global_position.distance_to(target_pos)
+			if !current_closest_plot or dist < current_closest_distance:
+				if current_closest_distance <= 128:
+					return c
+				current_closest_plot = c
+				current_closest_distance = dist
+			
+	return current_closest_plot
 
 func does_plot_need_sun(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Wet and p.plot_growth_state != Enum.Plot_Growth_State.None
 
-func get_plot_that_needs_sun() -> plot:
+func get_plot_that_needs_sun(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	var current_closest_plot: plot = null
+	var current_closest_distance: float = 999999
 	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_sun(c):
-			return c
-	return null
+			if target_pos == Vector2.ZERO:
+				# not checking for closest plot. Just return first plot found
+				return c
+			var dist: float = c.global_position.distance_to(target_pos)
+			if !current_closest_plot or dist < current_closest_distance:
+				if current_closest_distance <= 128:
+					return c
+				current_closest_plot = c
+				current_closest_distance = dist
+			
+	return current_closest_plot
 
 func does_plot_need_plucking(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.Full
 
-func get_plot_that_needs_plucking() -> plot:
+func get_plot_that_needs_plucking(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	var current_closest_plot: plot = null
+	var current_closest_distance: float = 999999
 	for c in Globals.PlotsContainer.get_children():
 		if !c is plot:
 			continue
 		if does_plot_need_plucking(c):
-			return c
-	return null
+			if target_pos == Vector2.ZERO:
+				# not checking for closest plot. Just return first plot found
+				return c
+			var dist: float = c.global_position.distance_to(target_pos)
+			if !current_closest_plot or dist < current_closest_distance:
+				if current_closest_distance <= 128:
+					return c
+				current_closest_plot = c
+				current_closest_distance = dist
+				
+			
+	return current_closest_plot
 
-func find_plot_for_droppable(d: droppable):
+func find_plot_for_droppable(d: droppable, pos: Vector2):
 	if DropUtil.is_seed(d.drop_type):
-		return get_plot_that_needs_seed()
+		return get_plot_that_needs_seed(pos)
 	if d.drop_type == Enum.Drop_Type.Water:
-		return get_plot_that_needs_water()
+		return get_plot_that_needs_water(pos)
 	if d.drop_type == Enum.Drop_Type.Sun:
-		return get_plot_that_needs_sun()
+		return get_plot_that_needs_sun(pos)
 	return null
 
 func does_plot_need_droppable(d: droppable, p: plot) -> bool:

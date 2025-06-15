@@ -9,7 +9,7 @@ var DELETE_SAVE:bool = false
 
 var PINIATA_HP: int = 0
 
-var DEBUG_SHOW_HELPER_STATE: bool = false
+var DEBUG_SHOW_HELPER_STATE: bool = true
 
 var STARTING_MONEY: int = 11110
 
