@@ -70,7 +70,7 @@ func apply_droppable(d: droppable) -> void:
 			update_image()
 			
 			if Globals.AudioNode:
-				Globals.AudioNode.play_grass_sound()
+				Globals.AudioNode.play_apply_droppable_sound()
 			
 			dirt.scale = Vector2.ONE
 			grass.visible = true
@@ -80,7 +80,7 @@ func apply_droppable(d: droppable) -> void:
 		if plot_state == Enum.Plot_State.Dry:
 			plot_state = Enum.Plot_State.Wet
 			if Globals.AudioNode:
-				Globals.AudioNode.play_grass_sound()
+				Globals.AudioNode.play_apply_droppable_sound()
 			
 			cleanup_droppable(d)
 			update_image()
@@ -117,6 +117,8 @@ func set_next_growth_state():
 			plot_state = Enum.Plot_State.Grow
 			animation_player.speed_scale = PlantUtil.get_grow_speed_scale(grow_type)
 			animation_player.play("grow_crop")
+			if Globals.AudioNode:
+				Globals.AudioNode.play_start_grow_sound()
 
 func done_growing()->void:
 	var stage = PlantUtil.PLANT_IMAGES[grow_type][growth_stage_index]
@@ -124,9 +126,10 @@ func done_growing()->void:
 	growth_stage_index += 1
 	is_growing = false
 	plot_state = Enum.Plot_State.Dry
-	
 	update_image()
 	animation_player.play("pulse_crop")
+	if Globals.AudioNode:
+		Globals.AudioNode.play_done_grow_sound()
 
 func is_full_grown() -> bool:
 	return PlantUtil.PLANT_IMAGES[grow_type].size() == growth_stage_index
@@ -183,6 +186,8 @@ func pluck_crop(clicked:bool=false):
 	reset_growth_state()
 	update_image()
 	spawn_produce(clicked)
+	if Globals.AudioNode:
+		Globals.AudioNode.play_pluck_sound()
 
 static var flip_horiz = false
 func spawn_produce(clicked:bool=false):

@@ -92,6 +92,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			start_dragging()
+			Globals.AudioNode.play_pickup_sound()
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			stop_dragging()
 			Globals.AudioNode.play_grass_sound()

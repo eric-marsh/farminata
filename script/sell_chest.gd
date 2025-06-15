@@ -31,6 +31,8 @@ func sell_droppable(d: droppable, ignore_collision: bool = false) -> void:
 			return
 	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
 	Util.create_explosion_particle(d.global_position, Color.YELLOW.lightened(0.5))
+	if Globals.AudioNode:
+		Globals.AudioNode.play_money_gain_sound()
 	d.delete()
 
 func _on_body_entered(body: Node2D) -> void:
