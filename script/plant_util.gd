@@ -115,3 +115,15 @@ func drop_type_to_grow_type(drop_type: Enum.Drop_Type) -> Enum.Grow_Type:
 		_:
 			print("Invalid drop_type in drop_type_to_grow_type()")
 			return Enum.Grow_Type.Carrot
+
+const plant_grow_scales = {
+	Enum.Grow_Type.Carrot: 1.0,
+	Enum.Grow_Type.Onion: 0.9,
+	Enum.Grow_Type.Turnip: 0.8,
+	Enum.Grow_Type.Potato: 0.7,
+	Enum.Grow_Type.Kale: 0.6,
+	Enum.Grow_Type.Radish: 0.5,
+}
+
+func get_grow_speed_scale(grow_type: Enum.Grow_Type) -> float:
+	return plant_grow_scales.get(grow_type, 0.5)

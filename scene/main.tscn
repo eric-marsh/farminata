@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=21 format=4 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
+[ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
@@ -153,6 +154,14 @@ position = Vector2(139, 196)
 [node name="Drops" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
+
+[node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
+position = Vector2(48, 186)
+drop_type = 4
+
+[node name="Droppable2" parent="Drops" instance=ExtResource("7_wscrc")]
+position = Vector2(46, 212)
+drop_type = 6
 
 [node name="Helpers" type="Node2D" parent="."]
 y_sort_enabled = true

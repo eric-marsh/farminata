@@ -104,8 +104,8 @@ func set_next_growth_state():
 		else:
 			is_growing = true
 			plot_state = Enum.Plot_State.Grow
+			animation_player.speed_scale = PlantUtil.get_grow_speed_scale(grow_type)
 			animation_player.play("grow_crop")
-			animation_player.speed_scale = 0.5
 
 func done_growing()->void:
 	var stage = PlantUtil.PLANT_IMAGES[grow_type][growth_stage_index]

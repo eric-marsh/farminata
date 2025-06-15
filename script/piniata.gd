@@ -112,7 +112,7 @@ func get_random_output() -> Enum.Drop_Type:
 	var drop_weights = {
 		Enum.Drop_Type.Water: 300,
 		Enum.Drop_Type.Sun: 300,
-		Enum.Drop_Type.X: 200,
+		Enum.Drop_Type.X: 250,
 		Enum.Drop_Type.Carrot: 20,  
 	}
 
