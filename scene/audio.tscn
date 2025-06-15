@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgnanoyg1dkpf"]
+[gd_scene load_steps=7 format=3 uid="uid://dgnanoyg1dkpf"]
 
 [ext_resource type="Script" uid="uid://c6qu2xue3pe5" path="res://script/audio.gd" id="1_7cf6j"]
 [ext_resource type="AudioStream" uid="uid://dq03dyaw41xn3" path="res://audio/music/Sketchbook 2024-04-24_02.ogg" id="2_l2x7s"]
 [ext_resource type="AudioStream" uid="uid://d2gb83sxsubb" path="res://audio/slots/Maximize2.wav" id="2_poe0m"]
 [ext_resource type="AudioStream" uid="uid://cg4uvj8ygu0eh" path="res://audio/ui/confirmation_001.ogg" id="4_0tnc4"]
 [ext_resource type="AudioStream" uid="uid://bs36tywkw3xxf" path="res://audio/plant/drop_003.ogg" id="5_1lfwv"]
+[ext_resource type="AudioStream" uid="uid://b0o75v3ohe24v" path="res://audio/ui/confirmation_002.ogg" id="6_u5moa"]
 
 [node name="Audio" type="Node2D"]
 script = ExtResource("1_7cf6j")
@@ -34,3 +35,11 @@ volume_db = -10.0
 [node name="ApplyDroppable" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_1lfwv")
 volume_db = -10.0
+
+[node name="BuyUpgrade" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_u5moa")
+volume_db = -20.0
+
+[node name="HitPiniata" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
+pitch_scale = 1.2

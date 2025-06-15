@@ -59,7 +59,6 @@ func _physics_process(delta):
 		moving_to_target = true
 		if Globals.AudioNode:
 			Globals.AudioNode.play_grass_sound()
-		print("hii")
 	
 	if is_dragging:
 		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)

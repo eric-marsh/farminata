@@ -7,6 +7,7 @@ class_name audio
 @onready var mouse: AudioStreamPlayer2D = $Mouse
 @onready var money: AudioStreamPlayer2D = $Money
 @onready var apply_droppable: AudioStreamPlayer2D = $ApplyDroppable
+@onready var buy_upgrade: AudioStreamPlayer2D = $BuyUpgrade
 
 
 
@@ -63,6 +64,25 @@ func play_done_grow_sound():
 
 func play_money_gain_sound():
 	money.play()
+
+func play_buy_upgrade_sound():
+	buy_upgrade.play()
+
+
+@onready var hit_piniata: AudioStreamPlayer2D = $HitPiniata
+
+var hit_piniata_sounds = [
+	preload("res://audio/piniata/impactPunch_medium_000.ogg"),
+	preload("res://audio/piniata/impactPunch_medium_001.ogg"),
+	preload("res://audio/piniata/impactPunch_medium_002.ogg"),
+	preload("res://audio/piniata/impactPunch_medium_003.ogg"),
+	preload("res://audio/piniata/impactPunch_medium_004.ogg")
+	
+]
+
+func play_hit_piniata_sound():
+	hit_piniata.stream = hit_piniata_sounds.pick_random()
+	hit_piniata.play()
 
 
 

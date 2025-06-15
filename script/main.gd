@@ -78,13 +78,9 @@ func change_money(money_dif: int):
 	if Globals.CanvasLayerNode:
 		State.money += money_dif
 		Globals.CanvasLayerNode.update_money_counter()
-
-#
-#var ParticleBrickHit = preload("res://scene/particle_brick_hit.tscn")
-#func spawn_particle(color, pos):
-	#var p = ParticleBrickHit.instantiate() as CPUParticles2D
-	#p.position = pos
-	#p.emitting = true
-	#p.one_shot = true
-	#p.color_overide = color
-	#Globals.ParticleContainer.add_child(p)
+	
+	# this is a really easy way to just play a noise when you buy an upgrade
+	if money_dif < 0:
+		if Globals.AudioNode:
+			Globals.AudioNode.play_buy_upgrade_sound()
+	

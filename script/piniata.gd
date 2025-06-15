@@ -86,6 +86,8 @@ func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	update_health_bar(abs(strength))
 	
 	animate_hit(strength, pos)
+	if Globals.AudioNode:
+		Globals.AudioNode.play_hit_piniata_sound()
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
