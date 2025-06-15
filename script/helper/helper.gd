@@ -86,6 +86,7 @@ func on_idle() -> void:
 	if held_droppables.size() > 0:
 		for d in held_droppables:
 			if !d:
+				print("check_held_items_for_freed")
 				check_held_items_for_freed()
 				d = null
 				continue
@@ -149,14 +150,15 @@ func set_state(s: Enum.Helper_State) -> void:
 			if helper_type == Enum.Helper_Type.Pluck and Globals.SellChestNode:
 				target_pos = Globals.SellChestNode.global_position + Vector2(32,-32)
 				return
-			for d in held_droppables:
-				var p = PlotUtil.find_plot_for_droppable(d, global_position)
-				if p:
-					target_plot = p
-					target_pos = target_plot.global_position
-					return
-				# finding plot failed. Wander until a new one comes up
-				set_state(Enum.Helper_State.Wander)
+			if !target_plot:
+				for d in held_droppables:
+					var p = PlotUtil.find_plot_for_droppable(d, global_position)
+					if p:
+						target_plot = p
+						target_pos = target_plot.global_position
+						return
+					# finding plot failed. Wander until a new one comes up
+					set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Pluck_Crop:
 			$HeldItem.visible = false
 			target_pos = target_plot.global_position
@@ -430,5 +432,7 @@ func update_animation() -> void:
 
 
 func _on_grab_droppables_area_body_entered(body: Node2D) -> void:
+	if helper_type != Enum.Helper_Type.Farmer:
+		return
 	if body is droppable:
 		pick_up_droppable(body)

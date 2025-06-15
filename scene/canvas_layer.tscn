@@ -184,6 +184,7 @@ icon = ExtResource("4_vqic1")
 expand_icon = true
 
 [node name="EnviornmentPercentage" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 4
