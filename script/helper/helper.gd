@@ -212,6 +212,7 @@ func on_reaching_target_pos() -> void:
 				set_state(Enum.Helper_State.Idle)
 				return
 			pick_up_droppable(target_droppable)
+			target_droppable = null
 			set_state(Enum.Helper_State.Deliver_Item)
 			return
 		Enum.Helper_State.Deliver_Item:
@@ -288,18 +289,25 @@ func find_droppable_based_on_helper_type() -> droppable:
 
 func is_holding_drop_type(d_type: Enum.Drop_Type) -> bool:
 	for temp_drop in held_droppables:
-		if temp_drop.drop_type == d_type:
+		if temp_drop and temp_drop.drop_type == d_type:
 			return true
 	return false
 	
 func is_holding_seed() -> bool:
 	for temp_drop in held_droppables:
-		if DropUtil.is_seed(temp_drop.drop_type):
+		if temp_drop and DropUtil.is_seed(temp_drop.drop_type):
 			return true
 	return false
 
 func pick_up_droppable(d: droppable) -> void:
+	if !is_instance_valid(d) or d.is_held or DropUtil.is_hat(d.drop_type) or  (helper_type != Enum.Helper_Type.Pluck and DropUtil.is_produce(d.drop_type)):
+		return
+	
 	for temp_drop in held_droppables:
+		if !temp_drop:
+			check_held_items_for_freed()
+			temp_drop = null
+			continue
 		if temp_drop.drop_type == d.drop_type:
 			return
 	held_droppables.push_back(d)
@@ -307,7 +315,6 @@ func pick_up_droppable(d: droppable) -> void:
 	$HeldItem.visible = true
 	#d.delete()
 	d.hide_droppable()
-	target_droppable = null
 	
 	# update images
 	if DropUtil.is_seed(d.drop_type):
@@ -420,3 +427,8 @@ func update_animation() -> void:
 			$HatSprite.offset.x = -3
 		else:
 			$HatSprite.offset.x = 3
+
+
+func _on_grab_droppables_area_body_entered(body: Node2D) -> void:
+	if body is droppable:
+		pick_up_droppable(body)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c82wwcd2kv076"]
+[gd_scene load_steps=36 format=3 uid="uid://c82wwcd2kv076"]
 
 [ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper/helper.gd" id="1_xnnrj"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_edx7r"]
@@ -202,6 +202,9 @@ line_spacing = -4.0
 font_size = 8
 font_color = Color(0, 1, 0, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_x75v7"]
+radius = 27.0
+
 [node name="Helper" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 0
@@ -266,3 +269,11 @@ z_index = 1
 y_sort_enabled = true
 texture = ExtResource("6_x75v7")
 offset = Vector2(0, -28)
+
+[node name="GrabDroppablesArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabDroppablesArea"]
+position = Vector2(-1, -5)
+shape = SubResource("CircleShape2D_x75v7")
+
+[connection signal="body_entered" from="GrabDroppablesArea" to="." method="_on_grab_droppables_area_body_entered"]

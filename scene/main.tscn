@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
-[ext_resource type="Script" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
+[ext_resource type="Script" uid="uid://cp50src3rv8rv" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
 size = Vector2(514, 199)
