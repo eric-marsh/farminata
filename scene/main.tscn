@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=19 format=4 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -7,10 +7,8 @@
 [ext_resource type="Script" uid="uid://b8pxcom8tcd8s" path="res://scene/plots_container.gd" id="4_k65ib"]
 [ext_resource type="PackedScene" uid="uid://jida1cnc03um" path="res://scene/canvas_layer.tscn" id="5_0ha60"]
 [ext_resource type="Texture2D" uid="uid://c4hoovdka8vtc" path="res://img/ui/tutorial.png" id="5_v2gmf"]
-[ext_resource type="PackedScene" uid="uid://b7mjmd8qocm5n" path="res://scene/plot.tscn" id="5_wscrc"]
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
-[ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="7_wscrc"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
@@ -79,90 +77,16 @@ position = Vector2(-320, -180)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -3
-position = Vector2(328, 324)
+position = Vector2(322, 294)
 texture = ExtResource("5_v2gmf")
 
 [node name="Plots" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4_k65ib")
 
-[node name="Plot" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(320, 240)
-
-[node name="Plot2" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(187, 183)
-
-[node name="Plot3" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(223, 213)
-
-[node name="Plot4" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(233, 163)
-
-[node name="Plot5" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(287, 196)
-
-[node name="Plot6" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(287, 196)
-
-[node name="Plot7" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(321, 217)
-
-[node name="Plot8" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(346, 194)
-
-[node name="Plot9" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(393, 172)
-
-[node name="Plot10" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(440, 196)
-
-[node name="Plot11" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(403, 203)
-
-[node name="Plot12" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(442, 238)
-
-[node name="Plot13" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(411, 258)
-
-[node name="Plot14" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(376, 236)
-
-[node name="Plot15" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(335, 257)
-
-[node name="Plot16" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(298, 254)
-
-[node name="Plot17" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(267, 241)
-
-[node name="Plot18" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(232, 253)
-
-[node name="Plot19" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(190, 247)
-
-[node name="Plot20" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(159, 265)
-
-[node name="Plot21" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(127, 236)
-
-[node name="Plot22" parent="Plots" instance=ExtResource("5_wscrc")]
-position = Vector2(139, 196)
-
 [node name="Drops" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
-
-[node name="Droppable" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(48, 186)
-drop_type = 4
-
-[node name="Droppable2" parent="Drops" instance=ExtResource("7_wscrc")]
-position = Vector2(46, 212)
-drop_type = 6
 
 [node name="Helpers" type="Node2D" parent="."]
 y_sort_enabled = true

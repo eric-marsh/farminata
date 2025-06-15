@@ -225,6 +225,7 @@ position = Vector2(13, -10)
 texture = ExtResource("4_xcfqp")
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 z_index = 4
 offset_left = -12.0
 offset_top = -40.0
@@ -247,4 +248,4 @@ texture = ExtResource("4_xcfqp")
 [node name="HatSprite" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture = ExtResource("4_3txtj")
-offset = Vector2(0, -25)
+offset = Vector2(0, -26)

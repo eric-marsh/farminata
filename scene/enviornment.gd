@@ -34,27 +34,29 @@ func reset_good_env() -> void:
 const FLOWER = preload("res://flower.tscn")
 const SNAIL = preload("res://scene/snail.tscn")
 func update_enviornment_layer(): 
-	if(State.num_plots < 5):
-		if(State.num_plots > 2):
+	var total_plots: int = PlotUtil.get_total_plots()
+	if(total_plots < 4):
+		if(total_plots > 2):
 			$"../Tutorial".visible = false
 			return
 		return
-		
+	
+	print(total_plots)
 	update_target_grass_scale()
 	
 	var num_flowers_to_add = 0
-	if(State.num_plots < 20 and State.num_plots % 2 == 0):
+	if(total_plots < 20 and total_plots % 2 == 0):
 		num_flowers_to_add = 1
-	if State.num_plots > 20:
+	if total_plots > 20:
 		num_flowers_to_add = 2
 	
 	
 	add_flower()
-	if State.num_plots % 4 == 0:
+	if total_plots % 4 == 0:
 		add_lump()
 	
 	# maybe add snail
-	if State.num_plots % 15 == 0 and Globals.PlotsContainer:
+	if total_plots % 15 == 0 and Globals.PlotsContainer:
 		var s = SNAIL.instantiate()
 		s.global_position = Globals.PlotsContainer.remaining_plot_points[0]
 		$GoodLayer/Snails.add_child(s)
