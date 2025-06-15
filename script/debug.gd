@@ -7,7 +7,7 @@ var DONT_LOAD:bool = true
 
 var DELETE_SAVE:bool = false
 
-var PINIATA_HP: int = 1
+var PINIATA_HP: int = 0
 
 var DEBUG_SHOW_HELPER_STATE: bool = true
 
