@@ -68,7 +68,10 @@ func apply_droppable(d: droppable) -> void:
 			plot_state = prev_plot_state # TODO: do this the right way
 			cleanup_droppable(d)
 			update_image()
-			#here
+			
+			if Globals.AudioNode:
+				Globals.AudioNode.play_grass_sound()
+			
 			dirt.scale = Vector2.ONE
 			grass.visible = true
 		return
@@ -76,6 +79,9 @@ func apply_droppable(d: droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Water:
 		if plot_state == Enum.Plot_State.Dry:
 			plot_state = Enum.Plot_State.Wet
+			if Globals.AudioNode:
+				Globals.AudioNode.play_grass_sound()
+			
 			cleanup_droppable(d)
 			update_image()
 		return
@@ -83,6 +89,8 @@ func apply_droppable(d: droppable) -> void:
 	if d.drop_type == Enum.Drop_Type.Sun:
 		if plot_state == Enum.Plot_State.Wet and plot_growth_state != Enum.Plot_Growth_State.None:
 			#plot_state = Enum.Plot_State.Dry
+			if Globals.AudioNode:
+				Globals.AudioNode.play_grass_sound()
 			set_next_growth_state()
 			cleanup_droppable(d)
 			update_image()

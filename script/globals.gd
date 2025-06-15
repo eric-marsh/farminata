@@ -1,7 +1,6 @@
 extends Node
 
 var Main: MainNode = null
-var Audio: Node2D = null
 var DropsNode: Node2D = null
 var CanvasLayerNode: CanvasLayer = null
 var CameraNode: Camera2D = null

@@ -47,14 +47,19 @@ func _ready():
 
 var target_hat_helper: helper = null
 
+var stopped_falling: bool = false
 func _physics_process(delta):
 	update_shadow()
-	if start_static or global_position.y > start_pos.y + min_fall_amount:
+	if !stopped_falling and (start_static or global_position.y > start_pos.y + min_fall_amount):
+		stopped_falling = true
 		collision_shape.disabled = false
 		gravity_scale = 0.0
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0.0
 		moving_to_target = true
+		if Globals.AudioNode:
+			Globals.AudioNode.play_grass_sound()
+		print("hii")
 	
 	if is_dragging:
 		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)
@@ -81,7 +86,7 @@ func update_shadow():
 
 var dragging_scale:Vector2 = Vector2.ONE * 1.2
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if !Globals.Main:
+	if !Globals.Main or !Globals.AudioNode:
 		return
 		
 	if event is InputEventMouseButton:
@@ -89,6 +94,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 			start_dragging()
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			stop_dragging()
+			Globals.AudioNode.play_grass_sound()
 
 
 func start_dragging() -> void:
