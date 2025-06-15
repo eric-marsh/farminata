@@ -108,6 +108,11 @@ func on_idle() -> void:
 	set_state(Enum.Helper_State.Wander)
 
 func on_plucker_idle() -> void:
+	if held_droppables.size() > 0:
+		
+		set_state(Enum.Helper_State.Deliver_Item)
+		return
+		
 	if !held_droppables.size():
 		# first, check for any produce on the ground
 		var d = find_droppable_based_on_helper_type()
@@ -305,6 +310,8 @@ func pick_up_droppable(d: droppable) -> void:
 	if !is_instance_valid(d) or d.is_held or DropUtil.is_hat(d.drop_type) or  (helper_type != Enum.Helper_Type.Pluck and DropUtil.is_produce(d.drop_type)):
 		return
 	
+	
+	
 	for temp_drop in held_droppables:
 		if !temp_drop:
 			check_held_items_for_freed()
@@ -370,8 +377,14 @@ func move_to_target() -> bool:
 	if target_droppable:
 		target_pos = target_droppable.global_position
 	
-	if state == Enum.Helper_State.Get_Item and global_position.distance_to(target_pos) <= 2:
-		return true
+	if state == Enum.Helper_State.Get_Item:
+		if global_position.distance_to(target_pos) <= 2:
+			return true
+		if target_droppable and !target_droppable.is_hat and held_droppables.size() == 3:
+			return true
+		
+	
+		
 	if helper_type == Enum.Helper_Type.Attack:
 		if global_position.distance_to(target_pos) <= 2:
 			return true

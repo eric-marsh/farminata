@@ -2,7 +2,7 @@ class_name attack_helper
 extends helper
 
 @export var attack_interval: float = 1.0
-@export var attack_strength: int = 1
+@export var attack_strength: int = 2
 
 var has_reached_attack_pos: bool = false
 var attack_pos_radius: int = 250
@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 	update_hat_animation()
 	if apply_upgrade:
 		attack_interval = max(0.1, attack_interval / 2)
-		attack_strength += 1
+		attack_strength += 2
 		apply_upgrade = false
 	
 	
@@ -132,7 +132,7 @@ func update_thowable() -> void:
 	$Throwable.global_position = start_position.lerp(target_position, t)
 	$Throwable.z_index = 15
 
-var num_attack_helpers = 50
+var num_attack_helpers = 100
 func get_attack_pos(index: int) -> Vector2:
 	if !Globals.PiniataNode:
 		return Vector2.ZERO
@@ -144,4 +144,4 @@ func get_attack_pos(index: int) -> Vector2:
 		offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
 	else:
 		offset = Vector2(-cos(angle), -sin(angle)) * attack_pos_radius
-	return Globals.PiniataNode.piniata_center + offset + Vector2(0, 84)
+	return Globals.PiniataNode.global_position + offset + Vector2(0, 120)

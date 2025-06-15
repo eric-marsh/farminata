@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="3_odym4"]
 [ext_resource type="Texture2D" uid="uid://ci4cpk4no35dd" path="res://img/piniata/eye.png" id="4_rrcj7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_odym4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu8ja"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rrcj7"]
 bg_color = Color(1, 0, 0, 1)
@@ -181,9 +181,9 @@ offset_left = -65.0
 offset_top = 9.0
 offset_right = 64.0
 offset_bottom = 21.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_odym4")
+theme_override_styles/background = SubResource("StyleBoxEmpty_nu8ja")
 theme_override_styles/fill = SubResource("StyleBoxFlat_rrcj7")
-value = 100.0
+value = 40.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="HealthBar"]

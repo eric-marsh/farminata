@@ -189,7 +189,7 @@ func get_highest_seed_within_limit() -> Enum.Drop_Type:
 				return pair.seed
 	
 	# then spawn a certain amount of each seed
-	var max_seeds_allowed: int = PlotUtil.get_total_plots() + max_seed_offset
+	var max_seeds_allowed: int = 7
 	for pair in seed_to_produce:
 		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
 			if DropUtil.get_total_drops_of_type(pair.seed) < max_seeds_allowed:

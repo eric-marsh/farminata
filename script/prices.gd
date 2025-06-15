@@ -5,15 +5,15 @@ func get_drop_price(symbol: Enum.Drop_Type) -> int:
 		Enum.Drop_Type.Carrot:
 			return 1
 		Enum.Drop_Type.Onion:
-			return 2
-		Enum.Drop_Type.Turnip:
 			return 4
-		Enum.Drop_Type.Potato:
+		Enum.Drop_Type.Turnip:
 			return 8
-		Enum.Drop_Type.Kale:
+		Enum.Drop_Type.Potato:
 			return 16
-		Enum.Drop_Type.Radish:
+		Enum.Drop_Type.Kale:
 			return 32
+		Enum.Drop_Type.Radish:
+			return 64
 		_:
 			return 0
 
@@ -38,7 +38,7 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 		Enum.Upgrade_Type.UnlockRadish:
 			return 240
 		Enum.Upgrade_Type.AddHat:
-			return 20
+			return 10
 			
 			
 	
