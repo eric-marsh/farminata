@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://h4q30axum8vq"]
+
+[ext_resource type="Texture2D" uid="uid://dexntd6kwbe8" path="res://img/piniata/dead_piniata.png" id="1_yuy5x"]
+[ext_resource type="PackedScene" uid="uid://b60032nv5tx0k" path="res://flower.tscn" id="2_mxvd6"]
+
+[node name="DeadPiniata" type="Sprite2D"]
+y_sort_enabled = true
+texture = ExtResource("1_yuy5x")
+
+[node name="Flower" parent="." instance=ExtResource("2_mxvd6")]
+
+[node name="Flower2" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(56, 65)
+
+[node name="Flower3" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(32, 58)
+
+[node name="Flower4" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(-21, -5)
+
+[node name="Flower5" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(-17, 49)
+
+[node name="Flower6" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(-42, 65)
+
+[node name="Flower7" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(-56, 42)
+
+[node name="Flower8" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(-72, 14)
+
+[node name="Flower9" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(12, 43)
+
+[node name="Flower10" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(14, 27)
+
+[node name="Flower11" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(22, 7)
+
+[node name="Flower12" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(37, -8)
+
+[node name="Flower13" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(62, -2)
+
+[node name="Flower14" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(81, 4)
+
+[node name="Flower15" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(-39, -21)
+
+[node name="Flower16" parent="." instance=ExtResource("2_mxvd6")]
+position = Vector2(78, 53)

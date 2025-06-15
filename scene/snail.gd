@@ -1,7 +1,7 @@
 extends AnimatedSprite2D
 
 var target_pos: Vector2
-var speed: float = 0.005
+var speed: float = 0.05
 
 func _ready():
 	target_pos = Util.random_visible_position()

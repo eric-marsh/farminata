@@ -41,6 +41,8 @@ func _process(delta: float) -> void:
 		var pos: Vector2 = piniata_center + Util.random_offset(32)
 		piniata_particle(pos)
 		DropUtil.create_apply_droppable_animation(get_random_output(), pos - Vector2(0, 16), Util.random_visible_position())
+		if Globals.AudioNode:
+			Globals.AudioNode.play_hit_piniata_sound()
 	
 	
 	piniata_center = $Node2D/Output.global_position
