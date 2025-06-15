@@ -68,6 +68,9 @@ func apply_droppable(d: droppable) -> void:
 			plot_state = prev_plot_state # TODO: do this the right way
 			cleanup_droppable(d)
 			update_image()
+			#here
+			dirt.scale = Vector2.ONE
+			grass.visible = true
 		return
 	
 	if d.drop_type == Enum.Drop_Type.Water:
