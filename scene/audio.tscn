@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgnanoyg1dkpf"]
+[gd_scene load_steps=4 format=3 uid="uid://dgnanoyg1dkpf"]
 
 [ext_resource type="Script" uid="uid://c6qu2xue3pe5" path="res://script/audio.gd" id="1_7cf6j"]
+[ext_resource type="AudioStream" uid="uid://dq03dyaw41xn3" path="res://audio/Sketchbook 2024-04-24_02.ogg" id="2_l2x7s"]
 [ext_resource type="AudioStream" uid="uid://d2gb83sxsubb" path="res://audio/Maximize2.wav" id="2_poe0m"]
 
 [node name="Audio" type="Node2D"]
 script = ExtResource("1_7cf6j")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_l2x7s")
+volume_db = -5.0
 
 [node name="SlotSpin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_poe0m")
