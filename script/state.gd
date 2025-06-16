@@ -10,6 +10,10 @@ var num_farmer_helpers: int = 0
 var num_pluck_helpers: int = 0
 var num_attack_helpers: int = 0
 
+var num_farmer_hats: int = 0
+var num_pluck_hats: int = 0
+var num_attack_hats: int = 0
+
 var enviornment_percentage: float = 0.0
 var target_grass_scale: Vector2 = Vector2.ONE
 
@@ -30,6 +34,9 @@ const SAVE_KEYS := [
 	"num_farmer_helpers", 
 	"num_pluck_helpers", 
 	"num_attack_helpers",
+	"num_farmer_hats", 
+	"num_pluck_hats", 
+	"num_attack_hats",
 	"piniata_hp", 
 	"unlocked_slot_outputs"
 ]
@@ -49,8 +56,10 @@ func load_game():
 				print(key, ": ", save_data[key])
 				self.set(key, save_data[key])
 	
+	# update money
 	if Globals.CanvasLayerNode:
 		Globals.CanvasLayerNode.update_money_counter()
+	# update helpers
 	if Globals.HelpersContainerNode:
 		var num_farmers = num_farmer_helpers
 		num_farmer_helpers = 0
@@ -64,6 +73,16 @@ func load_game():
 		num_attack_helpers = 0
 		for i in range(num_attackers):
 			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Attack)
+			
+	# update hats
+	for i in range(num_attack_hats):
+		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	for i in range(num_farmer_hats):
+		DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	for i in range(num_pluck_hats):
+		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+
+
 
 func save_game():
 	if Debug.DONT_SAVE:

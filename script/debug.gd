@@ -3,14 +3,14 @@ extends Node
 var STARTING_MONEY: int = 10000
 var ALL_FULL_CROPS_AT_START:bool = false
 
-var DONT_SAVE:bool = true
-var DONT_LOAD:bool = true
+var DONT_SAVE:bool = false
+var DONT_LOAD:bool = false
 
 var DELETE_SAVE:bool = false
 
 var PINIATA_HP: int = 0
 
-var DEBUG_SHOW_HELPER_STATE: bool = false
+var DEBUG_SHOW_HELPER_STATE: bool = true
 
 
 #var Helper_Speed: float = 200.0

@@ -117,6 +117,7 @@ var spawn_hat_pos: Vector2 = Vector2(64, 64)
 func _on_farmer_hat_button_pressed():
 	if !Globals.Main:
 		return
+	State.num_farmer_hats += 1
 	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
 	Globals.Main.change_money(-hat_price)
 	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
@@ -126,6 +127,7 @@ func _on_farmer_hat_button_pressed():
 func _on_delivery_hat_button_pressed():
 	if !Globals.Main:
 		return
+	State.num_pluck_hats += 1
 	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
 	Globals.Main.change_money(-hat_price)
 	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
@@ -135,6 +137,7 @@ func _on_delivery_hat_button_pressed():
 func _on_attack_hat_button_pressed():
 	if !Globals.Main:
 		return
+	State.num_attack_hats += 1
 	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
 	Globals.Main.change_money(-hat_price)
 	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)

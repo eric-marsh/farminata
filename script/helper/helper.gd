@@ -442,7 +442,17 @@ func update_animation() -> void:
 			$HatSprite.offset.x = -3
 		else:
 			$HatSprite.offset.x = 3
+	
+	update_hat_flip_h()
 
+func update_hat_flip_h():
+	var stack = [$HatSprite]
+	while stack.size() > 0:
+		var node = stack.pop_back()
+		if "flip_h" in node:
+			node.flip_h = $HatSprite.flip_h
+		for child in node.get_children():
+			stack.append(child)
 
 func _on_grab_droppables_area_body_entered(body: Node2D) -> void:
 	if helper_type != Enum.Helper_Type.Farmer:

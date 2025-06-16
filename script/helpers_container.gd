@@ -37,23 +37,30 @@ func get_inactive_helper() -> helper:
 			return c
 	return null
 
-func get_helper_that_needs_hat(hat: Enum.Drop_Type) -> helper:
+func get_helper_that_needs_hat(hat: Enum.Drop_Type, pos: Vector2) -> helper:
+	var closest_helper: helper = null
+	var closest_dist: float = 999999
 	for c in get_children():
 		if !(c is helper):
 			continue
 		match(hat):
 			Enum.Drop_Type.Farm_Hat:
-				if c.helper_type == Enum.Helper_Type.Farmer:
-					return c
+				if c.helper_type != Enum.Helper_Type.Farmer:
+					continue
 			Enum.Drop_Type.Delivery_Hat:
-				if c.helper_type == Enum.Helper_Type.Pluck:
-					return c 
+				if c.helper_type != Enum.Helper_Type.Pluck:
+					continue
 			Enum.Drop_Type.Attack_Hat:
-				if c.helper_type == Enum.Helper_Type.Attack:
-					return c 
+				if c.helper_type != Enum.Helper_Type.Attack:
+					continue 
 			_:
-				return null
-	return null
+				continue
+		
+		var dist = c.global_position.distance_to(pos)
+		if dist < closest_dist:
+			closest_dist = dist
+			closest_helper = c
+	return closest_helper
 
 func on_game_over():
 	for c in get_children():

@@ -62,13 +62,14 @@ func _physics_process(delta):
 	
 	if is_dragging:
 		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)
+		return
 	
 	
 	if is_hat and Globals.Main.global_timer % 1 == 0:
 		if target_hat_helper and target_hat_helper.state != Enum.Helper_State.Get_Item:
 			target_hat_helper = null
 		if !target_hat_helper and Globals.HelpersContainerNode:
-			var h = Globals.HelpersContainerNode.get_helper_that_needs_hat(drop_type)
+			var h = Globals.HelpersContainerNode.get_helper_that_needs_hat(drop_type, global_position)
 			if h:
 				target_hat_helper = h
 				h.drop_held_item()
@@ -110,7 +111,15 @@ func start_dragging() -> void:
 	z_index = 20
 	if DropUtil.is_produce(drop_type):
 		Globals.SellChestNode.open_chest(self)
-	
+		
+	if DropUtil.is_hat(drop_type):
+		#h.drop_held_item()
+		if target_hat_helper:
+			print("hattt")
+			target_hat_helper.target_droppable = null
+			target_hat_helper.set_state(Enum.Helper_State.Idle)
+			target_hat_helper = null
+		
 	
 	
 	
