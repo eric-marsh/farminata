@@ -6,7 +6,7 @@
 [node name="SlashAnimation" type="AnimatedSprite2D"]
 z_index = 10
 sprite_frames = ExtResource("1_jfwg7")
-animation = &"slash_3"
+animation = &"slash_2"
 speed_scale = 4.0
 offset = Vector2(-30, -2)
 script = ExtResource("2_jfwg7")

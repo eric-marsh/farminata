@@ -11,7 +11,9 @@ const SLASH_ANIMATION = preload("res://img/particle/slash_animation.tres")
 var animations = [
 	"slash_1",
 	"slash_2",
-	"slash_3"
+	"slash_1",
+	"slash_3",
+	
 ]
 
 func _ready() -> void:

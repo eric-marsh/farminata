@@ -64,8 +64,6 @@ var particle_colors = [
 	Color.html("#55ffff"),
 ]
 
-
-	
 func update_health_bar(damage_amount: int = 0) -> void:
 	health_bar.value = State.piniata_hp
 	$HealthBar/Label.text = str(int(State.piniata_hp)) + "/" + str(int(State.max_piniata_hp))
