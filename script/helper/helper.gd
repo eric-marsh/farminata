@@ -457,5 +457,5 @@ func update_hat_flip_h():
 func _on_grab_droppables_area_body_entered(body: Node2D) -> void:
 	if helper_type != Enum.Helper_Type.Farmer:
 		return
-	if body is droppable:
+	if body is droppable and !body.is_dragging:
 		pick_up_droppable(body)

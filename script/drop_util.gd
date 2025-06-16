@@ -147,6 +147,19 @@ func get_total_drops_of_type(drop_type: Enum.Drop_Type) -> int:
 		
 	return droppable_count.get(drop_type, 0)
 
+func update_all_droppable_counts_and_delete():
+	droppable_count.clear()
+
+	for d in Globals.DropsNode.get_children():
+		if droppable_count.has(d.drop_type):
+			if droppable_count[d.drop_type] >= max_seeds_allowed and DropUtil.is_seed(d.drop_type):
+				d.queue_free()
+				continue
+			droppable_count[d.drop_type] += 1
+		else:
+			droppable_count[d.drop_type] = 1
+		
+
 var seed_to_produce: Array = [
 		{ "seed": Enum.Drop_Type.Radish_Seed, "produce": Enum.Drop_Type.Radish },
 		{ "seed": Enum.Drop_Type.Kale_Seed, "produce": Enum.Drop_Type.Kale },
@@ -178,9 +191,7 @@ func get_highest_seed() -> droppable:
 				return d
 	return null  
 
-
-
-var max_seed_offset: int = 1
+var max_seeds_allowed: int = 5
 func get_highest_seed_within_limit() -> Enum.Drop_Type:
 	# make sure one of each seed is spawned
 	for pair in seed_to_produce:
@@ -189,7 +200,6 @@ func get_highest_seed_within_limit() -> Enum.Drop_Type:
 				return pair.seed
 	
 	# then spawn a certain amount of each seed
-	var max_seeds_allowed: int = 7
 	for pair in seed_to_produce:
 		if State.unlocked_slot_outputs.has(pair.seed) or pair.seed == Enum.Drop_Type.Carrot_Seed:
 			if DropUtil.get_total_drops_of_type(pair.seed) < max_seeds_allowed:

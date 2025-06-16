@@ -96,6 +96,8 @@ func apply_droppable(d: droppable) -> void:
 			update_image()
 		return
 
+
+
 func cleanup_droppable(d: droppable) -> void:
 	DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, global_position - Vector2(0, 8))
 	d.delete()

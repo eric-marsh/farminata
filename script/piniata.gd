@@ -112,7 +112,7 @@ func create_drop()->void:
 func get_random_output() -> Enum.Drop_Type:
 	# Use integer weights; 100 = base scale
 	var drop_weights = {
-		Enum.Drop_Type.Water: 300,
+		Enum.Drop_Type.Water: 350,
 		Enum.Drop_Type.Sun: 300,
 		Enum.Drop_Type.X: 250,
 		Enum.Drop_Type.Carrot: 5,  

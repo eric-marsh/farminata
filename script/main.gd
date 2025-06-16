@@ -38,6 +38,7 @@ func _process(delta: float) -> void:
 	if save_timer >= 5.0:
 		State.save_game()
 		save_timer = 0.0
+		DropUtil.update_all_droppable_counts_and_delete()
 	
 	Util.update_breeze()
 	
