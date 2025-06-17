@@ -24,7 +24,6 @@ var state_timer_set: bool = false
 func _ready() -> void:
 	await get_tree().create_timer(0.001).timeout
 	
-	#set_state(Enum.Helper_State.Get_Item)
 	set_state(Enum.Helper_State.Idle)
 	update_animation()
 	
@@ -135,6 +134,7 @@ func check_for_tasks_to_do() -> void:
 	else:
 		on_idle()
 
+@onready var held_item: Node2D = $HeldItem
 
 var has_checked_for_tasks = false
 func set_state(s: Enum.Helper_State) -> void:
@@ -165,7 +165,7 @@ func set_state(s: Enum.Helper_State) -> void:
 					# finding plot failed. Wander until a new one comes up
 					set_state(Enum.Helper_State.Wander)
 		Enum.Helper_State.Pluck_Crop:
-			$HeldItem.visible = false
+			held_item.visible = false
 			target_pos = target_plot.global_position
 		_:
 			pass
@@ -226,7 +226,7 @@ func on_reaching_target_pos() -> void:
 			if held_droppables.size() == 0:
 				target_plot = null
 				held_droppables.clear()
-				$HeldItem.visible = false
+				held_item.visible = false
 				set_state(Enum.Helper_State.Idle)
 				return
 			if target_plot and target_plot.is_droppable_being_applied:
@@ -306,11 +306,15 @@ func is_holding_seed() -> bool:
 			return true
 	return false
 
+@onready var held_item_1: Sprite2D = $HeldItem/HeldItem1
+@onready var held_item_2: Sprite2D = $HeldItem/HeldItem2
+@onready var held_item_3: Sprite2D = $HeldItem/HeldItem3
+@onready var held_item_produce: Sprite2D = $HeldItem/HeldItemProduce
+
+
 func pick_up_droppable(d: droppable) -> void:
 	if !is_instance_valid(d) or d.is_held or DropUtil.is_hat(d.drop_type) or  (helper_type != Enum.Helper_Type.Pluck and DropUtil.is_produce(d.drop_type)):
 		return
-	
-	
 	
 	for temp_drop in held_droppables:
 		if !temp_drop:
@@ -321,26 +325,26 @@ func pick_up_droppable(d: droppable) -> void:
 			return
 	held_droppables.push_back(d)
 	d.is_held = true
-	$HeldItem.visible = true
+	held_item.visible = true
 	#d.delete()
 	d.hide_droppable()
 	
 	# update images
 	if DropUtil.is_seed(d.drop_type):
-		$HeldItem/HeldItem1.visible = true
-		$HeldItem/HeldItem1.texture = d.get_node("Sprite2D").texture
+		held_item_1.visible = true
+		held_item_1.texture = d.get_node("Sprite2D").texture
 	
 	if d.drop_type == Enum.Drop_Type.Water:
-		$HeldItem/HeldItem2.visible = true
-		$HeldItem/HeldItem2.texture = d.get_node("Sprite2D").texture
+		held_item_2.visible = true
+		held_item_2.texture = d.get_node("Sprite2D").texture
 	
 	if d.drop_type == Enum.Drop_Type.Sun:
-		$HeldItem/HeldItem3.visible = true
-		$HeldItem/HeldItem3.texture = d.get_node("Sprite2D").texture
+		held_item_3.visible = true
+		held_item_3.texture = d.get_node("Sprite2D").texture
 	
 	if DropUtil.is_produce(d.drop_type):
-		$HeldItem/HeldItemProduce.visible = true
-		$HeldItem/HeldItemProduce.texture = d.get_node("Sprite2D").texture
+		held_item_produce.visible = true
+		held_item_produce.texture = d.get_node("Sprite2D").texture
 	
 	
 
@@ -353,16 +357,16 @@ func check_held_items_for_freed()->void:
 
 func hide_held_item(d:droppable) -> void:
 	if DropUtil.is_seed(d.drop_type):
-		$HeldItem/HeldItem1.visible = false
+		held_item_1.visible = false
 		
 	if d.drop_type == Enum.Drop_Type.Water:
-		$HeldItem/HeldItem2.visible = false
+		held_item_2.visible = false
 		
 	if d.drop_type == Enum.Drop_Type.Sun:
-		$HeldItem/HeldItem3.visible = false
+		held_item_3.visible = false
 		
 	if DropUtil.is_produce(d.drop_type):
-		$HeldItem/HeldItemProduce.visible = false
+		held_item_produce.visible = false
 		
 	for i in range(held_droppables.size() - 1, -1, -1):
 		var temp_drop = held_droppables[i]
@@ -410,11 +414,13 @@ func update_speed(s:int)->void:
 	min_velocity = Vector2(-speed, -speed)
 	max_velocity = Vector2(speed, speed)
 
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
 func update_hat_animation() -> void:
-	if [1,2,5,6].has($AnimatedSprite2D.frame):
-		$HatSprite.position = Vector2(0, 1)
+	if [1,2,5,6].has(animated_sprite_2d.frame):
+		hat_sprite.position = Vector2(0, 1)
 	else:
-		$HatSprite.position = Vector2(0, 0)
+		hat_sprite.position = Vector2(0, 0)
 
 
 @onready var hat_sprite: Sprite2D = $HatSprite
@@ -439,18 +445,18 @@ func update_animation() -> void:
 			print("Dont know that direction")
 	if helper_type == Enum.Helper_Type.Pluck:
 		if hat_sprite.flip_h:
-			$HatSprite.offset.x = -3
+			hat_sprite.offset.x = -3
 		else:
-			$HatSprite.offset.x = 3
+			hat_sprite.offset.x = 3
 	
 	update_hat_flip_h()
 
 func update_hat_flip_h():
-	var stack = [$HatSprite]
+	var stack = [hat_sprite]
 	while stack.size() > 0:
 		var node = stack.pop_back()
 		if "flip_h" in node:
-			node.flip_h = $HatSprite.flip_h
+			node.flip_h = hat_sprite.flip_h
 		for child in node.get_children():
 			stack.append(child)
 

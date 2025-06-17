@@ -28,7 +28,7 @@ func _ready() -> void:
 	if !Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.queue_free()
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	update_hat_animation()
 	if apply_upgrade:
 		attack_interval = max(0.1, attack_interval / 2)
@@ -76,13 +76,18 @@ func _physics_process(delta: float) -> void:
 	if Debug.DEBUG_SHOW_HELPER_STATE:
 		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
 
+
+@onready var throwable: Sprite2D = $Throwable
+@onready var attack_timer: Timer = $AttackTimer
+
+
 func start_attacking() -> void:
 	if !Globals.PiniataNode:
 		return
 	
 	start_position = global_position
-	$Throwable.visible = true
-	$AttackTimer.start()
+	throwable.visible = true
+	attack_timer.start()
 	
 	# change direction to face piniata
 	var direction = (Globals.PiniataNode.piniata_center - global_position).normalized()
@@ -93,15 +98,15 @@ func start_attacking() -> void:
 		# TODO: Use idle animation
 
 func is_attacking() -> bool:
-	return !$AttackTimer.is_stopped()
+	return !attack_timer.is_stopped()
 
 func stop_attacking() -> void:
-	$AttackTimer.stop()
+	attack_timer.stop()
 	set_state(Enum.Helper_State.Idle)
 	target_pos = global_position
 	always_wander = true
-	$Throwable.visible = false
-	$HeldItem.visible = false
+	throwable.visible = false
+	held_item.visible = false
 	
 
 var start_position: Vector2
@@ -109,11 +114,10 @@ func attack() -> void:
 	if !Globals.PiniataNode:
 		return
 	if dir == Enum.Dir.Left:
-		Globals.PiniataNode.hit_piniata(attack_strength, $Throwable.global_position)
+		Globals.PiniataNode.hit_piniata(attack_strength, throwable.global_position)
 	else:
-		Globals.PiniataNode.hit_piniata(attack_strength * -1, $Throwable.global_position)
+		Globals.PiniataNode.hit_piniata(attack_strength * -1, throwable.global_position)
 	
-
 func update_thowable() -> void:
 	if !Globals.PiniataNode:
 		return
@@ -124,13 +128,13 @@ func update_thowable() -> void:
 		target_position = Globals.PiniataNode.piniata_center + Vector2(-42, 0)
 	
 	
-	var total_time = $AttackTimer.wait_time
-	var elapsed_time = total_time - $AttackTimer.time_left
+	var total_time = attack_timer.wait_time
+	var elapsed_time = total_time - attack_timer.time_left
 	var t = clamp(elapsed_time / total_time, 0, 1) # Normalize from 0 to 1
 
 	# Interpolate from start to target
-	$Throwable.global_position = start_position.lerp(target_position, t)
-	$Throwable.z_index = 15
+	throwable.global_position = start_position.lerp(target_position, t)
+	throwable.z_index = 15
 
 var num_attack_helpers = 100
 func get_attack_pos(index: int) -> Vector2:
