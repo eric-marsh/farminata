@@ -12,6 +12,10 @@ class_name audio
 
 
 func _ready() -> void:
+	if Debug.ALWAYS_MUTE:
+		AudioServer.set_bus_mute( AudioServer.get_bus_index("Master"), true) # or false
+		return
+		
 	music.connect("finished", Callable(self,"_on_loop_music").bind($Music))
 	music.play()
 	
@@ -20,7 +24,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func _on_loop_music(player):
+func _on_loop_music(_player):
 	$Music.play()
 
 

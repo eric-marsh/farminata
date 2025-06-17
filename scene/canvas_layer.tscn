@@ -190,6 +190,12 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 4
 text = "Env: 0.0%"
 
+[node name="FPS" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 4
+text = "Env: 0.0%"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton" to="." method="_on_turnip_button_pressed"]

@@ -30,7 +30,7 @@ func _ready():
 	sprite_2d.modulate.a = 0.8
 	sprite_2d.texture = DropUtil.get_drop_type_img(drop_type)
 
-func _on_animation_player_animation_finished(anim_name):
+func _on_animation_player_animation_finished(_anim_name):
 	var c = DropUtil.get_drop_type_color(drop_type)
 	Util.create_explosion_particle(target_pos, c.lightened(0.5))
 	queue_free()

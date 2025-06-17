@@ -6,6 +6,8 @@ var ALL_FULL_CROPS_AT_START:bool = false
 var DONT_SAVE:bool = false
 var DONT_LOAD:bool = false
 
+var SHOW_FPS:bool = true
+
 var DELETE_SAVE:bool = false
 
 var PINIATA_HP: int = 0
@@ -22,7 +24,7 @@ var KEEP_PLOTS_ON_START:bool = false
 
 
 
-var DEBUG_ALWAYS_MUTE:bool = true
+var ALWAYS_MUTE:bool = true
 
 var DEBUG_ENABLE_DEBUGGING_KEYS:bool = true
 

@@ -20,8 +20,13 @@ class_name canvas_layer
 
 func _ready() -> void:
 	update_money_counter()
+	fps.visible = Debug.SHOW_FPS
 	
+@onready var fps: Label = $MarginContainer/VBoxContainer/FPS
+
 func _process(_delta: float) -> void:
+	if Debug.SHOW_FPS:
+		fps.text = "FPS: " + str(Engine.get_frames_per_second())
 	# TODO: remove this
 	$MarginContainer/VBoxContainer/EnviornmentPercentage.text = str(State.enviornment_percentage) + "%"
 	pass
