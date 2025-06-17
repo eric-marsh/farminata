@@ -136,11 +136,12 @@ var num_attack_helpers = 100
 func get_attack_pos(index: int) -> Vector2:
 	if !Globals.PiniataNode:
 		return Vector2.ZERO
-
+		
 	var angle_step = PI / (num_attack_helpers + 1)
 	var angle = PI + angle_step * (index + 1)  
 	var offset
-	if State.num_attack_helpers % 2 == 0:
+	offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
+	if id_of_type % 2 == 0:
 		offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
 	else:
 		offset = Vector2(-cos(angle), -sin(angle)) * attack_pos_radius

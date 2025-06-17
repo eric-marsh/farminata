@@ -191,7 +191,7 @@ func get_highest_seed() -> droppable:
 				return d
 	return null  
 
-var max_seeds_allowed: int = 5
+var max_seeds_allowed: int = 7
 func get_highest_seed_within_limit() -> Enum.Drop_Type:
 	# make sure one of each seed is spawned
 	for pair in seed_to_produce:

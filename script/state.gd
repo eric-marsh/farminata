@@ -59,6 +59,15 @@ func load_game():
 	# update money
 	if Globals.CanvasLayerNode:
 		Globals.CanvasLayerNode.update_money_counter()
+	
+	# update hats
+	for i in range(num_attack_hats):
+		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	for i in range(num_farmer_hats):
+		DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+	for i in range(num_pluck_hats):
+		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
+
 	# update helpers
 	if Globals.HelpersContainerNode:
 		var num_farmers = num_farmer_helpers
@@ -74,14 +83,6 @@ func load_game():
 		for i in range(num_attackers):
 			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Attack)
 			
-	# update hats
-	for i in range(num_attack_hats):
-		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
-	for i in range(num_farmer_hats):
-		DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
-	for i in range(num_pluck_hats):
-		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position() + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
-
 
 
 func save_game():
