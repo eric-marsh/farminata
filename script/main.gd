@@ -2,7 +2,6 @@ extends Node2D
 class_name MainNode
 
 var global_timer: int = 0
-var is_game_over: bool = false
 var is_paused: bool = false
 
 var max_blocks: int = 900
@@ -16,7 +15,6 @@ func _ready() -> void:
 		State.delete_save()
 	
 	global_timer = 0
-	is_game_over = false
 	is_paused = false
 	
 	if Debug.STARTING_MONEY > 0:
@@ -41,21 +39,11 @@ func _process(delta: float) -> void:
 		DropUtil.update_all_droppable_counts_and_delete()
 	
 	Util.update_breeze()
-	
-	if is_game_over:
-		is_paused = false
-		return
 
-	
 func _input(event):
 	if Debug.DEBUG_ENABLE_DEBUGGING_KEYS and event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
-		
-	if event.is_action_pressed("ui_select") and !is_game_over:
-		is_paused = !is_paused
-		if is_paused and Globals.Audio:
-			Globals.Audio.ship_hover_stop()
-			
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 		call_deferred("stop_dragging_droppable") 
 
@@ -63,18 +51,6 @@ func stop_dragging_droppable() -> void:
 	if dragged_droppable:
 		dragged_droppable.stop_dragging()
 
-
-var can_restart_game = false
-func check_game_over():
-	if Globals.Player and Globals.Player.is_out_of_blocks():
-		is_game_over = true
-		if Globals.CanvasLayerNode:
-			Globals.CanvasLayerNode.show_game_over()
-		Util.quick_timer(self, 1.0, func(): can_restart_game = true)
-		if Globals.Audio:
-			Globals.Audio.ship_hover_stop()
-	pass
-	
 func change_money(money_dif: int):
 	if Globals.CanvasLayerNode:
 		State.money += money_dif
@@ -84,4 +60,13 @@ func change_money(money_dif: int):
 	if money_dif < 0:
 		if Globals.AudioNode:
 			Globals.AudioNode.play_buy_upgrade_sound()
-	
+
+
+@onready var piniata: Node2D = $Piniata
+@onready var dead_piniata: Sprite2D = $DeadPiniata
+
+func on_game_over() -> void:
+	piniata.visible = false
+	dead_piniata.visible = true
+	State.is_piniata_dead = true
+	Globals.HelpersContainerNode.on_game_over()

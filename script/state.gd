@@ -25,6 +25,8 @@ var piniata_hp: float = max_piniata_hp
 
 var hit_strength: float = 1.0
 
+var is_piniata_dead: bool = false
+
 # List of keys to be saved/loaded automatically
 const SAVE_KEYS := [
 	"total_game_time", 
@@ -38,7 +40,8 @@ const SAVE_KEYS := [
 	"num_pluck_hats", 
 	"num_attack_hats",
 	"piniata_hp", 
-	"unlocked_slot_outputs"
+	"unlocked_slot_outputs",
+	"is_piniata_dead"
 ]
 
 func load_game():
@@ -82,7 +85,9 @@ func load_game():
 		num_attack_helpers = 0
 		for i in range(num_attackers):
 			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Attack)
-			
+	
+	if is_piniata_dead and Globals.Main:
+		Globals.Main.on_game_over()
 
 
 func save_game():
