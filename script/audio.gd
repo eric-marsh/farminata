@@ -76,12 +76,11 @@ func play_buy_upgrade_sound():
 @onready var hit_piniata: AudioStreamPlayer2D = $HitPiniata
 
 var hit_piniata_sounds = [
-	preload("res://audio/piniata/impactPunch_medium_000.ogg"),
-	preload("res://audio/piniata/impactPunch_medium_001.ogg"),
-	preload("res://audio/piniata/impactPunch_medium_002.ogg"),
-	preload("res://audio/piniata/impactPunch_medium_003.ogg"),
-	preload("res://audio/piniata/impactPunch_medium_004.ogg")
-	
+	preload("res://audio/piniata/SFX-impact-punch-bag-01_wav.wav"),
+	preload("res://audio/piniata/SFX-impact-punch-bag-02_wav.wav"),
+	preload("res://audio/piniata/SFX-impact-punch-bag-03_wav.wav"),
+	preload("res://audio/piniata/SFX-impact-punch-bag-04_wav.wav"),
+	preload("res://audio/piniata/SFX-impact-punch-bag-05_wav.wav")
 ]
 
 func play_hit_piniata_sound():
