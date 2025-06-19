@@ -2,13 +2,60 @@ extends AnimatedSprite2D
 
 var target_pos: Vector2
 var speed: float = 0.05
+var is_dragging: bool = false
 
 func _ready():
+	play()
 	target_pos = Util.random_visible_position()
 	flip_h = target_pos < global_position
 	
 func _process(_delta):
+	if is_dragging:
+		global_transform.origin = get_global_mouse_position()
+		return
+		
+	if self.frame != 0:
+		return
+	flip_h = target_pos < global_position
 	global_position += (target_pos - global_position).normalized() * speed
 	if global_position.distance_to(target_pos) < speed:
-		target_pos = Util.random_visible_position()
-		flip_h = target_pos < global_position
+		reset_target()
+
+func reset_target()->void:
+	target_pos = Util.random_visible_position()
+	flip_h = target_pos < global_position
+
+func _on_area_2d_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !Globals.Main.is_dragging:
+			is_dragging = true
+			scale = Vector2.ONE * 2
+			Globals.Main.is_dragging = true
+			z_index = 25
+			Globals.AudioNode.play_pickup_sound()
+		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+			is_dragging = false
+			scale = Vector2.ONE
+			Globals.Main.is_dragging = false
+			z_index = 0
+			Globals.AudioNode.play_grass_sound()
+
+
+#func start_dragging() -> void:
+	#if !Globals.Main or Globals.Main.is_dragging:
+		#return
+	#is_dragging = true
+	#$Sprite2D.scale = dragging_scale
+	#Globals.Main.is_dragging = true
+	#Globals.Main.dragged_droppable = self
+	#z_index = 20
+	#
+#func stop_dragging() -> void:
+	#if !Globals.Main:
+		#return
+	#is_dragging = false
+	#$Sprite2D.scale = Vector2.ONE
+	#Globals.Main.is_dragging = false
+	#Globals.Main.dragged_droppable = null
+	#set_collision_layer_value(1, true)
+	#z_index = 0
