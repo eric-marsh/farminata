@@ -192,7 +192,7 @@ func equip_hat(d: droppable) -> void:
 
 	current_hat.add_child(s)
 	num_hats += 1
-	held_droppables.clear()
+	#held_droppables.clear()
 	# apply upgrade
 	update_speed(15)
 	if helper_type == Enum.Helper_Type.Attack:
@@ -207,6 +207,8 @@ func on_reaching_target_pos() -> void:
 		Enum.Helper_State.Wander:
 			set_state(Enum.Helper_State.Idle) # helper checks for items when idle
 		Enum.Helper_State.Get_Item:
+			if target_droppable and target_droppable.is_dragging:
+				return
 			if !target_droppable or !target_droppable.can_be_picked_up():
 				target_droppable = null
 				set_state(Enum.Helper_State.Idle)

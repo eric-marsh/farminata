@@ -66,13 +66,12 @@ func _physics_process(delta):
 	
 	
 	if is_hat and Globals.Main.global_timer % 1 == 0:
-		if target_hat_helper and target_hat_helper.state != Enum.Helper_State.Get_Item:
+		if target_hat_helper and target_hat_helper.state != Enum.Helper_State.Deliver_Item:
 			target_hat_helper = null
 		if !target_hat_helper and Globals.HelpersContainerNode:
 			var h = Globals.HelpersContainerNode.get_helper_that_needs_hat(drop_type, global_position)
 			if h:
 				target_hat_helper = h
-				h.drop_held_item()
 				h.target_droppable = self
 				h.set_state(Enum.Helper_State.Get_Item)
 	
