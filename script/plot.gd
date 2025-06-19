@@ -161,7 +161,6 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			
 			animation_player.play("pluck_crop")
 			is_plucking = true
 		else:
@@ -223,14 +222,3 @@ func spawn_produce(clicked:bool=false):
 		d.start_dragging()
 		d.start_static=true
 		Globals.Main.is_dragging = true
-
-
-var is_mouse_over: bool = false
-func _on_area_2d_mouse_entered() -> void:
-	is_mouse_over = true
-
-func _on_area_2d_mouse_exited() -> void:
-	if is_plucking:
-		is_mouse_over = false
-		is_plucking = false
-		animation_player.stop()
