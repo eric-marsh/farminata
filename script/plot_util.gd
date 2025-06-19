@@ -49,7 +49,7 @@ func reset_plots():
 
 func get_random_position_in_grow_area() -> Vector2:
 	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty() or Globals.PlotsContainer.get_children().size() == 0:
-		return Vector2(320, 240)
+		return Vector2(320, 220)
 		
 	var last_plot_position = Globals.PlotsContainer.get_children()[Globals.PlotsContainer.get_children().size() - 1].global_position
 	

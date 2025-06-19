@@ -445,11 +445,11 @@ func update_animation() -> void:
 			hat_sprite.flip_h = false
 		_:
 			print("Dont know that direction")
-	if helper_type == Enum.Helper_Type.Pluck:
-		if hat_sprite.flip_h:
-			hat_sprite.offset.x = -3
-		else:
-			hat_sprite.offset.x = 3
+	#if helper_type == Enum.Helper_Type.Pluck:
+		#if hat_sprite.flip_h:
+			#hat_sprite.offset.x = -3
+		#else:
+			#hat_sprite.offset.x = 3
 	
 	update_hat_flip_h()
 

@@ -78,7 +78,7 @@ position = Vector2(-320, -180)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -4
-position = Vector2(322, 294)
+position = Vector2(322, 270)
 texture = ExtResource("5_v2gmf")
 
 [node name="Plots" type="Node2D" parent="."]
@@ -99,7 +99,7 @@ script = ExtResource("6_of57s")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
-position = Vector2(36, 351)
+position = Vector2(38, 340)
 scale = Vector2(4, 4)
 
 [node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
