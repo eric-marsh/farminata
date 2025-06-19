@@ -167,8 +167,8 @@ func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: in
 			player_hit_piniata(State.hit_strength)
 				
 func player_hit_piniata(strength: float)->void:
-	check_for_gameover(State.hit_strength)
-	hit_piniata(State.hit_strength, get_global_mouse_position())
+	check_for_gameover(strength)
+	hit_piniata(strength, get_global_mouse_position())
 	Util.create_slash_animation(get_global_mouse_position(), strength > 0)
 	if Globals.AudioNode:
 		Globals.AudioNode.play_hit_piniata_sound()

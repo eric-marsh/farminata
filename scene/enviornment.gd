@@ -35,7 +35,7 @@ const FLOWER = preload("res://flower.tscn")
 const SNAIL = preload("res://scene/snail.tscn")
 func update_enviornment_layer(): 
 	var total_plots: int = PlotUtil.get_total_plots()
-	if(total_plots < 4):
+	if(total_plots < 3):
 		if(total_plots > 2):
 			$"../Tutorial".visible = false
 			return
@@ -90,7 +90,7 @@ func add_lump() -> void:
 
 var min_scale = 1.0
 var max_scale = 2.5
-var min_plots_grass_growth: int = 10
+var min_plots_grass_growth: int = 3
 func update_target_grass_scale():
 	if State.num_plots < min_plots_grass_growth:
 		return
