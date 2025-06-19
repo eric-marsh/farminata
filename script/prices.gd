@@ -39,6 +39,3 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 			return 240
 		Enum.Upgrade_Type.AddHat:
 			return 10
-			
-			
-	

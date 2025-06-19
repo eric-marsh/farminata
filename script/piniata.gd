@@ -86,8 +86,7 @@ func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	update_health_bar(abs(strength))
 	
 	animate_hit(strength, pos)
-	if Globals.AudioNode:
-		Globals.AudioNode.play_hit_piniata_sound()
+
 	
 	if Util.random_chance(chance_of_output):
 		create_drop()
@@ -160,17 +159,19 @@ func unlock_drop_type(type: Enum.Drop_Type) -> void:
 func _on_left_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			check_for_gameover(State.hit_strength)
-			hit_piniata(State.hit_strength * -1, get_global_mouse_position())
-			Util.create_slash_animation(get_global_mouse_position(), false)
+			player_hit_piniata(State.hit_strength * -1)
 
 func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			check_for_gameover(State.hit_strength)
-			hit_piniata(State.hit_strength, get_global_mouse_position())
-			Util.create_slash_animation(get_global_mouse_position(), true)
-			
+			player_hit_piniata(State.hit_strength)
+				
+func player_hit_piniata(strength: float)->void:
+	check_for_gameover(State.hit_strength)
+	hit_piniata(State.hit_strength, get_global_mouse_position())
+	Util.create_slash_animation(get_global_mouse_position(), strength > 0)
+	if Globals.AudioNode:
+		Globals.AudioNode.play_hit_piniata_sound()
 
 func check_for_gameover(strength: float):
 	if !play_kill_animation and State.piniata_hp - abs(strength) <= 0:
