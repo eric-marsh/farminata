@@ -1,34 +1,33 @@
 extends CanvasLayer
 class_name canvas_layer
 
-@onready var money_label: Label = $MarginContainer/VBoxContainer/MoneyLabel
+@onready var money_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/MoneyLabel
+@onready var fps: Label = $MarginContainer/HBoxContainer/VBoxContainer/FPS
 
-@onready var plot_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
-@onready var onion_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
-@onready var turnip_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton
-@onready var potato_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/PotatoButton
-@onready var kale_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/KaleButton
-@onready var radish_button = $MarginContainer/VBoxContainer/FarmUpgrades/HBoxContainer/RadishButton
+@onready var plot_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
+@onready var onion_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
+@onready var turnip_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton
+@onready var potato_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PotatoButton
+@onready var kale_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/KaleButton
+@onready var radish_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/RadishButton
 
-@onready var add_farmer_helper: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper
-@onready var add_pluck_helper_button: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton
-@onready var add_attack_helper_button: Button = $MarginContainer/VBoxContainer/HelperUpgrades/HBoxContainer2/AddAttackHelperButton
+@onready var add_farmer_helper: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddFarmerHelper
+@onready var add_pluck_helper_button: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddPluckHelperButton
+@onready var add_attack_helper_button: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer2/AddAttackHelperButton
 
-@onready var add_farmer_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddFarmerHatButton
-@onready var add_delivery_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddDeliveryHatButton
-@onready var add_attack_hat_button: Button = $MarginContainer/VBoxContainer/HatUpgrades/HBoxContainer2/AddAttackHatButton
+@onready var add_farmer_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddFarmerHatButton
+@onready var add_delivery_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddDeliveryHatButton
+@onready var add_attack_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer2/AddAttackHatButton
+
 
 func _ready() -> void:
 	update_money_counter()
 	fps.visible = Debug.SHOW_FPS
-	
-@onready var fps: Label = $MarginContainer/VBoxContainer/FPS
+
 
 func _process(_delta: float) -> void:
 	if Debug.SHOW_FPS:
 		fps.text = "FPS: " + str(Engine.get_frames_per_second())
-	# TODO: remove this
-	$MarginContainer/VBoxContainer/EnviornmentPercentage.text = str(State.enviornment_percentage) + "%"
 	pass
 	
 func update_money_counter():
