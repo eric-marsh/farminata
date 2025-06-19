@@ -51,6 +51,12 @@ func update_enviornment_layer():
 	
 	
 	add_flower()
+	if total_plots > 20:
+		add_flower()
+		
+	if total_plots > 80:
+		add_flower()
+	
 	if total_plots % 4 == 0:
 		add_lump()
 	
