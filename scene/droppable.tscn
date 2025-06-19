@@ -9,7 +9,7 @@ shader = ExtResource("3_64vpq")
 shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34vfq"]
-radius = 7.0
+radius = 9.0
 
 [node name="Droppable" type="RigidBody2D" groups=["droppable"]]
 y_sort_enabled = true
@@ -30,7 +30,7 @@ texture = ExtResource("1_j5dow")
 offset = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_34vfq")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

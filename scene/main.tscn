@@ -92,7 +92,31 @@ script = ExtResource("6_k65ib")
 
 [node name="Droppable" parent="Drops" instance=ExtResource("8_v2gmf")]
 position = Vector2(166, 139)
-drop_type = 5
+drop_type = 4
+
+[node name="Droppable2" parent="Drops" instance=ExtResource("8_v2gmf")]
+position = Vector2(166, 139)
+drop_type = 4
+
+[node name="Droppable3" parent="Drops" instance=ExtResource("8_v2gmf")]
+position = Vector2(166, 139)
+drop_type = 4
+
+[node name="Droppable4" parent="Drops" instance=ExtResource("8_v2gmf")]
+position = Vector2(166, 139)
+drop_type = 4
+
+[node name="Droppable5" parent="Drops" instance=ExtResource("8_v2gmf")]
+position = Vector2(166, 139)
+drop_type = 4
+
+[node name="Droppable6" parent="Drops" instance=ExtResource("8_v2gmf")]
+position = Vector2(166, 139)
+drop_type = 4
+
+[node name="Droppable7" parent="Drops" instance=ExtResource("8_v2gmf")]
+position = Vector2(166, 139)
+drop_type = 4
 
 [node name="Helpers" type="Node2D" parent="."]
 y_sort_enabled = true
