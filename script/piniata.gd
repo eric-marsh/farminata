@@ -102,10 +102,19 @@ func piniata_particle(pos: Vector2):
 	particle_color_index = (particle_color_index + 1) % particle_colors.size()
 	Util.create_explosion_particle(pos, c.lightened(0.5), 6, 1.9)
 
+
+var num_failed_drops_in_a_row = 0
+@onready var plot_message: Sprite2D = $Node2D/Sprite2D/PlotMessage
+
 func create_drop()->void:
 	var drop_type = get_random_output() 
 	if drop_type == Enum.Drop_Type.X:
+		num_failed_drops_in_a_row += 1
+		if num_failed_drops_in_a_row > 5:
+			plot_message.visible = true
 		return
+	num_failed_drops_in_a_row = 0
+	plot_message.visible = false
 			
 	$Node2D/Output.trigger_output(drop_type, Vector2.ZERO)
 

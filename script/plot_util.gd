@@ -17,6 +17,7 @@ func add_plot():
 	Globals.PlotsContainer.add_child(p)
 	State.num_plots += 1
 	Globals.EnviornmentLayers.update_enviornment_layer()
+	Globals.PiniataNode.plot_message.visible = false
 	
 
 var num_rows = 8

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=14 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
 [ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
 [ext_resource type="Texture2D" uid="uid://cq8x1748t1ssk" path="res://img/piniata/piniata_hit.png" id="3_nu8ja"]
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="3_odym4"]
 [ext_resource type="Texture2D" uid="uid://ci4cpk4no35dd" path="res://img/piniata/eye.png" id="4_rrcj7"]
+[ext_resource type="Texture2D" uid="uid://c75facejbasv" path="res://img/piniata/plot_message.png" id="5_nau6d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu8ja"]
 
@@ -218,6 +219,11 @@ offset = Vector2(0, 90)
 [node name="EyeSprite" type="Sprite2D" parent="Node2D/Sprite2D"]
 position = Vector2(34, 122)
 texture = ExtResource("4_rrcj7")
+
+[node name="PlotMessage" type="Sprite2D" parent="Node2D/Sprite2D"]
+visible = false
+position = Vector2(-31.8504, 133.022)
+texture = ExtResource("5_nau6d")
 
 [node name="LeftArea" type="Area2D" parent="Node2D"]
 position = Vector2(-1, 89)
