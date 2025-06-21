@@ -117,7 +117,7 @@ func _on_add_pluck_helper_button_pressed() -> void:
 func _on_add_attack_helper_button_pressed() -> void:
 	add_helper_button_pressed(Enum.Upgrade_Type.AddAttackHelper, Enum.Helper_Type.Attack)
 
-var spawn_hat_pos: Vector2 = Vector2(64, 64)
+var spawn_hat_pos: Vector2 = Vector2(128, 256)
 func _on_farmer_hat_button_pressed():
 	if !Globals.Main:
 		return

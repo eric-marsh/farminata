@@ -36,7 +36,7 @@ const SNAIL = preload("res://scene/snail.tscn")
 func update_enviornment_layer(): 
 	var total_plots: int = PlotUtil.get_total_plots()
 	if(total_plots < 3):
-		if(total_plots > 2):
+		if(total_plots == 2):
 			$"../Tutorial".visible = false
 			return
 		return

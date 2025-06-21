@@ -18,6 +18,7 @@ func add_plot():
 	State.num_plots += 1
 	Globals.EnviornmentLayers.update_enviornment_layer()
 	Globals.PiniataNode.plot_message.visible = false
+	Globals.PiniataNode.num_failed_drops_in_a_row = 0
 	
 
 var num_rows = 8
