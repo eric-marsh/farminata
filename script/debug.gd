@@ -24,7 +24,7 @@ var KEEP_PLOTS_ON_START:bool = false
 
 
 
-var ALWAYS_MUTE:bool = true
+var ALWAYS_MUTE:bool = false
 
 var DEBUG_ENABLE_DEBUGGING_KEYS:bool = true
 

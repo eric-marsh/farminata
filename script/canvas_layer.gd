@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name canvas_layer
 
 @onready var money_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/MoneyLabel
-@onready var fps: Label = $MarginContainer/HBoxContainer/VBoxContainer/FPS
+@onready var fps: Label = $MarginContainer/HBoxContainer3/FPS
 
 @onready var plot_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
 @onready var onion_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
