@@ -24,6 +24,19 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+
+func unmute_effects() -> void:
+	AudioServer.set_bus_mute( AudioServer.get_bus_index("Effects"), false)
+
+func mute_effects() -> void:
+	AudioServer.set_bus_mute( AudioServer.get_bus_index("Effects"), true)
+
+func unmute_music() -> void:
+	AudioServer.set_bus_mute( AudioServer.get_bus_index("Music"), false)
+
+func mute_music() -> void:
+	AudioServer.set_bus_mute( AudioServer.get_bus_index("Music"), true)
+
 func _on_loop_music(_player):
 	$Music.play()
 

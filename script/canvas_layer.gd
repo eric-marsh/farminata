@@ -171,3 +171,41 @@ func _on_kale_button_pressed() -> void:
 func _on_radish_button_pressed() -> void:
 	Globals.Main.change_money(-Prices.get_upgrade_price(Enum.Upgrade_Type.UnlockRadish))
 	unlock_seed(Enum.Drop_Type.Radish_Seed)
+
+
+func _on_mute_music_toggled(toggled_on: bool) -> void:
+	print(toggled_on)
+	if toggled_on:
+		mute_music.icon = MUSIC
+	else:
+		mute_music.icon = MUSIC_DISABLED
+
+
+	
+const MUSIC = preload("res://img/ui/music.png")
+const MUSIC_DISABLED = preload("res://img/ui/music_disabled.png")
+@onready var mute_music: Button = $MarginContainer/HBoxContainer3/MuteMusic
+var music_muted: bool = false
+func _on_mute_music_pressed() -> void:
+	if !Globals.AudioNode:
+		return
+	music_muted = !music_muted
+	if music_muted:
+		mute_music.icon = MUSIC_DISABLED
+		Globals.AudioNode.mute_music()
+	else:
+		mute_music.icon = MUSIC
+		Globals.AudioNode.unmute_music()
+
+const EFFECTS = preload("res://img/ui/effects.png")
+const EFFECTS_DISABLED = preload("res://img/ui/effects_disabled.png")
+@onready var mute_effects: Button = $MarginContainer/HBoxContainer3/MuteEffects
+var effects_muted: bool = false
+func _on_mute_effects_pressed() -> void:
+	effects_muted = !effects_muted
+	if effects_muted:
+		mute_effects.icon = EFFECTS_DISABLED
+		Globals.AudioNode.mute_effects()
+	else:
+		mute_effects.icon = EFFECTS
+		Globals.AudioNode.unmute_effects()

@@ -13,33 +13,41 @@ script = ExtResource("1_7cf6j")
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_l2x7s")
 volume_db = -5.0
+bus = &"Music"
 
 [node name="SlotSpin" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_poe0m")
 volume_db = -15.0
-bus = &"SlotSpin"
+bus = &"Effects"
 
 [node name="Grass" type="AudioStreamPlayer2D" parent="."]
 volume_db = -10.0
+bus = &"Effects"
 
 [node name="Plant" type="AudioStreamPlayer2D" parent="."]
 volume_db = -10.0
+bus = &"Effects"
 
 [node name="Mouse" type="AudioStreamPlayer2D" parent="."]
 volume_db = -10.0
+bus = &"Effects"
 
 [node name="Money" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_0tnc4")
 volume_db = -10.0
+bus = &"Effects"
 
 [node name="ApplyDroppable" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_1lfwv")
 volume_db = -10.0
+bus = &"Effects"
 
 [node name="BuyUpgrade" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_u5moa")
 volume_db = -20.0
+bus = &"Effects"
 
 [node name="HitPiniata" type="AudioStreamPlayer2D" parent="."]
-volume_db = -5.0
+volume_db = -10.0
 pitch_scale = 1.2
+bus = &"Effects"

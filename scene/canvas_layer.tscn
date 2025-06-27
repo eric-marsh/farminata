@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=17 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
 [ext_resource type="Theme" uid="uid://qrqka6k5if6b" path="res://scene/upgrade_menu_theme.tres" id="2_hpb7r"]
@@ -14,18 +14,22 @@
 [ext_resource type="Texture2D" uid="uid://but6iese2yrbb" path="res://img/ui/buy_attack_icon.png" id="7_5gad3"]
 [ext_resource type="Texture2D" uid="uid://gn7l7amwfdhw" path="res://img/plants/kale/kale.png" id="7_espfs"]
 [ext_resource type="Texture2D" uid="uid://dl136yrrfffij" path="res://img/plants/radish/radish.png" id="8_5rgua"]
+[ext_resource type="Texture2D" uid="uid://cds4byaai5o42" path="res://img/ui/music.png" id="15_espfs"]
+[ext_resource type="Texture2D" uid="uid://c4x2jxpiam0km" path="res://img/ui/effects.png" id="16_5rgua"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_xp8f4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 89.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -200,6 +204,26 @@ text = "$20"
 icon = ExtResource("4_vqic1")
 expand_icon = true
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 6
+alignment = 2
+
+[node name="MuteMusic" type="Button" parent="MarginContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+theme = ExtResource("2_hpb7r")
+icon = ExtResource("15_espfs")
+expand_icon = true
+
+[node name="MuteEffects" type="Button" parent="MarginContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+theme = ExtResource("2_hpb7r")
+icon = ExtResource("16_5rgua")
+expand_icon = true
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton" to="." method="_on_turnip_button_pressed"]
@@ -212,3 +236,5 @@ expand_icon = true
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddFarmerHatButton" to="." method="_on_farmer_hat_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddDeliveryHatButton" to="." method="_on_delivery_hat_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer2/AddAttackHatButton" to="." method="_on_attack_hat_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer3/MuteMusic" to="." method="_on_mute_music_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer3/MuteEffects" to="." method="_on_mute_effects_pressed"]
