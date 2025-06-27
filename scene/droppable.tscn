@@ -9,7 +9,7 @@ shader = ExtResource("3_64vpq")
 shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_34vfq"]
-radius = 9.0
+radius = 8.0
 
 [node name="Droppable" type="RigidBody2D" groups=["droppable"]]
 y_sort_enabled = true
