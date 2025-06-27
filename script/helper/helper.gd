@@ -388,17 +388,13 @@ func move_to_target() -> bool:
 			return true
 		if target_droppable and !target_droppable.is_hat and held_droppables.size() == 3:
 			return true
-		
 	
-		
 	if helper_type == Enum.Helper_Type.Attack:
 		if global_position.distance_to(target_pos) <= 2:
 			return true
 	else:
 		if global_position.distance_to(target_pos) <= 32:
 			return true
-	
-	
 	
 	var direction = (target_pos - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
@@ -445,11 +441,7 @@ func update_animation() -> void:
 			hat_sprite.flip_h = false
 		_:
 			print("Dont know that direction")
-	#if helper_type == Enum.Helper_Type.Pluck:
-		#if hat_sprite.flip_h:
-			#hat_sprite.offset.x = -3
-		#else:
-			#hat_sprite.offset.x = 3
+
 	
 	update_hat_flip_h()
 

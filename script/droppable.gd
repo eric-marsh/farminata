@@ -64,7 +64,6 @@ func _physics_process(delta):
 		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)
 		return
 	
-	
 	if is_hat and Globals.Main.global_timer % 1 == 0:
 		if target_hat_helper and target_hat_helper.state != Enum.Helper_State.Deliver_Item:
 			target_hat_helper = null
@@ -74,11 +73,6 @@ func _physics_process(delta):
 				target_hat_helper = h
 				h.target_droppable = self
 				h.set_state(Enum.Helper_State.Get_Item)
-	
-	if Debug.DEBUG_DROPPABLE_MOVE_TO_TARGET and moving_to_target:
-		var dir = (target_position - global_position).normalized()
-		velocity = dir * speed
-		position += velocity * delta
 
 func update_shadow():
 	$Sprite2D/Shadow.global_position = $Sprite2D.global_position + Vector2(0, 1)
@@ -112,13 +106,10 @@ func start_dragging() -> void:
 		Globals.SellChestNode.open_chest(self)
 		
 	if DropUtil.is_hat(drop_type):
-		#h.drop_held_item()
 		if target_hat_helper:
-			print("hattt")
 			target_hat_helper.target_droppable = null
 			target_hat_helper.set_state(Enum.Helper_State.Idle)
 			target_hat_helper = null
-		
 	
 	
 	
