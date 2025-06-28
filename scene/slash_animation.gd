@@ -8,18 +8,37 @@ const SLASH_ANIMATION = preload("res://img/particle/slash_animation.tres")
 
 @export var flip_horiz = false
 
-var animations = [
+var regular_animations = [
 	"slash_1",
 	"slash_2",
 	"slash_1",
 	"slash_3",
-	
+]
+
+var fire_animations = [
+	"fire_1",
+	"fire_2",
+	"fire_1",
+	"fire_3",
+]
+
+var electric_animations = [
+	"electric_1",
+	"electric_2",
+	"electric_1",
+	"electric_3",
 ]
 
 func _ready() -> void:
 	init_animation()
-	slash_animation.play(animations[last_animation_index])
-	last_animation_index = (last_animation_index + 1) % animations.size()
+	slash_animation.play(regular_animations[last_animation_index])
+	last_animation_index = (last_animation_index + 1) % regular_animations.size()
+	
+	#slash_animation.play(fire_animations[last_animation_index])
+	#last_animation_index = (last_animation_index + 1) % fire_animations.size()
+	#
+	#slash_animation.play(electric_animations[last_animation_index])
+	#last_animation_index = (last_animation_index + 1) % electric_animations.size()
 
 func init_animation() -> void:
 	flip_h = flip_horiz
