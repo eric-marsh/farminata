@@ -12,6 +12,7 @@ enum Grow_Type { None, Carrot, Onion, Turnip, Potato, Kale, Radish }
 enum Slot_Pos {Left, Middle, Right}
 
 enum Upgrade_Type { AddPlot, UnlockOnion, UnlockTurnip, UnlockPotato, UnlockKale, UnlockRadish, AddFarmerHelper,
+AddFireAttack, AddElectricAttack,
 AddPluckHelper, AddAttackHelper,
 AddHat
  }
@@ -20,3 +21,6 @@ enum Dir { Left, Right, Up, Down}
 enum Helper_State { Idle, Wander, Get_Item, Deliver_Item, Pluck_Crop, Attack }
 
 enum Helper_Type { Farmer, Pluck, Attack }
+
+
+enum Attack_Type { Regular, Fire, Electric }

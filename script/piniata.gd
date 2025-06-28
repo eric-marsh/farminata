@@ -183,11 +183,24 @@ func _on_right_area_input_event(viewport: Node, event: InputEvent, shape_idx: in
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			player_hit_piniata(State.hit_strength)
-				
+
+
+var last_attack_type = Enum.Attack_Type.Regular
+var attack_types = [Enum.Attack_Type.Regular]
+
 func player_hit_piniata(strength: float)->void:
 	check_for_gameover(strength)
-	hit_piniata(strength, get_global_mouse_position())
-	Util.create_slash_animation(get_global_mouse_position(), strength > 0)
+	
+	
+	if State.electric_attack_unlocked and attack_types.size() != 3:
+		attack_types = [Enum.Attack_Type.Regular, Enum.Attack_Type.Fire, Enum.Attack_Type.Electric]
+	if (State.fire_attack_unlocked and !State.electric_attack_unlocked) and attack_types.size() != 2:
+		attack_types = [Enum.Attack_Type.Regular, Enum.Attack_Type.Fire]
+	var attack_type: Enum.Attack_Type = attack_types.pop_front()
+	attack_types.push_back(attack_type)
+	
+	hit_piniata(Util.get_attack_strength(attack_type) * Util.get_sign(strength), get_global_mouse_position())
+	Util.create_slash_animation(get_global_mouse_position(), strength > 0, attack_type)
 	if Globals.AudioNode:
 		Globals.AudioNode.play_hit_piniata_sound()
 

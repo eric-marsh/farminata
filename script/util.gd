@@ -7,6 +7,10 @@ func rnd_sign():
 		return 1
 	else:
 		return -1
+		
+func get_sign(n: int) -> int:
+	return -1 if n < 0 else 1
+		
 
 func quick_timer(obj: Node, wait_time: float, on_timeout: Callable):
 	var t: Timer = Timer.new()
@@ -118,13 +122,26 @@ func get_total_helpers() -> int:
 	
 	
 const SLASH_ANIMATION = preload("res://scene/slash_animation.tscn")
-func create_slash_animation(pos: Vector2, flip_h: bool = false):
+func create_slash_animation(pos: Vector2, flip_h: bool = false, attack_type: Enum.Attack_Type = Enum.Attack_Type.Regular):
 	if !Globals.AnimationsContainer:
 		return
 	var a = SLASH_ANIMATION.instantiate() 
 	a.global_position = pos
 	a.flip_horiz = flip_h
+	a.attack_type = attack_type
 	Globals.AnimationsContainer.add_child(a)
+
+
+func get_attack_strength(attack_type: Enum.Attack_Type) -> int:
+	match(attack_type):
+		Enum.Attack_Type.Regular:
+			return 1
+		Enum.Attack_Type.Fire:
+			return 2
+		Enum.Attack_Type.Electric:
+			return 4
+		_:
+			return 1
 
 var current_skew: float = 0.0
 var skew_dir: float = 0.001

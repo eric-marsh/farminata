@@ -8,6 +8,7 @@ const SLASH_ANIMATION = preload("res://img/particle/slash_animation.tres")
 
 @export var flip_horiz = false
 
+
 var regular_animations = [
 	"slash_1",
 	"slash_2",
@@ -29,16 +30,25 @@ var electric_animations = [
 	"electric_3",
 ]
 
+var attack_type: Enum.Attack_Type = Enum.Attack_Type.Regular
+
+
 func _ready() -> void:
 	init_animation()
-	slash_animation.play(regular_animations[last_animation_index])
-	last_animation_index = (last_animation_index + 1) % regular_animations.size()
 	
-	#slash_animation.play(fire_animations[last_animation_index])
-	#last_animation_index = (last_animation_index + 1) % fire_animations.size()
-	#
-	#slash_animation.play(electric_animations[last_animation_index])
-	#last_animation_index = (last_animation_index + 1) % electric_animations.size()
+	var animation = null
+	match(attack_type):
+		Enum.Attack_Type.Regular:
+			animation = regular_animations
+		Enum.Attack_Type.Fire:
+			animation = fire_animations
+		Enum.Attack_Type.Electric:
+			animation = electric_animations
+	
+	slash_animation.play(animation[last_animation_index])
+	last_animation_index = (last_animation_index + 1) % animation.size()
+
+
 
 func init_animation() -> void:
 	flip_h = flip_horiz

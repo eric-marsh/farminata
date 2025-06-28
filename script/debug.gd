@@ -1,10 +1,10 @@
 extends Node
 
-var STARTING_MONEY: int = 0
+var STARTING_MONEY: int = 11110
 var ALL_FULL_CROPS_AT_START:bool = false
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = false
+var DONT_LOAD:bool = true
 
 var SHOW_FPS:bool = true
 

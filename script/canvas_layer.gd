@@ -4,12 +4,15 @@ class_name canvas_layer
 @onready var money_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/MoneyLabel
 @onready var fps: Label = $MarginContainer/HBoxContainer3/FPS
 
-@onready var plot_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PlotButton
-@onready var onion_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/OnionButton
-@onready var turnip_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton
-@onready var potato_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PotatoButton
-@onready var kale_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/KaleButton
-@onready var radish_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/RadishButton
+@onready var plot_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PlotButton
+@onready var onion_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/OnionButton
+@onready var turnip_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/TurnipButton
+@onready var potato_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PotatoButton
+@onready var kale_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/KaleButton
+@onready var radish_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/RadishButton
+
+@onready var attack_upgrade_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/AttackUpgradeButton
+
 
 @onready var add_farmer_helper: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddFarmerHelper
 @onready var add_pluck_helper_button: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddPluckHelperButton
@@ -18,6 +21,9 @@ class_name canvas_layer
 @onready var add_farmer_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddFarmerHatButton
 @onready var add_delivery_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddDeliveryHatButton
 @onready var add_attack_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer2/AddAttackHatButton
+
+@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
+@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
 
 
 func _ready() -> void:
@@ -86,6 +92,24 @@ func update_money_counter():
 	add_attack_hat_button.text = "$" + str(hat_price)
 	add_attack_hat_button.disabled = hat_price > money
 	
+	# update attack buttons
+	if !State.fire_attack_unlocked:
+		var fire_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddFireAttack)
+		fire_attack_button.text = "$" + str(fire_price)
+		fire_attack_button.disabled = fire_price > money
+	else:
+		fire_attack_button.visible = false
+	
+	if State.fire_attack_unlocked and !State.electric_attack_unlocked:
+		var electric_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddElectricAttack)
+		electric_attack_button.text = "$" + str(electric_price)
+		electric_attack_button.disabled = electric_price > money
+	elif State.fire_attack_unlocked and State.electric_attack_unlocked:
+		electric_attack_button.visible = false
+	
+	#@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
+#@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
+
 	
 	
 
@@ -209,3 +233,15 @@ func _on_mute_effects_pressed() -> void:
 	else:
 		mute_effects.icon = EFFECTS
 		Globals.AudioNode.unmute_effects()
+
+
+
+func _on_fire_attack_button_pressed() -> void:
+	State.fire_attack_unlocked = true
+	fire_attack_button.visible = false
+	electric_attack_button.visible = true
+
+func _on_electric_attack_button_pressed() -> void:
+	State.electric_attack_unlocked = true
+	fire_attack_button.visible = false
+	electric_attack_button.visible = false

@@ -27,6 +27,10 @@ var hit_strength: float = 1.0
 
 var is_piniata_dead: bool = false
 
+var fire_attack_unlocked: bool = false
+var electric_attack_unlocked: bool = false
+
+
 # List of keys to be saved/loaded automatically
 const SAVE_KEYS := [
 	"total_game_time", 
@@ -41,6 +45,8 @@ const SAVE_KEYS := [
 	"num_attack_hats",
 	"piniata_hp", 
 	"unlocked_slot_outputs",
+	"fire_attack_unlocked",
+	"electric_attack_unlocked",
 	"is_piniata_dead"
 ]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=19 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
 [ext_resource type="Theme" uid="uid://qrqka6k5if6b" path="res://scene/upgrade_menu_theme.tres" id="2_hpb7r"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://but6iese2yrbb" path="res://img/ui/buy_attack_icon.png" id="7_5gad3"]
 [ext_resource type="Texture2D" uid="uid://gn7l7amwfdhw" path="res://img/plants/kale/kale.png" id="7_espfs"]
 [ext_resource type="Texture2D" uid="uid://dl136yrrfffij" path="res://img/plants/radish/radish.png" id="8_5rgua"]
+[ext_resource type="Texture2D" uid="uid://dy2gw51ryj5yy" path="res://img/ui/fire.png" id="9_cvoi6"]
+[ext_resource type="Texture2D" uid="uid://n2n7wl7ujumx" path="res://img/ui/lightning.png" id="10_fqykr"]
 [ext_resource type="Texture2D" uid="uid://cds4byaai5o42" path="res://img/ui/music.png" id="15_espfs"]
 [ext_resource type="Texture2D" uid="uid://c4x2jxpiam0km" path="res://img/ui/effects.png" id="16_5rgua"]
 
@@ -54,12 +56,16 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
-text = "Farm Upgrades"
+text = "General Upgrades"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/FarmUpgrades"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/FarmUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlotButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer"]
+[node name="PlotButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -67,7 +73,7 @@ text = "$2"
 icon = ExtResource("3_i30vn")
 expand_icon = true
 
-[node name="OnionButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer"]
+[node name="OnionButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -75,7 +81,7 @@ text = "$24"
 icon = ExtResource("2_r6mtg")
 expand_icon = true
 
-[node name="TurnipButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer"]
+[node name="TurnipButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
@@ -84,7 +90,7 @@ text = "$24"
 icon = ExtResource("5_c7vqt")
 expand_icon = true
 
-[node name="PotatoButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer"]
+[node name="PotatoButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
@@ -93,7 +99,7 @@ text = "$24"
 icon = ExtResource("6_5gad3")
 expand_icon = true
 
-[node name="KaleButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer"]
+[node name="KaleButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
@@ -102,13 +108,33 @@ text = "$24"
 icon = ExtResource("7_espfs")
 expand_icon = true
 
-[node name="RadishButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer"]
+[node name="RadishButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
 text = "$24"
 icon = ExtResource("8_5rgua")
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer"]
+layout_mode = 2
+
+[node name="FireAttackButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(48, 24)
+layout_mode = 2
+theme = ExtResource("2_hpb7r")
+text = "$24"
+icon = ExtResource("9_cvoi6")
+expand_icon = true
+
+[node name="ElectricAttackButton" type="Button" parent="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(48, 24)
+layout_mode = 2
+theme = ExtResource("2_hpb7r")
+text = "$24"
+icon = ExtResource("10_fqykr")
 expand_icon = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
@@ -224,12 +250,14 @@ theme = ExtResource("2_hpb7r")
 icon = ExtResource("16_5rgua")
 expand_icon = true
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/TurnipButton" to="." method="_on_turnip_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/PotatoButton" to="." method="_on_potato_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/KaleButton" to="." method="_on_kale_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/HBoxContainer/RadishButton" to="." method="_on_radish_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/TurnipButton" to="." method="_on_turnip_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PotatoButton" to="." method="_on_potato_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/KaleButton" to="." method="_on_kale_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/RadishButton" to="." method="_on_radish_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton" to="." method="_on_fire_attack_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton" to="." method="_on_electric_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddFarmerHelper" to="." method="_on_add_farmer_helper_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddPluckHelperButton" to="." method="_on_add_pluck_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer2/AddAttackHelperButton" to="." method="_on_add_attack_helper_button_pressed"]
