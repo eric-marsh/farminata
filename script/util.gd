@@ -142,6 +142,17 @@ func get_attack_strength(attack_type: Enum.Attack_Type) -> int:
 			return 4
 		_:
 			return 1
+			
+func get_attack_color(attack_type: Enum.Attack_Type) -> Color:
+	match(attack_type):
+		Enum.Attack_Type.Regular:
+			return Color.WHITE
+		Enum.Attack_Type.Fire:
+			return Color.RED
+		Enum.Attack_Type.Electric:
+			return Color.YELLOW
+		_:
+			return Color.WHITE
 
 var current_skew: float = 0.0
 var skew_dir: float = 0.001

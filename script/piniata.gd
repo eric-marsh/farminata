@@ -199,8 +199,12 @@ func player_hit_piniata(strength: float)->void:
 	var attack_type: Enum.Attack_Type = attack_types.pop_front()
 	attack_types.push_back(attack_type)
 	
-	hit_piniata(Util.get_attack_strength(attack_type) * Util.get_sign(strength), get_global_mouse_position())
-	Util.create_slash_animation(get_global_mouse_position(), strength > 0, attack_type)
+	var hit_position: Vector2 = get_global_mouse_position()
+	var attack_strength = Util.get_attack_strength(attack_type)
+	hit_piniata(attack_strength * Util.get_sign(strength), hit_position)
+	Util.create_slash_animation(hit_position, strength > 0, attack_type)
+	DamageNumber.display_number(attack_strength, hit_position, Util.get_attack_color(attack_type))
+	
 	if Globals.AudioNode:
 		Globals.AudioNode.play_hit_piniata_sound()
 
