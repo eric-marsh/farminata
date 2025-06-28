@@ -93,19 +93,24 @@ func update_money_counter():
 	add_attack_hat_button.disabled = hat_price > money
 	
 	# update attack buttons
+	var fire_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddFireAttack)
+	fire_attack_button.text = "$" + str(fire_price)
 	if !State.fire_attack_unlocked:
-		var fire_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddFireAttack)
-		fire_attack_button.text = "$" + str(fire_price)
 		fire_attack_button.disabled = fire_price > money
 	else:
 		fire_attack_button.visible = false
 	
+	var electric_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddElectricAttack)
+	electric_attack_button.text = "$" + str(electric_price)
 	if State.fire_attack_unlocked and !State.electric_attack_unlocked:
-		var electric_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddElectricAttack)
-		electric_attack_button.text = "$" + str(electric_price)
 		electric_attack_button.disabled = electric_price > money
 	elif State.fire_attack_unlocked and State.electric_attack_unlocked:
 		electric_attack_button.visible = false
+		
+	if State.is_piniata_dead:
+		fire_attack_button.visible = false
+		electric_attack_button.visible = false
+		
 	
 	#@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
 #@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
@@ -237,11 +242,13 @@ func _on_mute_effects_pressed() -> void:
 
 
 func _on_fire_attack_button_pressed() -> void:
+	Globals.Main.change_money(-Prices.get_upgrade_price(Enum.Upgrade_Type.AddFireAttack))
 	State.fire_attack_unlocked = true
 	fire_attack_button.visible = false
 	electric_attack_button.visible = true
 
 func _on_electric_attack_button_pressed() -> void:
+	Globals.Main.change_money(-Prices.get_upgrade_price(Enum.Upgrade_Type.AddElectricAttack))
 	State.electric_attack_unlocked = true
 	fire_attack_button.visible = false
 	electric_attack_button.visible = false

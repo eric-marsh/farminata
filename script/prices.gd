@@ -40,7 +40,7 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 		Enum.Upgrade_Type.AddHat:
 			return 10
 		Enum.Upgrade_Type.AddFireAttack:
-			return 64
+			return 32
 		Enum.Upgrade_Type.AddElectricAttack:
 			return 128
 			
