@@ -96,6 +96,16 @@ var hit_piniata_sounds = [
 	preload("res://audio/piniata/SFX-impact-punch-bag-05_wav.wav")
 ]
 
+
+@onready var hit_piniata_flame: AudioStreamPlayer2D = $HitPiniataFlame
+func play_pinitata_flame():
+	hit_piniata_flame.play()
+	
+@onready var hit_piniata_electricity: AudioStreamPlayer2D = $HitPiniataElectricity
+func play_pinitata_electricity():
+	hit_piniata_electricity.pitch_scale = 0.8 + Util.rng.randf_range(0.0, 2.0)
+	hit_piniata_electricity.play()
+
 func play_hit_piniata_sound():
 	hit_piniata.stream = hit_piniata_sounds.pick_random()
 	hit_piniata.play()

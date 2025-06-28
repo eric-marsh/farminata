@@ -206,6 +206,13 @@ func player_hit_piniata(strength: float)->void:
 	DamageNumber.display_number(attack_strength, hit_position, Util.get_attack_color(attack_type))
 	
 	if Globals.AudioNode:
+		if attack_type == Enum.Attack_Type.Fire:
+			Globals.AudioNode.play_pinitata_flame()
+			return
+		if attack_type == Enum.Attack_Type.Electric:
+			Globals.AudioNode.play_pinitata_electricity()
+			return
+		
 		Globals.AudioNode.play_hit_piniata_sound()
 
 func check_for_gameover(strength: float):
