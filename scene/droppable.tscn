@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://xiwavl2b1sw0"]
+[gd_scene load_steps=7 format=3 uid="uid://xiwavl2b1sw0"]
 
 [ext_resource type="Script" uid="uid://coqg5qcenyvhh" path="res://script/droppable.gd" id="1_34vfq"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/plants/carrot/carrot_seed.png" id="1_j5dow"]
@@ -11,6 +11,9 @@ shader_parameter/modulate = Color(0, 0, 0, 1)
 [sub_resource type="CircleShape2D" id="CircleShape2D_34vfq"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_64vpq"]
+radius = 12.0
+
 [node name="Droppable" type="RigidBody2D" groups=["droppable"]]
 y_sort_enabled = true
 collision_layer = 19
@@ -20,6 +23,7 @@ script = ExtResource("1_34vfq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_j5dow")
 offset = Vector2(0, -8)
 
@@ -33,4 +37,12 @@ offset = Vector2(0, -7)
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_34vfq")
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
+[node name="ClickArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_64vpq")
+
+[connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]

@@ -28,6 +28,9 @@ var min_fall_amount = 50.0
 
 var start_pos: Vector2
 
+var default_scale: Vector2 = Vector2(1.5, 1.5)
+var dragging_scale:Vector2 = default_scale + Vector2.ONE * 0.2
+
 func can_be_picked_up() -> bool:
 	return !is_being_targeted and !is_held and !is_delivered
 
@@ -47,7 +50,11 @@ func _ready():
 		var new_shape = CircleShape2D.new() as CircleShape2D
 		new_shape.radius = new_radius
 		collision_shape.shape = new_shape
-		
+		return
+	
+	sprite_2d.scale = default_scale
+	#collision_shape.shape.radius = 12
+	#collision_shape.position = Vector2(0, -11)
 
 var target_hat_helper: helper = null
 
@@ -81,18 +88,8 @@ func _physics_process(delta):
 func update_shadow():
 	shadow.global_position = sprite_2d.global_position + Vector2(0, 1)
 
-var dragging_scale:Vector2 = Vector2.ONE * 1.2
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if !Globals.Main or !Globals.AudioNode:
-		return
-		
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			start_dragging()
-			Globals.AudioNode.play_pickup_sound()
-		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-			stop_dragging()
-			Globals.AudioNode.play_grass_sound()
+
+
 
 
 func start_dragging() -> void:
@@ -121,7 +118,7 @@ func stop_dragging() -> void:
 	if !Globals.Main:
 		return
 	is_dragging = false
-	sprite_2d.scale = Vector2.ONE
+	sprite_2d.scale = default_scale
 	Globals.Main.is_dragging = false
 	Globals.Main.dragged_droppable = null
 	set_collision_layer_value(1, true)
@@ -146,3 +143,18 @@ func delete():
 func hide_droppable():
 	collision_shape.disabled = true
 	visible = false
+
+
+func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if !Globals.Main or !Globals.AudioNode:
+		return
+		
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			start_dragging()
+			Globals.AudioNode.play_pickup_sound()
+		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+			stop_dragging()
+			Globals.AudioNode.play_grass_sound()
+
+	
