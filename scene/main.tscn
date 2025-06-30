@@ -10,10 +10,10 @@
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
-[ext_resource type="PackedScene" uid="uid://xiwavl2b1sw0" path="res://scene/droppable.tscn" id="8_v2gmf"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
 [ext_resource type="PackedScene" uid="uid://h4q30axum8vq" path="res://dead_piniata.tscn" id="12_hybxs"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
+[ext_resource type="Texture2D" uid="uid://cw3y8vddhkx7q" path="res://img/logo.png" id="15_v2gmf"]
 [ext_resource type="Script" uid="uid://cp50src3rv8rv" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
@@ -72,6 +72,7 @@ tile_set = ExtResource("3_hybxs")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
+zoom = Vector2(2, 2)
 script = ExtResource("2_v0l8b")
 
 [node name="Audio" parent="Camera2D" instance=ExtResource("3_b5f6u")]
@@ -89,10 +90,6 @@ script = ExtResource("4_k65ib")
 [node name="Drops" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("6_k65ib")
-
-[node name="Droppable" parent="Drops" instance=ExtResource("8_v2gmf")]
-position = Vector2(152, 136)
-drop_type = 9
 
 [node name="Helpers" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -156,5 +153,23 @@ script = ExtResource("16_jcbur")
 libraries = {
 &"": SubResource("AnimationLibrary_tv8i1")
 }
+
+[node name="CanvasLayerLogo" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayerLogo"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 16
+
+[node name="Sprite2D" type="TextureRect" parent="CanvasLayerLogo/MarginContainer"]
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("15_v2gmf")
 
 [connection signal="animation_finished" from="FadeAwayRect/AnimationPlayer" to="FadeAwayRect" method="_on_animation_player_animation_finished"]

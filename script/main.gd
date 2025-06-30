@@ -17,6 +17,22 @@ func _ready() -> void:
 	global_timer = 0
 	is_paused = false
 	
+	if Debug.THUMBNAIL_MODE:
+		State.num_farmer_helpers = 3
+		State.num_attack_helpers = 0
+		State.num_pluck_helpers = 1
+		Globals.CanvasLayerNode.visible = false
+		$Camera2D.zoom = Vector2.ONE * 2
+		$GrowArea/CollisionShape2D.shape.size = Vector2(622, 329)
+		#scale = Vector2.ONE * 1.5
+		$Piniata.position = Vector2(320, 40)
+		Globals.PiniataNode.get_node("HealthBar").visible = false
+		$GrowArea/CollisionShape2D.position = Vector2(-23, -50)
+		$Tutorial.visible = false
+		$SellChest.visible = false
+		$CanvasLayerLogo.visible = true
+		
+	
 	if Debug.STARTING_MONEY > 0:
 		change_money(Debug.STARTING_MONEY)
 		
@@ -30,6 +46,7 @@ var save_timer: float = 0.0
 func _process(delta: float) -> void:
 	if is_paused:
 		return
+	
 	global_timer += 1
 	State.total_game_time += delta
 	save_timer += delta

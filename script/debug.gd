@@ -1,12 +1,12 @@
 extends Node
 
 var STARTING_MONEY: int = 11110
-var ALL_FULL_CROPS_AT_START:bool = false
+var ALL_FULL_CROPS_AT_START:bool = true
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = true
+var DONT_LOAD:bool = false
 
-var SHOW_FPS:bool = true
+var SHOW_FPS:bool = false
 
 var DELETE_SAVE:bool = false
 
@@ -24,7 +24,8 @@ var KEEP_PLOTS_ON_START:bool = false
 
 
 
-var ALWAYS_MUTE:bool = false
+var ALWAYS_MUTE:bool = true
+var THUMBNAIL_MODE: bool = false
 
 var DEBUG_ENABLE_DEBUGGING_KEYS:bool = true
 
