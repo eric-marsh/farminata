@@ -1,6 +1,9 @@
 extends RigidBody2D
 class_name droppable
 
+
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var shadow: Sprite2D = $Sprite2D/Shadow
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 @export var target_position: Vector2
@@ -32,18 +35,19 @@ func _ready():
 	start_pos = global_position
 	await get_tree().create_timer(0.0001).timeout
 	collision_shape.disabled = true
-	$Sprite2D.texture = DropUtil.get_drop_type_img(drop_type)
-	$Sprite2D/Shadow.texture = DropUtil.get_drop_type_img(drop_type)
+	sprite_2d.texture = DropUtil.get_drop_type_img(drop_type)
+	shadow.texture = DropUtil.get_drop_type_img(drop_type)
 	
 	is_produce = DropUtil.is_produce(drop_type) 
 	is_hat = DropUtil.is_hat(drop_type)
 	if is_produce or is_hat:
 		# change this code if produce or hat should not be bigger collision radius
-		var new_radius = $CollisionShape2D.shape.radius * 2
-		$CollisionShape2D.shape = null
+		var new_radius = collision_shape.shape.radius * 2
+		collision_shape.shape = null
 		var new_shape = CircleShape2D.new() as CircleShape2D
 		new_shape.radius = new_radius
-		$CollisionShape2D.shape = new_shape
+		collision_shape.shape = new_shape
+		
 
 var target_hat_helper: helper = null
 
@@ -75,7 +79,7 @@ func _physics_process(delta):
 				h.set_state(Enum.Helper_State.Get_Item)
 
 func update_shadow():
-	$Sprite2D/Shadow.global_position = $Sprite2D.global_position + Vector2(0, 1)
+	shadow.global_position = sprite_2d.global_position + Vector2(0, 1)
 
 var dragging_scale:Vector2 = Vector2.ONE * 1.2
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -95,7 +99,7 @@ func start_dragging() -> void:
 	if !Globals.Main or Globals.Main.is_dragging:
 		return
 	is_dragging = true
-	$Sprite2D.scale = dragging_scale
+	sprite_2d.scale = dragging_scale
 	Globals.Main.is_dragging = true
 	Globals.Main.dragged_droppable = self
 	set_collision_layer_value(1, false)
@@ -117,7 +121,7 @@ func stop_dragging() -> void:
 	if !Globals.Main:
 		return
 	is_dragging = false
-	$Sprite2D.scale = Vector2.ONE
+	sprite_2d.scale = Vector2.ONE
 	Globals.Main.is_dragging = false
 	Globals.Main.dragged_droppable = null
 	set_collision_layer_value(1, true)
@@ -140,5 +144,5 @@ func delete():
 
 
 func hide_droppable():
-	$CollisionShape2D.disabled = true
+	collision_shape.disabled = true
 	visible = false
