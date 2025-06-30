@@ -103,6 +103,7 @@ func play_pinitata_flame():
 	
 @onready var hit_piniata_electricity: AudioStreamPlayer2D = $HitPiniataElectricity
 func play_pinitata_electricity():
+	return
 	hit_piniata_electricity.pitch_scale = 0.8 + Util.rng.randf_range(0.0, 2.0)
 	hit_piniata_electricity.play()
 
