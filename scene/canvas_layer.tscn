@@ -226,15 +226,17 @@ expand_icon = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 6
 alignment = 2
 
-[node name="FPS" type="Label" parent="MarginContainer/HBoxContainer3"]
+[node name="MuteEffects" type="Button" parent="MarginContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 4
-text = "FPS: 60"
+theme = ExtResource("2_hpb7r")
+icon = ExtResource("16_5rgua")
+expand_icon = true
 
 [node name="MuteMusic" type="Button" parent="MarginContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(24, 24)
@@ -243,12 +245,11 @@ theme = ExtResource("2_hpb7r")
 icon = ExtResource("15_espfs")
 expand_icon = true
 
-[node name="MuteEffects" type="Button" parent="MarginContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(24, 24)
+[node name="FPS" type="Label" parent="MarginContainer/HBoxContainer3"]
 layout_mode = 2
-theme = ExtResource("2_hpb7r")
-icon = ExtResource("16_5rgua")
-expand_icon = true
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+text = "FPS: 60"
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PlotButton" to="." method="_on_plot_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/OnionButton" to="." method="_on_onion_button_pressed"]
@@ -264,5 +265,5 @@ expand_icon = true
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddFarmerHatButton" to="." method="_on_farmer_hat_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddDeliveryHatButton" to="." method="_on_delivery_hat_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer2/AddAttackHatButton" to="." method="_on_attack_hat_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer3/MuteMusic" to="." method="_on_mute_music_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer3/MuteEffects" to="." method="_on_mute_effects_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer3/MuteMusic" to="." method="_on_mute_music_pressed"]

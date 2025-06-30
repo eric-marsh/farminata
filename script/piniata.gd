@@ -110,8 +110,12 @@ func create_drop()->void:
 	var drop_type = get_random_output() 
 	if drop_type == Enum.Drop_Type.X:
 		num_failed_drops_in_a_row += 1
-		if num_failed_drops_in_a_row > 5:
+		if num_failed_drops_in_a_row > 5 and !plot_message.visible:
 			plot_message.visible = true
+			Util.quick_timer(self, 3.0, func():
+				plot_message.visible = false
+			)
+			
 		return
 	num_failed_drops_in_a_row = 0
 	plot_message.visible = false
