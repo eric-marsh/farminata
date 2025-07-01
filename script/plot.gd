@@ -16,6 +16,7 @@ var grass_scale_speed: float = 1.1
 @onready var dirt = $Dirt
 @onready var plant = $Plant
 
+@onready var grow_timer: Timer = $GrowTimer
 
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
@@ -25,6 +26,8 @@ func _ready() -> void:
 	grass.flip_h = Util.random_chance(0.5)
 	dirt.flip_h = Util.random_chance(0.5)
 	plant.flip_h = Util.random_chance(0.5)
+	
+	
 
 func _process(delta: float) -> void:
 	if !is_growing:
@@ -117,10 +120,15 @@ func set_next_growth_state():
 		else:
 			is_growing = true
 			plot_state = Enum.Plot_State.Grow
-			animation_player.speed_scale = PlantUtil.get_grow_speed_scale(grow_type)
-			animation_player.play("grow_crop")
+			play_grow_animation(PlantUtil.get_grow_type_grow_time(grow_type))
 			if Globals.AudioNode:
 				Globals.AudioNode.play_start_grow_sound()
+
+func play_grow_animation(duration: float):
+	var original_duration := 10.0  # The length your animation was authored for
+	var speed := original_duration / duration
+	animation_player.speed_scale  = speed
+	animation_player.play("grow_crop")
 
 func done_growing()->void:
 	var stage = PlantUtil.PLANT_IMAGES[grow_type][growth_stage_index]
@@ -130,6 +138,7 @@ func done_growing()->void:
 	plot_state = Enum.Plot_State.Dry
 	update_image()
 	animation_player.play("pulse_crop")
+	
 	if Globals.AudioNode:
 		Globals.AudioNode.play_done_grow_sound()
 
@@ -168,14 +177,15 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 			is_plucking = false
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	animation_player.speed_scale = 1.0
 	$Plant.scale = Vector2.ONE
+	animation_player.speed_scale = 1
 	if anim_name == "pluck_crop":
 		if is_plucking:
 			pluck_crop(true)
 	if anim_name == "grow_crop":
 		is_growing = false
 		plot_state = Enum.Plot_State.Dry
+		plant.rotation = 0
 		done_growing()
 	if anim_name == "popup_crop":
 		Util.create_explosion_particle(global_position - Vector2(0,8), Color(Color.html("#806359"), 0.7), 6, 1.0)

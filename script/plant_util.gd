@@ -125,5 +125,21 @@ const plant_grow_scales = {
 	Enum.Grow_Type.Radish: 0.5,
 }
 
-func get_grow_speed_scale(grow_type: Enum.Grow_Type) -> float:
-	return plant_grow_scales.get(grow_type, 0.5)
+
+
+func get_grow_type_grow_time(type: Enum.Grow_Type) -> float:
+	match(type):
+		Enum.Grow_Type.Carrot:
+			return 6
+		Enum.Grow_Type.Onion:
+			return 12
+		Enum.Grow_Type.Turnip:
+			return 18
+		Enum.Grow_Type.Potato:
+			return 24
+		Enum.Grow_Type.Kale:
+			return 30
+		Enum.Grow_Type.Radish:
+			return 36
+		_:
+			return 6
