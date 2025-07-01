@@ -1,13 +1,15 @@
 extends Node
 
-var STARTING_MONEY: int = 0
+var STARTING_MONEY: int = 11110
 var ALL_FULL_CROPS_AT_START:bool = false
+
+var DEBUG_SHOW_HELPER_STATE: bool = true
 
 var ALWAYS_MUTE:bool = false
 var THUMBNAIL_MODE: bool = false
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = false
+var DONT_LOAD:bool = true
 
 var SHOW_FPS:bool = false
 
@@ -15,7 +17,7 @@ var DELETE_SAVE:bool = false
 
 var PINIATA_HP: int = 0
 
-var DEBUG_SHOW_HELPER_STATE: bool = false
+
 
 #var Helper_Speed: float = 200.0
 var Helper_Speed: float = 0.0

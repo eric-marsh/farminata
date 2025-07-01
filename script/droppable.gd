@@ -50,13 +50,23 @@ func _ready():
 		var new_shape = CircleShape2D.new() as CircleShape2D
 		new_shape.radius = new_radius
 		collision_shape.shape = new_shape
+		if is_hat:
+			Util.quick_timer(self, 3.0, func():
+				should_search_for_hat_target = true
+		)
 		return
 	
 	sprite_2d.scale = default_scale
 	#collision_shape.shape.radius = 12
 	#collision_shape.position = Vector2(0, -11)
+	
+	
+	
+	
 
 var target_hat_helper: helper = null
+
+var should_search_for_hat_target: bool = false
 
 var stopped_falling: bool = false
 func _physics_process(delta):
@@ -75,7 +85,7 @@ func _physics_process(delta):
 		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)
 		return
 	
-	if is_hat and Globals.Main.global_timer % 1 == 0:
+	if is_hat and should_search_for_hat_target and Globals.Main.global_timer % 10 == 0:
 		if target_hat_helper and target_hat_helper.state != Enum.Helper_State.Deliver_Item:
 			target_hat_helper = null
 		if !target_hat_helper and Globals.HelpersContainerNode:
@@ -107,6 +117,7 @@ func start_dragging() -> void:
 		Globals.SellChestNode.open_chest(self)
 		
 	if DropUtil.is_hat(drop_type):
+		should_search_for_hat_target = false
 		if target_hat_helper:
 			target_hat_helper.target_droppable = null
 			target_hat_helper.set_state(Enum.Helper_State.Idle)
@@ -123,6 +134,7 @@ func stop_dragging() -> void:
 	Globals.Main.dragged_droppable = null
 	set_collision_layer_value(1, true)
 	z_index = 0
+	should_search_for_hat_target = true
 	Util.quick_timer(self, 0.000001, func():
 		if is_instance_valid(self):
 			sleeping=false

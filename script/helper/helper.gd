@@ -194,7 +194,7 @@ func equip_hat(d: droppable) -> void:
 	num_hats += 1
 	#held_droppables.clear()
 	# apply upgrade
-	update_speed(15)
+	update_speed(20)
 	if helper_type == Enum.Helper_Type.Attack:
 		apply_upgrade = true
 	
