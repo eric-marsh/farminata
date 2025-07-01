@@ -74,7 +74,6 @@ func update_health_bar(damage_amount: int = 0) -> void:
 	Util.create_explosion_particle(pos, Color.RED, damage_amount)
 
 var chance_of_output: float = 0.2
-#var chance_of_output: float = 0.6
 
 func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	if play_kill_animation:
@@ -88,8 +87,7 @@ func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	
 	animate_hit(strength, pos)
 
-	
-	if Util.random_chance(chance_of_output):
+	if Util.random_chance(chance_of_output * abs(strength)):
 		create_drop()
 
 func animate_hit(strength: float, pos: Vector2 = Vector2.ZERO) -> void:
@@ -194,7 +192,6 @@ var attack_types = [Enum.Attack_Type.Regular]
 
 func player_hit_piniata(strength: float)->void:
 	check_for_gameover(strength)
-	
 	
 	if State.electric_attack_unlocked and attack_types.size() != 3:
 		attack_types = [Enum.Attack_Type.Regular, Enum.Attack_Type.Fire, Enum.Attack_Type.Electric]

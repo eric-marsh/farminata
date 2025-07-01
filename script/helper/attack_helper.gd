@@ -10,15 +10,16 @@ var is_target_pos_reached: bool = false
 
 var always_wander: bool = false
 
-
+@onready var attack_timer: Timer = $AttackTimer
+@onready var throwable: Sprite2D = $Throwable
 
 func _ready() -> void:
 	target_pos = get_attack_pos(id_of_type)
 	set_state(Enum.Helper_State.Attack)
 	update_animation()
 	
-	$AttackTimer.wait_time = attack_interval
-	$AttackTimer.connect("timeout", attack)
+	attack_timer.wait_time = attack_interval
+	attack_timer.connect("timeout", on_attack_timer_timeout)
 	
 	#$AnimatedSprite2D.modulate = Util.get_color_from_helper_type(helper_type).lightened(0.4)
 	configure_hat()
@@ -31,8 +32,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	update_hat_animation()
 	if apply_upgrade:
-		attack_interval = max(0.1, attack_interval / 2)
-		attack_strength += 2
+		attack_interval = max(0.5, attack_interval - (num_hats * 0.1))
+		attack_timer.wait_time = attack_interval
+		attack_strength += 1
 		apply_upgrade = false
 	
 	
@@ -43,6 +45,10 @@ func _physics_process(_delta: float) -> void:
 	
 	
 	if state == Enum.Helper_State.Get_Item:
+		if is_attacking():
+			attack_timer.stop()
+			throwable.visible = false
+			held_item.visible = false
 		if !target_droppable:
 			set_state(Enum.Helper_State.Idle)
 			return
@@ -77,8 +83,7 @@ func _physics_process(_delta: float) -> void:
 		$StateLabel.text = str(Util.get_helper_state_string(state), "\n", Util.get_helper_type_string(helper_type))
 
 
-@onready var throwable: Sprite2D = $Throwable
-@onready var attack_timer: Timer = $AttackTimer
+
 
 
 func start_attacking() -> void:
@@ -110,13 +115,14 @@ func stop_attacking() -> void:
 	
 
 var start_position: Vector2
-func attack() -> void:
+func on_attack_timer_timeout() -> void:
 	if !Globals.PiniataNode:
 		return
 	if dir == Enum.Dir.Left:
 		Globals.PiniataNode.hit_piniata(attack_strength, throwable.global_position)
 	else:
 		Globals.PiniataNode.hit_piniata(attack_strength * -1, throwable.global_position)
+	DamageNumber.display_number(attack_strength, throwable.global_position, Color.WHITE)
 	
 func update_thowable() -> void:
 	if !Globals.PiniataNode:
