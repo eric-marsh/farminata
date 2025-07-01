@@ -43,6 +43,8 @@ func _ready():
 	
 	is_produce = DropUtil.is_produce(drop_type) 
 	is_hat = DropUtil.is_hat(drop_type)
+	
+	
 	if is_produce or is_hat:
 		# change this code if produce or hat should not be bigger collision radius
 		var new_radius = collision_shape.shape.radius * 2
@@ -50,18 +52,16 @@ func _ready():
 		var new_shape = CircleShape2D.new() as CircleShape2D
 		new_shape.radius = new_radius
 		collision_shape.shape = new_shape
+		sprite_2d.scale = default_scale + Vector2(0.5, 0.5)
 		if is_hat:
 			Util.quick_timer(self, 3.0, func():
 				should_search_for_hat_target = true
 		)
 		return
-	
 	sprite_2d.scale = default_scale
+	
 	#collision_shape.shape.radius = 12
 	#collision_shape.position = Vector2(0, -11)
-	
-	
-	
 	
 
 var target_hat_helper: helper = null
