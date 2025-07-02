@@ -179,12 +179,8 @@ func equip_hat(d: droppable) -> void:
 	
 	s.z_index=1
 	s.y_sort_enabled=true
-	if helper_type == Enum.Helper_Type.Attack:
-		s.offset = Vector2(0, -25)
-		s.position = Vector2(0, -4)
-	else:
-		s.offset = Vector2(0, -28)
-		s.position = Vector2(0, -7)
+	s.offset = Vector2(0, -28)
+	s.position = Vector2(0, -7)
 	
 	var current_hat = $HatSprite
 	while current_hat.get_child_count() > 0:
