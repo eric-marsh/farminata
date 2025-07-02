@@ -150,7 +150,7 @@ theme_override_constants/separation = 6
 layout_mode = 2
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
-text = "Buy Helpers"
+text = "Add Friends"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer2/HelperUpgrades"]
 layout_mode = 2
