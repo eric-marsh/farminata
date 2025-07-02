@@ -9,10 +9,11 @@ var is_dragging: bool = false
 var dragged_droppable: droppable = null
 
 func _ready() -> void:
+	Globals.reset_nodes()
 	if !Debug.DONT_LOAD:
 		State.load_game()
-	if Debug.DELETE_SAVE:
-		State.delete_save()
+	#if Debug.DELETE_SAVE:
+		#State.delete_save()
 	
 	global_timer = 0
 	is_paused = false
@@ -31,7 +32,8 @@ func _ready() -> void:
 		$Tutorial.visible = false
 		$SellChest.visible = false
 		$CanvasLayerLogo.visible = true
-		
+	
+	
 	
 	if Debug.STARTING_MONEY > 0:
 		change_money(Debug.STARTING_MONEY)
@@ -40,12 +42,16 @@ func _ready() -> void:
 		DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, Util.random_visible_position(), Vector2.ZERO)
 		DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, Util.random_visible_position(), Vector2.ZERO)
 		DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, Util.random_visible_position(), Vector2.ZERO)
+	
+	if Globals.CanvasLayerNode:
+		Globals.CanvasLayerNode.update_money_counter()
 
 
 var save_timer: float = 0.0
 func _process(delta: float) -> void:
 	if is_paused:
 		return
+		
 	
 	global_timer += 1
 	State.total_game_time += delta

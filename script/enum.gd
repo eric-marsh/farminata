@@ -14,7 +14,7 @@ enum Slot_Pos {Left, Middle, Right}
 enum Upgrade_Type { AddPlot, UnlockOnion, UnlockTurnip, UnlockPotato, UnlockKale, UnlockRadish, AddFarmerHelper,
 AddFireAttack, AddElectricAttack,
 AddPluckHelper, AddAttackHelper,
-AddHat
+AddFarmerHat, AddAttackHat, AddPluckHat,
  }
 
 enum Dir { Left, Right, Up, Down}

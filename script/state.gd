@@ -50,6 +50,9 @@ const SAVE_KEYS := [
 	"is_piniata_dead"
 ]
 
+func has_save_data() -> bool:
+	return FileAccess.file_exists("user://savegame.save")
+	
 func load_game():
 	var save_data = get_save_data()
 	if not save_data:
@@ -131,4 +134,4 @@ func delete_save():
 	DirAccess.remove_absolute("user://savegame.save")
 	#Global.State().reset_state()
 	#restart_scene()
-	get_tree().quit()
+	#get_tree().quit()

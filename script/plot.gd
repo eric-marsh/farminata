@@ -16,7 +16,6 @@ var grass_scale_speed: float = 1.1
 @onready var dirt = $Dirt
 @onready var plant = $Plant
 
-@onready var grow_timer: Timer = $GrowTimer
 
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())

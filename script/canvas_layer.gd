@@ -82,15 +82,17 @@ func update_money_counter():
 			
 	
 	# update hat buttons
-	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
-	add_farmer_hat_button.text = "$" + str(hat_price)
-	add_farmer_hat_button.disabled = hat_price > money
+	var farmer_hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddFarmerHat)
+	add_farmer_hat_button.text = "$" + str(farmer_hat_price)
+	add_farmer_hat_button.disabled = farmer_hat_price > money
 	
-	add_delivery_hat_button.text = "$" + str(hat_price)
-	add_delivery_hat_button.disabled = hat_price > money
+	var delivery_hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPluckHat)
+	add_delivery_hat_button.text = "$" + str(delivery_hat_price)
+	add_delivery_hat_button.disabled = delivery_hat_price > money
 	
-	add_attack_hat_button.text = "$" + str(hat_price)
-	add_attack_hat_button.disabled = hat_price > money
+	var attack_hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddAttackHat)
+	add_attack_hat_button.text = "$" + str(attack_hat_price)
+	add_attack_hat_button.disabled = attack_hat_price > money
 	
 	# update attack buttons
 	var fire_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddFireAttack)
@@ -150,7 +152,7 @@ func _on_farmer_hat_button_pressed():
 	if !Globals.Main:
 		return
 	State.num_farmer_hats += 1
-	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddFarmerHat)
 	Globals.Main.change_money(-hat_price)
 	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Farm_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
 	update_money_counter()
@@ -160,7 +162,7 @@ func _on_delivery_hat_button_pressed():
 	if !Globals.Main:
 		return
 	State.num_pluck_hats += 1
-	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPluckHat)
 	Globals.Main.change_money(-hat_price)
 	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Delivery_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
 	update_money_counter()
@@ -170,7 +172,7 @@ func _on_attack_hat_button_pressed():
 	if !Globals.Main:
 		return
 	State.num_attack_hats += 1
-	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddHat)
+	var hat_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddAttackHat)
 	Globals.Main.change_money(-hat_price)
 	var d = DropUtil.spawn_droppable(Enum.Drop_Type.Attack_Hat, spawn_hat_pos + Util.random_offset(32), Vector2.ZERO, Vector2.ZERO)
 	update_money_counter()
