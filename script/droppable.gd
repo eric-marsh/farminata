@@ -129,7 +129,7 @@ func start_dragging() -> void:
 			target_hat_helper = null
 	
 	
-	
+var just_dropped: bool = false
 func stop_dragging() -> void:
 	if !Globals.Main:
 		return
@@ -147,6 +147,10 @@ func stop_dragging() -> void:
 			set_collision_mask_value(5, true)
 			global_position += Vector2(1,0)
 		)
+	just_dropped = true
+	Util.quick_timer(self,0.1, func():
+		just_dropped = false
+	)
 	
 
 func delete():
