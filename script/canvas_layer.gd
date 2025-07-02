@@ -102,10 +102,9 @@ func update_money_counter():
 	
 	var electric_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddElectricAttack)
 	electric_attack_button.text = "$" + str(electric_price)
-	if State.fire_attack_unlocked and !State.electric_attack_unlocked:
-		electric_attack_button.disabled = electric_price > money
-	elif State.fire_attack_unlocked and State.electric_attack_unlocked:
-		electric_attack_button.visible = false
+	electric_attack_button.disabled = electric_price > money
+	electric_attack_button.visible = (State.fire_attack_unlocked and !State.electric_attack_unlocked)
+		
 		
 	if State.is_piniata_dead:
 		fire_attack_button.visible = false
