@@ -1,17 +1,17 @@
 extends Node
 
-var STARTING_MONEY: int = 11110
+var STARTING_MONEY: int = 0
 var ALL_FULL_CROPS_AT_START:bool = false
 
-var DEBUG_SHOW_HELPER_STATE: bool = true
+var DEBUG_SHOW_HELPER_STATE: bool = false
 
 var ALWAYS_MUTE:bool = false
 var THUMBNAIL_MODE: bool = false
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = true
+var DONT_LOAD:bool = false
 
-var SHOW_FPS:bool = false
+var SHOW_FPS:bool = true
 
 var DELETE_SAVE:bool = false
 
