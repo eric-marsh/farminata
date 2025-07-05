@@ -16,6 +16,7 @@ var grass_scale_speed: float = 1.1
 @onready var dirt = $Dirt
 @onready var plant = $Plant
 
+var target_helper: helper = null
 
 func _ready() -> void:
 	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
@@ -67,6 +68,7 @@ func apply_droppable(d: droppable) -> void:
 			grow_type = PlantUtil.drop_type_to_grow_type(d.drop_type)
 			var prev_plot_state = plot_state
 			set_next_growth_state()
+			target_helper = null
 			plot_state = prev_plot_state # TODO: do this the right way
 			cleanup_droppable(d)
 			update_image()
@@ -84,6 +86,7 @@ func apply_droppable(d: droppable) -> void:
 			if Globals.AudioNode:
 				Globals.AudioNode.play_apply_droppable_sound()
 			
+			target_helper = null
 			cleanup_droppable(d)
 			update_image()
 		return
@@ -94,6 +97,7 @@ func apply_droppable(d: droppable) -> void:
 			if Globals.AudioNode:
 				Globals.AudioNode.play_grass_sound()
 			set_next_growth_state()
+			target_helper = null
 			cleanup_droppable(d)
 			update_image()
 		return

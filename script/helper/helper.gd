@@ -78,8 +78,6 @@ func drop_held_item() ->void:
 	# dont actually drop it for now, just delete
 	held_droppables.clear()
 
-
-
 func on_idle() -> void:
 	# see if it can apply a droppable
 	if held_droppables.size() > 0:
@@ -92,6 +90,7 @@ func on_idle() -> void:
 			var p = PlotUtil.find_plot_for_droppable(d, global_position)
 			if p:
 				target_plot = p
+				p.target_helper = self
 				target_pos = target_plot.global_position
 				set_state(Enum.Helper_State.Deliver_Item)
 				return
@@ -138,9 +137,12 @@ func check_for_tasks_to_do() -> void:
 
 var has_checked_for_tasks = false
 func set_state(s: Enum.Helper_State) -> void:
+	
 	state = s
 	match(state):
 		Enum.Helper_State.Idle:
+			if target_plot and target_plot.target_helper != null:
+				target_plot.target_helper = null
 			if !has_checked_for_tasks:
 				has_checked_for_tasks = true
 				Util.quick_timer(self, 0.2, func():
@@ -193,7 +195,6 @@ func equip_hat(d: droppable) -> void:
 	update_speed(20)
 	if helper_type == Enum.Helper_Type.Attack:
 		apply_upgrade = true
-	
 
 func on_reaching_target_pos() -> void:
 	match(state):

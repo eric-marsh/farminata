@@ -99,90 +99,44 @@ func get_random_plot_position() -> Vector2:
 func does_plot_need_seed(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.None
 
-func get_plot_that_needs_seed(target_pos: Vector2 = Vector2.ZERO) -> plot:
-	var current_closest_plot: plot = null
-	var current_closest_distance: float = 999999
-	for c in Globals.PlotsContainer.get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_seed(c):
-			if target_pos == Vector2.ZERO:
-				# not checking for closest plot. Just return first plot found
-				return c
-			var dist: float = c.global_position.distance_to(target_pos)
-			if !current_closest_plot or dist < current_closest_distance:
-				if current_closest_distance <= 128:
-					return c
-				current_closest_plot = c
-				current_closest_distance = dist
-	return current_closest_plot
-
 func does_plot_need_water(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Dry and p.plot_growth_state != Enum.Plot_Growth_State.Full
-
-func get_plot_that_needs_water(target_pos: Vector2 = Vector2.ZERO) -> plot:
-	var current_closest_plot: plot = null
-	var current_closest_distance: float = 999999
-	for c in Globals.PlotsContainer.get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_water(c):
-			if target_pos == Vector2.ZERO:
-				# not checking for closest plot. Just return first plot found
-				return c
-			var dist: float = c.global_position.distance_to(target_pos)
-			if !current_closest_plot or dist < current_closest_distance:
-				if current_closest_distance <= 128:
-					return c
-				current_closest_plot = c
-				current_closest_distance = dist
-			
-	return current_closest_plot
 
 func does_plot_need_sun(p: plot) -> bool:
 	return p.plot_state == Enum.Plot_State.Wet and p.plot_growth_state != Enum.Plot_Growth_State.None
 
-func get_plot_that_needs_sun(target_pos: Vector2 = Vector2.ZERO) -> plot:
-	var current_closest_plot: plot = null
-	var current_closest_distance: float = 999999
-	for c in Globals.PlotsContainer.get_children():
-		if !c is plot:
-			continue
-		if does_plot_need_sun(c):
-			if target_pos == Vector2.ZERO:
-				# not checking for closest plot. Just return first plot found
-				return c
-			var dist: float = c.global_position.distance_to(target_pos)
-			if !current_closest_plot or dist < current_closest_distance:
-				if current_closest_distance <= 128:
-					return c
-				current_closest_plot = c
-				current_closest_distance = dist
-			
-	return current_closest_plot
-
 func does_plot_need_plucking(p: plot) -> bool:
 	return p.plot_growth_state == Enum.Plot_Growth_State.Full
 
-func get_plot_that_needs_plucking(target_pos: Vector2 = Vector2.ZERO) -> plot:
-	var current_closest_plot: plot = null
-	var current_closest_distance: float = 999999
+func get_plot_needing_condition(condition_func: Callable, target_pos: Vector2 = Vector2.ZERO) -> plot:
+	var closest_plot: plot = null
+	var closest_distance := 999999.0
+
 	for c in Globals.PlotsContainer.get_children():
-		if !c is plot:
+		if !c is plot and c.target_helper != null:
 			continue
-		if does_plot_need_plucking(c):
+		if condition_func.call(c):
 			if target_pos == Vector2.ZERO:
-				# not checking for closest plot. Just return first plot found
 				return c
-			var dist: float = c.global_position.distance_to(target_pos)
-			if !current_closest_plot or dist < current_closest_distance:
-				if current_closest_distance <= 128:
+			var dist = c.global_position.distance_to(target_pos)
+			if !closest_plot or dist < closest_distance:
+				if dist <= 128:
 					return c
-				current_closest_plot = c
-				current_closest_distance = dist
-				
-			
-	return current_closest_plot
+				closest_plot = c
+				closest_distance = dist
+	return closest_plot
+
+func get_plot_that_needs_seed(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	return get_plot_needing_condition(does_plot_need_seed, target_pos)
+
+func get_plot_that_needs_water(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	return get_plot_needing_condition(does_plot_need_water, target_pos)
+
+func get_plot_that_needs_sun(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	return get_plot_needing_condition(does_plot_need_sun, target_pos)
+
+func get_plot_that_needs_plucking(target_pos: Vector2 = Vector2.ZERO) -> plot:
+	return get_plot_needing_condition(does_plot_need_plucking, target_pos)
 
 func find_plot_for_droppable(d: droppable, pos: Vector2):
 	if DropUtil.is_seed(d.drop_type):
