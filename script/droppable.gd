@@ -36,7 +36,6 @@ func can_be_picked_up() -> bool:
 
 func _ready():
 	start_pos = global_position
-	await get_tree().create_timer(0.0001).timeout
 	collision_shape.disabled = true
 	sprite_2d.texture = DropUtil.get_drop_type_img(drop_type)
 	shadow.texture = DropUtil.get_drop_type_img(drop_type)
