@@ -5,7 +5,7 @@ extends helper
 @export var attack_strength: int = 2
 
 var has_reached_attack_pos: bool = false
-var attack_pos_radius: int = 250
+
 var is_target_pos_reached: bool = false
 
 var always_wander: bool = false
@@ -17,6 +17,8 @@ func _ready() -> void:
 	target_pos = get_attack_pos(id_of_type)
 	set_state(Enum.Helper_State.Attack)
 	update_animation()
+	
+	
 	
 	attack_timer.wait_time = attack_interval
 	attack_timer.connect("timeout", on_attack_timer_timeout)
@@ -142,12 +144,16 @@ func update_thowable() -> void:
 	throwable.global_position = start_position.lerp(target_position, t)
 	throwable.z_index = 15
 
+
 var num_attack_helpers = 100
 var target_piniata: piniata = null
 static var target_piniata_index: int = 0
 func get_attack_pos(index: int) -> Vector2:
 	if !Globals.PiniataContainer:
 		return Vector2.ZERO
+	
+	var attack_pos_radius: int = 250
+	var y_offset: int = 120
 	
 	target_piniata = Globals.PiniataContainer.get_children()[target_piniata_index]
 	target_piniata_index = (target_piniata_index + 1) % Globals.PiniataContainer.get_children().size()
@@ -160,4 +166,6 @@ func get_attack_pos(index: int) -> Vector2:
 		offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
 	else:
 		offset = Vector2(-cos(angle), -sin(angle)) * attack_pos_radius
-	return target_piniata.global_position + offset + Vector2(0, 120)
+	
+	var main_piniata_center = Vector2(337, -5)
+	return main_piniata_center + offset + Vector2(0, y_offset)
