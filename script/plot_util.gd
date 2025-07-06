@@ -2,7 +2,6 @@ extends Node
 
 const PLOT = preload("res://scene/plot.tscn")
 
-
 func add_plot():
 	if !Globals.PlotsContainer or !Globals.EnviornmentLayers or Globals.PlotsContainer.remaining_plot_points.size() == 0:
 		return
@@ -21,7 +20,6 @@ func add_plot():
 	Globals.PiniataNode.plot_message.visible = false
 	Globals.PiniataNode.num_failed_drops_in_a_row = 0
 
-
 var num_rows = 8
 var num_cols = 12
 func reset_plots():
@@ -31,7 +29,6 @@ func reset_plots():
 	if !Debug.KEEP_PLOTS_ON_START:	
 		for c in Globals.PlotsContainer.get_children():
 			c.queue_free()
-		
 	
 	# figure out the positions
 	var width: float = Globals.GrowArea.get_node("CollisionShape2D").shape.extents.x * 2 

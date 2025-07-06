@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b16p1bo02550o"]
+
+[ext_resource type="LabelSettings" uid="uid://bj5mtd81sdkad" path="res://font/credits_title.tres" id="1_g4wvt"]
+[ext_resource type="Script" uid="uid://b6gfbvqbsakem" path="res://credits.gd" id="1_pjc1l"]
+[ext_resource type="LabelSettings" uid="uid://cwfpw57os12kv" path="res://font/credits_text.tres" id="2_pjc1l"]
+[ext_resource type="Theme" uid="uid://wg2u8m0gujit" path="res://scene/main_menu_theme.tres" id="3_j6beo"]
+
+[node name="CanvasLayerCredits" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_pjc1l")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "CREDITS"
+label_settings = ExtResource("1_g4wvt")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game by: Gummy Grenade Games  
+Music: Tallbeard  
+Sprite Assets: Otterisk  
+Slash Animation: kiddolink  
+Testing: Bobby Prew  
+
+💰 Total Money Made: $00000  
+🌱 Seeds Planted: 1,000  
+🗡️  Piñata Clicks: 1,000  
+🥇 Favorite Crop: Onion  
+
+THANK YOU FOR PLAYING!
+"
+label_settings = ExtResource("2_pjc1l")
+
+[node name="TurnipButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(77, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_j6beo")
+text = "New Game+"

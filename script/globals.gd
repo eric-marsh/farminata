@@ -12,6 +12,7 @@ var PiniataNode: Node2D = null
 var PlotsContainer: Node2D = null
 var GrowArea: Area2D = null
 var EnviornmentLayers: Area2D = null
+var CanvasLayerCredits: CanvasLayer = null
 
 func _ready():
 	reset_nodes()
@@ -33,3 +34,5 @@ func reset_nodes():
 	PlotsContainer = get_node("/root/SceneSwitcher/Main/Plots")
 	GrowArea = get_node("/root/SceneSwitcher/Main/GrowArea")
 	EnviornmentLayers = get_node("/root/SceneSwitcher/Main/Enviornment")
+	CanvasLayerCredits = get_node("/root/SceneSwitcher/Main/CanvasLayerCredits")
+	
