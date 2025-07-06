@@ -119,7 +119,7 @@ func on_plucker_idle() -> void:
 			set_state(Enum.Helper_State.Get_Item)
 			return
 		# otherwise, check for pluckable plot
-		var p:plot = PlotUtil.get_plot_that_needs_plucking()
+		var p:plot = PlotUtil.get_plot_that_needs_plucking(global_position)
 		if p:
 			target_plot = p
 			target_pos = target_plot.global_position
@@ -169,6 +169,7 @@ func set_state(s: Enum.Helper_State) -> void:
 		Enum.Helper_State.Pluck_Crop:
 			held_item.visible = false
 			target_pos = target_plot.global_position
+			target_plot.target_helper = self
 		_:
 			pass
 
@@ -261,6 +262,7 @@ func on_reaching_target_pos() -> void:
 		Enum.Helper_State.Pluck_Crop:
 			if target_plot.plot_growth_state == Enum.Plot_Growth_State.Full:
 				target_plot.pluck_crop()
+			target_plot.target_helper = null
 			target_plot = null
 			set_state(Enum.Helper_State.Idle)
 		_:

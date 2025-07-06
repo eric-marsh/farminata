@@ -113,14 +113,15 @@ func get_plot_needing_condition(condition_func: Callable, target_pos: Vector2 = 
 	var closest_distance := 999999.0
 
 	for c in Globals.PlotsContainer.get_children():
-		if !c is plot and c.target_helper != null:
+		if !c is plot or c.target_helper != null:
 			continue
 		if condition_func.call(c):
 			if target_pos == Vector2.ZERO:
 				return c
+			
 			var dist = c.global_position.distance_to(target_pos)
 			if !closest_plot or dist < closest_distance:
-				if dist <= 128:
+				if dist <= 32:
 					return c
 				closest_plot = c
 				closest_distance = dist

@@ -26,8 +26,6 @@ func _ready() -> void:
 	grass.flip_h = Util.random_chance(0.5)
 	dirt.flip_h = Util.random_chance(0.5)
 	plant.flip_h = Util.random_chance(0.5)
-	
-	
 
 func _process(delta: float) -> void:
 	if !is_growing:
