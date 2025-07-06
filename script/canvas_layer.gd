@@ -179,7 +179,8 @@ func _on_attack_hat_button_pressed():
 
 func unlock_seed(seed: Enum.Drop_Type) -> void:
 	State.unlocked_slot_outputs.push_back(seed)
-	Globals.PiniataNode.unlock_drop_type(seed)
+	for p in Globals.PiniataContainer.get_children():
+		p.unlock_drop_type(seed)
 	update_money_counter()
 
 func _on_onion_button_pressed():

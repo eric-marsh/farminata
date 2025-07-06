@@ -87,7 +87,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func start_attacking() -> void:
-	if !Globals.PiniataNode:
+	if !target_piniata:
 		return
 	
 	start_position = global_position
@@ -95,7 +95,7 @@ func start_attacking() -> void:
 	attack_timer.start()
 	
 	# change direction to face piniata
-	var direction = (Globals.PiniataNode.piniata_center - global_position).normalized()
+	var direction = (target_piniata.piniata_center - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
 	if new_dir != dir:
 		dir = new_dir
@@ -116,22 +116,22 @@ func stop_attacking() -> void:
 
 var start_position: Vector2
 func on_attack_timer_timeout() -> void:
-	if !Globals.PiniataNode:
+	if !target_piniata:
 		return
 	if dir == Enum.Dir.Left:
-		Globals.PiniataNode.hit_piniata(attack_strength, throwable.global_position)
+		target_piniata.hit_piniata(attack_strength, throwable.global_position)
 	else:
-		Globals.PiniataNode.hit_piniata(attack_strength * -1, throwable.global_position)
+		target_piniata.hit_piniata(attack_strength * -1, throwable.global_position)
 	DamageNumber.display_number(attack_strength, throwable.global_position, Color.WHITE)
 	
 func update_thowable() -> void:
-	if !Globals.PiniataNode:
+	if !target_piniata:
 		return
 	var target_position: Vector2
 	if dir == Enum.Dir.Left:
-		target_position = Globals.PiniataNode.piniata_center + Vector2(42, 0)
+		target_position = target_piniata.piniata_center + Vector2(42, 0)
 	else:
-		target_position = Globals.PiniataNode.piniata_center + Vector2(-42, 0)
+		target_position = target_piniata.piniata_center + Vector2(-42, 0)
 	
 	
 	var total_time = attack_timer.wait_time
@@ -143,10 +143,15 @@ func update_thowable() -> void:
 	throwable.z_index = 15
 
 var num_attack_helpers = 100
+var target_piniata: piniata = null
+static var target_piniata_index: int = 0
 func get_attack_pos(index: int) -> Vector2:
-	if !Globals.PiniataNode:
+	if !Globals.PiniataContainer:
 		return Vector2.ZERO
-		
+	
+	target_piniata = Globals.PiniataContainer.get_children()[target_piniata_index]
+	target_piniata_index = (target_piniata_index + 1) % Globals.PiniataContainer.get_children().size()
+	
 	var angle_step = PI / (num_attack_helpers + 1)
 	var angle = PI + angle_step * (index + 1)  
 	var offset
@@ -155,4 +160,4 @@ func get_attack_pos(index: int) -> Vector2:
 		offset = Vector2(cos(angle), -sin(angle)) * attack_pos_radius
 	else:
 		offset = Vector2(-cos(angle), -sin(angle)) * attack_pos_radius
-	return Globals.PiniataNode.global_position + offset + Vector2(0, 120)
+	return target_piniata.global_position + offset + Vector2(0, 120)

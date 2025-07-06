@@ -27,7 +27,7 @@ func _ready() -> void:
 		$GrowArea/CollisionShape2D.shape.size = Vector2(622, 329)
 		#scale = Vector2.ONE * 1.5
 		$Piniata.position = Vector2(320, 40)
-		Globals.PiniataNode.get_node("HealthBar").visible = false
+		Globals.PiniataContainer.get_children()[0].get_node("HealthBar").visible = false
 		$GrowArea/CollisionShape2D.position = Vector2(-23, -50)
 		$Tutorial.visible = false
 		$SellChest.visible = false

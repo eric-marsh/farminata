@@ -105,7 +105,9 @@ script = ExtResource("6_of57s")
 position = Vector2(36, 85)
 scale = Vector2(4, 4)
 
-[node name="Piniata" parent="." instance=ExtResource("10_tqoya")]
+[node name="Piniatas" type="Node2D" parent="."]
+
+[node name="Piniata" parent="Piniatas" instance=ExtResource("10_tqoya")]
 position = Vector2(337, -5)
 
 [node name="DeadPiniata" parent="." instance=ExtResource("12_hybxs")]

@@ -8,7 +8,7 @@ var HelpersContainerNode: helpers_container = null
 var AnimationsContainer: Node2D = null
 var AudioNode: audio = null
 var SellChestNode: Area2D = null
-var PiniataNode: Node2D = null
+var PiniataContainer: Node2D = null
 var PlotsContainer: Node2D = null
 var GrowArea: Area2D = null
 var EnviornmentLayers: Area2D = null
@@ -30,7 +30,7 @@ func reset_nodes():
 	AnimationsContainer = get_node("/root/SceneSwitcher/Main/Animations")
 	AudioNode = get_node("/root/SceneSwitcher/Main/Camera2D/Audio")
 	SellChestNode = get_node("/root/SceneSwitcher/Main/SellChest")
-	PiniataNode = get_node("/root/SceneSwitcher/Main/Piniata")
+	PiniataContainer = get_node("/root/SceneSwitcher/Main/Piniatas")
 	PlotsContainer = get_node("/root/SceneSwitcher/Main/Plots")
 	GrowArea = get_node("/root/SceneSwitcher/Main/GrowArea")
 	EnviornmentLayers = get_node("/root/SceneSwitcher/Main/Enviornment")

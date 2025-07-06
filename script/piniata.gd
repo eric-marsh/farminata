@@ -1,4 +1,5 @@
 extends Node2D
+class_name piniata
 
 @onready var droppable_output = $Output
 @onready var animation_player:AnimationPlayer = $AnimationPlayerPulse

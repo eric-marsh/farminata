@@ -17,8 +17,10 @@ func add_plot():
 	Globals.PlotsContainer.add_child(p)
 	State.num_plots += 1
 	Globals.EnviornmentLayers.update_enviornment_layer()
-	Globals.PiniataNode.plot_message.visible = false
-	Globals.PiniataNode.num_failed_drops_in_a_row = 0
+	for pi in Globals.PiniataContainer.get_children():
+		pi.plot_message.visible = false
+		pi.num_failed_drops_in_a_row = 0
+
 
 var num_rows = 8
 var num_cols = 12
