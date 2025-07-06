@@ -140,6 +140,9 @@ y_sort_enabled = true
 [node name="Snails" type="Node2D" parent="Enviornment/GoodLayer"]
 y_sort_enabled = true
 
+[node name="Chickens" type="Node2D" parent="Enviornment/GoodLayer"]
+y_sort_enabled = true
+
 [node name="FadeAwayRect" type="ColorRect" parent="."]
 visible = false
 z_index = 20

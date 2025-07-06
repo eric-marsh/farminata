@@ -27,12 +27,16 @@ func reset_good_env() -> void:
 		c.queue_free()
 	for c in $GoodLayer/Snails.get_children():
 		c.queue_free()
+	for c in $GoodLayer/Chickens.get_children():
+		c.queue_free()
 	reset_sprite_points()
 	update_enviornment_layer()
 
 
 const FLOWER = preload("res://flower.tscn")
 const SNAIL = preload("res://scene/snail.tscn")
+const CHICKEN = preload("res://scene/chicken.tscn")
+
 func update_enviornment_layer(): 
 	var total_plots: int = PlotUtil.get_total_plots()
 	if(total_plots < 3):
@@ -65,6 +69,12 @@ func update_enviornment_layer():
 		var s = SNAIL.instantiate()
 		s.global_position = Globals.PlotsContainer.remaining_plot_points[0]
 		$GoodLayer/Snails.add_child(s)
+	
+	# add chicken
+	if total_plots % 20 == 0 and Globals.PlotsContainer:
+		var c = CHICKEN.instantiate()
+		c.global_position = Globals.PlotsContainer.remaining_plot_points[0]
+		$GoodLayer/Chickens.add_child(c)
 	
 	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
 

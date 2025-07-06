@@ -39,23 +39,3 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			Globals.Main.is_dragging = false
 			z_index = 0
 			Globals.AudioNode.play_grass_sound()
-
-
-#func start_dragging() -> void:
-	#if !Globals.Main or Globals.Main.is_dragging:
-		#return
-	#is_dragging = true
-	#$Sprite2D.scale = dragging_scale
-	#Globals.Main.is_dragging = true
-	#Globals.Main.dragged_droppable = self
-	#z_index = 20
-	#
-#func stop_dragging() -> void:
-	#if !Globals.Main:
-		#return
-	#is_dragging = false
-	#$Sprite2D.scale = Vector2.ONE
-	#Globals.Main.is_dragging = false
-	#Globals.Main.dragged_droppable = null
-	#set_collision_layer_value(1, true)
-	#z_index = 0

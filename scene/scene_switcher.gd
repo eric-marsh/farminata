@@ -9,7 +9,8 @@ const MAIN = preload("res://scene/main.tscn")
 func _ready() -> void:
 	if State.has_save_data():
 		continue_game_button.visible = true
-	pass
+	if Debug.SKIP_MAIN_MENU:
+		start_game()
 
 
 func _on_continue_game_button_pressed() -> void:

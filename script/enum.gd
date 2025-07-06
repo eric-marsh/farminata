@@ -24,3 +24,5 @@ enum Helper_Type { Farmer, Pluck, Attack }
 
 
 enum Attack_Type { Regular, Fire, Electric }
+
+enum Animal_State { Idle, Wander }

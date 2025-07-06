@@ -37,9 +37,9 @@ func random_visible_position() -> Vector2:
 	if !Globals.CameraNode:
 		print("No CameraNode in random_visible_position()")
 		return Vector2.ZERO
-		
+	
 	var camera_center = Globals.CameraNode.global_position
-	var half_screen_size = (get_viewport().get_visible_rect().size / Globals.CameraNode.zoom) / 2
+	var half_screen_size = Vector2(-16, -32) + (get_viewport().get_visible_rect().size / Globals.CameraNode.zoom) / 2
 	var x = camera_center.x + randf_range(-half_screen_size.x, half_screen_size.x)
 	var y = camera_center.y + randf_range(-half_screen_size.y, half_screen_size.y)
 	return Vector2(x, y)
