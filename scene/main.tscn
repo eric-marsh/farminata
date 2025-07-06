@@ -177,5 +177,6 @@ size_flags_vertical = 8
 texture = ExtResource("15_v2gmf")
 
 [node name="CanvasLayerCredits" parent="." instance=ExtResource("16_smf0o")]
+visible = false
 
 [connection signal="animation_finished" from="FadeAwayRect/AnimationPlayer" to="FadeAwayRect" method="_on_animation_player_animation_finished"]

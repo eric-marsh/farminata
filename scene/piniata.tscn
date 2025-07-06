@@ -24,7 +24,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("Node2D/Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -211,7 +211,6 @@ enable_offset = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 position = Vector2(-64, -64)
-scale = Vector2(1.06749, 1.06749)
 texture = ExtResource("1_ddpin")
 centered = false
 offset = Vector2(0, 90)
