@@ -63,6 +63,7 @@ func apply_droppable(d: droppable) -> void:
 	
 	if 	DropUtil.is_seed(d.drop_type):
 		if plot_growth_state == Enum.Plot_Growth_State.None:
+			State.total_seeds_planted += 1
 			grow_type = PlantUtil.drop_type_to_grow_type(d.drop_type)
 			var prev_plot_state = plot_state
 			set_next_growth_state()

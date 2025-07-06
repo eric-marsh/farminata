@@ -191,6 +191,7 @@ var last_attack_type = Enum.Attack_Type.Regular
 var attack_types = [Enum.Attack_Type.Regular]
 
 func player_hit_piniata(strength: float)->void:
+	State.total_piniata_clicks += 1
 	check_for_gameover(strength)
 	
 	if State.electric_attack_unlocked and attack_types.size() != 3:

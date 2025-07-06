@@ -79,6 +79,9 @@ func change_money(money_dif: int):
 		State.money += money_dif
 		Globals.CanvasLayerNode.update_money_counter()
 	
+	if money_dif > 0:
+		State.total_profit += money_dif
+	
 	# this is a really easy way to just play a noise when you buy an upgrade
 	if money_dif < 0:
 		if Globals.AudioNode:

@@ -29,6 +29,8 @@ func sell_droppable(d: droppable, ignore_collision: bool = false) -> void:
 				break
 		if !is_colliding:
 			return
+	
+	State.total_sold_crop_types[d.drop_type] = State.total_sold_crop_types.get(d.drop_type, 0) + 1
 	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
 	Util.create_explosion_particle(d.global_position, Color.YELLOW.lightened(0.5))
 	if Globals.AudioNode:

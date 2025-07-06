@@ -19,7 +19,6 @@ var target_grass_scale: Vector2 = Vector2.ONE
 
 var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
 
-
 var max_piniata_hp: float = 100000
 var piniata_hp: float = max_piniata_hp
 
@@ -30,6 +29,10 @@ var is_piniata_dead: bool = false
 var fire_attack_unlocked: bool = false
 var electric_attack_unlocked: bool = false
 
+var total_profit: int = 0
+var total_piniata_clicks: int = 0
+var total_seeds_planted: int = 0
+var total_sold_crop_types := {}
 
 # List of keys to be saved/loaded automatically
 const SAVE_KEYS := [
