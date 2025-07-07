@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b16p1bo02550o"]
+[gd_scene load_steps=6 format=3 uid="uid://b16p1bo02550o"]
 
 [ext_resource type="LabelSettings" uid="uid://bj5mtd81sdkad" path="res://font/credits_title.tres" id="1_g4wvt"]
 [ext_resource type="Script" uid="uid://b6gfbvqbsakem" path="res://credits.gd" id="1_pjc1l"]
 [ext_resource type="LabelSettings" uid="uid://cwfpw57os12kv" path="res://font/credits_text.tres" id="2_pjc1l"]
 [ext_resource type="Theme" uid="uid://wg2u8m0gujit" path="res://scene/main_menu_theme.tres" id="3_j6beo"]
+[ext_resource type="Texture2D" uid="uid://dexntd6kwbe8" path="res://img/piniata/dead_piniata.png" id="5_j6beo"]
 
 [node name="CanvasLayerCredits" type="CanvasLayer"]
 script = ExtResource("1_pjc1l")
@@ -53,6 +54,79 @@ custom_minimum_size = Vector2(77, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_j6beo")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 23
 text = "New Game+"
+
+[node name="NEWGAMEPLUSOVER" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Party over"
+label_settings = ExtResource("1_g4wvt")
+horizontal_alignment = 1
+
+[node name="Graveyard" type="Control" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = 383.0
+offset_top = 302.0
+offset_right = 580.0
+offset_bottom = 430.0
+texture = ExtResource("5_j6beo")
+
+[node name="TextureRect6" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = 438.0
+offset_top = 299.0
+offset_right = 635.0
+offset_bottom = 427.0
+texture = ExtResource("5_j6beo")
+
+[node name="TextureRect7" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = 502.0
+offset_top = 296.0
+offset_right = 699.0
+offset_bottom = 424.0
+texture = ExtResource("5_j6beo")
+
+[node name="TextureRect8" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = 565.0
+offset_top = 292.0
+offset_right = 762.0
+offset_bottom = 420.0
+texture = ExtResource("5_j6beo")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = 59.0
+offset_top = 301.0
+offset_right = 256.0
+offset_bottom = 429.0
+texture = ExtResource("5_j6beo")
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = -3.0
+offset_top = 294.0
+offset_right = 194.0
+offset_bottom = 422.0
+texture = ExtResource("5_j6beo")
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = -61.0
+offset_top = 288.0
+offset_right = 136.0
+offset_bottom = 416.0
+texture = ExtResource("5_j6beo")
+flip_h = true
+
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/Graveyard"]
+offset_left = -125.0
+offset_top = 282.0
+offset_right = 72.0
+offset_bottom = 410.0
+texture = ExtResource("5_j6beo")
+flip_h = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NewGamePlusButton" to="." method="_on_new_game_plus_button_pressed"]

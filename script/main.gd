@@ -12,17 +12,21 @@ const PINIATA = preload("res://scene/piniata.tscn")
 
 var piniata_positions: Array[Vector2] = [
 	Vector2(337, -5),
-	Vector2(147, 100)
+	Vector2(147, 100),
+	Vector2(640-147, 100),
+	Vector2(320, 200),
+	Vector2(320, 100)
+	
+	
 ]
 
 func add_piniatas():
 	var index = 0
-	print(State.array_piniata_hp)
-	print(Globals.PiniataContainer)
 	for hp in State.array_piniata_hp:
 		var p = PINIATA.instantiate() as piniata
 		p.global_position = piniata_positions[index]
 		p.id = index
+		p.scale = Vector2(0.8, 0.8) if index > 0 else Vector2.ONE
 		index += 1
 		Globals.PiniataContainer.add_child(p)
 	

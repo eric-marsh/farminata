@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name credits
 
 @onready var margin_container = $MarginContainer
+@onready var new_game_plus_button: Button = $MarginContainer/VBoxContainer/NewGamePlusButton
 
 var show_credits: bool = false
 
@@ -9,6 +10,14 @@ var speed: float = 0.4
 func _ready():
 	margin_container.global_position = Vector2(0, 400)
 	self.visible = false
+	new_game_plus_button.text = "New Game+"
+	for i in range(State.num_games_won):
+		new_game_plus_button.text += "+"
+	if State.num_games_won >= State.max_games:
+		new_game_plus_button.visible = false
+		$MarginContainer/VBoxContainer/NEWGAMEPLUSOVER.visible = true
+		$MarginContainer/Graveyard.visible = true
+	
 	if Debug.FAST_CREDITS:
 		speed = 5.0
 	
