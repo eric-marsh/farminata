@@ -38,11 +38,11 @@ func get_upgrade_price(type: Enum.Upgrade_Type):
 		Enum.Upgrade_Type.UnlockRadish:
 			return 1600
 		Enum.Upgrade_Type.AddFarmerHat:
-			return 10 * (State.num_farmer_hats + 1)
+			return 5 * (State.num_farmer_hats + 2)
 		Enum.Upgrade_Type.AddAttackHat:
-			return 10 * (State.num_attack_hats + 1)
+			return 5 * (State.num_attack_hats + 2)
 		Enum.Upgrade_Type.AddPluckHat:
-			return 10 * (State.num_pluck_hats + 1)
+			return 5 * (State.num_pluck_hats + 2)
 		Enum.Upgrade_Type.AddFireAttack:
 			return 32
 		Enum.Upgrade_Type.AddElectricAttack:

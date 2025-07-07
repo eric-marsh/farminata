@@ -66,6 +66,7 @@ visible = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = 383.0
 offset_top = 302.0
 offset_right = 580.0
@@ -73,6 +74,7 @@ offset_bottom = 430.0
 texture = ExtResource("5_j6beo")
 
 [node name="TextureRect6" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = 438.0
 offset_top = 299.0
 offset_right = 635.0
@@ -80,6 +82,7 @@ offset_bottom = 427.0
 texture = ExtResource("5_j6beo")
 
 [node name="TextureRect7" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = 502.0
 offset_top = 296.0
 offset_right = 699.0
@@ -87,6 +90,7 @@ offset_bottom = 424.0
 texture = ExtResource("5_j6beo")
 
 [node name="TextureRect8" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = 565.0
 offset_top = 292.0
 offset_right = 762.0
@@ -94,6 +98,7 @@ offset_bottom = 420.0
 texture = ExtResource("5_j6beo")
 
 [node name="TextureRect2" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = 59.0
 offset_top = 301.0
 offset_right = 256.0
@@ -102,6 +107,7 @@ texture = ExtResource("5_j6beo")
 flip_h = true
 
 [node name="TextureRect3" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = -3.0
 offset_top = 294.0
 offset_right = 194.0
@@ -110,6 +116,7 @@ texture = ExtResource("5_j6beo")
 flip_h = true
 
 [node name="TextureRect4" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = -61.0
 offset_top = 288.0
 offset_right = 136.0
@@ -118,6 +125,7 @@ texture = ExtResource("5_j6beo")
 flip_h = true
 
 [node name="TextureRect5" type="TextureRect" parent="MarginContainer/Graveyard"]
+layout_mode = 0
 offset_left = -125.0
 offset_top = 282.0
 offset_right = 72.0
