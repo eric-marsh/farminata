@@ -87,6 +87,8 @@ func _physics_process(delta):
 	
 	if is_dragging:
 		global_transform.origin = get_global_mouse_position() + Vector2(0, 8)
+		if is_produce:
+			global_transform.origin = get_global_mouse_position() + Vector2(0, 14)
 		return
 	
 	if is_hat and should_search_for_hat_target and Globals.Main.global_timer % 10 == 0:
@@ -111,6 +113,8 @@ func start_dragging() -> void:
 		return
 	is_dragging = true
 	sprite_2d.scale = dragging_scale
+	if is_produce:
+		sprite_2d.scale = dragging_scale + Vector2(0.5, 0.5)
 	Globals.Main.is_dragging = true
 	Globals.Main.dragged_droppable = self
 	set_collision_layer_value(1, false)
@@ -134,6 +138,8 @@ func stop_dragging() -> void:
 		return
 	is_dragging = false
 	sprite_2d.scale = default_scale
+	if is_produce:
+		sprite_2d.scale = default_scale + Vector2(0.5, 0.5)
 	Globals.Main.is_dragging = false
 	Globals.Main.dragged_droppable = null
 	set_collision_layer_value(1, true)
