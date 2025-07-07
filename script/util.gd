@@ -137,9 +137,9 @@ func get_attack_strength(attack_type: Enum.Attack_Type) -> int:
 		Enum.Attack_Type.Regular:
 			return 1
 		Enum.Attack_Type.Fire:
-			return 2
-		Enum.Attack_Type.Electric:
 			return 4
+		Enum.Attack_Type.Electric:
+			return 8
 		_:
 			return 1
 			
