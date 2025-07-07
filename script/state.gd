@@ -40,6 +40,8 @@ var array_piniata_hp: Array[int] = [
 var num_games_won = 0
 var max_games = 4
 
+var is_starting_new_game_plus: bool = false
+
 func reset_new_game_plus_state() -> void:
 	money = 0
 	num_plots = 1

@@ -9,7 +9,8 @@ const MAIN = preload("res://scene/main.tscn")
 func _ready() -> void:
 	if State.has_save_data():
 		continue_game_button.visible = true
-	if Debug.SKIP_MAIN_MENU:
+	if Debug.SKIP_MAIN_MENU or State.is_starting_new_game_plus:
+		State.is_starting_new_game_plus = false
 		start_game()
 
 
@@ -32,7 +33,8 @@ func start_game() -> void:
 func start_new_game_plus():
 	State.reset_new_game_plus_state()
 	State.save_game()
+	State.is_starting_new_game_plus = true
 	get_tree().reload_current_scene()
-	#start_game()
+	start_game()
 	
 	

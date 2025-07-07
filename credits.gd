@@ -40,11 +40,11 @@ func start_credits() -> void:
 	var seconds = str(int(floor(State.total_game_time) as int % 60)).pad_zeros(2)
 	
 	var stats_text: String = (
-		"💰 Total Time: " + str(hours,":",minutes,":",seconds) + "\n" +
-		"💰 Money Made: $" + str(State.total_profit) + "\n" +
-		"🌱 Seeds Planted: " + str(State.total_seeds_planted) + "\n" +
-		"🗡️ Farmiñata Clicks: " + str(State.total_piniata_clicks) + "\n" +
-		"🥇 Favorite Crop: " + str(get_favorite_crop())
+		"Total Time: " + str(hours,":",minutes,":",seconds) + "\n" +
+		"Money Made: $" + str(State.total_profit) + "\n" +
+		"Seeds Planted: " + str(State.total_seeds_planted) + "\n" +
+		"Farmiñata Clicks: " + str(State.total_piniata_clicks) + "\n" +
+		"Favorite Crop: " + str(get_favorite_crop())
 	)
 	stats.text = stats_text
 
