@@ -25,6 +25,9 @@ func _ready() -> void:
 	if Debug.PINIATA_HP > 0:
 		State.array_piniata_hp[id] = Debug.PINIATA_HP
 	update_health_bar()
+	
+	if State.array_piniata_hp[id] == 0:
+		show_corpse()
 
 var path_velocity: float = 0.0
 var path_default_progress: float = 0.0
