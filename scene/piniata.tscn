@@ -18,6 +18,8 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_nu8ja"]
 font_size = 8
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_rrcj7"]
 length = 0.001
