@@ -32,6 +32,7 @@ func add_piniatas():
 	
 
 func _ready() -> void:
+	Globals.reset_nodes()
 	if !Debug.DONT_LOAD:
 		State.load_game()
 	#if Debug.DELETE_SAVE:
@@ -40,7 +41,7 @@ func _ready() -> void:
 	
 	global_timer = 0
 	is_paused = false
-	Globals.reset_nodes()
+	
 	add_piniatas()
 	
 	if Debug.THUMBNAIL_MODE:

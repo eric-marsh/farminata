@@ -15,12 +15,7 @@ func _ready() -> void:
 	pass
 	
 func _process(_delta: float) -> void:
-	if Debug.DISABLE_ZOOM:
-		return
-	if Input.is_action_just_released("SCROLL_UP") and zoom < zoom_max:
-		await zoom_camera(Vector2(zoom_step, zoom_step))
-	elif Input.is_action_just_released("SCROLL_DOWN") and zoom > zoom_min:
-		await zoom_camera(Vector2(zoom_step, zoom_step) * -1)
+	pass
 
 func zoom_camera(zoom_offset: Vector2) -> void:
 	zoom = lerp(zoom, zoom + zoom_offset, zoom_speed)

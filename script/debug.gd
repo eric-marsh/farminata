@@ -1,27 +1,26 @@
 extends Node
 
-var STARTING_MONEY: int = 1111110
+var STARTING_MONEY: int = 0
 var ALL_FULL_CROPS_AT_START:bool = false
 
-var FAST_CREDITS: bool = true
+var FAST_CREDITS: bool = false
 
 
-var SKIP_MAIN_MENU: bool = true
+var SKIP_MAIN_MENU: bool = false
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
-var ALWAYS_MUTE:bool = true
+var ALWAYS_MUTE:bool = false
 var THUMBNAIL_MODE: bool = false
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = true
+var DONT_LOAD:bool = false
 
 var SHOW_FPS:bool = true
 
 var DELETE_SAVE:bool = false
 
-var PINIATA_HP: int = 1
-
+var PINIATA_HP: int = 0
 
 
 #var Helper_Speed: float = 200.0
@@ -32,7 +31,6 @@ var KEEP_PLOTS_ON_START:bool = false
 
 var DEBUG_ENABLE_DEBUGGING_KEYS:bool = false
 var DEBUG_DROPPABLE_MOVE_TO_TARGET: bool = false
-var DISABLE_ZOOM: bool = true
 var SPAWN_HATS: bool = false
 
 var DISABLE_SLOT_MACHINE:bool = true
