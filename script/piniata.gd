@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	
 	if play_kill_animation:
 		var pos: Vector2 = piniata_center + Util.random_offset(32)
-		DropUtil.create_apply_droppable_animation(get_random_output(), pos - Vector2(0, 16), Util.random_visible_position())
+		DropUtil.create_apply_droppable_animation(get_random_death_output(), pos - Vector2(0, 16), Util.random_visible_position())
 		if Globals.Main.global_timer % 5 == 0:
 			piniata_particle(pos)
 			if Globals.AudioNode:
@@ -122,6 +122,12 @@ func create_drop()->void:
 	plot_message.visible = false
 			
 	$Node2D/Output.trigger_output(drop_type, Vector2.ZERO)
+
+
+var death_outputs: Array[Enum.Drop_Type] = [Enum.Drop_Type.Water, Enum.Drop_Type.Sun, Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Carrot, Enum.Drop_Type.Onion, Enum.Drop_Type.Turnip, Enum.Drop_Type.Potato, Enum.Drop_Type.Kale, Enum.Drop_Type.Radish]
+func get_random_death_output() -> Enum.Drop_Type:
+	return death_outputs.pick_random()
+
 
 var outputed_sun_last:bool = false
 func get_random_output() -> Enum.Drop_Type:
