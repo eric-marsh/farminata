@@ -53,13 +53,14 @@ func start_credits() -> void:
 
 func get_favorite_crop() -> String:
 	var max_count := 0
-	var max_drop_type = null
+	var max_drop_type = Enum.Drop_Type.Carrot
 	for crop in State.total_sold_crop_types:
 		if State.total_sold_crop_types[crop] > max_count:
 			max_count = State.total_sold_crop_types[crop]
 			max_drop_type = crop
 	
-	return DropUtil.get_drop_type_string(max_drop_type if max_drop_type else Enum.Drop_Type.Carrot)
+	print(max_drop_type)
+	return DropUtil.get_drop_type_string(max_drop_type as Enum.Drop_Type)
 
 
 func _on_new_game_plus_button_pressed() -> void:

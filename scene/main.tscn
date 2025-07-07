@@ -105,6 +105,9 @@ scale = Vector2(4, 4)
 
 [node name="Piniatas" type="Node2D" parent="."]
 
+[node name="DeadPiniatas" type="Node2D" parent="."]
+y_sort_enabled = true
+
 [node name="GrowArea" type="Area2D" parent="."]
 position = Vector2(349, 224)
 

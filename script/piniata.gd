@@ -246,5 +246,5 @@ func show_corpse() -> void:
 	health_bar.visible = false
 	node_2d.visible = false
 	var d = DEAD_PINIATA.instantiate()
-	d.global_position = Vector2(-11, 118)
-	add_child(d)
+	d.global_position = global_position + Vector2(-11, 118)
+	Globals.Main.get_node("DeadPiniatas").add_child(d)
