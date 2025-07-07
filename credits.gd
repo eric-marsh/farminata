@@ -35,13 +35,21 @@ func _process(delta):
 func start_credits() -> void:
 	show_credits = true
 	
+	var hours = str(int(floor(State.total_game_time / 3600.0))).pad_zeros(2)
+	var minutes = str(int((floor(State.total_game_time) as int % 3600) / 60)).pad_zeros(2)
+	var seconds = str(int(floor(State.total_game_time) as int % 60)).pad_zeros(2)
+	
 	var stats_text: String = (
-		"💰 Total Money Made: $" + str(State.total_profit) + "\n" +
+		"💰 Total Time: " + str(hours,":",minutes,":",seconds) + "\n" +
+		"💰 Money Made: $" + str(State.total_profit) + "\n" +
 		"🌱 Seeds Planted: " + str(State.total_seeds_planted) + "\n" +
-		"🗡️ Piñata Clicks: " + str(State.total_piniata_clicks) + "\n" +
+		"🗡️ Farmiñata Clicks: " + str(State.total_piniata_clicks) + "\n" +
 		"🥇 Favorite Crop: " + str(get_favorite_crop())
 	)
 	stats.text = stats_text
+
+
+
 
 func get_favorite_crop() -> String:
 	var max_count := 0
