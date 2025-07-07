@@ -56,10 +56,14 @@ func get_random_position_in_grow_area() -> Vector2:
 	var last_plot_position = Globals.PlotsContainer.get_children()[Globals.PlotsContainer.get_children().size() - 1].global_position
 	
 	var result_pos: Vector2
+	var max_distance = 150
+	if State.num_plots > 5:
+		max_distance = 650
+	
 	var i:int = 0
 	for pos in Globals.PlotsContainer.remaining_plot_points:
 		var dist: float = last_plot_position.distance_to(pos)
-		if dist < 200 and dist > 8:
+		if dist < max_distance and dist > 8:
 			result_pos = pos
 			break
 		i += 1
