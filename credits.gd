@@ -9,11 +9,14 @@ var speed: float = 0.4
 func _ready():
 	margin_container.global_position = Vector2(0, 400)
 	self.visible = false
+	if Debug.FAST_CREDITS:
+		speed = 5.0
 	
 func _process(delta):
 	if !show_credits:
 		return
 	self.visible = true
+	Globals.CanvasLayerNode.visible = false
 	
 	if margin_container.global_position.y > 0:
 		margin_container.global_position.y = max(0, margin_container.global_position.y - speed)
@@ -40,3 +43,8 @@ func get_favorite_crop() -> String:
 			max_drop_type = crop
 	
 	return DropUtil.get_drop_type_string(max_drop_type if max_drop_type else Enum.Drop_Type.Carrot)
+
+
+func _on_new_game_plus_button_pressed() -> void:
+	if Globals.SceneSwitcherNode:
+		Globals.SceneSwitcherNode.start_new_game_plus()

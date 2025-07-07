@@ -13,6 +13,7 @@ var PlotsContainer: Node2D = null
 var GrowArea: Area2D = null
 var EnviornmentLayers: Area2D = null
 var CanvasLayerCredits: CanvasLayer = null
+var SceneSwitcherNode: Node2D = null
 
 func _ready():
 	reset_nodes()
@@ -35,4 +36,6 @@ func reset_nodes():
 	GrowArea = get_node("/root/SceneSwitcher/Main/GrowArea")
 	EnviornmentLayers = get_node("/root/SceneSwitcher/Main/Enviornment")
 	CanvasLayerCredits = get_node("/root/SceneSwitcher/Main/CanvasLayerCredits")
+	SceneSwitcherNode = get_node("/root/SceneSwitcher")
+	
 	

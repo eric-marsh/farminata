@@ -218,16 +218,20 @@ func player_hit_piniata(strength: float)->void:
 		Globals.AudioNode.play_hit_piniata_sound()
 
 
+var death_animation_time = 5.0
 func check_for_death(strength: float):
 	if !play_kill_animation and State.array_piniata_hp[id] - abs(strength) <= 0:
+		if Debug.FAST_CREDITS:
+			death_animation_time = 0.1
+		
 		State.array_piniata_hp[id] = 0
 		play_kill_animation = true
 		animation_player.stop(true)
 		animation_player.play("kill_piniata")
-		Util.quick_timer(self, 5.0, func(): 
+		Util.quick_timer(self, death_animation_time, func(): 
 			if Util.is_game_over():
 				Globals.Main.get_node("FadeAwayRect").trigger_fade_to_white()
-				Util.quick_timer(self, 2.0, func(): show_corpse()) 
+				Util.quick_timer(self, death_animation_time / 2, func(): show_corpse()) 
 			else:
 				show_corpse()
 				

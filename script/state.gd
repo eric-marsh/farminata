@@ -1,7 +1,6 @@
 extends Node
 
 var total_game_time: float = 0
-var final_game_time: float = 0
 var money: int = 0
 var max_plots: int = 100
 var num_plots: int = 1
@@ -19,11 +18,6 @@ var target_grass_scale: Vector2 = Vector2.ONE
 
 var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
 
-var max_piniata_hp: float = 100000
-
-var array_piniata_hp: Array[int] = [
-	max_piniata_hp
-]
 
 
 var hit_strength: float = 1.0
@@ -38,13 +32,44 @@ var total_piniata_clicks: int = 0
 var total_seeds_planted: int = 0
 var total_sold_crop_types := {}
 
+var max_piniata_hp: int = 100000
+var array_piniata_hp: Array[int] = [
+	max_piniata_hp
+]
 
+var num_games_won = 0
+
+func reset_new_game_plus_state() -> void:
+	money = 0
+	num_plots = 1
+
+	num_farmer_helpers = 0
+	num_pluck_helpers = 0
+	num_attack_helpers = 0
+	
+	num_farmer_hats = 0
+	num_pluck_hats = 0
+	num_attack_hats = 0
+	
+	enviornment_percentage = 0.0
+	target_grass_scale = Vector2.ONE
+	
+	unlocked_slot_outputs.clear()
+	hit_strength = 1.0
+	is_game_over = false
+	fire_attack_unlocked = false
+	electric_attack_unlocked = false
+	
+	num_games_won += 1
+	
+	array_piniata_hp.clear()
+	for i in range(num_games_won + 1):
+		array_piniata_hp.push_back(max_piniata_hp)
 
 
 # List of keys to be saved/loaded automatically
 const SAVE_KEYS := [
 	"total_game_time", 
-	"final_game_time", 
 	"money",
 	"num_plots", 
 	"num_farmer_helpers", 
@@ -121,7 +146,7 @@ func load_game():
 
 
 func save_game():
-	if Debug.DONT_SAVE:
+	if Debug.DONT_SAVE or State.is_game_over:
 		return
 
 	var save_dict = {}

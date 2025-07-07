@@ -3,6 +3,9 @@ extends Node
 var STARTING_MONEY: int = 1111110
 var ALL_FULL_CROPS_AT_START:bool = false
 
+var FAST_CREDITS: bool = true
+
+
 var SKIP_MAIN_MENU: bool = true
 
 var DEBUG_SHOW_HELPER_STATE: bool = false

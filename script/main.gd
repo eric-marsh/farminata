@@ -8,15 +8,36 @@ var max_blocks: int = 900
 var is_dragging: bool = false
 var dragged_droppable: droppable = null
 
+const PINIATA = preload("res://scene/piniata.tscn")
+
+var piniata_positions: Array[Vector2] = [
+	Vector2(337, -5),
+	Vector2(147, 100)
+]
+
+func add_piniatas():
+	var index = 0
+	print(State.array_piniata_hp)
+	print(Globals.PiniataContainer)
+	for hp in State.array_piniata_hp:
+		var p = PINIATA.instantiate() as piniata
+		p.global_position = piniata_positions[index]
+		p.id = index
+		index += 1
+		Globals.PiniataContainer.add_child(p)
+	
+
 func _ready() -> void:
-	Globals.reset_nodes()
 	if !Debug.DONT_LOAD:
 		State.load_game()
 	#if Debug.DELETE_SAVE:
 		#State.delete_save()
 	
+	
 	global_timer = 0
 	is_paused = false
+	Globals.reset_nodes()
+	add_piniatas()
 	
 	if Debug.THUMBNAIL_MODE:
 		State.num_farmer_helpers = 3
@@ -91,9 +112,12 @@ func change_money(money_dif: int):
 @onready var piniata: Node2D = $Piniata
 @onready var dead_piniata: Sprite2D = $DeadPiniata
 
+var wait_time_before_credits: float = 5.0
 func on_game_over() -> void:
+	if Debug.FAST_CREDITS:
+		wait_time_before_credits = 0.1
 	State.is_game_over = true
 	Globals.HelpersContainerNode.on_game_over()
-	Util.quick_timer(self, 5.0, func():
+	Util.quick_timer(self, wait_time_before_credits, func():
 		Globals.CanvasLayerCredits.start_credits()
 	)

@@ -54,3 +54,5 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_j6beo")
 text = "New Game+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/NewGamePlusButton" to="." method="_on_new_game_plus_button_pressed"]
