@@ -14,6 +14,7 @@ var always_wander: bool = false
 @onready var throwable: Sprite2D = $Throwable
 
 func _ready() -> void:
+	await get_tree().create_timer(0.00001).timeout
 	target_pos = get_attack_pos(id_of_type)
 	set_state(Enum.Helper_State.Attack)
 	update_animation()
@@ -149,7 +150,7 @@ var num_attack_helpers = 100
 var target_piniata: piniata = null
 static var target_piniata_index: int = 0
 func get_attack_pos(index: int) -> Vector2:
-	if !Globals.PiniataContainer:
+	if !Globals.PiniataContainer or Globals.PiniataContainer.get_children().size() == 0:
 		return Vector2.ZERO
 	
 	var attack_pos_radius: int = 250

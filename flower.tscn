@@ -67,9 +67,11 @@ _data = {
 }
 
 [node name="Flower" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_511j0")
 
 [node name="FlowerSprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("1_p547k")
 offset = Vector2(0, -13)
 
