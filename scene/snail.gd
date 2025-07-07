@@ -11,7 +11,7 @@ func _ready():
 	
 func _process(_delta):
 	if is_dragging:
-		global_transform.origin = get_global_mouse_position()
+		global_position = get_global_mouse_position() 
 		return
 		
 	if self.frame != 0:
