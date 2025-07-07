@@ -92,9 +92,7 @@ func change_money(money_dif: int):
 @onready var dead_piniata: Sprite2D = $DeadPiniata
 
 func on_game_over() -> void:
-	piniata.visible = false
-	dead_piniata.visible = true
-	State.is_piniata_dead = true
+	State.is_game_over = true
 	Globals.HelpersContainerNode.on_game_over()
 	Util.quick_timer(self, 5.0, func():
 		Globals.CanvasLayerCredits.start_credits()

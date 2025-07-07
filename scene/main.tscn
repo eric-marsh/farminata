@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=21 format=4 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
 [ext_resource type="PackedScene" uid="uid://c0isrep8hx4u6" path="res://scene/piniata.tscn" id="10_tqoya"]
-[ext_resource type="PackedScene" uid="uid://h4q30axum8vq" path="res://dead_piniata.tscn" id="12_hybxs"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
 [ext_resource type="Texture2D" uid="uid://cw3y8vddhkx7q" path="res://img/logo.png" id="15_v2gmf"]
 [ext_resource type="Script" uid="uid://cp50src3rv8rv" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
@@ -109,10 +108,6 @@ scale = Vector2(4, 4)
 
 [node name="Piniata" parent="Piniatas" instance=ExtResource("10_tqoya")]
 position = Vector2(337, -5)
-
-[node name="DeadPiniata" parent="." instance=ExtResource("12_hybxs")]
-visible = false
-position = Vector2(322, 111)
 
 [node name="GrowArea" type="Area2D" parent="."]
 position = Vector2(349, 224)

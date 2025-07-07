@@ -1,21 +1,23 @@
 extends Node
 
-var STARTING_MONEY: int = 0
+var STARTING_MONEY: int = 1111110
 var ALL_FULL_CROPS_AT_START:bool = false
+
+var SKIP_MAIN_MENU: bool = true
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
-var ALWAYS_MUTE:bool = false
+var ALWAYS_MUTE:bool = true
 var THUMBNAIL_MODE: bool = false
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = false
+var DONT_LOAD:bool = true
 
 var SHOW_FPS:bool = true
 
 var DELETE_SAVE:bool = false
 
-var PINIATA_HP: int = 0
+var PINIATA_HP: int = 1
 
 
 

@@ -73,4 +73,3 @@ func on_game_over():
 	for c in get_children():
 		if c.helper_type == Enum.Helper_Type.Attack:
 			c.stop_attacking()
-			print(c)

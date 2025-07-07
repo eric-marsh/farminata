@@ -164,3 +164,10 @@ func update_breeze():
 
 func get_breeze_skew():
 	return current_skew
+
+
+func is_game_over() -> bool:
+	for hp in State.array_piniata_hp:
+		if hp > 0:
+			return false
+	return true

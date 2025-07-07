@@ -20,11 +20,15 @@ var target_grass_scale: Vector2 = Vector2.ONE
 var unlocked_slot_outputs: Array[Enum.Drop_Type] = []
 
 var max_piniata_hp: float = 100000
-var piniata_hp: float = max_piniata_hp
+
+var array_piniata_hp: Array[int] = [
+	max_piniata_hp
+]
+
 
 var hit_strength: float = 1.0
 
-var is_piniata_dead: bool = false
+var is_game_over: bool = false
 
 var fire_attack_unlocked: bool = false
 var electric_attack_unlocked: bool = false
@@ -33,6 +37,9 @@ var total_profit: int = 0
 var total_piniata_clicks: int = 0
 var total_seeds_planted: int = 0
 var total_sold_crop_types := {}
+
+
+
 
 # List of keys to be saved/loaded automatically
 const SAVE_KEYS := [
@@ -46,11 +53,15 @@ const SAVE_KEYS := [
 	"num_farmer_hats", 
 	"num_pluck_hats", 
 	"num_attack_hats",
-	"piniata_hp", 
 	"unlocked_slot_outputs",
 	"fire_attack_unlocked",
 	"electric_attack_unlocked",
-	"is_piniata_dead"
+	"array_piniata_hp",
+	"is_game_over",
+	"total_profit",
+	"total_piniata_clicks",
+	"total_seeds_planted",
+	"total_sold_crop_types"
 ]
 
 func has_save_data() -> bool:
@@ -67,6 +78,10 @@ func load_game():
 				unlocked_slot_outputs.clear()
 				for i in save_data[key]:
 					unlocked_slot_outputs.append(int(i))
+			elif key == "array_piniata_hp":
+				array_piniata_hp.clear()
+				for i in save_data[key]:
+					array_piniata_hp.append(int(i)) 
 			else:
 				print(key, ": ", save_data[key])
 				self.set(key, save_data[key])
@@ -98,7 +113,10 @@ func load_game():
 		for i in range(num_attackers):
 			Globals.HelpersContainerNode.add_helper(Enum.Helper_Type.Attack)
 	
-	if is_piniata_dead and Globals.Main:
+	for pi in Globals.PiniataContainer.get_children():
+		pi.update_health_bar()
+	
+	if is_game_over and Globals.Main:
 		Globals.Main.on_game_over()
 
 

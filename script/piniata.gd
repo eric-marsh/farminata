@@ -6,6 +6,8 @@ class_name piniata
 
 @onready var health_bar = $HealthBar
 
+var id: int = 0
+
 var piniata_center: Vector2 = Vector2.ZERO
 
 var possible_outputs: Array[Enum.Drop_Type] = [
@@ -13,18 +15,15 @@ var possible_outputs: Array[Enum.Drop_Type] = [
 	Enum.Drop_Type.Water, 
 	Enum.Drop_Type.Carrot_Seed
 	]
-	
-func is_piniata_dead() -> bool:
-	return !visible
 
 func _ready() -> void:
 	piniata_center = global_position
 	health_bar.max_value = State.max_piniata_hp
 	health_bar.min_value = 0
 	
-	
+	await get_tree().create_timer(0.0001).timeout
 	if Debug.PINIATA_HP > 0:
-		State.piniata_hp = Debug.PINIATA_HP
+		State.array_piniata_hp[id] = Debug.PINIATA_HP
 	update_health_bar()
 
 var path_velocity: float = 0.0
@@ -34,7 +33,7 @@ var spring_force: float = 5.0  # pulls back to center
 
 var play_kill_animation: bool = false
 func _process(delta: float) -> void:
-	if !visible:
+	if !visible or is_dead:
 		return
 	
 	
@@ -67,11 +66,11 @@ var particle_colors = [
 ]
 
 func update_health_bar(damage_amount: int = 0) -> void:
-	health_bar.value = State.piniata_hp
-	$HealthBar/Label.text = str(int(State.piniata_hp)) + "/" + str(int(State.max_piniata_hp))
+	health_bar.value = State.array_piniata_hp[id]
+	$HealthBar/Label.text = str(int(State.array_piniata_hp[id])) + "/" + str(int(State.max_piniata_hp))
 	if damage_amount == 0:
 		return
-	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.piniata_hp / State.max_piniata_hp)), 6) * scale.x
+	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.array_piniata_hp[id] / State.max_piniata_hp)), 6) * scale.x
 	Util.create_explosion_particle(pos, Color.RED, damage_amount)
 
 var chance_of_output: float = 0.2
@@ -83,7 +82,7 @@ func hit_piniata(strength: int = 1, pos: Vector2 = Vector2.ZERO):
 	
 	animation_player.stop(true)
 	animation_player.play("pulse")
-	State.piniata_hp = max(1, State.piniata_hp - abs(strength))
+	State.array_piniata_hp[id] = max(1, State.array_piniata_hp[id] - abs(strength))
 	update_health_bar(abs(strength))
 	
 	animate_hit(strength, pos)
@@ -193,7 +192,7 @@ var attack_types = [Enum.Attack_Type.Regular]
 
 func player_hit_piniata(strength: float)->void:
 	State.total_piniata_clicks += 1
-	check_for_gameover(strength)
+	check_for_death(strength)
 	
 	if State.electric_attack_unlocked and attack_types.size() != 3:
 		attack_types = [Enum.Attack_Type.Regular, Enum.Attack_Type.Fire, Enum.Attack_Type.Electric]
@@ -218,12 +217,30 @@ func player_hit_piniata(strength: float)->void:
 		
 		Globals.AudioNode.play_hit_piniata_sound()
 
-func check_for_gameover(strength: float):
-	if !play_kill_animation and State.piniata_hp - abs(strength) <= 0:
-		State.piniata_hp = 0
+
+func check_for_death(strength: float):
+	if !play_kill_animation and State.array_piniata_hp[id] - abs(strength) <= 0:
+		State.array_piniata_hp[id] = 0
 		play_kill_animation = true
 		animation_player.stop(true)
 		animation_player.play("kill_piniata")
-		Util.quick_timer(self, 5.0, func(): $"../FadeAwayRect".trigger_fade_to_white())
+		Util.quick_timer(self, 5.0, func(): 
+			if Util.is_game_over():
+				Globals.Main.get_node("FadeAwayRect").trigger_fade_to_white()
+				Util.quick_timer(self, 2.0, func(): show_corpse()) 
+			else:
+				show_corpse()
+				
+		)
 		update_health_bar(abs(strength))
-		
+
+var is_dead: bool = false
+@onready var node_2d: Node2D = $Node2D
+const DEAD_PINIATA = preload("res://dead_piniata.tscn")
+func show_corpse() -> void:
+	is_dead = true
+	health_bar.visible = false
+	node_2d.visible = false
+	var d = DEAD_PINIATA.instantiate()
+	d.global_position = Vector2(-11, 118)
+	add_child(d)

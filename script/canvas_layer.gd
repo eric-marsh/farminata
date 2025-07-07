@@ -108,7 +108,7 @@ func update_money_counter():
 	electric_attack_button.visible = (State.fire_attack_unlocked and !State.electric_attack_unlocked)
 		
 		
-	if State.is_piniata_dead:
+	if State.is_game_over:
 		fire_attack_button.visible = false
 		electric_attack_button.visible = false
 		
