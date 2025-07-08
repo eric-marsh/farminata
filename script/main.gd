@@ -45,19 +45,22 @@ func _ready() -> void:
 	add_piniatas()
 	
 	if Debug.THUMBNAIL_MODE:
+		State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed, Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
 		State.num_farmer_helpers = 3
 		State.num_attack_helpers = 0
 		State.num_pluck_helpers = 1
+		State.num_plots = 80
 		Globals.CanvasLayerNode.visible = false
 		$Camera2D.zoom = Vector2.ONE * 2
 		$GrowArea/CollisionShape2D.shape.size = Vector2(622, 329)
 		#scale = Vector2.ONE * 1.5
-		$Piniata.position = Vector2(320, 40)
+		Globals.PiniataContainer.get_children()[0].position = Vector2(320, 40)
 		Globals.PiniataContainer.get_children()[0].get_node("HealthBar").visible = false
 		$GrowArea/CollisionShape2D.position = Vector2(-23, -50)
 		$Tutorial.visible = false
 		$SellChest.visible = false
 		$CanvasLayerLogo.visible = true
+		$TileMapLayer.visible = false
 	
 	
 	
@@ -94,7 +97,7 @@ func _input(event):
 		get_tree().quit()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-		call_deferred("stop_dragging_droppable") 
+		call_deferred("stop_dragging_droppable")
 
 func stop_dragging_droppable() -> void:
 	if dragged_droppable:
