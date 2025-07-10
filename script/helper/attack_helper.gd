@@ -87,8 +87,6 @@ func _physics_process(_delta: float) -> void:
 
 
 
-
-
 func start_attacking() -> void:
 	if !target_piniata:
 		return
@@ -96,7 +94,7 @@ func start_attacking() -> void:
 	start_position = global_position
 	throwable.visible = true
 	attack_timer.start()
-	
+	 
 	# change direction to face piniata
 	var direction = (target_piniata.piniata_center - global_position).normalized()
 	var new_dir = Util.get_enum_direction(direction)
@@ -104,6 +102,12 @@ func start_attacking() -> void:
 		dir = new_dir
 		update_animation()
 		# TODO: Use idle animation
+	
+	var rnd_offset = Vector2(Util.rng.randi_range(-4, 4), Util.rng.randi_range(-16, 16))
+	if dir == Enum.Dir.Left:
+		throwable_target_position = target_piniata.piniata_center + Vector2(42, 0) + rnd_offset
+	else:
+		throwable_target_position = target_piniata.piniata_center + Vector2(-42, 0) + rnd_offset
 
 func is_attacking() -> bool:
 	return !attack_timer.is_stopped()
@@ -126,15 +130,18 @@ func on_attack_timer_timeout() -> void:
 	else:
 		target_piniata.hit_piniata(attack_strength * -1, throwable.global_position)
 	DamageNumber.display_number(attack_strength, throwable.global_position, Color.WHITE)
-	
+	var rnd_offset = Vector2(Util.rng.randi_range(-4, 4), Util.rng.randi_range(-16, 16))
+	if dir == Enum.Dir.Left:
+		throwable_target_position = target_piniata.piniata_center + Vector2(42, 0) + rnd_offset
+	else:
+		throwable_target_position = target_piniata.piniata_center + Vector2(-42, 0) + rnd_offset
+
+var throwable_target_position: Vector2 = Vector2.ZERO
+var rnd_offset: float = 4.0
 func update_thowable() -> void:
 	if !target_piniata:
 		return
-	var target_position: Vector2
-	if dir == Enum.Dir.Left:
-		target_position = target_piniata.piniata_center + Vector2(42, 0)
-	else:
-		target_position = target_piniata.piniata_center + Vector2(-42, 0)
+	
 	
 	
 	var total_time = attack_timer.wait_time
@@ -142,7 +149,7 @@ func update_thowable() -> void:
 	var t = clamp(elapsed_time / total_time, 0, 1) # Normalize from 0 to 1
 
 	# Interpolate from start to target
-	throwable.global_position = start_position.lerp(target_position, t)
+	throwable.global_position = start_position.lerp(throwable_target_position, t)
 	throwable.z_index = 15
 
 
