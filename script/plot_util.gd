@@ -22,8 +22,10 @@ func add_plot():
 		pi.num_failed_drops_in_a_row = 0
 
 
-var num_rows = 8
-var num_cols = 12
+var num_rows = 10
+var num_cols = State.max_plots / 10
+
+
 func reset_plots():
 	if !Globals.PlotsContainer:
 		return
@@ -76,7 +78,7 @@ func get_random_position_in_grow_area() -> Vector2:
 	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
 	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
 	
-	return top_left + result_pos + Util.random_offset(8) + Vector2(0, 32)
+	return top_left + result_pos + Util.random_offset(8) # + Vector2(0, 32)
 	
 
 func get_total_plots() -> int:

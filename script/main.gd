@@ -63,6 +63,8 @@ func _ready() -> void:
 		$TileMapLayer.visible = false
 	
 	
+	if Debug.START_WITH_ALL_CROPS_UNLOCKED:
+		State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed,Enum.Drop_Type.Onion_Seed,Enum.Drop_Type.Turnip_Seed,Enum.Drop_Type.Potato_Seed,Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
 	
 	if Debug.STARTING_MONEY > 0:
 		change_money(Debug.STARTING_MONEY)
@@ -74,6 +76,9 @@ func _ready() -> void:
 	
 	if Globals.CanvasLayerNode:
 		Globals.CanvasLayerNode.update_money_counter()
+		
+	if Debug.HIDE_UI:
+		Globals.CanvasLayerNode.visible = false
 
 
 var save_timer: float = 0.0

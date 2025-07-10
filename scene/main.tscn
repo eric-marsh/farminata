@@ -17,10 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://b16p1bo02550o" path="res://credits.tscn" id="16_smf0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
-size = Vector2(614, 177)
+size = Vector2(633, 365)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wscrc"]
-size = Vector2(637, 355)
+size = Vector2(634, 386)
 
 [sub_resource type="Animation" id="Animation_smf0o"]
 length = 0.001
@@ -113,7 +113,7 @@ y_sort_enabled = true
 position = Vector2(349, 224)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrowArea"]
-position = Vector2(-19, 26.5)
+position = Vector2(-28.5, -67.5)
 shape = SubResource("RectangleShape2D_k65ib")
 
 [node name="Enviornment" type="Area2D" parent="."]
@@ -122,7 +122,7 @@ position = Vector2(320, 180)
 script = ExtResource("12_wscrc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enviornment"]
-position = Vector2(-0.5, 2.5)
+position = Vector2(1, -13)
 shape = SubResource("RectangleShape2D_wscrc")
 
 [node name="BadLayer" type="Node2D" parent="Enviornment"]

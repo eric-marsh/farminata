@@ -129,7 +129,7 @@ var min_plots_grass_growth: int = 3
 func update_target_grass_scale():
 	if State.num_plots < min_plots_grass_growth:
 		return
-	var growth_factor = log(State.num_plots + 1 - min_plots_grass_growth) / log(100 + 1)  # normalized [0, 1]
+	var growth_factor = log(State.num_plots + 1 - min_plots_grass_growth) / log(State.max_plots + 1)  # normalized [0, 1]
 	var scale = lerp(min_scale, max_scale, growth_factor)
 	State.target_grass_scale = Vector2(scale, scale)
 

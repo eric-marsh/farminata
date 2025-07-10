@@ -42,6 +42,8 @@ func update_money_counter():
 	
 	var money: int = State.money
 	money_label.text = "$" + str(money)
+	if Debug.CONSTANT_MONEY_AMOUNT > 0:
+		money_label.text = str(Debug.CONSTANT_MONEY_AMOUNT)
 
 	var helper_data = [
 		{ "type": Enum.Upgrade_Type.AddFarmerHelper, "node": add_farmer_helper, "count": State.num_farmer_helpers },
@@ -54,7 +56,7 @@ func update_money_counter():
 		data.node.text = "$" + str(price)
 		data.node.disabled = price > money
 	
-	if PlotUtil.get_total_plots() < 100:
+	if PlotUtil.get_total_plots() < State.max_plots:
 		var plot_price = Prices.get_upgrade_price(Enum.Upgrade_Type.AddPlot)
 		plot_button.text = "$" + str(plot_price)
 		plot_button.disabled = plot_price > money

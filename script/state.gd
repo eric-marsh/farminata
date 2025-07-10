@@ -2,7 +2,7 @@ extends Node
 
 var total_game_time: float = 0
 var money: int = 0
-var max_plots: int = 100
+var max_plots: int = 150
 var num_plots: int = 1
 
 var num_farmer_helpers: int = 0
