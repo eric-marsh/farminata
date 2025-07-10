@@ -92,9 +92,16 @@ func _process(delta: float) -> void:
 	
 	Util.update_breeze()
 
+var key_8_presses: int = 0
 func _input(event):
 	if Debug.DEBUG_ENABLE_DEBUGGING_KEYS and event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
+		
+	if Debug.ENABLE_CHEATS and event.is_action_pressed("KEY_8"):
+		key_8_presses += 1
+		if key_8_presses % 10 == 0:
+			State.money += 1000
+			Globals.CanvasLayerNode.update_money_counter()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 		call_deferred("stop_dragging_droppable")

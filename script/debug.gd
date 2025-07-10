@@ -35,3 +35,6 @@ var SPAWN_HATS: bool = false
 
 var DISABLE_SLOT_MACHINE:bool = true
 var SLOT_MACHINE_WAIT_TIME: float = 3.0
+
+
+var ENABLE_CHEATS: bool = true

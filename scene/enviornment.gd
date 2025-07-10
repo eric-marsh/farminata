@@ -74,13 +74,16 @@ func update_enviornment_layer():
 	# maybe add snail
 	if total_plots % 15 == 0 and Globals.PlotsContainer:
 		var s = SNAIL.instantiate()
-		s.global_position = Globals.PlotsContainer.remaining_plot_points[0]
+		s.global_position = Globals.PlotsContainer.remaining_plot_points.pop_front()
+		Globals.PlotsContainer.remaining_plot_points.push_back(s.global_position)
+		
 		$GoodLayer/Snails.add_child(s)
 	
 	# add chicken
 	if total_plots % 20 == 0 and Globals.PlotsContainer:
 		var c = CHICKEN.instantiate()
-		c.global_position = Globals.PlotsContainer.remaining_plot_points[0]
+		c.global_position = Globals.PlotsContainer.remaining_plot_points.pop_front()
+		Globals.PlotsContainer.remaining_plot_points.push_back(c.global_position)
 		$GoodLayer/Chickens.add_child(c)
 	
 	State.enviornment_percentage = float(State.num_plots) / float(State.max_plots)
