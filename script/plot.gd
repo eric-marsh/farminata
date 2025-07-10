@@ -26,6 +26,11 @@ func _ready() -> void:
 	grass.flip_h = Util.random_chance(0.5)
 	dirt.flip_h = Util.random_chance(0.5)
 	plant.flip_h = Util.random_chance(0.5)
+	
+	if Debug.SWAY_RAND_DIR:
+		skew_dir = Util.rnd_sign() * skew_dir
+	if Debug.SWAY_RAND_START:
+		current_skew = Util.rng.randf_range(-0.15, 0.15)
 
 func _process(delta: float) -> void:
 	if !is_growing:
@@ -39,8 +44,17 @@ func _process(delta: float) -> void:
 		grass.offset = Vector2(0, -8) + (grass.scale * Vector2(0, 1))
 
 
+var current_skew: float = 0.0
+var skew_dir: float = 0.001
+
+func update_breeze():
+	if abs(current_skew) > 0.15:
+		skew_dir *= -1
+	current_skew += skew_dir
+
 func animate_breeze():
-	$Plant.skew = Util.get_breeze_skew()
+	update_breeze()
+	$Plant.skew = current_skew
 	$Plant.offset.x = tan($Plant.skew) * 8
 
 
