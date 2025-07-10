@@ -28,12 +28,13 @@ class_name canvas_layer
 @onready var mute_music: Button = $MarginContainer/HBoxContainer/Menu/SoundButtons/MuteMusic
 
 @onready var menu: MarginContainer = $MarginContainer/HBoxContainer/Menu
-@onready var menu_button: Button = $MarginContainer/HBoxContainer/MenuButton
+@onready var menu_button: Button = $MarginContainer/HBoxContainer/Control/MenuButton
 
 
 
 func _ready() -> void:
-	menu.visible = false
+	menu.visible = true
+	menu_button.button_pressed = true
 	update_money_counter()
 	fps.visible = Debug.SHOW_FPS
 	all_purchase_buttons = [
@@ -140,6 +141,8 @@ func update_money_counter():
 		electric_attack_button.visible = false
 	
 	if is_purchase_available():
+		if menu_button.get_theme_stylebox("normal").bg_color != Color.html("#7CB518"):
+			animation_player.play("purchase_available")
 		menu_button.get_theme_stylebox("normal").bg_color = Color.html("#7CB518")
 		menu_button.get_theme_stylebox("normal").border_color = Color.html("#5C8001")
 		menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#7CB518")
@@ -148,6 +151,9 @@ func update_money_counter():
 		menu_button.get_theme_stylebox("normal").border_color = Color.html("#e76f51")
 		menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#f4a261")
 	
+
+@onready var animation_player: AnimationPlayer = $MarginContainer/HBoxContainer/Control/MenuButton/AnimationPlayer
+
 
 
 var all_purchase_buttons = []
