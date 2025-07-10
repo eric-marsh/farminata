@@ -18,7 +18,11 @@ func quick_timer(obj: Node, wait_time: float, on_timeout: Callable):
 	t.one_shot = true
 	t.autostart = false
 	t.wait_time = wait_time
-	t.timeout.connect(func(): on_timeout.call())
+	t.timeout.connect(func(): 
+		on_timeout.call()
+		obj.remove_child(t)
+		t.queue_free()
+	)
 	t.start()
 
 

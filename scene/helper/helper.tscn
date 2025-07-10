@@ -250,6 +250,7 @@ texture = ExtResource("3_eoi31")
 visible = false
 y_sort_enabled = true
 position = Vector2(11, -11)
+scale = Vector2(2, 2)
 texture = ExtResource("4_eoi31")
 
 [node name="StateLabel" type="Label" parent="."]
