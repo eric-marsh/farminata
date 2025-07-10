@@ -455,7 +455,7 @@ func update_hat_flip_h():
 			stack.append(child)
 
 func _on_grab_droppables_area_body_entered(body: Node2D) -> void:
-	if body is droppable and body.is_hat and body.just_dropped:
+	if body is droppable and body.is_hat and body.just_dropped and body.is_hat_worn:
 		match body.drop_type:
 			Enum.Drop_Type.Farm_Hat:
 				if helper_type != Enum.Helper_Type.Farmer:
@@ -466,12 +466,18 @@ func _on_grab_droppables_area_body_entered(body: Node2D) -> void:
 			Enum.Drop_Type.Attack_Hat:
 				if helper_type != Enum.Helper_Type.Attack:
 					return
-		# equip hat
-		equip_hat(body)
-		body.hide_droppable()
-		body.delete()
-		target_droppable = null
-		set_state(Enum.Helper_State.Idle)
+		Util.quick_timer(self, Util.rng.randf_range(0.01, 0.5), func():
+			if !is_instance_valid(body) or body.is_hat_worn:
+				return
+			# equip hat
+			body.is_hat_worn = true
+			equip_hat(body)
+			body.hide_droppable()
+			body.delete()
+			target_droppable = null
+			set_state(Enum.Helper_State.Idle)
+		)
+		
 		return
 	
 	if helper_type != Enum.Helper_Type.Farmer:

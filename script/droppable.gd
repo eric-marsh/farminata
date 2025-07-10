@@ -34,6 +34,8 @@ var dragging_scale:Vector2 = default_scale + Vector2.ONE * 0.2
 var is_sold_by_helper: bool = false
 var is_targeted: bool = false # hmmm yes i know there are two variables called this
 
+var is_hat_worn: bool = true
+
 func can_be_picked_up() -> bool:
 	return !is_being_targeted and !is_held and !is_delivered
 
