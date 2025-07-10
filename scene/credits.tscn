@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://b16p1bo02550o"]
 
 [ext_resource type="LabelSettings" uid="uid://bj5mtd81sdkad" path="res://font/credits_title.tres" id="1_g4wvt"]
-[ext_resource type="Script" uid="uid://b6gfbvqbsakem" path="res://credits.gd" id="1_pjc1l"]
+[ext_resource type="Script" uid="uid://b6gfbvqbsakem" path="res://script/credits.gd" id="1_pjc1l"]
 [ext_resource type="LabelSettings" uid="uid://cwfpw57os12kv" path="res://font/credits_text.tres" id="2_pjc1l"]
-[ext_resource type="Theme" uid="uid://wg2u8m0gujit" path="res://scene/main_menu_theme.tres" id="3_j6beo"]
+[ext_resource type="Theme" uid="uid://wg2u8m0gujit" path="res://theme/main_menu_theme.tres" id="3_j6beo"]
 [ext_resource type="Texture2D" uid="uid://dexntd6kwbe8" path="res://img/piniata/dead_piniata.png" id="5_j6beo"]
 
 [node name="CanvasLayerCredits" type="CanvasLayer"]

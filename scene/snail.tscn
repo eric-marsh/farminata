@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://3tvpadkeqqoh"]
 
 [ext_resource type="Texture2D" uid="uid://bwcacdttlra8m" path="res://img/enviornment/snail-sheet.png" id="1_0y6is"]
-[ext_resource type="Script" uid="uid://drg8o17f5bnjk" path="res://scene/snail.gd" id="2_xg0px"]
+[ext_resource type="Script" uid="uid://drg8o17f5bnjk" path="res://script/snail.gd" id="2_xg0px"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xg0px"]
 atlas = ExtResource("1_0y6is")

@@ -249,7 +249,7 @@ func check_for_death(strength: float):
 
 var is_dead: bool = false
 @onready var node_2d: Node2D = $Node2D
-const DEAD_PINIATA = preload("res://dead_piniata.tscn")
+const DEAD_PINIATA = preload("res://scene/dead_piniata.tscn")
 func show_corpse() -> void:
 	is_dead = true
 	health_bar.visible = false

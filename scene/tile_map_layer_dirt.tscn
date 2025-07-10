@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=4 uid="uid://rgo3xvkyojcw"]
 
-[ext_resource type="TileSet" uid="uid://dr8cfe3biaoab" path="res://main_tileset.tres" id="1_pa1or"]
+[ext_resource type="TileSet" uid="uid://dr8cfe3biaoab" path="res://misc/main_tileset.tres" id="1_pa1or"]
 
 [node name="TileMapLayer_Dirt" type="TileMapLayer"]
 z_index = -5

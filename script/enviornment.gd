@@ -35,7 +35,7 @@ func reset_good_env() -> void:
 	update_enviornment_layer()
 
 
-const FLOWER = preload("res://flower.tscn")
+const FLOWER = preload("res://scene/flower.tscn")
 const SNAIL = preload("res://scene/snail.tscn")
 const CHICKEN = preload("res://scene/chicken.tscn")
 

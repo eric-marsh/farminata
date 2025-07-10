@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://chtfgabv635v4"]
 
-[ext_resource type="Script" uid="uid://gux46i3nj3wt" path="res://script/helper/attack_helper.gd" id="1_lee8m"]
+[ext_resource type="Script" uid="uid://gux46i3nj3wt" path="res://script/attack_helper.gd" id="1_lee8m"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_xcfqp"]
 [ext_resource type="Texture2D" uid="uid://b3av6rfxcn5ss" path="res://img/helper/attack_hat.png" id="4_3txtj"]
 [ext_resource type="Texture2D" uid="uid://dxw5mpl374jcu" path="res://img/droppables/rock.png" id="4_xcfqp"]

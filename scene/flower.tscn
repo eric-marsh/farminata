@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b60032nv5tx0k"]
 
-[ext_resource type="Script" uid="uid://420cc26tmwu5" path="res://flower.gd" id="1_511j0"]
+[ext_resource type="Script" uid="uid://420cc26tmwu5" path="res://script/flower.gd" id="1_511j0"]
 [ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="1_p547k"]
 [ext_resource type="Texture2D" uid="uid://cpybc6y22sltq" path="res://img/enviornment/flower_bg.png" id="2_nageh"]
 

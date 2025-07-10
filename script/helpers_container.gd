@@ -1,8 +1,8 @@
 extends Node2D
 class_name helpers_container
 
-const HELPER = preload("res://scene/helper/helper.tscn")
-const ATTACK_HELPER = preload("res://scene/helper/attack_helper.tscn")
+const ATTACK_HELPER = preload("res://scene/attack_helper.tscn")
+const HELPER = preload("res://scene/helper.tscn")
 
 func _ready() -> void:
 	pass

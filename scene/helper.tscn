@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://c82wwcd2kv076"]
 
-[ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper/helper.gd" id="1_xnnrj"]
+[ext_resource type="Script" uid="uid://14s7ms1klkvk" path="res://script/helper.gd" id="1_xnnrj"]
 [ext_resource type="Texture2D" uid="uid://cmb0w57uedn7x" path="res://img/helper/walk_sprite_sheet.png" id="2_edx7r"]
 [ext_resource type="Texture2D" uid="uid://rxlpd65q3trl" path="res://img/plants/carrot/carrot_seed.png" id="3_eoi31"]
 [ext_resource type="Texture2D" uid="uid://dfivp000yegyb" path="res://img/plants/carrot/carrot.png" id="4_eoi31"]

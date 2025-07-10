@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://c0f2w6j82suxv"]
 
 [ext_resource type="Texture2D" uid="uid://cobupb0rt1wmq" path="res://img/enviornment/Chick.png" id="1_gw0fo"]
-[ext_resource type="Script" uid="uid://8rm5yvhdcojl" path="res://chicken.gd" id="2_bxgy4"]
+[ext_resource type="Script" uid="uid://8rm5yvhdcojl" path="res://script/chicken.gd" id="2_bxgy4"]
 [ext_resource type="Texture2D" uid="uid://d4a1iffywbodt" path="res://img/enviornment/Chicken 1.png" id="2_e6xl0"]
 [ext_resource type="Texture2D" uid="uid://cp2kem2mwfe72" path="res://img/enviornment/heart_bubble.png" id="3_bxgy4"]
 

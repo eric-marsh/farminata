@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://h4q30axum8vq"]
 
 [ext_resource type="Texture2D" uid="uid://dexntd6kwbe8" path="res://img/piniata/dead_piniata.png" id="1_yuy5x"]
-[ext_resource type="PackedScene" uid="uid://b60032nv5tx0k" path="res://flower.tscn" id="2_mxvd6"]
+[ext_resource type="PackedScene" uid="uid://b60032nv5tx0k" path="res://scene/flower.tscn" id="2_mxvd6"]
 
 [node name="DeadPiniata" type="Sprite2D"]
 y_sort_enabled = true
