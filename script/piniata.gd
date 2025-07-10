@@ -73,7 +73,7 @@ func update_health_bar(damage_amount: int = 0) -> void:
 	$HealthBar/Label.text = str(int(State.array_piniata_hp[id])) + "/" + str(int(State.max_piniata_hp))
 	if damage_amount == 0:
 		return
-	var pos = health_bar.global_position + Vector2((health_bar.size.x * (State.array_piniata_hp[id] / State.max_piniata_hp)), 6) * scale.x
+	var pos = health_bar.global_position + Vector2(health_bar.size.x * (float(State.array_piniata_hp[id]) / float(State.max_piniata_hp)), 6) * scale.x
 	Util.create_explosion_particle(pos, Color.RED, damage_amount)
 
 var chance_of_output: float = 0.2
