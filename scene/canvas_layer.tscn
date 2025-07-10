@@ -39,27 +39,29 @@ expand_margin_bottom = 2.0
 bg_color = Color(0.956863, 0.635294, 0.380392, 1)
 border_width_bottom = 2
 border_color = Color(0.905882, 0.435294, 0.317647, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq5og"]
 bg_color = Color(0.94902, 0.564706, 0.25098, 1)
 border_width_top = 2
 border_color = Color(0.905882, 0.435294, 0.317647, 0)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+anti_aliasing = false
 
 [sub_resource type="Theme" id="Theme_fqykr"]
 default_font_size = 12
@@ -81,7 +83,7 @@ HBoxContainer/constants/separation = 4
 VBoxContainer/constants/separation = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvoi6"]
-bg_color = Color(0.956863, 0.635294, 0.380392, 0.25098)
+bg_color = Color(0.113725, 0.168627, 0.32549, 0.25098)
 expand_margin_left = 8.0
 expand_margin_top = 8.0
 expand_margin_right = 8.0
