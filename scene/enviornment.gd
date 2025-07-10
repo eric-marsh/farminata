@@ -16,6 +16,8 @@ const good_enviornment_images = [
 func _ready() -> void:
 	reset_good_env()
 	
+	#RenderingServer.set_default_clear_color(Color("#a9bb66"))
+	
 
 
 var current_skew: float = 0.0
@@ -37,13 +39,18 @@ const FLOWER = preload("res://flower.tscn")
 const SNAIL = preload("res://scene/snail.tscn")
 const CHICKEN = preload("res://scene/chicken.tscn")
 
+var start_green: int = 10
 func update_enviornment_layer(): 
+	
 	var total_plots: int = PlotUtil.get_total_plots()
 	if(total_plots < 3):
 		if(total_plots == 2):
 			$"../Tutorial".visible = false
 			return
 		return
+	
+	if(total_plots >= start_green):
+		$"../TileMapLayer".modulate.a = 1.0 - (float(total_plots-start_green) / (State.max_plots - start_green))
 	
 	update_target_grass_scale()
 	
