@@ -1,37 +1,62 @@
 extends CanvasLayer
 class_name canvas_layer
 
-@onready var money_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/MoneyLabel
-@onready var fps: Label = $MarginContainer/HBoxContainer3/FPS
 
-@onready var plot_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PlotButton
-@onready var onion_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/OnionButton
-@onready var turnip_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/TurnipButton
-@onready var potato_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PotatoButton
-@onready var kale_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/KaleButton
-@onready var radish_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/RadishButton
-
-@onready var attack_upgrade_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/AttackUpgradeButton
+@onready var money_label: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/MoneyLabel
+@onready var fps: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FPS
 
 
-@onready var add_farmer_helper: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddFarmerHelper
-@onready var add_pluck_helper_button: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer/AddPluckHelperButton
-@onready var add_attack_helper_button: Button = $MarginContainer/HBoxContainer2/HelperUpgrades/HBoxContainer2/AddAttackHelperButton
+@onready var plot_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PlotButton
+@onready var onion_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/OnionButton
+@onready var turnip_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/TurnipButton
+@onready var potato_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PotatoButton
+@onready var kale_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/KaleButton
+@onready var radish_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/RadishButton
 
-@onready var add_farmer_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddFarmerHatButton
-@onready var add_delivery_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer/AddDeliveryHatButton
-@onready var add_attack_hat_button: Button = $MarginContainer/HBoxContainer2/HatUpgrades/HBoxContainer2/AddAttackHatButton
+@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
+@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
 
-@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
-@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
+@onready var add_farmer_helper: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper
+@onready var add_pluck_helper_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton
+@onready var add_attack_helper_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer2/AddAttackHelperButton
+
+@onready var add_farmer_hat_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddFarmerHatButton
+@onready var add_delivery_hat_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HatUpgrades/HBoxContainer/AddDeliveryHatButton
+@onready var add_attack_hat_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HatUpgrades/HBoxContainer2/AddAttackHatButton
+
+@onready var mute_effects: Button = $MarginContainer/HBoxContainer/Menu/SoundButtons/MuteEffects
+@onready var mute_music: Button = $MarginContainer/HBoxContainer/Menu/SoundButtons/MuteMusic
+
+@onready var menu: MarginContainer = $MarginContainer/HBoxContainer/Menu
+@onready var menu_button: Button = $MarginContainer/HBoxContainer/MenuButton
+
 
 
 func _ready() -> void:
+	menu.visible = false
 	update_money_counter()
 	fps.visible = Debug.SHOW_FPS
+	all_purchase_buttons = [
+		plot_button,
+		onion_button,
+		turnip_button,
+		potato_button,
+		kale_button,
+		radish_button,
+		fire_attack_button,
+		electric_attack_button,
+		add_farmer_helper,
+		add_pluck_helper_button,
+		add_attack_helper_button,
+		add_farmer_hat_button,
+		add_delivery_hat_button,
+		add_attack_hat_button
+	]
 
 
 func _process(_delta: float) -> void:
+	
+	
 	if Debug.SHOW_FPS:
 		fps.text = "FPS: " + str(Engine.get_frames_per_second())
 	pass
@@ -113,12 +138,26 @@ func update_money_counter():
 	if State.is_game_over:
 		fire_attack_button.visible = false
 		electric_attack_button.visible = false
-		
 	
-	#@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
-#@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
+	if is_purchase_available():
+		menu_button.get_theme_stylebox("normal").bg_color = Color.html("#7CB518")
+		menu_button.get_theme_stylebox("normal").border_color = Color.html("#5C8001")
+		menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#7CB518")
+	else:
+		menu_button.get_theme_stylebox("normal").bg_color = Color.html("#f4a261")
+		menu_button.get_theme_stylebox("normal").border_color = Color.html("#e76f51")
+		menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#f4a261")
+	
 
-	
+
+var all_purchase_buttons = []
+
+func is_purchase_available() -> bool:
+	var is_available: bool = false
+	for b in all_purchase_buttons:
+		if is_instance_valid(b) and b.visible and !b.disabled:
+			return true
+	return false
 	
 
 func _on_plot_button_pressed() -> void:
@@ -217,7 +256,7 @@ func _on_mute_music_toggled(toggled_on: bool) -> void:
 	
 const MUSIC = preload("res://img/ui/music.png")
 const MUSIC_DISABLED = preload("res://img/ui/music_disabled.png")
-@onready var mute_music: Button = $MarginContainer/HBoxContainer3/MuteMusic
+
 var music_muted: bool = false
 func _on_mute_music_pressed() -> void:
 	if !Globals.AudioNode:
@@ -232,7 +271,7 @@ func _on_mute_music_pressed() -> void:
 
 const EFFECTS = preload("res://img/ui/effects.png")
 const EFFECTS_DISABLED = preload("res://img/ui/effects_disabled.png")
-@onready var mute_effects: Button = $MarginContainer/HBoxContainer3/MuteEffects
+
 var effects_muted: bool = false
 func _on_mute_effects_pressed() -> void:
 	effects_muted = !effects_muted
@@ -256,3 +295,6 @@ func _on_electric_attack_button_pressed() -> void:
 	State.electric_attack_unlocked = true
 	fire_attack_button.visible = false
 	electric_attack_button.visible = false
+
+func _on_menu_button_pressed() -> void:
+	menu.visible = !menu.visible
