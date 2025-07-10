@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://ba0lyty7rw2vj"]
+[gd_scene load_steps=21 format=4 uid="uid://ba0lyty7rw2vj"]
 
 [ext_resource type="Script" uid="uid://by0tfe1nx5cjc" path="res://script/main.gd" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://d4elg2t07heho" path="res://script/camera_2d.gd" id="2_v0l8b"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://btvo711v3d32a" path="res://scene/drops_manager.gd" id="6_k65ib"]
 [ext_resource type="Script" uid="uid://b8iivuocvbyjt" path="res://script/helpers_container.gd" id="6_of57s"]
 [ext_resource type="PackedScene" uid="uid://pcjs3l3ltyss" path="res://scene/sell_chest.tscn" id="8_of57s"]
+[ext_resource type="PackedScene" uid="uid://b60032nv5tx0k" path="res://flower.tscn" id="12_v2gmf"]
 [ext_resource type="Script" uid="uid://cc5rukvl6a3t8" path="res://scene/enviornment.gd" id="12_wscrc"]
 [ext_resource type="Texture2D" uid="uid://cw3y8vddhkx7q" path="res://img/logo.png" id="15_v2gmf"]
 [ext_resource type="Script" uid="uid://cp50src3rv8rv" path="res://scene/fade_away_rect.gd" id="16_jcbur"]
@@ -100,7 +101,7 @@ script = ExtResource("6_of57s")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
-position = Vector2(36, 85)
+position = Vector2(45, 113)
 scale = Vector2(4, 4)
 
 [node name="Piniatas" type="Node2D" parent="."]
@@ -133,6 +134,9 @@ position = Vector2(0, 2)
 
 [node name="Flowers" type="Node2D" parent="Enviornment/GoodLayer"]
 y_sort_enabled = true
+
+[node name="Flower" parent="Enviornment/GoodLayer/Flowers" instance=ExtResource("12_v2gmf")]
+position = Vector2(-224, -104)
 
 [node name="Snails" type="Node2D" parent="Enviornment/GoodLayer"]
 y_sort_enabled = true
