@@ -91,22 +91,31 @@ func add_flower() -> void:
 	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
 	f.get_node("FlowerSprite").offset.y = -6
 	f.is_flower = true
+	f.should_sway = true
 	f.global_position = good_enviornment_positions[0] + Util.random_offset(4)
 	
 	good_enviornment_positions.push_back(good_enviornment_positions[0])
 	good_enviornment_positions = good_enviornment_positions.slice(1)
 	$GoodLayer/Flowers.add_child(f)
 
+
 const lumps = [
-	preload("res://img/enviornment/good/green_lump_1.png"),
-	preload("res://img/enviornment/good/green_lump_2.png"),
+	
+	preload("res://img/enviornment/good/lump1.png"),
+	preload("res://img/enviornment/good/lump2.png"),
+	preload("res://img/enviornment/good/lump3.png"),
+	preload("res://img/enviornment/good/lump4.png")
 ]
+
+
+
 
 func add_lump() -> void:
 	var f = FLOWER.instantiate()
 	f.get_node("FlowerSprite").texture = lumps.pick_random()
 	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
 	f.global_position = good_enviornment_positions[0] + Util.random_offset(4.0)
+	f.should_sway = true
 	good_enviornment_positions.push_back(good_enviornment_positions[0])
 	good_enviornment_positions = good_enviornment_positions.slice(1)
 	$GoodLayer/Flowers.add_child(f)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0tihqv2kdcb5"
-path="res://.godot/imported/green_lump_2.png-f6e2276d0380e89d7cfbfe8fb97abdf1.ctex"
+uid="uid://cjdgwbbgxquji"
+path="res://.godot/imported/lump3.png-e844156229ab5cabed6d6e6b5baccdf8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/enviornment/good/green_lump_2.png"
-dest_files=["res://.godot/imported/green_lump_2.png-f6e2276d0380e89d7cfbfe8fb97abdf1.ctex"]
+source_file="res://img/enviornment/good/lump3.png"
+dest_files=["res://.godot/imported/lump3.png-e844156229ab5cabed6d6e6b5baccdf8.ctex"]
 
 [params]
 
