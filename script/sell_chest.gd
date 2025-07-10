@@ -10,6 +10,7 @@ func _ready() -> void:
 	pass
 	
 func _process(_delta: float) -> void:
+	#DamageNumber.display_money_get(str("12"), animated_sprite.global_position + Vector2(12 + Util.rng.randi_range(-42, 0), -32), Color.GREEN)
 	if !is_opened and animated_sprite.frame == 7:
 		animated_sprite.play_backwards("default")
 	
@@ -31,10 +32,18 @@ func sell_droppable(d: droppable, ignore_collision: bool = false) -> void:
 			return
 	
 	State.total_sold_crop_types[d.drop_type] = State.total_sold_crop_types.get(d.drop_type, 0) + 1
-	Globals.Main.change_money(Prices.get_drop_price(d.drop_type))
+	var price: int = Prices.get_drop_price(d.drop_type)
+	Globals.Main.change_money(price)
 	Util.create_explosion_particle(d.global_position, Color.YELLOW.lightened(0.5))
 	if Globals.AudioNode:
 		Globals.AudioNode.play_money_gain_sound()
+	
+	if d.is_sold_by_helper:
+		Util.quick_timer(self, 0.4, func():
+			DamageNumber.display_money_get(str(price), Globals.SellChestNode.global_position - Vector2(8, 64), Color.GREEN)
+		)
+	else:
+		DamageNumber.display_money_get(str(price), d.global_position - Vector2(0, 16), Color.GREEN)
 	d.delete()
 
 func _on_body_entered(body: Node2D) -> void:

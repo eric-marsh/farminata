@@ -31,6 +31,8 @@ var start_pos: Vector2
 var default_scale: Vector2 = Vector2(1.5, 1.5)
 var dragging_scale:Vector2 = default_scale + Vector2.ONE * 0.2
 
+var is_sold_by_helper: bool = false
+
 func can_be_picked_up() -> bool:
 	return !is_being_targeted and !is_held and !is_delivered
 

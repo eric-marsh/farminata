@@ -103,7 +103,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_f8q6g")
 }
 autoplay = "shrink_droppable"
-speed_scale = 3.0
+speed_scale = 2.5
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_hnh5b")

@@ -101,7 +101,6 @@ func start_attacking() -> void:
 	if new_dir != dir:
 		dir = new_dir
 		update_animation()
-		# TODO: Use idle animation
 	
 	var rnd_offset = Vector2(Util.rng.randi_range(-4, 4), Util.rng.randi_range(-16, 16))
 	if dir == Enum.Dir.Left:
@@ -129,7 +128,7 @@ func on_attack_timer_timeout() -> void:
 		target_piniata.hit_piniata(attack_strength, throwable.global_position)
 	else:
 		target_piniata.hit_piniata(attack_strength * -1, throwable.global_position)
-	DamageNumber.display_number(attack_strength, throwable.global_position, Color.WHITE)
+	DamageNumber.display_number(str(attack_strength), throwable.global_position, Color.WHITE)
 	var rnd_offset = Vector2(Util.rng.randi_range(-4, 4), Util.rng.randi_range(-16, 16))
 	if dir == Enum.Dir.Left:
 		throwable_target_position = target_piniata.piniata_center + Vector2(42, 0) + rnd_offset

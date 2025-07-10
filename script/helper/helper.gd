@@ -242,7 +242,8 @@ func on_reaching_target_pos() -> void:
 				
 				d.global_position = global_position
 				if helper_type == Enum.Helper_Type.Pluck:
-					DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, Globals.SellChestNode.global_position - Vector2(0, 8))
+					d.is_sold_by_helper = true
+					DropUtil.create_apply_droppable_animation(d.drop_type, d.global_position, Globals.SellChestNode.global_position - Vector2(0, 48))
 					Globals.SellChestNode.open_chest(d)
 					Globals.SellChestNode.sell_droppable(d, true)
 				else:

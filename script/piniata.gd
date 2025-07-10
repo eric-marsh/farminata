@@ -214,7 +214,7 @@ func player_hit_piniata(strength: float)->void:
 	var attack_strength = Util.get_attack_strength(attack_type)
 	hit_piniata(attack_strength * Util.get_sign(strength), hit_position)
 	Util.create_slash_animation(hit_position, strength > 0, attack_type)
-	DamageNumber.display_number(attack_strength, hit_position, Util.get_attack_color(attack_type))
+	DamageNumber.display_number(str(attack_strength), hit_position, Util.get_attack_color(attack_type))
 	
 	if Globals.AudioNode:
 		if attack_type == Enum.Attack_Type.Fire:
