@@ -100,7 +100,7 @@ script = ExtResource("6_of57s")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="SellChest" parent="." instance=ExtResource("8_of57s")]
-position = Vector2(45, 113)
+position = Vector2(40, 93)
 scale = Vector2(4, 4)
 
 [node name="Piniatas" type="Node2D" parent="."]

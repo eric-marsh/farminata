@@ -17,10 +17,6 @@ var SceneSwitcherNode: Node2D = null
 
 func _ready():
 	reset_nodes()
-	
-func _process(_delta: float) -> void:
-	if !is_instance_valid(Main):
-		reset_nodes()
 
 func reset_nodes():
 	Main = get_node("/root/SceneSwitcher/Main")
