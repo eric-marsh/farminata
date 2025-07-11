@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=16 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
 [ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="3_odym4"]
 [ext_resource type="Texture2D" uid="uid://ci4cpk4no35dd" path="res://img/piniata/eye.png" id="4_rrcj7"]
 [ext_resource type="Texture2D" uid="uid://c75facejbasv" path="res://img/piniata/plot_message.png" id="5_nau6d"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="6_bvb5e"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu8ja"]
 
@@ -21,6 +22,10 @@ shadow_size = 2
 font_size = 8
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7i3q2"]
+shader = ExtResource("6_bvb5e")
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_rrcj7"]
 length = 0.001
@@ -226,6 +231,15 @@ texture = ExtResource("4_rrcj7")
 visible = false
 position = Vector2(-31.8504, 133.022)
 texture = ExtResource("5_nau6d")
+
+[node name="Shadow" type="Sprite2D" parent="Node2D/Sprite2D"]
+z_index = -1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_7i3q2")
+position = Vector2(1, 1)
+texture = ExtResource("1_ddpin")
+centered = false
+offset = Vector2(0, 90)
 
 [node name="LeftArea" type="Area2D" parent="Node2D"]
 position = Vector2(-1, 89)

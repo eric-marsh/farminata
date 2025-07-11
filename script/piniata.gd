@@ -35,7 +35,13 @@ var damping: float = 1.0       # slows it down
 var spring_force: float = 5.0  # pulls back to center
 
 var play_kill_animation: bool = false
+
+@onready var sprite_2d: Sprite2D = $Node2D/Sprite2D
+@onready var shadow: Sprite2D = $Node2D/Sprite2D/Shadow
+
 func _process(delta: float) -> void:
+	if shadow.texture != sprite_2d.texture:
+		shadow.texture = sprite_2d.texture
 	if !visible or is_dead:
 		return
 	

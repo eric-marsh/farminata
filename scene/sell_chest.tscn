@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://pcjs3l3ltyss"]
+[gd_scene load_steps=15 format=3 uid="uid://pcjs3l3ltyss"]
 
 [ext_resource type="Script" uid="uid://c07vop060c30" path="res://script/sell_chest.gd" id="1_cl27i"]
 [ext_resource type="Texture2D" uid="uid://bbqhh53b6c07n" path="res://img/chest/chest.png" id="2_bl7if"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="3_bl7if"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10caw"]
 atlas = ExtResource("2_bl7if")
@@ -67,6 +68,10 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5yv88"]
+shader = ExtResource("3_bl7if")
+shader_parameter/modulate = Color(0, 0, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5yv88"]
 size = Vector2(14, 9)
 
@@ -82,6 +87,15 @@ position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_vcbbc")
 speed_scale = 2.0
 offset = Vector2(0, -7)
+
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+z_index = -1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_5yv88")
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_vcbbc")
+speed_scale = 2.0
+offset = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)

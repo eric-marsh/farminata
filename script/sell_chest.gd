@@ -2,6 +2,7 @@ extends Area2D
 class_name sell_chest
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var shadow: AnimatedSprite2D = $AnimatedSprite2D/Shadow
 
 var is_opened: bool = false
 var droppable_to_sell: droppable = null
@@ -13,6 +14,8 @@ func _process(_delta: float) -> void:
 	#DamageNumber.display_money_get(str("12"), animated_sprite.global_position + Vector2(12 + Util.rng.randi_range(-42, 0), -32), Color.GREEN)
 	if !is_opened and animated_sprite.frame == 7:
 		animated_sprite.play_backwards("default")
+		shadow.play_backwards("default")
+		
 	
 	if is_opened and droppable_to_sell and !droppable_to_sell.is_dragging:
 		sell_droppable(droppable_to_sell)
@@ -62,11 +65,13 @@ func _on_body_exited(body: Node2D) -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if (!is_opened or !droppable_to_sell) and animated_sprite.frame > 0:
 		animated_sprite.play_backwards("default")
+		shadow.play_backwards("default")
 
 func open_chest(d: droppable) -> void:
 	is_opened = true
 	droppable_to_sell = d
 	animated_sprite.play("default")
+	shadow.play("default")
 	
 func close_chest() -> void:
 	droppable_to_sell = null
