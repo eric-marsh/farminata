@@ -12,6 +12,7 @@ expand_margin_left = 8.0
 expand_margin_top = 2.0
 expand_margin_right = 8.0
 expand_margin_bottom = 2.0
+shadow_size = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_11x1d"]
 
