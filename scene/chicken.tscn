@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://c0f2w6j82suxv"]
+[gd_scene load_steps=29 format=3 uid="uid://c0f2w6j82suxv"]
 
 [ext_resource type="Texture2D" uid="uid://cobupb0rt1wmq" path="res://img/enviornment/Chick.png" id="1_gw0fo"]
 [ext_resource type="Script" uid="uid://8rm5yvhdcojl" path="res://script/chicken.gd" id="2_bxgy4"]
 [ext_resource type="Texture2D" uid="uid://d4a1iffywbodt" path="res://img/enviornment/Chicken 1.png" id="2_e6xl0"]
 [ext_resource type="Texture2D" uid="uid://cp2kem2mwfe72" path="res://img/enviornment/heart_bubble.png" id="3_bxgy4"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="5_htfq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gw0fo"]
 size = Vector2(14, 15.5)
@@ -171,6 +172,10 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_53dlm"]
+shader = ExtResource("5_htfq6")
+shader_parameter/modulate = Color(0, 0, 0, 1)
+
 [node name="Chicken" type="Node2D"]
 script = ExtResource("2_bxgy4")
 
@@ -192,6 +197,14 @@ texture = ExtResource("3_bxgy4")
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_ocvq0")
+animation = &"chicken_walking"
+
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite"]
+z_index = -1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_53dlm")
+position = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_ocvq0")
 animation = &"chicken_walking"
 

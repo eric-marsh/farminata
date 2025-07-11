@@ -14,18 +14,21 @@ var grass_scale_speed: float = 1.1
 
 @onready var grass = $Grass
 @onready var dirt = $Dirt
-@onready var plant = $Plant
+@onready var plant: Sprite2D = $Plant
+@onready var shadow: Sprite2D = $Plant/Shadow
+
 
 var target_helper: helper = null
 
 func _ready() -> void:
-	size = Vector2($Dirt.texture.get_width(), $Dirt.texture.get_height())
+	size = Vector2(dirt.texture.get_width(), dirt.texture.get_height())
 	update_image()
 	animation_player.play("popup_crop")
 	
 	grass.flip_h = Util.random_chance(0.5)
 	dirt.flip_h = Util.random_chance(0.5)
 	plant.flip_h = Util.random_chance(0.5)
+	shadow.flip_h = plant.flip_h
 	
 	if Debug.SWAY_RAND_DIR:
 		skew_dir = Util.rnd_sign() * skew_dir
@@ -54,8 +57,9 @@ func update_breeze():
 
 func animate_breeze():
 	update_breeze()
-	$Plant.skew = current_skew
-	$Plant.offset.x = tan($Plant.skew) * 8
+	plant.skew = current_skew
+	plant.offset.x = tan(plant.skew) * 8
+	shadow.offset.x = plant.offset.x
 
 
 
@@ -166,19 +170,27 @@ const PLOT_DRY = preload("res://img/plot/plot_dry.png")
 const PLOT_GROW = preload("res://img/plot/plot_grow.png")
 const SEED = preload("res://img/plants/seed.png")
 
+
+
+
 func update_image():
 		match plot_state:
 			Enum.Plot_State.Dry:
-				$Dirt.texture = PLOT_DRY
+				dirt.texture = PLOT_DRY
 			Enum.Plot_State.Wet:
-				$Dirt.texture = PLOT_WET
+				dirt.texture = PLOT_WET
 			Enum.Plot_State.Grow:
-				$Dirt.texture = PLOT_GROW
+				dirt.texture = PLOT_GROW
 		if !is_growing:
-			$Plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
-			$Plant.offset = Vector2(0, -4)
+			plant.texture = PlantUtil.get_plant_img(plot_growth_state, grow_type)
+			shadow.texture = plant.texture
+			plant.offset = Vector2(0, -4)
 			if plot_growth_state == Enum.Plot_Growth_State.Full:
-				$Plant.offset = Vector2(0, -13)
+				plant.offset = Vector2(0, -13)
+			shadow.offset = plant.offset
+
+
+
 
 var is_plucking: bool = false
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -195,7 +207,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 			is_plucking = false
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	$Plant.scale = Vector2.ONE
+	plant.scale = Vector2.ONE
 	animation_player.speed_scale = 1
 	if anim_name == "pluck_crop":
 		if is_plucking:
@@ -206,6 +218,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		plant.rotation = 0
 		done_growing()
 	if anim_name == "popup_crop":
+		
 		Util.create_explosion_particle(global_position - Vector2(0,8), Color(Color.html("#806359"), 0.7), 6, 1.0)
 		grass.visible = true
 	if anim_name == "pulse_crop":

@@ -3,8 +3,10 @@ extends Node2D
 @onready var flower_sprite: Sprite2D = $FlowerSprite
 var is_flower: bool = false
 var should_sway: bool = false
+@onready var shadow: Sprite2D = $FlowerSprite/Shadow
 
 func _ready() -> void:
+	
 	if Debug.SWAY_RAND_DIR:
 		skew_dir = Util.rnd_sign() * skew_dir
 	if Debug.SWAY_RAND_START:

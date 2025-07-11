@@ -1,8 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b60032nv5tx0k"]
+[gd_scene load_steps=9 format=3 uid="uid://b60032nv5tx0k"]
 
 [ext_resource type="Script" uid="uid://420cc26tmwu5" path="res://script/flower.gd" id="1_511j0"]
 [ext_resource type="Texture2D" uid="uid://bphkka82udhf8" path="res://img/enviornment/good/flower_1.png" id="1_p547k"]
 [ext_resource type="Texture2D" uid="uid://cpybc6y22sltq" path="res://img/enviornment/flower_bg.png" id="2_nageh"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="3_f3vd4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_orokq"]
+shader = ExtResource("3_f3vd4")
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_r72as"]
 length = 0.001
@@ -72,6 +77,15 @@ script = ExtResource("1_511j0")
 
 [node name="FlowerSprite" type="Sprite2D" parent="."]
 y_sort_enabled = true
+texture = ExtResource("1_p547k")
+offset = Vector2(0, -13)
+
+[node name="Shadow" type="Sprite2D" parent="FlowerSprite"]
+visible = false
+z_index = -1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_orokq")
+position = Vector2(1, 0)
 texture = ExtResource("1_p547k")
 offset = Vector2(0, -13)
 

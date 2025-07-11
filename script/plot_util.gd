@@ -8,13 +8,15 @@ func add_plot():
 		
 	var p = PLOT.instantiate() as plot
 	p.global_position = get_random_position_in_grow_area()
+	
+	
+	Globals.PlotsContainer.add_child(p)
 	if Debug.ALL_FULL_CROPS_AT_START:
 		p.plot_growth_state = Enum.Plot_Growth_State.Full
+		p.plot_growth_state = Enum.Plot_Growth_State.Partial_2
 		var grow_type = State.unlocked_slot_outputs.pick_random()
 		p.grow_type = PlantUtil.drop_type_to_grow_type(grow_type if grow_type else Enum.Grow_Type.Carrot)
 		p.update_image()
-	
-	Globals.PlotsContainer.add_child(p)
 	State.num_plots += 1
 	Globals.EnviornmentLayers.update_enviornment_layer()
 	for pi in Globals.PiniataContainer.get_children():

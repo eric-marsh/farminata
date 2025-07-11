@@ -1,12 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7mjmd8qocm5n"]
+[gd_scene load_steps=14 format=3 uid="uid://b7mjmd8qocm5n"]
 
 [ext_resource type="Script" uid="uid://dv6p8ldxol3f0" path="res://script/plot.gd" id="1_xmivb"]
 [ext_resource type="Texture2D" uid="uid://b1q4hk8ydgywg" path="res://img/plot/plot_grass.png" id="2_7bgvt"]
 [ext_resource type="Texture2D" uid="uid://d2go8llpcolsq" path="res://img/plot/plot_dry.png" id="2_8yg48"]
 [ext_resource type="Texture2D" uid="uid://bhreatr0ikkps" path="res://img/plants/carrot/carrot_sapling3.png" id="3_8yg48"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="5_o5ils"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pdpe"]
 size = Vector2(24, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v0cxp"]
+shader = ExtResource("5_o5ils")
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_7bgvt"]
 length = 0.001
@@ -162,6 +167,13 @@ offset = Vector2(0, -8)
 [node name="Plant" type="Sprite2D" parent="."]
 y_sort_enabled = true
 scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("3_8yg48")
+offset = Vector2(0, -14)
+
+[node name="Shadow" type="Sprite2D" parent="Plant"]
+z_index = -1
+material = SubResource("ShaderMaterial_v0cxp")
+position = Vector2(1, 1)
 texture = ExtResource("3_8yg48")
 offset = Vector2(0, -14)
 

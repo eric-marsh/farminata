@@ -91,8 +91,11 @@ func update_enviornment_layer():
 func add_flower() -> void:
 	var f = FLOWER.instantiate()
 	f.get_node("FlowerSprite").texture = good_enviornment_images.pick_random()
+	f.get_node("FlowerSprite/Shadow").texture = f.get_node("FlowerSprite").texture
 	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
+	f.get_node("FlowerSprite/Shadow").flip_h = f.get_node("FlowerSprite").flip_h
 	f.get_node("FlowerSprite").offset.y = -6
+	f.get_node("FlowerSprite/Shadow").offset.y = -6
 	f.is_flower = true
 	f.should_sway = true
 	f.global_position = good_enviornment_positions[0] + Util.random_offset(4)
@@ -116,7 +119,9 @@ const lumps = [
 func add_lump() -> void:
 	var f = FLOWER.instantiate()
 	f.get_node("FlowerSprite").texture = lumps.pick_random()
+	f.get_node("FlowerSprite/Shadow").texture = f.get_node("FlowerSprite").texture
 	f.get_node("FlowerSprite").flip_h = Util.random_chance(0.5)
+	f.get_node("FlowerSprite/Shadow").flip_h = f.get_node("FlowerSprite").flip_h
 	f.global_position = good_enviornment_positions[0] + Util.random_offset(4.0)
 	f.should_sway = true
 	good_enviornment_positions.push_back(good_enviornment_positions[0])

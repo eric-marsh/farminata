@@ -10,10 +10,14 @@ var love_meter: int = 0
 var state: Enum.Animal_State = Enum.Animal_State.Idle
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
+@onready var shadow: AnimatedSprite2D = $AnimatedSprite/Shadow
+
+
 func _ready():
 	set_state(Enum.Animal_State.Idle)
 	target_pos = Util.random_visible_position()
 	animated_sprite.flip_h = target_pos > global_position
+	shadow.flip_h = animated_sprite.flip_h
 	Util.quick_timer(self, 360.0, func():
 		love_meter = 20	
 	)
@@ -27,6 +31,7 @@ func _process(_delta):
 			pass
 		Enum.Animal_State.Wander:
 			animated_sprite.flip_h = target_pos > global_position
+			shadow.flip_h = animated_sprite.flip_h
 			global_position += (target_pos - global_position).normalized() * speed
 			if global_position.distance_to(target_pos) < speed:
 				set_state(Enum.Animal_State.Idle)
@@ -40,8 +45,10 @@ func set_state(animal_state: Enum.Animal_State) -> void:
 		Enum.Animal_State.Idle:
 			if love_meter < 10:
 				animated_sprite.play("chick_idle")
+				shadow.play("chick_idle")
 			else:
 				animated_sprite.play("chicken_idle")
+				shadow.play("chicken_idle")
 			Util.quick_timer(self, 1.0, func():
 				set_state(Enum.Animal_State.Wander)
 				reset_target()
@@ -49,13 +56,16 @@ func set_state(animal_state: Enum.Animal_State) -> void:
 		Enum.Animal_State.Wander:
 			if love_meter < 10:
 				animated_sprite.play("chick_walking")
+				shadow.play("chick_walking")
 			else:
 				animated_sprite.play("chicken_walking")
+				shadow.play("chicken_walking")
 	pass
 
 func reset_target()->void:
 	target_pos = Util.random_visible_position()
 	animated_sprite.flip_h = target_pos > global_position
+	shadow.flip_h = animated_sprite.flip_h
 
 
 @onready var heart_sprite: Sprite2D = $HeartSprite
@@ -68,6 +78,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			scale = Vector2.ONE * 2
 			Globals.Main.is_dragging = true
 			z_index = 25
+			heart_sprite.visible = false
 			Globals.AudioNode.play_pickup_sound()
 		elif is_dragging and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			global_position = get_global_mouse_position() + Vector2(0, 12)

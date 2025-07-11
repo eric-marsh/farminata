@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://3tvpadkeqqoh"]
+[gd_scene load_steps=9 format=3 uid="uid://3tvpadkeqqoh"]
 
 [ext_resource type="Texture2D" uid="uid://bwcacdttlra8m" path="res://img/enviornment/snail-sheet.png" id="1_0y6is"]
 [ext_resource type="Script" uid="uid://drg8o17f5bnjk" path="res://script/snail.gd" id="2_xg0px"]
+[ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="3_iue35"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xg0px"]
 atlas = ExtResource("1_0y6is")
@@ -25,14 +26,28 @@ animations = [{
 "speed": 0.5
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m3kis"]
+shader = ExtResource("3_iue35")
+shader_parameter/modulate = Color(0, 0, 0, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_xg0px"]
 radius = 8.0
 
-[node name="Snail" type="AnimatedSprite2D"]
+[node name="Snail" type="Node2D"]
+script = ExtResource("2_xg0px")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_m3kis")
 frame_progress = 0.32619
-script = ExtResource("2_xg0px")
+
+[node name="Shadow" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+z_index = -1
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_m3kis")
+position = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_m3kis")
+frame_progress = 0.32619
 
 [node name="Area2D" type="Area2D" parent="."]
 

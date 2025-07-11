@@ -185,6 +185,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme = SubResource("Theme_fqykr")
 toggle_mode = true
+button_pressed = true
 icon = ExtResource("3_fqykr")
 icon_alignment = 1
 expand_icon = true
