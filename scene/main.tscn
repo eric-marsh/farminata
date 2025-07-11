@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b16p1bo02550o" path="res://scene/credits.tscn" id="16_smf0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k65ib"]
-size = Vector2(640, 360)
+size = Vector2(627, 360)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wscrc"]
 size = Vector2(640, 360)
@@ -112,6 +112,7 @@ y_sort_enabled = true
 position = Vector2(320, 180)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrowArea"]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_k65ib")
 
 [node name="Enviornment" type="Area2D" parent="."]

@@ -1,8 +1,7 @@
 extends CanvasLayer
 class_name canvas_layer
 
-
-@onready var money_label: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/MoneyLabel
+@onready var money_label: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/MarginContainer/MoneyLabel
 @onready var fps: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FPS
 
 
@@ -29,12 +28,12 @@ class_name canvas_layer
 
 @onready var menu: MarginContainer = $MarginContainer/HBoxContainer/Menu
 @onready var menu_button: Button = $MarginContainer/HBoxContainer/Control/MenuButton
-
+@onready var close_menu_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/MarginContainer/CloseMenuButton
 
 
 func _ready() -> void:
 	menu.visible = true
-	menu_button.button_pressed = true
+	menu_button.visible = false
 	update_money_counter()
 	fps.visible = Debug.SHOW_FPS
 	all_purchase_buttons = [
@@ -56,8 +55,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	
-	
 	if Debug.SHOW_FPS:
 		fps.text = "FPS: " + str(Engine.get_frames_per_second())
 	pass
@@ -304,5 +301,12 @@ func _on_electric_attack_button_pressed() -> void:
 	fire_attack_button.visible = false
 	electric_attack_button.visible = false
 
-func _on_menu_button_pressed() -> void:
+func toggle_menu_visibility() -> void:
 	menu.visible = !menu.visible
+	menu_button.visible = !menu.visible
+
+func _on_menu_button_pressed() -> void:
+	toggle_menu_visibility()
+
+func _on_close_menu_button_pressed() -> void:
+	toggle_menu_visibility()

@@ -33,5 +33,3 @@ func reset_nodes():
 	EnviornmentLayers = get_node("/root/SceneSwitcher/Main/Enviornment")
 	CanvasLayerCredits = get_node("/root/SceneSwitcher/Main/CanvasLayerCredits")
 	SceneSwitcherNode = get_node("/root/SceneSwitcher")
-	
-	
