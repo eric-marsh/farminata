@@ -140,16 +140,27 @@ func update_money_counter():
 		electric_attack_button.visible = false
 	
 	if is_purchase_available():
+		menu_button.icon = MENU_ICON_PURCHASE_AVAILABLE
 		if menu_button.get_theme_stylebox("normal").bg_color != Color.html("#7CB518"):
 			animation_player.play("purchase_available")
-		menu_button.get_theme_stylebox("normal").bg_color = Color.html("#7CB518")
-		menu_button.get_theme_stylebox("normal").border_color = Color.html("#5C8001")
-		menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#7CB518")
 	else:
-		menu_button.get_theme_stylebox("normal").bg_color = Color.html("#f4a261")
-		menu_button.get_theme_stylebox("normal").border_color = Color.html("#e76f51")
-		menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#f4a261")
+		menu_button.icon = MENU_ICON
+		
 	
+	#if is_purchase_available():
+		#if menu_button.get_theme_stylebox("normal").bg_color != Color.html("#7CB518"):
+			#animation_player.play("purchase_available")
+		#menu_button.get_theme_stylebox("normal").bg_color = Color.html("#7CB518")
+		#menu_button.get_theme_stylebox("normal").border_color = Color.html("#5C8001")
+		#menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#7CB518")
+	#else:
+		#menu_button.get_theme_stylebox("normal").bg_color = Color.html("#f4a261")
+		#menu_button.get_theme_stylebox("normal").border_color = Color.html("#e76f51")
+		#menu_button.get_theme_stylebox("pressed").bg_color = Color.html("#f4a261")
+
+
+const MENU_ICON = preload("res://img/ui/menu_icon.png")
+const MENU_ICON_PURCHASE_AVAILABLE = preload("res://img/ui/menu_icon_purchase_available.png")
 
 @onready var animation_player: AnimationPlayer = $MarginContainer/HBoxContainer/Control/MenuButton/AnimationPlayer
 

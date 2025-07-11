@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://jida1cnc03um"]
+[gd_scene load_steps=31 format=3 uid="uid://jida1cnc03um"]
 
 [ext_resource type="Script" uid="uid://dsnsjjq5kuc1g" path="res://script/canvas_layer.gd" id="1_xp8f4"]
 [ext_resource type="Theme" uid="uid://qrqka6k5if6b" path="res://theme/upgrade_menu_theme.tres" id="2_hpb7r"]
@@ -44,10 +44,10 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 shadow_size = 2
 anti_aliasing = false
 
@@ -59,13 +59,13 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 anti_aliasing = false
 
-[sub_resource type="Theme" id="Theme_fqykr"]
+[sub_resource type="Theme" id="Theme_7qnmm"]
 default_font_size = 12
 Button/colors/font_color = Color(0, 1, 0, 1)
 Button/colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -152,6 +152,25 @@ expand_margin_top = 8.0
 expand_margin_right = 8.0
 expand_margin_bottom = 12.0
 
+[sub_resource type="Theme" id="Theme_fqykr"]
+default_font_size = 12
+Button/colors/font_color = Color(0, 1, 0, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0, 1, 0, 1)
+Button/colors/font_hover_color = Color(0, 1, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 2
+Button/font_sizes/font_size = 10
+Button/styles/disabled = SubResource("StyleBoxFlat_4djp7")
+Button/styles/focus = SubResource("StyleBoxEmpty_11x1d")
+Button/styles/hover = SubResource("StyleBoxFlat_11x1d")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_yq5og")
+Button/styles/normal = SubResource("StyleBoxFlat_11x1d")
+Button/styles/pressed = SubResource("StyleBoxFlat_yq5og")
+HBoxContainer/constants/separation = 4
+VBoxContainer/constants/separation = 6
+
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_xp8f4")
 
@@ -184,7 +203,7 @@ offset_bottom = 16.0
 pivot_offset = Vector2(16, 16)
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme = SubResource("Theme_fqykr")
+theme = SubResource("Theme_7qnmm")
 icon = ExtResource("3_fqykr")
 icon_alignment = 1
 expand_icon = true
