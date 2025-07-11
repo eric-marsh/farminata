@@ -66,10 +66,12 @@ func update_money_counter():
 	if !Globals.Main:
 		return
 	
+	if Debug.CONSTANT_MONEY_AMOUNT > 0:
+		State.money = Debug.CONSTANT_MONEY_AMOUNT
+	
 	var money: int = State.money
 	money_label.text = "$" + str(money)
-	if Debug.CONSTANT_MONEY_AMOUNT > 0:
-		money_label.text = str(Debug.CONSTANT_MONEY_AMOUNT)
+	
 
 	var helper_data = [
 		{ "type": Enum.Upgrade_Type.AddFarmerHelper, "node": add_farmer_helper, "count": State.num_farmer_helpers },

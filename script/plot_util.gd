@@ -11,6 +11,12 @@ func add_plot():
 	
 	
 	Globals.PlotsContainer.add_child(p)
+	if Debug.ALL_RANDOM_CROPS_AT_START:
+		p.plot_growth_state = [Enum.Plot_Growth_State.Full, Enum.Plot_Growth_State.Seed, Enum.Plot_Growth_State.Partial_1, Enum.Plot_Growth_State.Partial_2].pick_random()
+		var grow_type = State.unlocked_slot_outputs.pick_random()
+		p.grow_type = PlantUtil.drop_type_to_grow_type(grow_type if grow_type else Enum.Grow_Type.Carrot)
+		p.update_image()
+	
 	if Debug.ALL_FULL_CROPS_AT_START:
 		p.plot_growth_state = Enum.Plot_Growth_State.Full
 		var grow_type = State.unlocked_slot_outputs.pick_random()

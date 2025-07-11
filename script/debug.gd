@@ -1,10 +1,19 @@
 extends Node
 
+
+var CONSTANT_MONEY_AMOUNT: int = 0
+var PRETTIEST_STATS: bool = false
+
+var HIDE_UI: bool = false
+
 var STARTING_MONEY: int = 0
 var ALL_FULL_CROPS_AT_START:bool = false
+var ALL_RANDOM_CROPS_AT_START: bool = false
+
+var START_WITH_ALL_CROPS_UNLOCKED: bool = false
+
 
 var FAST_CREDITS: bool = false
-
 
 var SKIP_MAIN_MENU: bool = false
 
@@ -16,7 +25,7 @@ var THUMBNAIL_MODE: bool = false
 var DONT_SAVE:bool = false
 var DONT_LOAD:bool = false
 
-var SHOW_FPS:bool = true
+var SHOW_FPS:bool = false
 
 var DELETE_SAVE:bool = false
 
@@ -38,3 +47,6 @@ var SLOT_MACHINE_WAIT_TIME: float = 3.0
 
 
 var ENABLE_CHEATS: bool = true
+
+var SWAY_RAND_DIR: bool = false
+var SWAY_RAND_START: bool = false

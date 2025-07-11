@@ -38,7 +38,6 @@ func _ready() -> void:
 	#if Debug.DELETE_SAVE:
 		#State.delete_save()
 	
-	
 	global_timer = 0
 	is_paused = false
 	
@@ -79,6 +78,8 @@ func _ready() -> void:
 		
 	if Debug.HIDE_UI:
 		Globals.CanvasLayerNode.visible = false
+		
+	
 
 
 var save_timer: float = 0.0
@@ -105,7 +106,7 @@ func _input(event):
 	if Debug.ENABLE_CHEATS and event.is_action_pressed("KEY_8"):
 		key_8_presses += 1
 		if key_8_presses % 10 == 0:
-			State.money += 1000
+			State.money += 10000
 			Globals.CanvasLayerNode.update_money_counter()
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:

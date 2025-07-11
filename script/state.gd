@@ -114,6 +114,21 @@ func load_game():
 				print(key, ": ", save_data[key])
 				self.set(key, save_data[key])
 	
+	if Debug.PRETTIEST_STATS:
+		#State.num_plots = State.max_plots
+		#State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed, Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
+		#State.num_farmer_helpers = 5
+		#State.num_attack_helpers = 3
+		#State.num_pluck_helpers = 3
+		State.num_plots = State.max_plots
+		State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed, Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
+		State.num_farmer_helpers = 40
+		State.num_attack_helpers = 100
+		State.num_pluck_helpers = 40
+		State.fire_attack_unlocked = true
+		State.electric_attack_unlocked = true
+		#$Tutorial.visible = false
+	
 	# update money
 	if Globals.CanvasLayerNode:
 		Globals.CanvasLayerNode.update_money_counter()
