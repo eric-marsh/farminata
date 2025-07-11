@@ -47,6 +47,9 @@ func reset_plots():
 	Globals.PlotsContainer.remaining_plot_points.clear()
 	for i in range(num_cols):
 		for j in range(num_rows):
+			var pos: Vector2 = Vector2((width/num_cols) * i, (height/num_rows) * j) 
+			if pos.distance_to(Vector2(320, 220)) < 4:
+				continue
 			Globals.PlotsContainer.remaining_plot_points.push_back( Vector2((width/num_cols) * i, (height/num_rows) * j)  )
 	Globals.PlotsContainer.remaining_plot_points.shuffle()
 	
@@ -62,31 +65,49 @@ func get_random_position_in_grow_area() -> Vector2:
 	if !Globals.PlotsContainer or Globals.PlotsContainer.remaining_plot_points.is_empty() or Globals.PlotsContainer.get_children().size() == 0:
 		return Vector2(320, 220)
 		
-	var last_plot_position = Globals.PlotsContainer.get_children()[Globals.PlotsContainer.get_children().size() - 1].global_position
+	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
+	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
 	
 	var result_pos: Vector2
-	var max_distance = 150
-	if State.num_plots > 5:
-		max_distance = 650
+	var max_distance = 100
 	
 	var i:int = 0
-	for pos in Globals.PlotsContainer.remaining_plot_points:
-		var dist: float = last_plot_position.distance_to(pos)
-		if dist < max_distance and dist > 8:
-			result_pos = pos
-			break
-		i += 1
+	if State.num_plots <= 20:
+		max_distance = 100
+		for pos in Globals.PlotsContainer.remaining_plot_points:
+			var dist: float = (Vector2(320, 220)).distance_to(pos)
+			if dist < max_distance:
+				result_pos = pos
+				break
+			i += 1
+		if !result_pos:
+			max_distance = 300
+			i = 0
+			for pos in Globals.PlotsContainer.remaining_plot_points:
+				var dist: float = (Vector2(320, 220)).distance_to(pos)
+				if dist < max_distance:
+					result_pos = pos
+					break
+				i += 1
+	else:
+		max_distance = 650
+		var last_plot_position = Globals.PlotsContainer.get_children()[Globals.PlotsContainer.get_children().size() - 1].global_position
+		for pos in Globals.PlotsContainer.remaining_plot_points:
+			var dist: float = last_plot_position.distance_to(pos)
+			if dist < max_distance and dist > 8:
+				result_pos = pos
+				break
+			i += 1
 	
 	if !result_pos:
+		print("COULDNT FIND POS")
 		result_pos =  Globals.PlotsContainer.remaining_plot_points.pick_random()
 	else:
 		Globals.PlotsContainer.remaining_plot_points.remove_at(i)
 
-	var shape = Globals.GrowArea.get_node("CollisionShape2D").shape
-	var top_left = Globals.GrowArea.global_position - shape.extents  # Actual top-left of area
 	
-	return top_left + result_pos + Util.random_offset(8) # + Vector2(0, 32)
-	
+	return top_left + result_pos + Util.random_offset(8) + Vector2(0, 26)
+
 
 func get_total_plots() -> int:
 	if !Globals.PlotsContainer:
