@@ -140,7 +140,7 @@ func update_money_counter():
 		electric_attack_button.visible = false
 	
 	if is_purchase_available():
-		menu_button.icon = MENU_ICON_PURCHASE_AVAILABLE
+		#menu_button.icon = MENU_ICON_PURCHASE_AVAILABLE
 		if menu_button.get_theme_stylebox("normal").bg_color != Color.html("#7CB518"):
 			animation_player.play("purchase_available")
 	else:
