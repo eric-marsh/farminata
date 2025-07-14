@@ -6,7 +6,7 @@ var PRETTIEST_STATS: bool = false
 
 var HIDE_UI: bool = false
 
-var STARTING_MONEY: int = 11110
+var STARTING_MONEY: int = 0
 var ALL_FULL_CROPS_AT_START:bool = false
 var ALL_RANDOM_CROPS_AT_START: bool = false
 
@@ -15,7 +15,7 @@ var START_WITH_ALL_CROPS_UNLOCKED: bool = false
 
 var FAST_CREDITS: bool = false
 
-var SKIP_MAIN_MENU: bool = true
+var SKIP_MAIN_MENU: bool = false
 
 var DEBUG_SHOW_HELPER_STATE: bool = false
 
@@ -23,7 +23,7 @@ var ALWAYS_MUTE:bool = false
 var THUMBNAIL_MODE: bool = false
 
 var DONT_SAVE:bool = false
-var DONT_LOAD:bool = true
+var DONT_LOAD:bool = false
 
 var SHOW_FPS:bool = false
 
