@@ -239,10 +239,14 @@ func get_random_output() -> Enum.Drop_Type:
 	}
 
 	var filtered_weights := {}
-
+	
+	var max_drops_of_type_resource: int = State.num_plots * 3
+	if max_drops_of_type_resource > 75:
+		max_drops_of_type_resource = 75
+	
 	for drop_type in drop_weights.keys():
 		if drop_type in [Enum.Drop_Type.Water, Enum.Drop_Type.Sun]:
-			var too_much = DropUtil.get_total_drops_of_type(drop_type) >= State.num_plots * 3
+			var too_much = DropUtil.get_total_drops_of_type(drop_type) >= max_drops_of_type_resource
 			if not too_much:
 				filtered_weights[drop_type] = drop_weights[drop_type]
 		else:
