@@ -63,7 +63,6 @@ func get_favorite_crop() -> String:
 			max_count = State.total_sold_crop_types[crop]
 			max_drop_type = crop
 	
-	print(max_drop_type)
 	return DropUtil.get_drop_type_string(max_drop_type as Enum.Drop_Type)
 
 
@@ -75,7 +74,6 @@ func _on_new_game_plus_button_pressed() -> void:
 func _on_continue_playing_pressed() -> void:
 	show_credits = false
 	visible = false
-	print("hii")
 	if Globals.Main and Globals.CanvasLayerNode:
 		Globals.Main.is_raining = true
 		Globals.CanvasLayerNode.visible = true
