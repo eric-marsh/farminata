@@ -30,6 +30,7 @@ Sprite Assets: Otterisk
 Slash Animation: kiddolink  
 Testing: Bobby Prew  "
 label_settings = ExtResource("2_pjc1l")
+horizontal_alignment = 1
 
 [node name="STATS" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -39,13 +40,29 @@ text = "⏱️ Total Time: 1.00.00
 🗡️  Piñata Clicks: 1,000  
 🥇 Favorite Crop: Onion "
 label_settings = ExtResource("2_pjc1l")
+horizontal_alignment = 1
 
 [node name="THANKYOU" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "THANK YOU FOR PLAYING!"
 label_settings = ExtResource("1_g4wvt")
+horizontal_alignment = 1
 
-[node name="NewGamePlusButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Continue Playing" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(77, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_j6beo")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 23
+text = "Continue"
+
+[node name="NewGamePlusButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(77, 24)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -133,4 +150,5 @@ offset_bottom = 410.0
 texture = ExtResource("5_j6beo")
 flip_h = true
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/NewGamePlusButton" to="." method="_on_new_game_plus_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Continue Playing" to="." method="_on_continue_playing_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/NewGamePlusButton" to="." method="_on_new_game_plus_button_pressed"]

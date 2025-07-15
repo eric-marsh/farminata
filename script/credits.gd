@@ -2,7 +2,8 @@ extends CanvasLayer
 class_name credits
 
 @onready var margin_container = $MarginContainer
-@onready var new_game_plus_button: Button = $MarginContainer/VBoxContainer/NewGamePlusButton
+@onready var new_game_plus_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/NewGamePlusButton
+
 
 var show_credits: bool = false
 
@@ -66,3 +67,17 @@ func get_favorite_crop() -> String:
 func _on_new_game_plus_button_pressed() -> void:
 	if Globals.SceneSwitcherNode:
 		Globals.SceneSwitcherNode.start_new_game_plus()
+
+
+func _on_continue_playing_pressed() -> void:
+	show_credits = false
+	visible = false
+
+	if Globals.Main and Globals.CanvasLayerNode:
+		Globals.Main.start_raining = true
+		Globals.CanvasLayerNode.visible = true
+		if !State.has_given_bonus:
+			State.has_given_bonus = true
+			Globals.Main.change_money(500)
+			var pos = get_viewport().get_visible_rect().size / 2 - Vector2(64, 120)
+			DamageNumber.display_money_get(str(500), pos, Color.GREEN)

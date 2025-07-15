@@ -40,6 +40,8 @@ var array_piniata_hp: Array[int] = [
 var num_games_won = 0
 var max_games = 4
 
+var has_given_bonus: bool = false
+
 var is_starting_new_game_plus: bool = false
 
 func reset_new_game_plus_state() -> void:
@@ -89,7 +91,8 @@ const SAVE_KEYS := [
 	"total_profit",
 	"total_piniata_clicks",
 	"total_seeds_planted",
-	"total_sold_crop_types"
+	"total_sold_crop_types",
+	"has_given_bonus"
 ]
 
 func has_save_data() -> bool:

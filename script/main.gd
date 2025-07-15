@@ -31,6 +31,9 @@ func add_piniatas():
 		Globals.PiniataContainer.add_child(p)
 	
 
+
+var start_raining: bool = false
+
 func _ready() -> void:
 	Globals.reset_nodes()
 	if !Debug.DONT_LOAD:
