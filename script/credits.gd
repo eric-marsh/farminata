@@ -74,10 +74,10 @@ func _on_continue_playing_pressed() -> void:
 	visible = false
 
 	if Globals.Main and Globals.CanvasLayerNode:
-		Globals.Main.start_raining = true
+		Globals.Main.is_raining = true
 		Globals.CanvasLayerNode.visible = true
 		if !State.has_given_bonus:
 			State.has_given_bonus = true
-			Globals.Main.change_money(500)
+			Globals.Main.change_money(5000)
 			var pos = get_viewport().get_visible_rect().size / 2 - Vector2(64, 120)
-			DamageNumber.display_money_get(str(500), pos, Color.GREEN)
+			DamageNumber.display_money_get(str(5000), pos, Color.GREEN)

@@ -114,7 +114,7 @@ var num_failed_drops_in_a_row = 0
 @onready var plot_message: Sprite2D = $Node2D/Sprite2D/PlotMessage
 
 func create_drop()->void:
-	var drop_type = get_random_output() 
+	var drop_type = DropUtil.get_random_output() 
 	if drop_type == Enum.Drop_Type.X:
 		num_failed_drops_in_a_row += 1
 		if num_failed_drops_in_a_row > 5 and !plot_message.visible:
@@ -135,56 +135,7 @@ func get_random_death_output() -> Enum.Drop_Type:
 	return death_outputs.pick_random()
 
 
-var outputed_sun_last:bool = false
-func get_random_output() -> Enum.Drop_Type:
-	# Use integer weights; 100 = base scale
-	var drop_weights = {
-		Enum.Drop_Type.Water: 300,
-		Enum.Drop_Type.Sun: 300,
-		Enum.Drop_Type.X: 250,
-		Enum.Drop_Type.Carrot: 5,  
-	}
 
-	var filtered_weights := {}
-
-	for drop_type in drop_weights.keys():
-		if drop_type in [Enum.Drop_Type.Water, Enum.Drop_Type.Sun]:
-			var too_much = DropUtil.get_total_drops_of_type(drop_type) >= State.num_plots * 3
-			if not too_much:
-				filtered_weights[drop_type] = drop_weights[drop_type]
-		else:
-			filtered_weights[drop_type] = drop_weights[drop_type]
-
-	if filtered_weights.is_empty():
-		return Enum.Drop_Type.X
-
-	var total_weight = 0
-	for weight in filtered_weights.values():
-		total_weight += weight
-
-	var choice = randi() % total_weight
-	var cumulative = 0
-	for drop_type in filtered_weights.keys():
-		cumulative += filtered_weights[drop_type]
-		if choice < cumulative:
-			match drop_type:
-				Enum.Drop_Type.X:
-					var s = DropUtil.get_highest_seed_within_limit()
-					return s if s != null else Enum.Drop_Type.X
-				Enum.Drop_Type.Carrot:
-					var rand_seed = State.unlocked_slot_outputs.pick_random()
-					return DropUtil.get_produce_from_seed(rand_seed if rand_seed else Enum.Drop_Type.Carrot_Seed)
-				Enum.Drop_Type.Water, Enum.Drop_Type.Sun:
-					if outputed_sun_last:
-						outputed_sun_last = false
-						return Enum.Drop_Type.Water
-					else:
-						outputed_sun_last = true
-						return Enum.Drop_Type.Sun
-				_:
-					return drop_type
-
-	return Enum.Drop_Type.X  # fallback
 
 
 func unlock_drop_type(type: Enum.Drop_Type) -> void:

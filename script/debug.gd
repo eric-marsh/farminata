@@ -12,8 +12,8 @@ var ALL_RANDOM_CROPS_AT_START: bool = false
 
 var START_WITH_ALL_CROPS_UNLOCKED: bool = false
 
-
-var FAST_CREDITS: bool = true
+var PINIATA_HP: int = 0
+var FAST_CREDITS: bool = false
 
 var SKIP_MAIN_MENU: bool = false
 
@@ -29,7 +29,7 @@ var SHOW_FPS:bool = false
 
 var DELETE_SAVE:bool = false
 
-var PINIATA_HP: int = 1
+
 
 
 #var Helper_Speed: float = 200.0

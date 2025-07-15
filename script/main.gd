@@ -32,7 +32,7 @@ func add_piniatas():
 	
 
 
-var start_raining: bool = false
+var is_raining: bool = false
 
 func _ready() -> void:
 	Globals.reset_nodes()
@@ -100,6 +100,22 @@ func _process(delta: float) -> void:
 		DropUtil.update_all_droppable_counts_and_delete()
 	
 	Util.update_breeze()
+	
+	if is_raining:
+		raining_timer += 1
+		if raining_timer % 20 == 0:
+			create_drop()
+		
+
+var raining_timer: int = 0
+func create_drop()->void:
+	var drop_type = DropUtil.get_random_output() 
+	if drop_type == Enum.Drop_Type.X or DropUtil.is_produce(drop_type):
+		return
+	var impulse = Vector2.ZERO
+	var pos = Util.random_visible_position() - Vector2(0, 400)
+	DropUtil.spawn_droppable(drop_type, pos, Vector2.ZERO, impulse, true)
+
 
 var key_8_presses: int = 0
 func _input(event):

@@ -87,7 +87,7 @@ func _physics_process(delta):
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0.0
 		moving_to_target = true
-		if Globals.AudioNode:
+		if Globals.AudioNode and !Globals.Main.is_raining:
 			Globals.AudioNode.play_grass_sound()
 	
 	if is_dragging:
