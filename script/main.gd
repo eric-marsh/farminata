@@ -119,6 +119,9 @@ func create_drop()->void:
 
 var key_8_presses: int = 0
 func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+		is_dragging = false
+	
 	if Debug.DEBUG_ENABLE_DEBUGGING_KEYS and event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 		
