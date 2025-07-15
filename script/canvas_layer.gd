@@ -4,7 +4,6 @@ class_name canvas_layer
 @onready var money_label: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/MarginContainer/MoneyLabel
 @onready var fps: Label = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FPS
 
-
 @onready var plot_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PlotButton
 @onready var onion_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/OnionButton
 @onready var turnip_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/TurnipButton
@@ -12,8 +11,10 @@ class_name canvas_layer
 @onready var kale_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/KaleButton
 @onready var radish_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/RadishButton
 
-@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
-@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
+@onready var fire_attack_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton
+@onready var electric_attack_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton
+
+
 
 @onready var add_farmer_helper: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper
 @onready var add_pluck_helper_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton
@@ -29,6 +30,8 @@ class_name canvas_layer
 @onready var menu: MarginContainer = $MarginContainer/HBoxContainer/Menu
 @onready var menu_button: Button = $MarginContainer/HBoxContainer/Control/MenuButton
 @onready var close_menu_button: Button = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/MarginContainer/CloseMenuButton
+
+@onready var attack_upgrades: VBoxContainer = $MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades
 
 
 func _ready() -> void:
@@ -133,7 +136,9 @@ func update_money_counter():
 	electric_attack_button.text = "$" + str(electric_price)
 	electric_attack_button.disabled = electric_price > money
 	electric_attack_button.visible = (State.fire_attack_unlocked and !State.electric_attack_unlocked)
-		
+	
+	if State.fire_attack_unlocked and State.electric_attack_unlocked:
+		attack_upgrades.visible = false
 		
 	if State.is_game_over:
 		fire_attack_button.visible = false
@@ -294,12 +299,14 @@ func _on_fire_attack_button_pressed() -> void:
 	State.fire_attack_unlocked = true
 	fire_attack_button.visible = false
 	electric_attack_button.visible = true
+	update_money_counter()
 
 func _on_electric_attack_button_pressed() -> void:
 	Globals.Main.change_money(-Prices.get_upgrade_price(Enum.Upgrade_Type.AddElectricAttack))
 	State.electric_attack_unlocked = true
 	fire_attack_button.visible = false
 	electric_attack_button.visible = false
+	update_money_counter()
 
 func toggle_menu_visibility() -> void:
 	menu.visible = !menu.visible

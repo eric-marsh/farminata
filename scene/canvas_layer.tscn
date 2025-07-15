@@ -263,7 +263,7 @@ layout_mode = 2
 theme = ExtResource("2_hpb7r")
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
-text = "Upgrades"
+text = "Farm Upgrades"
 label_settings = ExtResource("16_jstr3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades"]
@@ -326,11 +326,27 @@ text = "$24"
 icon = ExtResource("8_5rgua")
 expand_icon = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer"]
+[node name="AttackUpgrades" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="FireAttackButton" type="Button" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2"]
+[node name="AttackUpgradeLabel" type="Label" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades"]
+layout_mode = 2
+theme = ExtResource("2_hpb7r")
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "Attack Upgrade"
+label_settings = ExtResource("16_jstr3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FireAttackButton" type="Button" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
 theme = ExtResource("2_hpb7r")
@@ -338,7 +354,7 @@ text = "$24"
 icon = ExtResource("9_cvoi6")
 expand_icon = true
 
-[node name="ElectricAttackButton" type="Button" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2"]
+[node name="ElectricAttackButton" type="Button" parent="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer/HBoxContainer2"]
 visible = false
 custom_minimum_size = Vector2(48, 24)
 layout_mode = 2
@@ -471,8 +487,8 @@ expand_icon = true
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/PotatoButton" to="." method="_on_potato_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/KaleButton" to="." method="_on_kale_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer/RadishButton" to="." method="_on_radish_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton" to="." method="_on_fire_attack_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/FarmUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton" to="." method="_on_electric_attack_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer/HBoxContainer2/FireAttackButton" to="." method="_on_fire_attack_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/AttackUpgrades/VBoxContainer/HBoxContainer2/ElectricAttackButton" to="." method="_on_electric_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddFarmerHelper" to="." method="_on_add_farmer_helper_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer/AddPluckHelperButton" to="." method="_on_add_pluck_helper_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Menu/HBoxContainer/VBoxContainer/HelperUpgrades/HBoxContainer2/AddAttackHelperButton" to="." method="_on_add_attack_helper_button_pressed"]
