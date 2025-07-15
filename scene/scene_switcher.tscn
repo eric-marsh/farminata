@@ -40,19 +40,18 @@ layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="ContinueGameButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("3_gwfmr")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 32
-text = "Continue"
+text = "CONTINUE"
 
 [node name="NewGameButton" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_gwfmr")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 32
-text = "New Game"
+text = "NEW GAME"
 
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/ContinueGameButton" to="." method="_on_continue_game_button_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

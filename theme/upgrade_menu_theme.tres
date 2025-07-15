@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://qrqka6k5if6b"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://qrqka6k5if6b"]
+
+[ext_resource type="FontFile" uid="uid://bx6xmb8psd5vn" path="res://font/Retro Gaming.ttf" id="1_7ksnb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4djp7"]
 bg_color = Color(0.678431, 0.709804, 0.741176, 1)
@@ -47,6 +49,7 @@ expand_margin_bottom = 2.0
 anti_aliasing = false
 
 [resource]
+default_font = ExtResource("1_7ksnb")
 default_font_size = 12
 Button/colors/font_color = Color(0, 1, 0, 1)
 Button/colors/font_disabled_color = Color(1, 1, 1, 1)
@@ -54,8 +57,9 @@ Button/colors/font_focus_color = Color(0, 1, 0, 1)
 Button/colors/font_hover_color = Color(0, 1, 0, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/icon_disabled_color = Color(1, 1, 1, 1)
-Button/constants/outline_size = 2
+Button/constants/outline_size = 4
 Button/font_sizes/font_size = 10
+Button/fonts/font = ExtResource("1_7ksnb")
 Button/styles/disabled = SubResource("StyleBoxFlat_4djp7")
 Button/styles/focus = SubResource("StyleBoxEmpty_11x1d")
 Button/styles/hover = SubResource("StyleBoxFlat_11x1d")
@@ -63,4 +67,5 @@ Button/styles/hover_pressed = SubResource("StyleBoxFlat_yq5og")
 Button/styles/normal = SubResource("StyleBoxFlat_11x1d")
 Button/styles/pressed = SubResource("StyleBoxFlat_yq5og")
 HBoxContainer/constants/separation = 4
+Label/fonts/font = ExtResource("1_7ksnb")
 VBoxContainer/constants/separation = 6

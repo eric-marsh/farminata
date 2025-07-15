@@ -92,6 +92,7 @@ const SAVE_KEYS := [
 	"total_piniata_clicks",
 	"total_seeds_planted",
 	"total_sold_crop_types",
+	"num_games_won",
 	"has_given_bonus"
 ]
 

@@ -12,8 +12,8 @@ var ALL_RANDOM_CROPS_AT_START: bool = false
 
 var START_WITH_ALL_CROPS_UNLOCKED: bool = false
 
-var PINIATA_HP: int = 0
-var FAST_CREDITS: bool = false
+var PINIATA_HP: int = 1
+var FAST_CREDITS: bool = true
 
 var SKIP_MAIN_MENU: bool = false
 

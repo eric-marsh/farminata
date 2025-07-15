@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=17 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
 [ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
+[ext_resource type="FontFile" uid="uid://bx6xmb8psd5vn" path="res://font/Retro Gaming.ttf" id="2_7i3q2"]
 [ext_resource type="Texture2D" uid="uid://cq8x1748t1ssk" path="res://img/piniata/piniata_hit.png" id="3_nu8ja"]
 [ext_resource type="PackedScene" uid="uid://dx7x4rdgygqg6" path="res://scene/output.tscn" id="3_odym4"]
 [ext_resource type="Texture2D" uid="uid://ci4cpk4no35dd" path="res://img/piniata/eye.png" id="4_rrcj7"]
@@ -19,8 +20,9 @@ corner_radius_bottom_left = 2
 shadow_size = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_nu8ja"]
-font_size = 8
-outline_size = 2
+font = ExtResource("2_7i3q2")
+font_size = 9
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7i3q2"]

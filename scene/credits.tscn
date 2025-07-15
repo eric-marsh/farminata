@@ -60,7 +60,7 @@ size_flags_horizontal = 4
 theme = ExtResource("3_j6beo")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 23
-text = "Continue"
+text = "CONTINUE"
 
 [node name="NewGamePlusButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(77, 24)
@@ -69,7 +69,7 @@ size_flags_horizontal = 4
 theme = ExtResource("3_j6beo")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 23
-text = "New Game+"
+text = "NEW GAME+"
 
 [node name="NEWGAMEPLUSOVER" type="Label" parent="MarginContainer/VBoxContainer"]
 visible = false

@@ -3,19 +3,22 @@ class_name credits
 
 @onready var margin_container = $MarginContainer
 @onready var new_game_plus_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/NewGamePlusButton
-
+@onready var continue_playing: Button = $"MarginContainer/VBoxContainer/HBoxContainer/Continue Playing"
 
 var show_credits: bool = false
 
 var speed: float = 0.4
 func _ready():
+	await get_tree().create_timer(0.01).timeout
 	margin_container.global_position = Vector2(0, 400)
 	self.visible = false
-	new_game_plus_button.text = "New Game+"
-	for i in range(State.num_games_won):
+	new_game_plus_button.text = "NEW GAME"
+	for i in range(State.num_games_won+1):
 		new_game_plus_button.text += "+"
 	if State.num_games_won >= State.max_games:
 		new_game_plus_button.visible = false
+		continue_playing.visible = true
+		continue_playing.disabled = false
 		$MarginContainer/VBoxContainer/NEWGAMEPLUSOVER.visible = true
 		$MarginContainer/Graveyard.visible = true
 	
@@ -72,7 +75,7 @@ func _on_new_game_plus_button_pressed() -> void:
 func _on_continue_playing_pressed() -> void:
 	show_credits = false
 	visible = false
-
+	print("hii")
 	if Globals.Main and Globals.CanvasLayerNode:
 		Globals.Main.is_raining = true
 		Globals.CanvasLayerNode.visible = true

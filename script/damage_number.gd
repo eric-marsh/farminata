@@ -10,8 +10,9 @@ func display_number(value: String, position: Vector2, color: Color = Color.WHITE
 
 	number.label_settings.font_color = color
 	number.label_settings.font_size = 8
+	number.label_settings.font = RETRO_GAMING
 	number.label_settings.outline_color = Color.BLACK
-	number.label_settings.outline_size = 2
+	number.label_settings.outline_size = 4
 	number.label_settings.shadow_color = Color(0, 0, 0, 0.3)
 	number.label_settings.shadow_offset = Vector2(1, 1)
 	
@@ -39,7 +40,7 @@ func display_number(value: String, position: Vector2, color: Color = Color.WHITE
 	await tween.finished
 	number.queue_free()
 
-
+const RETRO_GAMING = preload("res://font/Retro Gaming.ttf")
 func display_money_get(value: String, position: Vector2, color: Color = Color.WHITE):
 	var number = Label.new()
 	number.global_position = position
@@ -49,8 +50,9 @@ func display_money_get(value: String, position: Vector2, color: Color = Color.WH
 
 	number.label_settings.font_color = color
 	number.label_settings.font_size = 12
+	number.label_settings.font = RETRO_GAMING
 	number.label_settings.outline_color = Color.BLACK
-	number.label_settings.outline_size = 2
+	number.label_settings.outline_size = 4
 	number.label_settings.shadow_color = Color(0, 0, 0, 0.3)
 	number.label_settings.shadow_offset = Vector2(1, 1)
 	

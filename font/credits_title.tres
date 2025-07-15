@@ -1,6 +1,9 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://bj5mtd81sdkad"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bj5mtd81sdkad"]
+
+[ext_resource type="FontFile" uid="uid://bx6xmb8psd5vn" path="res://font/Retro Gaming.ttf" id="1_omcuw"]
 
 [resource]
+font = ExtResource("1_omcuw")
 font_size = 18
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
