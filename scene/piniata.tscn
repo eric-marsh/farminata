@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c0isrep8hx4u6"]
+[gd_scene load_steps=19 format=3 uid="uid://c0isrep8hx4u6"]
 
 [ext_resource type="Texture2D" uid="uid://db0815guajv36" path="res://img/piniata/piniata.png" id="1_ddpin"]
 [ext_resource type="Script" uid="uid://dybxqlmd0pudk" path="res://script/piniata.gd" id="1_j2vsm"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ci4cpk4no35dd" path="res://img/piniata/eye.png" id="4_rrcj7"]
 [ext_resource type="Texture2D" uid="uid://c75facejbasv" path="res://img/piniata/plot_message.png" id="5_nau6d"]
 [ext_resource type="Shader" uid="uid://5lq7i0cccg7t" path="res://shader/Shadow.gdshader" id="6_bvb5e"]
+[ext_resource type="Texture2D" uid="uid://b5h2l7okj6rcd" path="res://img/piniata/tutorial_bubble.png" id="7_nexx0"]
+[ext_resource type="VideoStream" uid="uid://dkkrluvrj4wiy" path="res://img/itch/screenshots/planting_tutorial-ezgif.com-cut.ogv" id="8_nexx0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nu8ja"]
 
@@ -233,6 +235,22 @@ texture = ExtResource("4_rrcj7")
 visible = false
 position = Vector2(-31.8504, 133.022)
 texture = ExtResource("5_nau6d")
+
+[node name="TutorialBubble" type="Sprite2D" parent="Node2D/Sprite2D"]
+visible = false
+position = Vector2(-81, 122)
+texture = ExtResource("7_nexx0")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Node2D/Sprite2D/TutorialBubble"]
+z_index = 12
+offset_left = -67.0
+offset_top = -36.0
+offset_right = 573.0
+offset_bottom = 324.0
+scale = Vector2(0.2, 0.2)
+stream = ExtResource("8_nexx0")
+autoplay = true
+loop = true
 
 [node name="Shadow" type="Sprite2D" parent="Node2D/Sprite2D"]
 z_index = -1

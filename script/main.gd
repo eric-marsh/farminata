@@ -46,6 +46,13 @@ func _ready() -> void:
 	
 	add_piniatas()
 	
+	
+	Util.quick_timer(self, 10.0, func():
+		if Globals.PlotsContainer.get_children()[0].plot_growth_state == Enum.Plot_Growth_State.None:
+			is_showing_tutorial = true
+			Globals.PiniataContainer.get_children()[0].show_tutorial()
+	)
+	
 	if Debug.THUMBNAIL_MODE:
 		State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed, Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
 		State.num_farmer_helpers = 3
@@ -64,7 +71,6 @@ func _ready() -> void:
 		$CanvasLayerLogo.visible = true
 		$TileMapLayer.visible = false
 	
-	
 	if Debug.START_WITH_ALL_CROPS_UNLOCKED:
 		State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed,Enum.Drop_Type.Onion_Seed,Enum.Drop_Type.Turnip_Seed,Enum.Drop_Type.Potato_Seed,Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]
 	
@@ -82,13 +88,20 @@ func _ready() -> void:
 	if Debug.HIDE_UI:
 		Globals.CanvasLayerNode.visible = false
 		
-	
 
+var check_tutorial: bool = true
+var is_showing_tutorial: bool = false
 
 var save_timer: float = 0.0
 func _process(delta: float) -> void:
 	if is_paused:
 		return
+	
+
+	
+	if is_showing_tutorial and Globals.PlotsContainer.get_children()[0].plot_state == Enum.Plot_State.Grow and Globals.PiniataContainer:
+		is_showing_tutorial = false
+		Globals.PiniataContainer.get_children()[0].hide_tutorial()
 		
 	
 	global_timer += 1

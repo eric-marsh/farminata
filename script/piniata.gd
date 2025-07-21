@@ -214,3 +214,11 @@ func show_corpse() -> void:
 	var d = DEAD_PINIATA.instantiate()
 	d.global_position = global_position + Vector2(-11, 118)
 	Globals.Main.get_node("DeadPiniatas").add_child(d)
+
+@onready var tutorial_bubble: Sprite2D = $Node2D/Sprite2D/TutorialBubble
+@onready var video_stream_player: VideoStreamPlayer = $Node2D/Sprite2D/TutorialBubble/VideoStreamPlayer
+func show_tutorial() -> void:
+	tutorial_bubble.visible = true
+
+func hide_tutorial() -> void:
+	tutorial_bubble.visible = false
