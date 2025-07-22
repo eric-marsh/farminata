@@ -34,6 +34,8 @@ func add_piniatas():
 
 var is_raining: bool = false
 
+const disable_video_tutorial: bool = true
+
 func _ready() -> void:
 	Globals.reset_nodes()
 	if !Debug.DONT_LOAD:
@@ -46,12 +48,12 @@ func _ready() -> void:
 	
 	add_piniatas()
 	
-	
-	Util.quick_timer(self, 10.0, func():
-		if Globals.PlotsContainer.get_children()[0].plot_growth_state == Enum.Plot_Growth_State.None:
-			is_showing_tutorial = true
-			Globals.PiniataContainer.get_children()[0].show_tutorial()
-	)
+	if !disable_video_tutorial:
+		Util.quick_timer(self, 10.0, func():
+			if Globals.PlotsContainer.get_children()[0].plot_growth_state == Enum.Plot_Growth_State.None:
+				is_showing_tutorial = true
+				Globals.PiniataContainer.get_children()[0].show_tutorial()
+		)
 	
 	if Debug.THUMBNAIL_MODE:
 		State.unlocked_slot_outputs = [Enum.Drop_Type.Carrot_Seed, Enum.Drop_Type.Onion_Seed, Enum.Drop_Type.Turnip_Seed, Enum.Drop_Type.Potato_Seed, Enum.Drop_Type.Kale_Seed, Enum.Drop_Type.Radish_Seed]

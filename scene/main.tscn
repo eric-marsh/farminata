@@ -79,7 +79,7 @@ position = Vector2(-320, -180)
 
 [node name="Tutorial" type="Sprite2D" parent="."]
 z_index = -4
-position = Vector2(322, 270)
+position = Vector2(318, 254)
 texture = ExtResource("5_v2gmf")
 
 [node name="Plots" type="Node2D" parent="."]
